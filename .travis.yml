@@ -3,4 +3,4 @@ language: objective-c
 
 install: true
 
-script ./INSTALL.command
+script: ./INSTALL.command
