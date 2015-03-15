@@ -1,2 +1,3 @@
 
-install: INSTALL.command
+script:
+  - ./INSTALL.command
