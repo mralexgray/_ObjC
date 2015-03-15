@@ -1,7 +1,8 @@
 
 #ifdef  __OBJC__
-#ifndef  _ObjC
-#define  _ObjC
+#ifndef  _ObjC__
+#define  _ObjC__
+
 
 @import ObjectiveC;
 
@@ -56,6 +57,7 @@ _Type              Class   _Meta;       _Type   CGFloat   _Flot;
 _Type               void   _Void;       _Type   CGPoint   _Cord;
 
 _Type               BOOL   _IsIt;
+_Type      unsigned long   _ULng;
 _Type               long   _Long;
 _Type          NSInteger   _SInt;
 _Type         NSUInteger   _UInt;
@@ -64,6 +66,8 @@ _Type NSComparisonResult   _Comp;
                   /* POINTERS */
 
 _Type              char * _Char;
+_Type     unsigned char * _UChr;
+_Type             NSURL * _NUrl;
 _Type            NSView * _View;
 _Type            NSData * _Data;
 _Type            NSFont * _Font;
@@ -114,6 +118,7 @@ _Type _Void(^_MBlk)(_SubM menu);
 #define   Pict NSImage
 #define   Bndl NSBundle
 #define   NObj NSObject
+#define   NUrl NSURL
 #define   Numb NSNumber
 #define   Text NSString
 #define   Wind NSWindow
@@ -157,6 +162,7 @@ _Type _Void(^_MBlk)(_SubM menu);
 #define _Note_ (_Note)
 #define _Numb_ (_Numb)
 #define _NObj_ (_NObj)
+#define _NUrl_ (_NUrl)
 #define _ObjC_ (_ObjC)
 #define _OutV_ (_OutV)
 #define _Pict_ (_Pict)
@@ -178,6 +184,9 @@ _Type _Void(^_MBlk)(_SubM menu);
 #define _Wind_ (_Wind)
 
 #define _Char_ (_Char)
+#define _UChr_ (_UChr)
+#define _ULng_ (_ULng)
+#define _Long_ (_Long)
 
 #define LstX NSArrayController
 
