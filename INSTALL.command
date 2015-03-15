@@ -1,13 +1,13 @@
-#!/usr/bin/env zsh
+#!/bin/zsh
 
 PROJ_FOLDER_="$( cd -P -- $(dirname -- $(command -v -- $0)) && pwd -P )"
 PROJ_NAMEIS_="$(basename $PROJ_FOLDER_)"
 PROJ_DOMAIN_="com.mrgray.$PROJ_NAMEIS_"
 INSTALLABLE_="$PROJ_FOLDER_/$PROJ_NAMEIS_.h"
 
-notify () { N_=$(which terminal-notifier); [[ "$N_" ]] && "$N_" -title "$PROJ_NAMEIS_" -message "$@" && echo "$@"  }
+notify () { type -p terminal-notifier && terminal-notifier -title "$PROJ_NAMEIS_" -message "$@" && echo "$@"  }
 
-ln -sF "$INSTALLABLE_" /usr/local/include && echo "Linked $PROJ_NAMEIS_.h to /usr/local/include"
+ln -sF "$INSTALLABLE_" /usr/local/include && echo "\nLinked $PROJ_NAMEIS_.h to /usr/local/include\n"
 
 for PLATFORM_ in 'iphonesimulator' 'iphoneos' 'macosx'; { ((C++))
 
@@ -28,9 +28,9 @@ for PLATFORM_ in 'iphonesimulator' 'iphoneos' 'macosx'; { ((C++))
 XCODE_WAS_="$(/usr/bin/defaults read $PROJ_DOMAIN_ xcode 2> /dev/null)"
 XCODE_NOW_="$(xcode-select -p)"
 
-[[ "$XCODE_WAS_" != "$XCODE_NOW_" ]] && echo "New Xcode!  Scheduling rebuild." && ((REBUILD_++))
+[[ "$XCODE_WAS_" != "$XCODE_NOW_" ]] && echo "\nNew Xcode!  Scheduling rebuild." && ((REBUILD_++))
 
-[[ -z $REBUILD_ ]] && notify "Nothing to rebuild, bye bye!" && exit 0
+[[ -z $REBUILD_ ]] && notify "\nNothing to rebuild, bye bye!" && exit 0
 
 DRVD_DATA_="$(defaults read com.apple.dt.Xcode IDECustomDerivedDataLocation)"
 MOD_CACHE_="$DRVD_DATA_/ModuleCache"
