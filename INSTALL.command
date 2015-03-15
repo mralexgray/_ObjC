@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env sh
 
 PROJ_FOLDER_="$( cd -P -- $(dirname -- $(command -v -- $0)) && pwd -P )"
 PROJ_NAMEIS_="$(basename $PROJ_FOLDER_)"

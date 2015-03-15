@@ -1,3 +1,6 @@
 
-script:
-  - ./INSTALL.command
+language: objective-c
+
+install: true
+
+script ./INSTALL.command
