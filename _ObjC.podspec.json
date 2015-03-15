@@ -1,18 +1,16 @@
 {
-  "name": "BaseModel",
-  "version": "2.6.3",
-  "summary": "BaseModel provides a base class for building model objects for your iOS or Mac OS projects.",
-  "homepage": "https://github.com/nicklockwood/BaseModel",
+  "authors": "Alex Gray",
   "license": "zlib",
-  "authors": "Nick Lockwood",
-  "source": {
-    "git": "https://github.com/nicklockwood/BaseModel.git",
-    "tag": "2.6.3"
-  },
   "requires_arc": true,
+  "name": "_ObjC",
   "platforms": {
     "ios": "4.3",
     "osx": "10.6"
   },
-  "source_files": "BaseModel"
+  "summary": "A terse, 1:1 dialect of ObjC for Mac + iOS fat targets.",
+  "source": {
+    "git": "https://github.com/mralexgray/_ObjC.git"
+  },
+  "version": "1.0.0",
+  "homepage": "https://github.com/mralexgray/_ObjC"
 }
