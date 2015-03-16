@@ -3,58 +3,47 @@
 #ifndef  _ObjC__
 #define  _ObjC__
 
-
 @import ObjectiveC;
-
-#include <TargetConditionals.h>
+#import <TargetConditionals.h>
 
 #define IOS_ONLY TARGET_OS_IPHONE
 #define MAC_ONLY !IOS_ONLY
 
-#if     MAC_ONLY
-@import AppKit;
+#if       MAC_ONLY
+  @import Cocoa;
 
-#elif   IOS_ONLY
-@import UIKit;
+#elif     IOS_ONLY
+  @import UIKit;
 
-#define       NSNib UINib      /* Standarize names 1:1 between platforms. */
-#define      NSFont UIFont
-#define      NSView UIView
-#define      NSRect CGRect
-#define      NSSize CGSize
-#define     NSImage UIImage
-#define     NSColor UIColor
-#define     NSPoint CGPoint
-#define     NSEvent UIEvent
-#define    NSScreen UIScreen
-#define    NSWindow UIWindow
-#define  NSZeroSize CGSizeZero
-#define  NSZeroRect CGRectZero
-#define NSZeroPoint CGPointZero
-#define NSUserNotification UILocalNotification
+  #define              NSNib UINib      /* Standarize names 1:1 between platforms. */
+  #define             NSFont UIFont
+  #define             NSView UIView
+  #define             NSRect CGRect
+  #define             NSSize CGSize
+  #define            NSImage UIImage
+  #define            NSColor UIColor
+  #define            NSPoint CGPoint
+  #define            NSEvent UIEvent
+  #define           NSScreen UIScreen
+  #define           NSWindow UIWindow
+  #define         NSZeroSize CGSizeZero
+  #define         NSZeroRect CGRectZero
+  #define        NSZeroPoint CGPointZero
+  #define NSUserNotification UILocalNotification
 
-#endif // TARGET_OS_IPHONE
+#endif // IOS_ONLY
 
-
-#define _Type typedef
-#define _U    unsigned
-#define _S    static
-#define _I    inline
-#define _E    external
-#define _C    const
-
-@class WebView;
 // AtoZ is a terse dialect of ObjC that is more concise, yet 100% compatible. \
    It strives to minimize excessive *'s, {}'s, and ()'s. \
    Class pointers and types are typedef'd to aliases, with no pointer, \
    formatted like _Four lettes, starting with an underscore, capitalized.
 
-                    /* TYPES */                    /* STRUTS */
+#define _Type typedef /* TYPES */
 
-_Type                 id   _ObjC;       _Type    CGSize   _Size;
-_Type                SEL   _Meth;       _Type    CGRect   _Rect;
-_Type              Class   _Meta;       _Type   CGFloat   _Flot;
-_Type               void   _Void;       _Type   CGPoint   _Cord;
+_Type                 id   _ObjC;
+_Type                SEL   _Meth;
+_Type              Class   _Meta;
+_Type               void   _Void;
 
 _Type               BOOL   _IsIt;
 _Type      unsigned long   _ULng;
@@ -62,6 +51,13 @@ _Type               long   _Long;
 _Type          NSInteger   _SInt;
 _Type         NSUInteger   _UInt;
 _Type NSComparisonResult   _Comp;
+
+
+                    /* STRUTS */
+_Type             CGSize   _Size;
+_Type             CGRect   _Rect;
+_Type            CGFloat   _Flot;
+_Type            CGPoint   _Cord;
 
                   /* POINTERS */
 
@@ -86,21 +82,22 @@ _Type      NSDictionary * _Dict;
 _Type  NSParagraphStyle * _PStl;
 _Type    NSNotification * _Note;
 
-#if !TARGET_OS_IPHONE
-_Type            NSMenu * _Menu;
-_Type           WebView * _WebV;
-_Type        NSMenuItem * _SubM;
-_Type       NSImageView * _PicV;
-_Type       NSSplitView * _Splt;
-_Type       NSTableView * _TblV;
-_Type      NSScrollView * _Scrl;
-_Type     NSApplication * _Appl;
-_Type     NSOutlineView * _OutV;
-_Type     NSTableColumn * _TCol;
-_Type NSArrayController * _LstX;
+#if MAC_ONLY
+
+  _Type            NSMenu * _Menu;
+  _Type           WebView * _WebV;
+  _Type        NSMenuItem * _SubM;
+  _Type       NSImageView * _PicV;
+  _Type       NSSplitView * _Splt;
+  _Type       NSTableView * _TblV;
+  _Type      NSScrollView * _Scrl;
+  _Type     NSApplication * _Appl;
+  _Type     NSOutlineView * _OutV;
+  _Type     NSTableColumn * _TCol;
+  _Type NSArrayController * _LstX;
 
 
-_Type _Void(^_MBlk)(_SubM menu);
+  _Type _Void(^_MBlk)(_SubM menu);
 
 #endif
 
@@ -136,8 +133,8 @@ _Type _Void(^_MBlk)(_SubM menu);
 
 #define   Char char
 
-/// We also make "shortcuts for all these new types with a leading Underscore to use ase parenthesis-free method parameterts!
-
+/// Good to make "shortcuts" for ALL `_ObjC` types as "method arguments"
+/// with a leading Underscore to use ase parenthesis-free method parameterts!
 
 #define _Appl_ (_Appl)
 #define _Bndl_ (_Bndl)
@@ -203,12 +200,25 @@ typedef     void(^_VBlk)();     //typedef     _Void(^)() _VBlk;
 #define _IMPT @import
 #define _FINI @end
 
+#define Impl implementation
+#define Desc interface
+#define Plan protocol
+#define Incl import
+#define Fini end
+
 
 #define IMPL implementation
 #define IFCE interface
 #define PRTO protocol
 #define IMPT import
 #define FINI end
+
+#define _U    unsigned
+#define _S    static
+#define _I    inline
+#define _E    external
+#define _C    const
+
 
 
 #endif //  _ObjC

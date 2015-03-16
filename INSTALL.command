@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-logger WELCOME
+logger "$@"
 
 PROJ_FOLDER_="$(cd -P -- $(dirname -- $(command -v -- $0)) && pwd -P)"
 PROJ_NAMEIS_="$(basename $PROJ_FOLDER_)"
@@ -74,11 +74,11 @@ EOF
 }
 
 regex() {
-
+  say "$@"
 }
 
 [[ -z "$1" ]]                          && watchdog  && exit
 [[ "$1" == "update" ]] && say updating && update    && exit
-                                          regex
+                                          regex "$@"
 
 
