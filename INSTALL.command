@@ -8,7 +8,7 @@ PROJ_DOMAIN_="com.mrgray.$PROJ_NAMEIS_"
 INSTALLABLE_="$PROJ_FOLDER_/$PROJ_NAMEIS_.h"
 
 notify () {
-  type -p terminal-notifier > /dev/null && terminal-notifier -title "$PROJ_NAMEIS_" -message "$@" && logger "$@"  
+  type -p terminal-notifier > /dev/null && terminal-notifier -title "$PROJ_NAMEIS_" -message "$@" && logger "$  `"  
 }
 
 update () {

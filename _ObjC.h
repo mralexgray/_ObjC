@@ -1,21 +1,41 @@
 
-#ifdef  __OBJC__
-#ifndef  _ObjC__
-#define  _ObjC__
+#ifdef   __OBJC__
+#ifndef   _ObjC__
+#define   _ObjC__
 
-@import ObjectiveC;
-#import <TargetConditionals.h>
+#define STRINGIFY(x) #x
 
-#define IOS_ONLY TARGET_OS_IPHONE
-#define MAC_ONLY !IOS_ONLY
+#pragma mark Vows
 
-#if       MAC_ONLY
-  @import Cocoa;
+_Pragma(STRINGIFY(mark whatever))
 
-#elif     IOS_ONLY
-  @import UIKit;
+/*! @abstract _ObjC is concise dialect of ObjC that is terse and compatible - without needless tricks.
+    @brief  It strives to minimize excessive *'s, {}'s, and ()'s, and so on, and so forth.
+            Class pointers and types are typedef'd to aliases, with no pointer,
+            formatted like _Four lettes, starting with an underscore, capitalized. */
 
-  #define              NSNib UINib      /* Standarize names 1:1 between platforms. */
+#define   IOS_ONLY TARGET_OS_IPHONE
+#define   MAC_ONLY !IOS_ONLY
+
+#define   _  ;
+
+
+@import ObjectiveC _ @class WebView, AVAudioPlayer _
+
+#define _U  unsigned
+#define _S  static
+#define _I  inline
+#define _E  extern
+#define _C  const
+
+#if         MAC_ONLY
+  @import   Cocoa _
+
+#elif       IOS_ONLY
+  @import   UIKit _
+
+  #define              NSNib UINib      // Standarize names 1:1 between platforms.
+  #define              NSApp UIApp
   #define             NSFont UIFont
   #define             NSView UIView
   #define             NSRect CGRect
@@ -29,14 +49,15 @@
   #define         NSZeroSize CGSizeZero
   #define         NSZeroRect CGRectZero
   #define        NSZeroPoint CGPointZero
+  #define        NSTableView UITableView
+  #define       NSBezierPath UIBezierPath
+  #define      NSApplication UIApplication
   #define NSUserNotification UILocalNotification
+#else 
+  #define  NSAffineTransform CGAffineTransform *
 
-#endif // IOS_ONLY
+#endif // Import Platform Umbrellas, Standarize NS <-> UI names.
 
-// AtoZ is a terse dialect of ObjC that is more concise, yet 100% compatible. \
-   It strives to minimize excessive *'s, {}'s, and ()'s. \
-   Class pointers and types are typedef'd to aliases, with no pointer, \
-   formatted like _Four lettes, starting with an underscore, capitalized.
 
 #define _Type typedef /* TYPES */
 
@@ -58,9 +79,12 @@ _Type             CGSize   _Size;
 _Type             CGRect   _Rect;
 _Type            CGFloat   _Flot;
 _Type            CGPoint   _Cord;
+_Type            NSRange   _Rnge;
+_Type  CGAffineTransform   _AffT;
 
                   /* POINTERS */
 
+_Type        const char * _CChr;
 _Type              char * _Char;
 _Type     unsigned char * _UChr;
 _Type             NSURL * _NUrl;
@@ -78,20 +102,29 @@ _Type          NSNumber * _Numb;
 _Type          NSObject * _NObj;
 _Type          NSString * _Text;
 _Type          NSWindow * _Wind;
+_Type      NSFileHandle * _File;
+
+_Type            NSPipe * _Pipe;
+
+_Type     NSApplication * _Appl;
+
+_Type      NSBezierPath * _Path;
+_Type    NSUserDefaults * _Defs;
 _Type      NSDictionary * _Dict;
 _Type  NSParagraphStyle * _PStl;
 _Type    NSNotification * _Note;
+_Type       NSTableView * _TblV;
+_Type     NSApplication * _Appl;
+_Type     AVAudioPlayer* _SndP;
 
 #if MAC_ONLY
-
+  _Type            NSTask * _Task;
   _Type            NSMenu * _Menu;
   _Type           WebView * _WebV;
   _Type        NSMenuItem * _SubM;
   _Type       NSImageView * _PicV;
   _Type       NSSplitView * _Splt;
-  _Type       NSTableView * _TblV;
   _Type      NSScrollView * _Scrl;
-  _Type     NSApplication * _Appl;
   _Type     NSOutlineView * _OutV;
   _Type     NSTableColumn * _TCol;
   _Type NSArrayController * _LstX;
@@ -99,42 +132,61 @@ _Type    NSNotification * _Note;
 
   _Type _Void(^_MBlk)(_SubM menu);
 
+#else 
+
+  _Type      struct CGGradient   _Grad;
+
 #endif
 
 // For ObjC classes, let's define a preprocessor Macro to call the direct Classes, without the _.
 
-#define   Menu NSMenu
-#define   Font NSFont
-#define   View NSView
-#define   Data NSData
-#define   Colr NSColor
-#define   Errr NSError
-#define   Evnt NSEvent
-#define   Layr CALayer
-#define   List NSArray
-#define   Pict NSImage
-#define   Bndl NSBundle
-#define   NObj NSObject
-#define   NUrl NSURL
-#define   Numb NSNumber
-#define   Text NSString
-#define   Wind NSWindow
-#define   SubM NSMenuItem
-#define   PicV NSImageView
-#define   Splt NSSplitView
-#define   TblV NSTableView
-#define   Dict NSDictionary
-#define   Scrl NSScrollView
-#define   Appl NSApplication
-#define   OutV NSOutlineView
-#define   TCol NSTableColumn
-#define   PStl NSParagraphStyle
-#define   Note NSNotification
+#define   Char  char
+#define   NUrl  NSURL
+#define   Menu  NSMenu
+#define   Font  NSFont
+#define   View  NSView
+#define   Data  NSData
+#define   Colr  NSColor
+#define   Errr  NSError
+#define   Evnt  NSEvent
+#define   Layr  CALayer
+#define   List  NSArray
+#define   Pict  NSImage
+#define   Bndl  NSBundle
+#define   NObj  NSObject
+#define   Numb  NSNumber
+#define   Text  NSString
+#define   Wind  NSWindow
+#define   Grad  NSGradient
+#define   SubM  NSMenuItem
+#define   PicV  NSImageView
+#define   Splt  NSSplitView
+#define   TblV  NSTableView
+#define   Dict  NSDictionary
+#define   Scrl  NSScrollView
+#define   SndP  AVAudioPlayer
+#define   Appl  NSApplication
+#define   OutV  NSOutlineView
+#define   TCol  NSTableColumn
+#define   MLst  NSMutableArray
+#define   Defs  NSUserDefaults
+#define   Note  NSNotification
+#define   PStl  NSParagraphStyle
 
-#define   Char char
+#define   File NSFileHandle
+#define   Task NSTask
+#define   Pipe NSPipe
+
 
 /// Good to make "shortcuts" for ALL `_ObjC` types as "method arguments"
 /// with a leading Underscore to use ase parenthesis-free method parameterts!
+
+
+#define _File_ (_File)
+#define _Task_ (_Task)
+#define _Pipe_ (_Pipe)
+
+#define _SndP_ (_SndP)
 
 #define _Appl_ (_Appl)
 #define _Bndl_ (_Bndl)
@@ -144,11 +196,12 @@ _Type    NSNotification * _Note;
 #define _Data_ (_Data)
 #define _Dict_ (_Dict)
 #define _Errr_ (_Errr)
-#define _Errr__ (_Errr*)
+#define _Errr__ (_Errr __autoreleasing *)
 #define _Evnt_ (_Evnt)
 #define _Flot_ (_Flot)
 #define _Font_ (_Font)
 #define _IsIt_ (_IsIt)
+#define _Grad_ (_Grad)
 #define _Layr_ (_Layr)
 #define _List_ (_List)
 #define _LstX_ (_LstX)
@@ -165,6 +218,7 @@ _Type    NSNotification * _Note;
 #define _Pict_ (_Pict)
 #define _PicV_ (_PicV)
 #define _PStl_ (_PStl)
+#define _Rnge_ (_Rnge)
 #define _Rect_ (_Rect)
 #define _Scrl_ (_Scrl)
 #define _SInt_ (_SInt)
@@ -187,12 +241,67 @@ _Type    NSNotification * _Note;
 
 #define LstX NSArrayController
 
+/// Let's standarize the preprocessor names too!
 
-#define     _Kind instancetype
-#define     _Kind_ (_Kind)
+#define  Reqd required
+#define  Optn optional
+#define  Incl import
+#define  Stop end
+#define     ￭ @Stop
 
-typedef     void(^_VBlk)();     //typedef     _Void(^)() _VBlk;
-#define      _VBlk_ (_VBlk)
+#define _Test(X,...) - (void) test##X { ({ __VA_ARGS__; }); }
+#define XCTUp(...) - (void) setUp { [super setUp]; ({ __VA_ARGS__; }); }
+#define XCTDown(...) - (void) tearDown { ({ __VA_ARGS__; }); [super tearDown]; }
+
+
+#define _Case(Name,...) @Incl XCTest; @Kind_ (Name,XCTestCase) ￭ @Plan Name XCTUp(__VA_ARGS__)
+
+
+/*! Kind - Interface (Prototypes, Public, Name, etc)
+    Vows - Protocol  (Promises, etc)
+    Plan - Implemenation
+    Xtra - Categories                                      */
+
+
+#define  ￮(s) _Pragma(#s)             // This # is the "stringify" operator.
+
+￮("mark - \"Kind of\"")
+
+#define Plan implementation
+#define ＿ Plan
+
+/// A simple @interface declaration.
+
+#define   _Kind                  @interface
+
+#define   Kind_(Name,Meta,...)   interface Name : Meta __VA_ARGS__
+#define   Kind(Name,...)         Kind_(Name,NObj,__VA_ARGS__)
+
+/// Sugar for (instancetype) methods.
+
+#define  _Kind_ (instancetype)
+
+#pragma mark - Vows
+
+#define Vows protocol
+
+#pragma mark -  Xtra
+
+
+#define   Xtra(Extends,Named) interface Extends      (Named)
+
+//＞＜＝＠＿￦￡￠￮￬￫￪￩
+
+#define  ＞(...) @Xtra(__VA_ARGS__)
+#define  ＜(...) @XtraPlan(__VA_ARGS__)
+#define   XtraPlan(Extends,Named) implementation Extends (Named)
+
+#define   XtraStop(...)        Stop
+
+//#define  _Plus Category
+
+#define _Cat(K,...) @interface K (Sans) __VA_ARGS__; @end
+
 
 #define _IMPL @implementation
 #define _IFCE @interface
@@ -200,26 +309,56 @@ typedef     void(^_VBlk)();     //typedef     _Void(^)() _VBlk;
 #define _IMPT @import
 #define _FINI @end
 
-#define Impl implementation
-#define Desc interface
-#define Plan protocol
-#define Incl import
+//#define Impl implementation
+//#define Desc interface
+//#define Plan protocol
+
 #define Fini end
 
+//#define IMPL implementation
+//#define IFCE interface
+//#define PRTO protocol
+//#define IMPT import
+//#define FINI end
 
-#define IMPL implementation
-#define IFCE interface
-#define PRTO protocol
-#define IMPT import
-#define FINI end
 
-#define _U    unsigned
-#define _S    static
-#define _I    inline
-#define _E    external
-#define _C    const
+#define P(...) id<__VA_ARGS__>
+#define INTERFACE(X,...)    @interface X : __VA_ARGS__ + (instancetype)
 
+#define INIT_(K,...) [[K alloc] init##__VA_ARGS__]
+#define NEW(A,B) A *B = A.new
+
+#define oFK     objectForKey
+#define vFK     valueForKey
+#define vFKP    valueForKeyPath
+#define mC      mutableCopy
+#define mAVFK   mutableArrayValueForKey
+#define bFK     boolForKey
+
+#define bV     boolValue
+#define dV     doubleValue
+#define fV     floatValue
+#define iV     integerValue
+#define uIV    unsignedIntegerValue
+#define rngV   rangeValue
+#define strV   stringValue
+#define rV     rectValue
+#define pV     pointValue
+
+#if IOS_ONLY                                    // GEOMETRY TRANSLATIONS
+#define rectValue           CGRectValue
+#define pointValue          CGPointValue
+#define NSMakeSize          CGSizeMake
+#define NSMakePoint         CGPointMake
+#define NSMakeSize          CGSizeMake
+#define NSMakeRect          CGRectMake
+#define NSEqualSizes        CGSizeEqualToSize
+#define NSEqualPoints       CGPointEqualToPoint
+#define NSEqualRects        CGRectEqualToRect
+#define NSPointInRect(P,R)  CGRectContainsPoint(R,P)
+#endif
 
 
 #endif //  _ObjC
 #endif // __Objc__
+
