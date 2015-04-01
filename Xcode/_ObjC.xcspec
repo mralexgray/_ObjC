@@ -1,0 +1,15 @@
+(
+	{
+		Type = FileType;
+		Identifier = "sourcecode._objc";
+		BasedOn = sourcecode;
+		Name = "_ObjC file";
+		Extensions = (
+			m,
+			h,
+			mm,
+      pch
+		);
+		Language = "xcode.lang._objc";
+	},
+)

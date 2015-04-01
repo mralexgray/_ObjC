@@ -1,30 +1,17 @@
 @import AppKit;
 
-@interface      Replacement : NSObject  @property NSMutableArray *matches; @end
-
-@implementation Replacement
-
-- initWithString:(NSString*)d { if (!(self = super.init)) return nil;
-
-    [entry enumerateKeysAndObjectsUsingBlock:^(NSString* kind, id definitions, BOOL *s) {
-
-        [kind hasPrefix:@"define"] ?
-
-        [header if:kind do:^{ for (id def in definitions) [header addDefine:def]; }] :
-
-        [kind isEqualToString:@"map"]    ? [header appendMap:definitions] : nil;
-    }];
-
-  entries = e; type = t;  platform = p; return self;
+id _system(id cmd) { 
+   return !cmd ? nil : ({ NSPipe* pipe; NSTask * task;
+  [task = NSTask.new setValuesForKeysWithDictionary: 
+    @{ @"launchPath" : @"/bin/zsh",
+        @"arguments" : @[@"-c", cmd],
+   @"standardOutput" : pipe = NSPipe.pipe}]; [task launch];
+  [NSString.alloc initWithData:
+     pipe.fileHandleForReading.readDataToEndOfFile
+                      encoding:NSUTF8StringEncoding]; });
 }
-- (NSMutableString*) generated { NSMutableString *outString = @"\n".mutableCopy;
 
-  Validity == Universal ?
-  if (type)
-}
-@end
-
-
+#define XcodePath _system(@"printf \"${$(xcode-select -p)%.app/*}.app\"")
 
 @implementation  NSMutableString (Plist2Header)
 
@@ -37,7 +24,7 @@
   exclusive ? [self appendFormat:@"\n#endif // %@\n", exclusive] : [self appendString:@"\n"];
 }
 
-- (void) addDefine:(NSString*)def {  // definitiions is array of #defines. split at first "space".
+- (void) addDefine:(NSString*)def {  // defines are split at first "space".
 
   NSUInteger space = [def rangeOfString:@" "].location;
 
@@ -45,7 +32,7 @@
                                            [def substringFromIndex:space]];
 }
 
-- (void) appendMap:(NSDictionary*)definitions {
+- (void) appendMap:(NSDictionary*)defs {
 
   NSMutableString *methArgs, * dereferenceable;
 
@@ -54,7 +41,7 @@
 
     dereferenceable = @"/// For ObjC classes, let's define a preprocessor Macro to call the direct Classes, without the _.\n".mutableCopy;
 
-    [definitions enumerateKeysAndObjectsUsingBlock:^(id mapping, id map, BOOL *stop) {
+    [defs enumerateKeysAndObjectsUsingBlock:^(id mapping, id map, BOOL *stop) {
 
       [self if:mapping do:^{
 
@@ -62,23 +49,10 @@
 
         for (NSString * def in map) {
 
-//        __block NSString *newType = nil;
-//
-//            [def enumerateSubstringsInRange:NSMakeRange(0, def.length)
-//                                    options:NSStringEnumerationByWords|NSStringEnumerationReverse
-//                                 usingBlock:^(NSString*subs, NSRange sbr, NSRange enclR, BOOL *s) {
-//                newType = subs; *stop = YES;
-//            }];
-
         NSRange range = [def rangeOfString:@" " options:NSBackwardsSearch];
         NSString *newType = [def substringFromIndex:range.location+1];
 
-//          NSUInteger space = [def rangeOfString:@" "].location;
-//          NSString *newType = [def substringFromIndex:space],
            NSString * standard = [def substringToIndex:range.location];
-
-            // stringByReplacingOccurrencesOfString:newType withString:@""];
-           // substringToIndex:[def rangeOfString:newType].location];
 
           [self appendFormat:@"_Type %30s  %@ _\n", standard.UTF8String, newType];
 
@@ -100,22 +74,25 @@
   [self appendFormat:@"%@\n\n%@", methArgs, dereferenceable];
 }
 
-+ plist2Header:(NSString*)p {
++ plist2Header:(NSString*)p { NSMutableString *header;
 
-  NSMutableString *header = [self stringWithFormat:@"\n"
+  NSDictionary *unordered = [NSDictionary dictionaryWithContentsOfFile:p];
+  NSArray
+
+  return header = [self stringWithFormat:@"\n"
 
     "/*! @note This is an AUTOMATICALLY generated file!\n"
     "    Built on %@ from %@ */\n", [NSDateFormatter localizedStringFromDate:NSDate.date
                                                                      dateStyle:NSDateFormatterMediumStyle
-                                                                    timeStyle:NSDateFormatterMediumStyle], p];
+                                                                    timeStyle:NSDateFormatterMediumStyle], p],
 
-  for (id entry in [NSArray arrayWithContentsOfFile:p]) {
+  [ dic enumerateKeysAndObjectsUsingBlock:^(id entry, id obj, BOOL *s) {
 
-    [header appendString:@"\n"];
+    [header appendFormat:@"\n// %@\n\n", entry];
 
-    [entry isKindOfClass:NSString.class] ? [header appendString:entry] :
+    [obj isKindOfClass:NSArray.class] ? ({ for (id line in obj) [header appendFormat:@"%@\n",line]; }) :
 
-    [entry enumerateKeysAndObjectsUsingBlock:^(NSString* kind, id definitions, BOOL *s) {
+    [obj enumerateKeysAndObjectsUsingBlock:^(NSString* kind, id definitions, BOOL *s) {
 
         [kind hasPrefix:@"define"] ?
 
@@ -123,37 +100,51 @@
 
         [kind isEqualToString:@"map"]    ? [header appendMap:definitions] : nil;
     }];
-  }
-
-  return header;
+  }], header;
 }
 
 @end
 
+@interface      HeaderWriter : NSObject @end
+@implementation HeaderWriter { NSMutableString* _outString; id _plist; }
+
+- initWithPlist:(NSString*)list {
+
+  return self = super.init &&
+       [NSFileManager.defaultManager fileExistsAtPath:_plist = list isDirectory:NULL] ? self : nil;
+}
+- (NSMutableString*) outString { return _outString = _outString ?: [NSMutableString plist2Header:_plist]; }
+@end
+
 int main(int argc, char*argv[], char**argp) { @autoreleasepool {
 
+//  id c = _system(@"/xbin/isp");
+  _system([@"say word was: " stringByAppendingString:XcodePath]);
 
-  NSString * plist,
-           * thisFile  = [NSString stringWithUTF8String:__FILE__],
+
+  NSString * thisFile  = [NSString stringWithUTF8String:__FILE__],
            * srcroot   = thisFile.stringByDeletingLastPathComponent,
-           * projName  = srcroot.lastPathComponent,
-           * inputfile = argc > 1 && [NSFileManager.defaultManager fileExistsAtPath:
-                 plist = [NSString stringWithUTF8String:argv[1]] isDirectory:NULL] ? plist
-                       : [NSString stringWithFormat:@"%@/%@.plist", srcroot, projName];
+           * projName  = srcroot.lastPathComponent;
+
+  HeaderWriter *r = [HeaderWriter.alloc initWithPlist:argc > 1 ?
+                    [NSString stringWithUTF8String:argv[1]] :
+                    [NSString stringWithFormat:@"%@/%@.plist", srcroot, projName]];
 
   NSMutableArray *outfiles = @[[NSString stringWithFormat:@"%s/%@.h",BUILT_PRODUCTS_DIR,projName],
                                [NSString stringWithFormat:@"%@/%@.h",srcroot, projName]].mutableCopy;
+
+  NSLog(@"args: %@", NSProcessInfo.processInfo.arguments);
 
   if (argc > 2) { int argcc = 2;
 
     while (argcc < argc) { [outfiles addObject:[NSString stringWithUTF8String:argv[argcc]]]; argcc++; }
   }
 
-  id x = [NSMutableString plist2Header:inputfile];
+  if (!r) return 99;
 
   for (id outPath in outfiles) {
     NSError *e = nil;
-    [x writeToFile:outPath atomically:YES encoding:NSUTF8StringEncoding error:&e];
+    [r.outString writeToFile:outPath atomically:YES encoding:NSUTF8StringEncoding error:&e];
     !e ?: NSLog(@"error:%@", e);
   }
 
@@ -163,3 +154,43 @@ int main(int argc, char*argv[], char**argp) { @autoreleasepool {
 //NSError *error = NULL;
 //NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"@property\\s*?\\(nonatomic\\,\\s*?readonly\\)\\s*" options:NSRegularExpressionAnchorsMatchLines error:&error];
 //NSString *result = [regex stringByReplacingMatchesInString:searchText options:0 range:NSMakeRange(0, [searchText length]) withTemplate:@"_RO "];
+
+//        __block NSString *newType = nil;
+//
+//            [def enumerateSubstringsInRange:NSMakeRange(0, def.length)
+//                                    options:NSStringEnumerationByWords|NSStringEnumerationReverse
+//                                 usingBlock:^(NSString*subs, NSRange sbr, NSRange enclR, BOOL *s) {
+//                newType = subs; *stop = YES;
+//            }];
+
+//          NSUInteger space = [def rangeOfString:@" "].location;
+//          NSString *newType = [def substringFromIndex:space],
+            // stringByReplacingOccurrencesOfString:newType withString:@""];
+           // substringToIndex:[def rangeOfString:newType].location];
+
+
+@interface      Replacement : NSObject  @property NSMutableArray *matches; @end
+
+@implementation Replacement
+
+- initWithString:(NSString*)d { if (!(self = super.init)) return nil;
+
+//    [entry enumerateKeysAndObjectsUsingBlock:^(NSString* kind, id definitions, BOOL *s) {
+//
+//        [kind hasPrefix:@"define"] ?
+//
+//        [header if:kind do:^{ for (id def in definitions) [header addDefine:def]; }] :
+//
+//        [kind isEqualToString:@"map"]    ? [header appendMap:definitions] : nil;
+//    }];
+//
+//  entries = e; type = t;  platform = p;
+  return self;
+}
+- (NSMutableString*) generated { NSMutableString *outString = @"\n".mutableCopy;
+
+ return outString;
+//  Validity == Universal ?
+//  if (type)
+}
+@end

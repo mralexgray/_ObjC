@@ -1,264 +1,25 @@
 
 /*! @note This is an AUTOMATICALLY generated file!
-    Built on Mar 31, 2015, 9:20:29 AM from /Volumes/2T/ServiceData/AtoZ.framework/AtoZUniversal/_ObjC/_ObjC.plist */
+    Built on Apr 1, 2015, 6:00:23 AM from /Volumes/2T/ServiceData/AtoZ.framework/AtoZUniversal/_ObjC/_ObjC.plist */
+
+// 7
 
 
-#ifdef   __OBJC__
-#ifndef   _ObjC__
-#define   _ObjC__
-/*!   @abstract _ObjC is concise dialect of ObjC that is terse and compatible - without needless tricks.
-    @discussion It strives to minimize excessive *'s, {}'s, and ()'s, and so on, and so forth.
-                Class pointers and types are typedef'd to aliases, with no pointer,
-                formatted like _Four lettes, starting with an underscore, capitalized. */
+#if IOS_ONLY
+#define            rectValue  CGRectValue
+#define           pointValue  CGPointValue
+#define           NSMakeSize  CGSizeMake
+#define          NSMakePoint  CGPointMake
+#define           NSMakeSize  CGSizeMake
+#define           NSMakeRect  CGRectMake
+#define         NSEqualSizes  CGSizeEqualToSize
+#define        NSEqualPoints  CGPointEqualToPoint
+#define         NSEqualRects  CGRectEqualToRect
+#define   NSPointInRect(P,R)  CGRectContainsPoint(R,P)
 
+#endif // IOS_ONLY
 
-#define             IOS_ONLY  TARGET_OS_IPHONE
-#define             MAC_ONLY  !IOS_ONLY
-#define                    _  ;
-#define                _Type  typedef
-#define                   _C  const
-#define                   _E  extern
-#define                   _I  inline
-#define                   _S  static
-#define                   _U  unsigned
-
-
-/// Let's standarize the preprocessor names too!
-
-
-#define                 Reqd  required
-#define                 Optn  optional
-#define                 Incl  import
-#define                 Stop  end
-#define                       ￭ @Stop
-
-
-@import ObjectiveC _
- @class WebView,
-
-             AVAudioPlayer _
-#    if MAC_ONLY
-@import Cocoa _
-#  elif IOS_ONLY
-@import UIKit _
-
-
-// Standarize names 1:1 between platforms.
-
-
-#define                NSNib  UINib
-#define                NSApp  UIApp
-#define               NSFont  UIFont
-#define               NSView  UIView
-#define               NSRect  CGRect
-#define               NSSize  CGSize
-#define              NSImage  UIImage
-#define              NSColor  UIColor
-#define              NSPoint  CGPoint
-#define              NSEvent  UIEvent
-#define             NSScreen  UIScreen
-#define             NSWindow  UIWindow
-#define           NSZeroSize  CGSizeZero
-#define           NSZeroRect  CGRectZero
-#define          NSZeroPoint  CGPointZero
-#define          NSTableView  UITableView
-#define         NSBezierPath  UIBezierPath
-#define        NSApplication  UIApplication
-#define   NSUserNotification  UILocalNotification
-
-
-#endif
-
-#pragma mark - types 
-
-_Type                             id  _ObjC _
-_Type                            SEL  _Meth _
-_Type                          Class  _Meta _
-_Type                           void  _Void _
-_Type                           BOOL  _IsIt _
-_Type                  unsigned long  _ULng _
-_Type                           long  _Long _
-_Type                      NSInteger  _SInt _
-_Type                     NSUInteger  _UInt _
-_Type             NSComparisonResult  _Comp _
-
-
-#pragma mark - structs 
-
-_Type                         CGSize  _Size _
-_Type                         CGRect  _Rect _
-_Type                        CGFloat  _Flot _
-_Type                        CGPoint  _Cord _
-_Type                        NSRange  _Rnge _
-_Type              CGAffineTransform  _AffT _
-
-
-#if MAC_ONLY
-#pragma mark - pointers_MAC_ONLY 
-
-_Type                       NSTask *  _Task _
-_Type                       NSMenu *  _Menu _
-_Type                      WebView *  _WebV _
-_Type                   NSMenuItem *  _SubM _
-_Type                  NSImageView *  _PicV _
-_Type                  NSSplitView *  _Splt _
-_Type                 NSScrollView *  _Scrl _
-_Type                NSOutlineView *  _OutV _
-_Type                NSTableColumn *  _TCol _
-_Type            NSArrayController *  _LstX _
-
-#endif // MAC_ONLY
-
-#pragma mark - pointers 
-
-_Type                AVAudioPlayer *  _SndP _
-_Type                      CALayer *  _Layr _
-_Type                NSApplication *  _Appl _
-_Type                      NSArray *  _List _
-_Type               NSMutableArray *  mList _
-_Type                 NSBezierPath *  _Path _
-_Type                     NSBundle *  _Bndl _
-_Type                      NSColor *  _Colr _
-_Type                       NSData *  _Data _
-_Type                NSMutableData *  mData _
-_Type                 NSDictionary *  _Dict _
-_Type          NSMutableDictionary *  mDict _
-_Type                      NSError *  _Errr _
-_Type                      NSEvent *  _Evnt _
-_Type                 NSFileHandle *  _File _
-_Type                       NSFont *  _Font _
-_Type                      NSImage *  _Pict _
-_Type               NSNotification *  _Note _
-_Type                     NSNumber *  _Numb _
-_Type                     NSObject *  _NObj _
-_Type             NSParagraphStyle *  _PStl _
-_Type      NSMutableParagraphStyle *  mPStl _
-_Type                       NSPipe *  _Pipe _
-_Type                     NSString *  _Text _
-_Type              NSMutableString *  mText _
-_Type                  NSTableView *  _TblV _
-_Type                        NSURL *  _NUrl _
-_Type               NSUserDefaults *  _Defs _
-_Type                       NSView *  _View _
-_Type                     NSWindow *  _Wind _
-_Type                         char *  _Char _
-_Type                   const char *  _CChr _
-_Type                unsigned char *  _UChr _
-
-
-/// Good to make "shortcuts" for ALL `_ObjC` types as "method arguments"
-/// with a leading Underscore to use ase parenthesis-free method parameterts!
-
-#define           _ObjC_  (_ObjC)
-#define           _Meth_  (_Meth)
-#define           _Meta_  (_Meta)
-#define           _Void_  (_Void)
-#define           _IsIt_  (_IsIt)
-#define           _ULng_  (_ULng)
-#define           _Long_  (_Long)
-#define           _SInt_  (_SInt)
-#define           _UInt_  (_UInt)
-#define           _Comp_  (_Comp)
-#define           _Size_  (_Size)
-#define           _Rect_  (_Rect)
-#define           _Flot_  (_Flot)
-#define           _Cord_  (_Cord)
-#define           _Rnge_  (_Rnge)
-#define           _AffT_  (_AffT)
-#define           _Task_  (_Task)
-#define           _Menu_  (_Menu)
-#define           _WebV_  (_WebV)
-#define           _SubM_  (_SubM)
-#define           _PicV_  (_PicV)
-#define           _Splt_  (_Splt)
-#define           _Scrl_  (_Scrl)
-#define           _OutV_  (_OutV)
-#define           _TCol_  (_TCol)
-#define           _LstX_  (_LstX)
-#define           _SndP_  (_SndP)
-#define           _Layr_  (_Layr)
-#define           _Appl_  (_Appl)
-#define           _List_  (_List)
-#define           mList_  (mList)
-#define           _Path_  (_Path)
-#define           _Bndl_  (_Bndl)
-#define           _Colr_  (_Colr)
-#define           _Data_  (_Data)
-#define           mData_  (mData)
-#define           _Dict_  (_Dict)
-#define           mDict_  (mDict)
-#define           _Errr_  (_Errr)
-#define           _Evnt_  (_Evnt)
-#define           _File_  (_File)
-#define           _Font_  (_Font)
-#define           _Pict_  (_Pict)
-#define           _Note_  (_Note)
-#define           _Numb_  (_Numb)
-#define           _NObj_  (_NObj)
-#define           _PStl_  (_PStl)
-#define           mPStl_  (mPStl)
-#define           _Pipe_  (_Pipe)
-#define           _Text_  (_Text)
-#define           mText_  (mText)
-#define           _TblV_  (_TblV)
-#define           _NUrl_  (_NUrl)
-#define           _Defs_  (_Defs)
-#define           _View_  (_View)
-#define           _Wind_  (_Wind)
-#define           _Char_  (_Char)
-#define           _CChr_  (_CChr)
-#define           _UChr_  (_UChr)
-
-/// For ObjC classes, let's define a preprocessor Macro to call the direct Classes, without the _.
-
-#define                           SInt  NSInteg
-#define                           UInt  NSUInteg
-#define                           Comp  NSComparisonResu
-#define                           Rnge  NSRan
-#define                           Task  NSTask
-#define                           Menu  NSMenu
-#define                           SubM  NSMenuItem
-#define                           PicV  NSImageView
-#define                           Splt  NSSplitView
-#define                           Scrl  NSScrollView
-#define                           OutV  NSOutlineView
-#define                           TCol  NSTableColumn
-#define                           LstX  NSArrayController
-#define                           SndP  AVAudioPlayer
-#define                           Layr  CALayer
-#define                           Appl  NSApplication
-#define                           List  NSArray
-#define                           ListM  NSMutableArray
-#define                           Path  NSBezierPath
-#define                           Bndl  NSBundle
-#define                           Colr  NSColor
-#define                           Data  NSData
-#define                           DataM  NSMutableData
-#define                           Dict  NSDictionary
-#define                           DictM  NSMutableDictionary
-#define                           Errr  NSError
-#define                           Evnt  NSEvent
-#define                           File  NSFileHandle
-#define                           Font  NSFont
-#define                           Pict  NSImage
-#define                           Note  NSNotification
-#define                           Numb  NSNumber
-#define                           NObj  NSObject
-#define                           PStl  NSParagraphStyle
-#define                           PStlM  NSMutableParagraphStyle
-#define                           Pipe  NSPipe
-#define                           Text  NSString
-#define                           TextM  NSMutableString
-#define                           TblV  NSTableView
-#define                           NUrl  NSURL
-#define                           Defs  NSUserDefaults
-#define                           View  NSView
-#define                           Wind  NSWindow
-
-/*! Kind - Interface (Prototypes, Public, Name, etc)
-    Vows - Protocol  (Promises, etc)
-    Plan - Implemenation
-    Xtra - Categories                                      */
+// Potpourri
 
 
 #define                 Plan  implementation
@@ -289,6 +50,792 @@ _Type                unsigned char *  _UChr _
 #define             NEW(A,B)  A *B = A.new
 
 
+// Objective-C Keywords
+
+
+
+#define                 Reqd  required
+#define                 Optn  optional
+#define                 Incl  import
+#define                 Stop  end
+#define                       ￭ @Stop
+
+
+// Imports
+
+@import ObjectiveC _
+ @class WebView,
+
+             AVAudioPlayer _
+#    if MAC_ONLY
+@import Cocoa _
+#  elif IOS_ONLY
+@import UIKit _
+
+
+
+// AllCLasses
+
+ABAddressBook
+ABGroup
+ABMultiValue
+ABMutableMultiValue
+ABPeoplePickerView
+ABPerson
+ABPersonView
+ABRecord
+ABSearchElement
+CAAnimation
+CAAnimationGroup
+CABasicAnimation
+CAConstraint
+CAConstraintLayoutManager
+CAEmitterCell
+CAEmitterLayer
+CAGradientLayer
+CAKeyframeAnimation
+CALayer
+CAMediaTimingFunction
+CAOpenGLLayer
+CAPropertyAnimation
+CARemoteLayerClient
+CARemoteLayerServer
+CARenderer
+CAReplicatorLayer
+CAScrollLayer
+CAShapeLayer
+CATextLayer
+CATiledLayer
+CATransaction
+CATransformLayer
+CATransition
+CAValueFunction
+CIColor
+CIContext
+CIDetector
+CIFaceFeature
+CIFeature
+CIFilter
+CIFilterGenerator
+CIFilterShape
+CIImage
+CIImageAccumulator
+CIKernel
+CIPlugIn
+CIQRCodeFeature
+CIRectangleFeature
+CISampler
+CIVector
+DOMAbstractView
+DOMAttr
+DOMBlob
+DOMCDATASection
+DOMCSSCharsetRule
+DOMCSSFontFaceRule
+DOMCSSImportRule
+DOMCSSMediaRule
+DOMCSSPageRule
+DOMCSSPrimitiveValue
+DOMCSSRule
+DOMCSSRuleList
+DOMCSSStyleDeclaration
+DOMCSSStyleRule
+DOMCSSStyleSheet
+DOMCSSUnknownRule
+DOMCSSValue
+DOMCSSValueList
+DOMCharacterData
+DOMComment
+DOMCounter
+DOMDocument
+DOMDocumentFragment
+DOMDocumentType
+DOMElement
+DOMEntity
+DOMEntityReference
+DOMEvent
+DOMFile
+DOMFileList
+DOMHTMLAnchorElement
+DOMHTMLAppletElement
+DOMHTMLAreaElement
+DOMHTMLBRElement
+DOMHTMLBaseElement
+DOMHTMLBaseFontElement
+DOMHTMLBodyElement
+DOMHTMLButtonElement
+DOMHTMLCollection
+DOMHTMLDListElement
+DOMHTMLDirectoryElement
+DOMHTMLDivElement
+DOMHTMLDocument
+DOMHTMLElement
+DOMHTMLEmbedElement
+DOMHTMLFieldSetElement
+DOMHTMLFontElement
+DOMHTMLFormElement
+DOMHTMLFrameElement
+DOMHTMLFrameSetElement
+DOMHTMLHRElement
+DOMHTMLHeadElement
+DOMHTMLHeadingElement
+DOMHTMLHtmlElement
+DOMHTMLIFrameElement
+DOMHTMLImageElement
+DOMHTMLInputElement
+DOMHTMLLIElement
+DOMHTMLLabelElement
+DOMHTMLLegendElement
+DOMHTMLLinkElement
+DOMHTMLMapElement
+DOMHTMLMarqueeElement
+DOMHTMLMenuElement
+DOMHTMLMetaElement
+DOMHTMLModElement
+DOMHTMLOListElement
+DOMHTMLObjectElement
+DOMHTMLOptGroupElement
+DOMHTMLOptionElement
+DOMHTMLOptionsCollection
+DOMHTMLParagraphElement
+DOMHTMLParamElement
+DOMHTMLPreElement
+DOMHTMLQuoteElement
+DOMHTMLScriptElement
+DOMHTMLSelectElement
+DOMHTMLStyleElement
+DOMHTMLTableCaptionElement
+DOMHTMLTableCellElement
+DOMHTMLTableColElement
+DOMHTMLTableElement
+DOMHTMLTableRowElement
+DOMHTMLTableSectionElement
+DOMHTMLTextAreaElement
+DOMHTMLTitleElement
+DOMHTMLUListElement
+DOMImplementation
+DOMKeyboardEvent
+DOMMediaList
+DOMMouseEvent
+DOMMutationEvent
+DOMNamedNodeMap
+DOMNode
+DOMNodeIterator
+DOMNodeList
+DOMNotation
+DOMObject
+DOMOverflowEvent
+DOMProcessingInstruction
+DOMProgressEvent
+DOMRGBColor
+DOMRange
+DOMRect
+DOMStyleSheet
+DOMStyleSheetList
+DOMText
+DOMTreeWalker
+DOMUIEvent
+DOMWheelEvent
+DOMXPathExpression
+DOMXPathResult
+ICCameraDevice
+ICCameraFile
+ICCameraFolder
+ICCameraItem
+ICDevice
+ICDeviceBrowser
+ICScannerBandData
+ICScannerDevice
+ICScannerFeature
+ICScannerFeatureBoolean
+ICScannerFeatureEnumeration
+ICScannerFeatureRange
+ICScannerFeatureTemplate
+ICScannerFunctionalUnit
+ICScannerFunctionalUnitDocumentFeeder
+ICScannerFunctionalUnitFlatbed
+ICScannerFunctionalUnitNegativeTransparency
+ICScannerFunctionalUnitPositiveTransparency
+IKCameraDeviceView
+IKDeviceBrowserView
+IKFilterBrowserPanel
+IKFilterBrowserView
+IKFilterUIView
+IKImageBrowserCell
+IKImageBrowserView
+IKImageEditPanel
+IKImageView
+IKPictureTaker
+IKSaveOptions
+IKScannerDeviceView
+IKSlideshow
+NSATSTypesetter
+NSAccessibilityElement
+NSActionCell
+NSAffineTransform
+NSAlert
+NSAnimation
+NSAnimationContext
+NSAppearance
+NSAppleEventDescriptor
+NSAppleEventManager
+NSAppleScript
+NSApplication
+NSArchiver
+NSArray
+NSArrayController
+NSAssertionHandler
+NSAsynchronousFetchRequest
+NSAsynchronousFetchResult
+NSAtomicStore
+NSAtomicStoreCacheNode
+NSAttributeDescription
+NSAttributedString
+NSAutoreleasePool
+NSBackgroundActivityScheduler
+NSBatchUpdateRequest
+NSBatchUpdateResult
+NSBezierPath
+NSBitmapImageRep
+NSBlockOperation
+NSBox
+NSBrowser
+NSBrowserCell
+NSBundle
+NSButton
+NSButtonCell
+NSByteCountFormatter
+NSCIImageRep
+NSCache
+NSCachedURLResponse
+NSCalendar
+NSCalendarDate
+NSCell
+NSCharacterSet
+NSClassDescription
+NSClickGestureRecognizer
+NSClipView
+NSCloneCommand
+NSCloseCommand
+NSCoder
+NSCollectionView
+NSCollectionViewItem
+NSColor
+NSColorList
+NSColorPanel
+NSColorPicker
+NSColorSpace
+NSColorWell
+NSComboBox
+NSComboBoxCell
+NSComparisonPredicate
+NSCompoundPredicate
+NSCondition
+NSConditionLock
+NSConnection
+NSConstantString
+NSControl
+NSController
+NSCountCommand
+NSCountedSet
+NSCreateCommand
+NSCursor
+NSCustomImageRep
+NSData
+NSDataDetector
+NSDate
+NSDateComponents
+NSDateComponentsFormatter
+NSDateFormatter
+NSDateIntervalFormatter
+NSDatePicker
+NSDatePickerCell
+NSDecimalNumber
+NSDecimalNumberHandler
+NSDeleteCommand
+NSDictionary
+NSDictionaryController
+NSDirectoryEnumerator
+NSDistantObject
+NSDistantObjectRequest
+NSDistributedLock
+NSDistributedNotificationCenter
+NSDockTile
+NSDocument
+NSDocumentController
+NSDraggingImageComponent
+NSDraggingItem
+NSDraggingSession
+NSDrawer
+NSEPSImageRep
+NSEnergyFormatter
+NSEntityDescription
+NSEntityMapping
+NSEntityMigrationPolicy
+NSEnumerator
+NSError
+NSEvent
+NSException
+NSExceptionHandler
+NSExistsCommand
+NSExpression
+NSExpressionDescription
+NSExtensionContext
+NSExtensionItem
+NSFetchRequest
+NSFetchRequestExpression
+NSFetchedPropertyDescription
+NSFileAccessIntent
+NSFileCoordinator
+NSFileHandle
+NSFileManager
+NSFileSecurity
+NSFileVersion
+NSFileWrapper
+NSFont
+NSFontCollection
+NSFontDescriptor
+NSFontManager
+NSFontPanel
+NSForm
+NSFormCell
+NSFormatter
+NSGarbageCollector
+NSGestureRecognizer
+NSGetCommand
+NSGlyphGenerator
+NSGlyphInfo
+NSGradient
+NSGraphicsContext
+NSHTTPCookie
+NSHTTPCookieStorage
+NSHTTPURLResponse
+NSHashTable
+NSHelpManager
+NSHost
+NSImage
+NSImageCell
+NSImageRep
+NSImageView
+NSIncrementalStore
+NSIncrementalStoreNode
+NSIndexPath
+NSIndexSet
+NSIndexSpecifier
+NSInputStream
+NSInvocation
+NSInvocationOperation
+NSItemProvider
+NSJSONSerialization
+NSKeyedArchiver
+NSKeyedUnarchiver
+NSLayoutConstraint
+NSLayoutManager
+NSLengthFormatter
+NSLevelIndicator
+NSLevelIndicatorCell
+NSLinguisticTagger
+NSLocale
+NSLock
+NSLogicalTest
+NSMachBootstrapServer
+NSMachPort
+NSMagnificationGestureRecognizer
+NSManagedObject
+NSManagedObjectContext
+NSManagedObjectID
+NSManagedObjectModel
+NSMapTable
+NSMappingModel
+NSMassFormatter
+NSMatrix
+NSMediaLibraryBrowserController
+NSMenu
+NSMenuItem
+NSMenuItemCell
+NSMergeConflict
+NSMergePolicy
+NSMessagePort
+NSMessagePortNameServer
+NSMetadataItem
+NSMetadataQuery
+NSMetadataQueryAttributeValueTuple
+NSMetadataQueryResultGroup
+NSMethodSignature
+NSMiddleSpecifier
+NSMigrationManager
+NSMoveCommand
+NSMutableArray
+NSMutableAttributedString
+NSMutableCharacterSet
+NSMutableData
+NSMutableDictionary
+NSMutableFontCollection
+NSMutableIndexSet
+NSMutableOrderedSet
+NSMutableParagraphStyle
+NSMutableSet
+NSMutableString
+NSMutableURLRequest
+NSNameSpecifier
+NSNetService
+NSNetServiceBrowser
+NSNib
+NSNotification
+NSNotificationCenter
+NSNotificationQueue
+NSNull
+NSNumber
+NSNumberFormatter
+NSObject
+NSObjectController
+NSOpenGLContext
+NSOpenGLLayer
+NSOpenGLPixelFormat
+NSOpenGLView
+NSOpenPanel
+NSOperation
+NSOperationQueue
+NSOrderedSet
+NSOrthography
+NSOutlineView
+NSOutputStream
+NSPDFImageRep
+NSPDFInfo
+NSPDFPanel
+NSPICTImageRep
+NSPageController
+NSPageLayout
+NSPanGestureRecognizer
+NSPanel
+NSParagraphStyle
+NSPasteboard
+NSPasteboardItem
+NSPathCell
+NSPathComponentCell
+NSPathControl
+NSPathControlItem
+NSPersistentDocument
+NSPersistentStore
+NSPersistentStoreAsynchronousResult
+NSPersistentStoreCoordinator
+NSPersistentStoreRequest
+NSPersistentStoreResult
+NSPipe
+NSPointerArray
+NSPointerFunctions
+NSPopUpButton
+NSPopUpButtonCell
+NSPopover
+NSPort
+NSPortCoder
+NSPortMessage
+NSPortNameServer
+NSPositionalSpecifier
+NSPredicate
+NSPredicateEditor
+NSPredicateEditorRowTemplate
+NSPreferencePane
+NSPressGestureRecognizer
+NSPrintInfo
+NSPrintOperation
+NSPrintPanel
+NSPrinter
+NSProcessInfo
+NSProgress
+NSProgressIndicator
+NSPropertyDescription
+NSPropertyListSerialization
+NSPropertyMapping
+NSPropertySpecifier
+NSProtocolChecker
+NSProxy
+NSPurgeableData
+NSQuitCommand
+NSRandomSpecifier
+NSRangeSpecifier
+NSRecursiveLock
+NSRegularExpression
+NSRelationshipDescription
+NSRelativeSpecifier
+NSResponder
+NSRotationGestureRecognizer
+NSRuleEditor
+NSRulerMarker
+NSRulerView
+NSRunLoop
+NSRunningApplication
+NSSaveChangesRequest
+NSSavePanel
+NSScanner
+NSScreen
+NSScriptClassDescription
+NSScriptCoercionHandler
+NSScriptCommand
+NSScriptCommandDescription
+NSScriptExecutionContext
+NSScriptObjectSpecifier
+NSScriptSuiteRegistry
+NSScriptWhoseTest
+NSScrollView
+NSScroller
+NSSearchField
+NSSearchFieldCell
+NSSecureTextField
+NSSecureTextFieldCell
+NSSegmentedCell
+NSSegmentedControl
+NSSet
+NSSetCommand
+NSShadow
+NSSharingService
+NSSharingServicePicker
+NSSimpleCString
+NSSlider
+NSSliderCell
+NSSocketPort
+NSSocketPortNameServer
+NSSortDescriptor
+NSSound
+NSSpecifierTest
+NSSpeechRecognizer
+NSSpeechSynthesizer
+NSSpellChecker
+NSSpellServer
+NSSplitView
+NSSplitViewController
+NSSplitViewItem
+NSStackView
+NSStatusBar
+NSStatusBarButton
+NSStatusItem
+NSStepper
+NSStepperCell
+NSStoryboard
+NSStoryboardSegue
+NSStream
+NSString
+NSTabView
+NSTabViewController
+NSTabViewItem
+NSTableCellView
+NSTableColumn
+NSTableHeaderCell
+NSTableHeaderView
+NSTableRowView
+NSTableView
+NSTask
+NSText
+NSTextAlternatives
+NSTextAttachment
+NSTextAttachmentCell
+NSTextBlock
+NSTextCheckingResult
+NSTextContainer
+NSTextField
+NSTextFieldCell
+NSTextFinder
+NSTextInputContext
+NSTextList
+NSTextStorage
+NSTextTab
+NSTextTable
+NSTextTableBlock
+NSTextView
+NSThread
+NSTimeZone
+NSTimer
+NSTitlebarAccessoryViewController
+NSTokenField
+NSTokenFieldCell
+NSToolbar
+NSToolbarItem
+NSToolbarItemGroup
+NSTouch
+NSTrackingArea
+NSTreeController
+NSTreeNode
+NSTypesetter
+NSURL
+NSURLAuthenticationChallenge
+NSURLCache
+NSURLComponents
+NSURLConnection
+NSURLCredential
+NSURLCredentialStorage
+NSURLDownload
+NSURLHandle
+NSURLProtectionSpace
+NSURLProtocol
+NSURLQueryItem
+NSURLRequest
+NSURLResponse
+NSURLSession
+NSURLSessionConfiguration
+NSURLSessionDataTask
+NSURLSessionDownloadTask
+NSURLSessionTask
+NSURLSessionUploadTask
+NSUUID
+NSUbiquitousKeyValueStore
+NSUnarchiver
+NSUndoManager
+NSUniqueIDSpecifier
+NSUserActivity
+NSUserAppleScriptTask
+NSUserAutomatorTask
+NSUserDefaults
+NSUserDefaultsController
+NSUserNotification
+NSUserNotificationAction
+NSUserNotificationCenter
+NSUserScriptTask
+NSUserUnixTask
+NSValue
+NSValueTransformer
+NSView
+NSViewAnimation
+NSViewController
+NSVisualEffectView
+NSWhoseSpecifier
+NSWindow
+NSWindowController
+NSWorkspace
+NSXMLDTD
+NSXMLDTDNode
+NSXMLDocument
+NSXMLElement
+NSXMLNode
+NSXMLParser
+NSXPCConnection
+NSXPCInterface
+NSXPCListener
+NSXPCListenerEndpoint
+PDFAction
+PDFActionGoTo
+PDFActionNamed
+PDFActionRemoteGoTo
+PDFActionResetForm
+PDFActionURL
+PDFAnnotation
+PDFAnnotationButtonWidget
+PDFAnnotationChoiceWidget
+PDFAnnotationCircle
+PDFAnnotationFreeText
+PDFAnnotationInk
+PDFAnnotationLine
+PDFAnnotationLink
+PDFAnnotationMarkup
+PDFAnnotationPopup
+PDFAnnotationSquare
+PDFAnnotationStamp
+PDFAnnotationText
+PDFAnnotationTextWidget
+PDFBorder
+PDFDestination
+PDFDocument
+PDFOutline
+PDFPage
+PDFSelection
+PDFThumbnailView
+PDFView
+QCComposition
+QCCompositionLayer
+QCCompositionParameterView
+QCCompositionPickerPanel
+QCCompositionPickerView
+QCCompositionRepository
+QCPatchController
+QCPlugIn
+QCPlugInViewController
+QCRenderer
+QCView
+QLPreviewPanel
+QLPreviewView
+QTCaptureAudioPreviewOutput
+QTCaptureConnection
+QTCaptureDecompressedAudioOutput
+QTCaptureDecompressedVideoOutput
+QTCaptureDevice
+QTCaptureDeviceInput
+QTCaptureFileOutput
+QTCaptureInput
+QTCaptureLayer
+QTCaptureMovieFileOutput
+QTCaptureOutput
+QTCaptureSession
+QTCaptureVideoPreviewOutput
+QTCaptureView
+QTCompressionOptions
+QTDataReference
+QTFormatDescription
+QTMedia
+QTMetadataItem
+QTMovie
+QTMovieLayer
+QTMovieModernizer
+QTMovieView
+QTSampleBuffer
+QTTrack
+QuartzFilter
+QuartzFilterManager
+QuartzFilterView
+ScreenSaverDefaults
+ScreenSaverView
+WKBackForwardList
+WKBackForwardListItem
+WKFrameInfo
+WKNavigation
+WKNavigationAction
+WKNavigationResponse
+WKPreferences
+WKProcessPool
+WKScriptMessage
+WKUserContentController
+WKUserScript
+WKWebView
+WKWebViewConfiguration
+WKWindowFeatures
+WebArchive
+WebBackForwardList
+WebDataSource
+WebDownload
+WebFrame
+WebFrameView
+WebHistory
+WebHistoryItem
+WebPreferences
+WebResource
+WebScriptObject
+WebUndefined
+WebView
+
+// Make iOS universal
+
+
+#define                NSNib  UINib
+#define                NSApp  UIApp
+#define               NSFont  UIFont
+#define               NSView  UIView
+#define               NSRect  CGRect
+#define               NSSize  CGSize
+#define              NSImage  UIImage
+#define              NSColor  UIColor
+#define              NSPoint  CGPoint
+#define              NSEvent  UIEvent
+#define             NSScreen  UIScreen
+#define             NSWindow  UIWindow
+#define           NSZeroSize  CGSizeZero
+#define           NSZeroRect  CGRectZero
+#define          NSZeroPoint  CGPointZero
+#define          NSTableView  UITableView
+#define         NSBezierPath  UIBezierPath
+#define        NSApplication  UIApplication
+#define   NSUserNotification  UILocalNotification
+
+
+// Abbreviations
+
 
 #define                  oFK  objectForKey
 #define                  vFK  valueForKey
@@ -305,23 +852,129 @@ _Type                unsigned char *  _UChr _
 #define                 strV  stringValue
 #define                   rV  rectValue
 #define                   pV  pointValue
+#define                   _C  const
+#define                   _E  extern
+#define                   _I  inline
+#define                   _S  static
+#define                   _U  unsigned
 
 
-// GEOMETRY TRANSLATIONS
+// AllTypes
 
-#if IOS_ONLY
-#define            rectValue  CGRectValue
-#define           pointValue  CGPointValue
-#define           NSMakeSize  CGSizeMake
-#define          NSMakePoint  CGPointMake
-#define           NSMakeSize  CGSizeMake
-#define           NSMakeRect  CGRectMake
-#define         NSEqualSizes  CGSizeEqualToSize
-#define        NSEqualPoints  CGPointEqualToPoint
-#define         NSEqualRects  CGRectEqualToRect
-#define   NSPointInRect(P,R)  CGRectContainsPoint(R,P)
+NSAffineTransformStruct
+NSAlertStyle
+NSAnimationEffect
+NSAnimationProgress
+NSAppleEventManagerSuspensionID
+NSApplicationDelegateReply
+NSApplicationPrintReply
+NSApplicationTerminateReply
+NSBackingStoreType
+NSBezelStyle
+NSBitmapImageFileType
+NSBorderType
+NSBrowserColumnResizingType
+NSButtonType
+NSCellAttribute
+NSCellImagePosition
+NSCellState
+NSCellType
+NSComparisonResult
+NSCompositingOperation
+NSControlSize
+NSControlTint
+NSDatePickerElementFlags
+NSDocumentChangeType
+NSDragOperation
+NSDrawerState
+NSEventType
+NSFocusRingType
+NSFontAction
+NSFontSymbolicTraits
+NSFontTraitMask
+NSGlyph
+NSGlyphLayoutMode
+NSGlyphRelation
+NSGradientType
+NSHandler
+NSHandler2
+NSHashEnumerator
+NSHashTable
+NSImageInterpolation
+NSKeyValueObservingOptions
+NSLayoutDirection
+NSLayoutStatus
+NSLineBreakMode
+NSMapEnumerator
+NSMapTable
+NSMatrixMode
+NSModalSession
+NSOpenGLContextAuxiliary
+NSOpenGLPixelFormatAuxiliary
+NSPoint
+NSPrintingPageOrder
+NSProgressIndicatorStyle
+NSProgressIndicatorThickness
+NSProgressIndicatorThreadInfo
+NSRange
+NSRect
+NSRectEdge
+NSSaveOperationType
+NSScreenAuxiliaryOpaque
+NSScrollArrowPosition
+NSScrollerArrow
+NSScrollerPart
+NSSelectionAffinity
+NSSelectionDirection
+NSSelectionGranularity
+NSSize
+NSSocketNativeHandle
+NSStringEncoding
+NSSwappedDouble
+NSSwappedFloat
+NSTIFFCompression
+NSTabState
+NSTabViewType
+NSTableViewDropOperation
+NSTextAlignment
+NSTextTabType
+NSThreadPrivate
+NSTickMarkPosition
+NSTimeInterval
+NSTitlePosition
+NSTokenStyle
+NSToolTipTag
+NSToolbarDisplayMode
+NSToolbarSizeMode
+NSTrackingRectTag
+NSTypesetterGlyphInfo
+NSUsableScrollerParts
+NSWindowDepth
+NSWindowOrderingMode
+NSWorkspaceIconCreationOptions
+NSWorkspaceLaunchOptions
+NSWritingDirection
+NSZone
 
-#endif // IOS_ONLY
+// Sugar
 
-#endif // _ObjC__
-#endif // __ObjC__
+
+#define             IOS_ONLY  TARGET_OS_IPHONE
+#define             MAC_ONLY  !IOS_ONLY
+#define                    _  ;
+#define                _Type  typedef
+
+
+// Types
+
+
+// Intro
+
+#ifdef   __OBJC__
+#ifndef   _ObjC__
+#define   _ObjC__
+/*!   @abstract _ObjC is concise dialect of ObjC that is terse and compatible - without needless tricks.
+    @discussion It strives to minimize excessive *'s, {}'s, and ()'s, and so on, and so forth.
+                Class pointers and types are typedef'd to aliases, with no pointer,
+                formatted like _Four lettes, starting with an underscore, capitalized. */
+
