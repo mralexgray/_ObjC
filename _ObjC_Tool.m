@@ -74,25 +74,22 @@ id _system(id cmd) {
   [self appendFormat:@"%@\n\n%@", methArgs, dereferenceable];
 }
 
-+ plist2Header:(NSString*)p { NSMutableString *header;
-
-  NSDictionary *unordered = [NSDictionary dictionaryWithContentsOfFile:p];
-  NSArray
-
-  return header = [self stringWithFormat:@"\n"
++ plist2Header:(NSString*)p { NSMutableString *header; return header = [self stringWithFormat:@"\n"
 
     "/*! @note This is an AUTOMATICALLY generated file!\n"
     "    Built on %@ from %@ */\n", [NSDateFormatter localizedStringFromDate:NSDate.date
                                                                      dateStyle:NSDateFormatterMediumStyle
-                                                                    timeStyle:NSDateFormatterMediumStyle], p],
+                                                                    timeStyle:NSDateFormatterMediumStyle], p], ({
 
-  [ dic enumerateKeysAndObjectsUsingBlock:^(id entry, id obj, BOOL *s) {
+  for (id entry in [NSArray arrayWithContentsOfFile:p]) {
 
-    [header appendFormat:@"\n// %@\n\n", entry];
+    [entry isKindOfClass: NSArray.class] ? [header appendString:[entry componentsJoinedByString:@"\n"] :
+    [entry isKindOfClass:NSString.class] ? [header appendFormat:@"\n%@",entry] :
 
-    [obj isKindOfClass:NSArray.class] ? ({ for (id line in obj) [header appendFormat:@"%@\n",line]; }) :
+    [entry enumerateKeysAndObjectsUsingBlock:^(NSString* description, id decodables, BOOL *s) {
 
-    [obj enumerateKeysAndObjectsUsingBlock:^(NSString* kind, id definitions, BOOL *s) {
+        [header appendFormat:@"\n// %@\n\n", description];
+        [
 
         [kind hasPrefix:@"define"] ?
 
@@ -100,7 +97,7 @@ id _system(id cmd) {
 
         [kind isEqualToString:@"map"]    ? [header appendMap:definitions] : nil;
     }];
-  }], header;
+  };    }), header;
 }
 
 @end
