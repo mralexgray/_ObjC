@@ -65,6 +65,10 @@
             argument = "$(SRCROOT)/_ObjC.classic.plist"
             isEnabled = "NO">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Volumes/2T/ServiceData/AtoZ.framework/AtoZUniversal/_ObjC/_ObjC_Tests.m"
+            isEnabled = "NO">
+         </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		7B380C8A1ACADE6B00285B4E /* RegExCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B380C891ACADE6B00285B4E /* RegExCategories.m */; };
 		7B3835811AC681DA00D617B9 /* _ObjC_Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */; };
-		7B5DC2391AC848EF0063D701 /* _ObjC.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B8BD9631AC67C6C001DD440 /* _ObjC.plist */; };
 		7B9B40501AC14F6E002EDD01 /* _ObjC_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */; };
 /* End PBXBuildFile section */
 
@@ -17,11 +16,11 @@
 		7B380B851AC949A200285B4E /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC.h; sourceTree = "<group>"; };
 		7B380C881ACADE6B00285B4E /* RegExCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegExCategories.h; path = "Objective-C-RegEx-Categories/RegExCategories.h"; sourceTree = "<group>"; };
 		7B380C891ACADE6B00285B4E /* RegExCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegExCategories.m; path = "Objective-C-RegEx-Categories/RegExCategories.m"; sourceTree = "<group>"; };
-		7B380C8B1ACAE13F00285B4E /* _ObjC.classic.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = _ObjC.classic.plist; sourceTree = "<group>"; };
+		7B380C8B1ACAE13F00285B4E /* _ObjC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = _ObjC.plist; sourceTree = "<group>"; };
 		7B380C8D1ACAF5A100285B4E /* _ObjC.xcspec */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xcspec; name = _ObjC.xcspec; path = Xcode/_ObjC.xcspec; sourceTree = "<group>"; };
 		7B380C8E1ACAF64500285B4E /* _ObjC.xclangspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xclangspec; name = _ObjC.xclangspec; path = Xcode/_ObjC.xclangspec; sourceTree = "<group>"; };
 		7B38357A1AC681C700D617B9 /* _ObjC_Tool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = _ObjC_Tool; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B8BD9631AC67C6C001DD440 /* _ObjC.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = _ObjC.plist; sourceTree = "<group>"; };
+		7B8BD9631AC67C6C001DD440 /* _ObjC.trashedplist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _ObjC.trashedplist; sourceTree = "<group>"; };
 		7B905BCB1ACB1FFC00795D14 /* _ObjC_install.zsh */ = {isa = PBXFileReference; lastKnownFileType = text; name = _ObjC_install.zsh; path = Xcode/_ObjC_install.zsh; sourceTree = "<group>"; };
 		7B9B40331AC14EB6002EDD01 /* _ObjC_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = _ObjC_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B9B403D1AC14ED5002EDD01 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -73,8 +72,8 @@
 			children = (
 				7B380B851AC949A200285B4E /* _ObjC.h */,
 				7B9B40451AC14ED5002EDD01 /* README.md */,
-				7B8BD9631AC67C6C001DD440 /* _ObjC.plist */,
-				7B380C8B1ACAE13F00285B4E /* _ObjC.classic.plist */,
+				7B8BD9631AC67C6C001DD440 /* _ObjC.trashedplist */,
+				7B380C8B1ACAE13F00285B4E /* _ObjC.plist */,
 				7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */,
 				7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */,
 				7B380C8C1ACAF54E00285B4E /* Xcode */,
@@ -109,7 +108,6 @@
 			buildConfigurationList = 7B38357E1AC681C700D617B9 /* Build configuration list for PBXNativeTarget "_ObjC_Tool" */;
 			buildPhases = (
 				7B3835761AC681C700D617B9 /* Sources */,
-				7B5DC2381AC848E60063D701 /* Resources */,
 				7B5DC2351AC841190063D701 /* Run Script */,
 			);
 			buildRules = (
@@ -171,17 +169,6 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		7B5DC2381AC848E60063D701 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7B5DC2391AC848EF0063D701 /* _ObjC.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
 /* Begin PBXShellScriptBuildPhase section */
 		7B5DC2351AC841190063D701 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -195,8 +182,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\nTARGET=\"${BUILT_PRODUCTS_DIR}/${TARGET_NAME}\"\n\n[[ -f \"$TARGET\" ]] && [[ $(otool -L \"$TARGET\") ]] && \"$TARGET\" || exit 1\n\n\n #\"${SRCROOT}/${PROJECT_NAME}.classic.plist\" || exit 1\n ";
+			shellPath = /bin/zsh;
+			shellScript = "\n\nTARGET=\"${BUILT_PRODUCTS_DIR}/${TARGET_NAME}\"\n\nARG=\"${SRCROOT}/${PROJECT_NAME}.classic.plist\"\n\n[[ -f \"$TARGET\" ]] || { say \"missing executable\" && open -R \"${TARGET:h}\" && exit 9 }\n[[ -f \"$ARG\"    ]] || { say missing plist && exit 6 }\n\notool -L \"$TARGET\" || say binary is fucked\n\necho \"$TARGET\" | pbcopy\n\n\"$TARGET\" \"$ARG\"\n\nexit $?\n\n ";
 		};
 /* End PBXShellScriptBuildPhase section */
 

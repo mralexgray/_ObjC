@@ -9,14 +9,14 @@
     "                formatted like _Four lettes, starting with an underscore, capitalized. */\n"
   ],
   {
-    "define:Sugar": [
-      "IOS_ONLY TARGET_OS_IPHONE",
-      "MAC_ONLY !IOS_ONLY",
-      "_ ;",
-      "_Type typedef"
-    ]
-  },
-  {
+    "Sugar": {
+      "define": [
+        "IOS_ONLY TARGET_OS_IPHONE",
+        "MAC_ONLY !IOS_ONLY",
+        "_ ;",
+        "_Type typedef"
+      ]
+    }
   },
   [
     "@import ObjectiveC _",
