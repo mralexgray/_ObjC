@@ -1,0 +1,42 @@
+
+
+#ifndef _ObjC__ObjC_pch
+#define _ObjC__ObjC_pch
+
+
+#define     UDEFS NSUserDefaults.standardUserDefaults
+#define      args NSProcessInfo.processInfo.arguments
+#define XcodePath _system(@"printf \"${$(xcode-select -p)%.app/*}.app\"")
+#define      M(X) NSMutable##X
+#define LOC(S,LOC) [S rangeOfString:LOC].location
+#define $(...) [NSString stringWithFormat:__VA_ARGS__]
+#define $APPEND(X,...) [X appendFormat:__VA_ARGS__]
+#define CR(MSTR) [MSTR appendString:@"\n"]
+
+#import "RegExCategories.h"
+
+NS_INLINE id _sTask(id cmd) { return !cmd ? nil : ({ NSPipe* pipe; NSTask * task;
+
+  [task = NSTask.new setValuesForKeysWithDictionary: @{  @"launchPath" : @"/bin/sh",
+                                                          @"arguments" : @[@"-c", cmd],
+                                                     @"standardOutput" : pipe = NSPipe.pipe}]; [task launch];
+  [NSString.alloc initWithData: pipe.fileHandleForReading.readDataToEndOfFile encoding:NSUTF8StringEncoding]; });
+}
+
+NS_INLINE id _uSort(id str) { return _sTask($(@"echo \"%@\"|sort|uniq", str)); }
+
+
+NS_INLINE NSString * CUTE_HEADER(id str) { M(String)*line = @"".mutableCopy;
+
+
+/// HELPERS
+//////////////
+
+  for (int i = 0; i < [str length] + 6; i++) [line appendString:@"/"];
+  return $(@"%@\n// %@ //\n%@\n", line, str, line);
+}
+
+
+@interface NSString  (Subscript) - objectAtIndexedSubscript:(NSInteger)i; @end
+
+#endif

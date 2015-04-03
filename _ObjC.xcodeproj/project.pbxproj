@@ -13,10 +13,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7B380B851AC949A200285B4E /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC.h; sourceTree = "<group>"; };
 		7B380C881ACADE6B00285B4E /* RegExCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegExCategories.h; path = "Objective-C-RegEx-Categories/RegExCategories.h"; sourceTree = "<group>"; };
 		7B380C891ACADE6B00285B4E /* RegExCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegExCategories.m; path = "Objective-C-RegEx-Categories/RegExCategories.m"; sourceTree = "<group>"; };
-		7B380C8B1ACAE13F00285B4E /* _ObjC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = _ObjC.plist; sourceTree = "<group>"; };
 		7B380C8D1ACAF5A100285B4E /* _ObjC.xcspec */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xcspec; name = _ObjC.xcspec; path = Xcode/_ObjC.xcspec; sourceTree = "<group>"; };
 		7B380C8E1ACAF64500285B4E /* _ObjC.xclangspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xclangspec; name = _ObjC.xclangspec; path = Xcode/_ObjC.xclangspec; sourceTree = "<group>"; };
 		7B38357A1AC681C700D617B9 /* _ObjC_Tool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = _ObjC_Tool; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,6 +33,9 @@
 		7B9B40461AC14ED5002EDD01 /* scratch.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = scratch.sh; sourceTree = "<group>"; };
 		7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = _ObjC_Tests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B9B40731AC16530002EDD01 /* Universal.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Universal.xcconfig; path = ../../xcconfigs/Base/Universal.xcconfig; sourceTree = "<group>"; };
+		7BF684A71ACD76EE00C06D22 /* _ObjC.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC.pch; sourceTree = "<group>"; };
+		7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = _ObjC.plist; sourceTree = "<group>"; };
+		7BF684AC1ACDDE9000C06D22 /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC.h; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,17 +71,17 @@
 		7B9B40251AC14E7D002EDD01 = {
 			isa = PBXGroup;
 			children = (
-				7B380B851AC949A200285B4E /* _ObjC.h */,
-				7B9B40451AC14ED5002EDD01 /* README.md */,
-				7B8BD9631AC67C6C001DD440 /* _ObjC.trashedplist */,
-				7B380C8B1ACAE13F00285B4E /* _ObjC.plist */,
+				7BF684AC1ACDDE9000C06D22 /* _ObjC.h */,
+				7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */,
 				7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */,
 				7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */,
-				7B380C8C1ACAF54E00285B4E /* Xcode */,
+				7BF684A71ACD76EE00C06D22 /* _ObjC.pch */,
 				7B380C881ACADE6B00285B4E /* RegExCategories.h */,
 				7B380C891ACADE6B00285B4E /* RegExCategories.m */,
+				7B9B40451AC14ED5002EDD01 /* README.md */,
 				7B5DC23A1AC8658E0063D701 /* Products */,
 				7B9B40731AC16530002EDD01 /* Universal.xcconfig */,
+				7B380C8C1ACAF54E00285B4E /* Xcode */,
 				7B9B40521AC14FB0002EDD01 /* Unused */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +89,7 @@
 		7B9B40521AC14FB0002EDD01 /* Unused */ = {
 			isa = PBXGroup;
 			children = (
+				7B8BD9631AC67C6C001DD440 /* _ObjC.trashedplist */,
 				7B9B403E1AC14ED5002EDD01 /* .travis.yml */,
 				7B9B403F1AC14ED5002EDD01 /* _ObjC.classic.h */,
 				7B9B40401AC14ED5002EDD01 /* _ObjC.podspec.json */,
@@ -180,10 +182,12 @@
 			);
 			name = "Run Script";
 			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/_ObjC.h",
+				"$(SRCROOT)/_ObjC.h",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "\n\nTARGET=\"${BUILT_PRODUCTS_DIR}/${TARGET_NAME}\"\n\nARG=\"${SRCROOT}/${PROJECT_NAME}.classic.plist\"\n\n[[ -f \"$TARGET\" ]] || { say \"missing executable\" && open -R \"${TARGET:h}\" && exit 9 }\n[[ -f \"$ARG\"    ]] || { say missing plist && exit 6 }\n\notool -L \"$TARGET\" || say binary is fucked\n\necho \"$TARGET\" | pbcopy\n\n\"$TARGET\" \"$ARG\"\n\nexit $?\n\n ";
+			shellScript = "\nset -x\n\nTARGET=\"${BUILT_PRODUCTS_DIR}/${TARGET_NAME}\"\n\n\n[[ -f \"$TARGET\" ]] || { say \"missing executable\" && open -R \"${TARGET:h}\" && exit 9 }\n[[ -f \"$SCRIPT_INPUT_FILE_0\" ]] || { say \"missing plist $SCRIPT_INPUT_FILE_0\" && exit 6 }\n\notool -L \"$TARGET\" || say binary is fucked\n\nfor i in {1..$(expr $SCRIPT_OUTPUT_FILE_COUNT - 1)}; {\n\n    OUTFILE=\"${OUTFILE:-$SCRIPT_OUTPUT_FILE_0}:$(eval echo \\$SCRIPT_OUTPUT_FILE_$i)\"\n}\nsay \"$TARGET\"\n\"$TARGET\" \"$SCRIPT_INPUT_FILE_0\" -o \"$OUTFILE\"\n\n## exit $?\n\n ";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -229,6 +233,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = _ObjC.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"SRCROOT=\\\"$(SRCROOT)\\\"",
 					"BUILT_PRODUCTS_DIR=\\\"$(BUILT_PRODUCTS_DIR)\\\"",
@@ -267,6 +273,8 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = _ObjC.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"SRCROOT=\\\"$(SRCROOT)\\\"",
 					"BUILT_PRODUCTS_DIR=\\\"$(BUILT_PRODUCTS_DIR)\\\"",

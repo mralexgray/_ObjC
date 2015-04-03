@@ -1,17 +1,19 @@
 
-#define      args NSProcessInfo.processInfo.arguments
-#define XcodePath _system(@"printf \"${$(xcode-select -p)%.app/*}.app\"")
-#define      M(X) NSMutable##X
-#define LOC(S,LOC) [S rangeOfString:LOC].location
-#define $(...) [NSString stringWithFormat:__VA_ARGS__]
-#define $APPEND(X,...) [X appendFormat:__VA_ARGS__]
-#define CR(MSTR) [MSTR appendString:@"\n"]
+#define TEMPLATE  @""\
+"/*!   @abstract _ObjC is concise dialect of ObjC that is terse and compatible - without needless tricks."\
 
-#import "RegExCategories.h"
 
-id _uSort(id); id _sTask(id); static M(Dictionary)* primitives, *pointers, *parenthized, *qualifiers;
+NSString * thisFile (){ return [NSString stringWithUTF8String:__FILE__]; }
+NSString *  srcroot (){ return thisFile().stringByDeletingLastPathComponent; }
+NSString *  projNme (){ return srcroot().lastPathComponent; }
+ NSArray * outPaths (){ id defs = [UDEFS stringForKey:@"o"];
 
-@implementation NSString  (Subscript) - objectAtIndexedSubscript:(NSInteger)i { return i < 0 ? [self substringFromIndex:ABS(i)] : [self substringToIndex:i]; } @end
+  return defs ? [defs componentsSeparatedByString:@":"] :
+                @[ $(@"%s/%@.h", BUILT_PRODUCTS_DIR, projNme()),
+                   $(@"%@/%@.h", srcroot(),            projNme())];
+}
+
+static M(Dictionary)* primitives, *pointers,  *classShortcuts, *parenthized, *qualifiers;
 
 @implementation M(String) (Plist2Header)
 
@@ -23,50 +25,43 @@ id _uSort(id); id _sTask(id); static M(Dictionary)* primitives, *pointers, *pare
     exclusive ? $APPEND(self, @"\n#endif // %@\n",   exclusive) : CR(self);
 }
 
-- (void) _addDefine:dstr {
-
-    NSUInteger space = LOC(dstr,@" "); // defines are split at first "space".
-
-    $APPEND(self,@"#define %30s %@\n", [dstr[space] UTF8String], dstr[-space]);
-}
-
-- (void) _appendMap:defs { M(String)* methArgs, *dereferenceable;
+- (void) _appendMap:dict { M(String)* methArgs, *dereferenceable;
 
     methArgs = @"\n/// Good to make \"shortcuts\" for ALL `_ObjC` types as \"method arguments\"\n"
                 "/// with a leading Underscore to use ase parenthesis-free method parameterts!\n".mutableCopy;
 
     dereferenceable = @"/// For ObjC classes, let's define a preprocessor Macro to call the direct Classes, without the _.\n".mutableCopy;
 
-    [defs enumerateKeysAndObjectsUsingBlock:^(id mapping, id map, BOOL* stop) {
+    [dict enumerateKeysAndObjectsUsingBlock:^(id mapping, id map, BOOL* stop) {
 
       [self _if:mapping do:^{
 
         $APPEND(self,@"#pragma mark - %@ \n\n", mapping);
 
-        for (NSString * def in map) {
+        [self appendString:CUTE_HEADER(@"VAGEEN")];
+        
+        for (NSString * standard in [map keysSortedByValueUsingSelector:@selector(compare:)]) {
 
-          NSRange     range = [def rangeOfString:@" " options:NSBackwardsSearch];
-          NSString *newType = def[ - (range.location + 1) ],
-                 * standard = def[    range.location      ];
+          NSString *newType = map[standard];
           BOOL    isPointer = LOC(standard,@"*") != NSNotFound;
-
-          (isPointer ? (pointers   = pointers   ?: @{}.mutableCopy) :
-                       (primitives = primitives ?: @{}.mutableCopy))
-
-          [isPointer ? standard[standard.length -2] : standard] = newType;
 
           $APPEND(self,@"_Type %30s  %@ _\n", standard.UTF8String, newType);
 
-          if ([@[@"CA", @"NS", @"AV"] containsObject:[standard substringToIndex:2]] && isPointer) { // dereferenceable
+          if (isPointer && [@[@"CA", @"NS", @"AV"] containsObject:[standard substringToIndex:2]]) { // dereferenceable
 
-            NSString *prefix = [newType substringToIndex:1];
+            NSString *prefix = [newType substringToIndex:1],
+                  * originalClassName = standard[standard.length -2],
+                  * shortcut = [newType[-1] stringByAppendingString: ![prefix isEqualToString:@"_"]
+                                                                     ? prefix.uppercaseString : @""];
 
-            $APPEND(dereferenceable, @"\n#define %30s%@  %@", [newType[-1] UTF8String],
-
-            [prefix isEqualToString:@"_"] ? @"" : prefix.uppercaseString, standard[standard.length -2]);
+            $APPEND(dereferenceable, @"\n#define %30s  %@", shortcut.UTF8String, originalClassName);
+            (classShortcuts = classShortcuts ?:@{}.mutableCopy)[originalClassName] = shortcut;
           }
 
-          $APPEND(methArgs,@"\n#define %15s_  (%@)", newType.UTF8String, newType);
+          // Add parenthised to dict for regex.
+          (parenthized = parenthized ?: @{}.mutableCopy)[$(@"(%@)", newType)] = $(@"%@_", newType);
+
+          $APPEND(methArgs,@"\n#define %15s_  (%@)", newType.UTF8String, newType); // add panethised to header in methargs block
         }
       }];
 
@@ -98,7 +93,14 @@ id _hMake(id path) {
 
     [entry enumerateKeysAndObjectsUsingBlock:^(NSString* kind, id defs, BOOL* s) {
 
-      [kind    hasPrefix:@"define"] ? [head _if:kind do:^{ for (id def in defs) [head _addDefine:def]; }]:
+      [kind    hasPrefix:@"define"] ? [head _if:kind do:^{
+
+        for (id k in [defs keysSortedByValueUsingSelector:@selector(compare:)]) {
+          [head appendFormat:@"#define %30s %@\n", [k UTF8String], defs[k]];
+
+        }
+      }] :
+//      for (id def in defs) [head _addDefine:def]; }]:
 
       [kind isEqualToString:@"map"] ? [head _appendMap:defs] : nil;
     }];
@@ -106,39 +108,32 @@ id _hMake(id path) {
   return head;
 }
 
-id _uSort(id str) { return _sTask($(@"echo \"%@\"|sort|uniq", str)); }
-
-id _sTask(id cmd) { return !cmd ? nil : ({ NSPipe* pipe; NSTask * task;
-
-  [task = NSTask.new setValuesForKeysWithDictionary: @{  @"launchPath" : @"/bin/zsh",
-                                                          @"arguments" : @[@"-c", cmd],
-                                                     @"standardOutput" : pipe = NSPipe.pipe}]; [task launch];
-  [NSString.alloc initWithData: pipe.fileHandleForReading.readDataToEndOfFile encoding:NSUTF8StringEncoding]; });
-}
-
 int main() { @autoreleasepool {
 
-  NSString* thisFile = [NSString stringWithUTF8String:__FILE__],
-           * srcroot = thisFile.stringByDeletingLastPathComponent,
-           * projNme = srcroot.lastPathComponent,
-             * plist = args.count > 1 ? args[1] : $(@"%@/%@.plist", srcroot, projNme);
+  id plist = args.count > 1 ? args[1] : $(@"%@/%@.plist", srcroot(), projNme());
 
   id genHeader = _hMake(plist); NSError *e = nil;
 
-  NSLog(@"genheader %@", genHeader);
-  
-  for(id x in @[ $(@"%s/%@.h", BUILT_PRODUCTS_DIR, projNme),
-                 $(@"%@/%@.h", srcroot,            projNme)])
+  for (id x in outPaths())
 
     [genHeader writeToFile:x atomically:YES encoding:NSUTF8StringEncoding error:&e]; !e ?: NSLog(@"error:%@",e);
 
-  for (id arg in args) ![arg isMatch:RX(@".*\\.(m|h)$")] ?: NSLog(@"Need to preprocess %@", arg);
-
-  NSLog(@"pointers: %@, primitives: %@", pointers, primitives);
+//  _preProc();
 
 } return EXIT_SUCCESS; }
 
+
+@implementation NSString (Subscript)
+
+- objectAtIndexedSubscript:(NSInteger)i { return i < 0 ? [self substringFromIndex:ABS(i)] : [self substringToIndex:i]; }
+
+@end
+
+
 /*
+  for(id x in @[ $(@"%s/%@.h", BUILT_PRODUCTS_DIR, projNme),
+                 $(@"%@/%@.h", srcroot,            projNme)])
+
 int _longest(id strings);
 
 
@@ -204,5 +199,27 @@ int _longest(id strings) {
 //  if (type)
 }
 @end
-*/
 
+- (void) _addDefines:pair { // dstr = [dstr hasPrefix:@" "] ? dstr[-1] : dstr;
+
+    NSUInteger space = LOC(dstr,@" "); // defines are split at first "space".
+
+    [self appendFormat:@"#define %30s %@\n", [pair[0] UTF8String], pair[1]];
+}
+
+void _preProc() {
+
+  NSLog(@"pointers: %@, primitives: %@, classshortcuts: %@, paranthized: %@", pointers, primitives, classShortcuts, parenthized);
+
+//  static Rx *shortcuts = nil;
+//  shortcuts = shortcuts ?: RX([classShortcuts.allKeys componentsJoinedByString:@"|"]);
+
+  for (id arg in args) ![arg isMatch:RX(@".*\\.(m|h)$")] ?: ({  NSLog(@"Need to preprocess %@", arg);
+
+    __unused M(String) *work = [M(String) stringWithContentsOfFile:arg encoding:NSUTF8StringEncoding error:nil];
+
+  });
+
+}
+
+*/
