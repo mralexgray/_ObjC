@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+xcodebuild
+
+: '
+
 logger "$@"
 
 PROJ_FOLDER_="$(cd -P -- $(dirname -- $(command -v -- $0)) && pwd -P)"
@@ -81,4 +85,7 @@ regex() {
 [[ "$1" == "update" ]] && say updating && update    && exit
                                           regex "$@"
 
+'
+
+say done
 

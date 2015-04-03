@@ -12,6 +12,23 @@
 		7B9B40501AC14F6E002EDD01 /* _ObjC_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7BB4152D1ACE76F50024D285 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB415281ACE76F40024D285 /* Objective-C-Regex-Categories.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC7CC7CF1848F63D007FCB6B;
+			remoteInfo = "Objective-C-Regex-Categories";
+		};
+		7BB4152F1ACE76F50024D285 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BB415281ACE76F40024D285 /* Objective-C-Regex-Categories.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC7CC7EA1848F63E007FCB6B;
+			remoteInfo = "Objective-C-Regex-Categories-Tests";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		7B380C881ACADE6B00285B4E /* RegExCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegExCategories.h; path = "Objective-C-RegEx-Categories/RegExCategories.h"; sourceTree = "<group>"; };
 		7B380C891ACADE6B00285B4E /* RegExCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegExCategories.m; path = "Objective-C-RegEx-Categories/RegExCategories.m"; sourceTree = "<group>"; };
@@ -33,6 +50,8 @@
 		7B9B40461AC14ED5002EDD01 /* scratch.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = scratch.sh; sourceTree = "<group>"; };
 		7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = _ObjC_Tests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B9B40731AC16530002EDD01 /* Universal.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Universal.xcconfig; path = ../../xcconfigs/Base/Universal.xcconfig; sourceTree = "<group>"; };
+		7BB414D91ACE62F70024D285 /* _ObjC_Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC_Template.h; sourceTree = "<group>"; };
+		7BB415281ACE76F40024D285 /* Objective-C-Regex-Categories.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Objective-C-Regex-Categories.xcodeproj"; path = "Objective-C-RegEx-Categories/TestProject/Objective-C-Regex-Categories.xcodeproj"; sourceTree = "<group>"; };
 		7BF684A71ACD76EE00C06D22 /* _ObjC.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC.pch; sourceTree = "<group>"; };
 		7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = _ObjC.plist; sourceTree = "<group>"; };
 		7BF684AC1ACDDE9000C06D22 /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC.h; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,8 +91,10 @@
 			isa = PBXGroup;
 			children = (
 				7BF684AC1ACDDE9000C06D22 /* _ObjC.h */,
+				7BB414D91ACE62F70024D285 /* _ObjC_Template.h */,
 				7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */,
 				7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */,
+				7BB415281ACE76F40024D285 /* Objective-C-Regex-Categories.xcodeproj */,
 				7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */,
 				7BF684A71ACD76EE00C06D22 /* _ObjC.pch */,
 				7B380C881ACADE6B00285B4E /* RegExCategories.h */,
@@ -100,6 +121,15 @@
 				7B9B40461AC14ED5002EDD01 /* scratch.sh */,
 			);
 			name = Unused;
+			sourceTree = "<group>";
+		};
+		7BB415291ACE76F40024D285 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7BB4152E1ACE76F50024D285 /* Objective-C-Regex-Categories.app */,
+				7BB415301ACE76F50024D285 /* Objective-C-Regex-Categories-Tests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,13 +193,36 @@
 			mainGroup = 7B9B40251AC14E7D002EDD01;
 			productRefGroup = 7B9B40251AC14E7D002EDD01;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7BB415291ACE76F40024D285 /* Products */;
+					ProjectRef = 7BB415281ACE76F40024D285 /* Objective-C-Regex-Categories.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
-				7B9B40321AC14EB6002EDD01 /* _ObjC_Tests */,
 				7B3835791AC681C700D617B9 /* _ObjC_Tool */,
+				7B9B40321AC14EB6002EDD01 /* _ObjC_Tests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		7BB4152E1ACE76F50024D285 /* Objective-C-Regex-Categories.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Objective-C-Regex-Categories.app";
+			remoteRef = 7BB4152D1ACE76F50024D285 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BB415301ACE76F50024D285 /* Objective-C-Regex-Categories-Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Objective-C-Regex-Categories-Tests.xctest";
+			remoteRef = 7BB4152F1ACE76F50024D285 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		7B5DC2351AC841190063D701 /* Run Script */ = {
@@ -179,6 +232,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/_ObjC.plist",
+				"$(SRCROOT)/_ObjC_Template.h",
 			);
 			name = "Run Script";
 			outputPaths = (
@@ -187,7 +241,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "\nset -x\n\nTARGET=\"${BUILT_PRODUCTS_DIR}/${TARGET_NAME}\"\n\n\n[[ -f \"$TARGET\" ]] || { say \"missing executable\" && open -R \"${TARGET:h}\" && exit 9 }\n[[ -f \"$SCRIPT_INPUT_FILE_0\" ]] || { say \"missing plist $SCRIPT_INPUT_FILE_0\" && exit 6 }\n\notool -L \"$TARGET\" || say binary is fucked\n\nfor i in {1..$(expr $SCRIPT_OUTPUT_FILE_COUNT - 1)}; {\n\n    OUTFILE=\"${OUTFILE:-$SCRIPT_OUTPUT_FILE_0}:$(eval echo \\$SCRIPT_OUTPUT_FILE_$i)\"\n}\nsay \"$TARGET\"\n\"$TARGET\" \"$SCRIPT_INPUT_FILE_0\" -o \"$OUTFILE\"\n\n## exit $?\n\n ";
+			shellScript = "\nset -x\n\nTARGET=\"${BUILT_PRODUCTS_DIR}/${TARGET_NAME}\"\n\n\n[[ -f \"$TARGET\" ]] || { say \"missing executable\" && open -R \"${TARGET:h}\" && exit 9 }\n[[ -f \"$SCRIPT_INPUT_FILE_0\" ]] || { say \"missing plist $SCRIPT_INPUT_FILE_0\" && exit 6 }\n\notool -L \"$TARGET\" || say binary is fucked\n\nfor i in {1..$(expr $SCRIPT_OUTPUT_FILE_COUNT - 1)}; {\n\n    OUTFILE=\"${OUTFILE:-$SCRIPT_OUTPUT_FILE_0}:$(eval echo \\$SCRIPT_OUTPUT_FILE_$i)\"\n}\nsay \"$TARGET\"\n\n\"$TARGET\" \"$SCRIPT_INPUT_FILE_0\" -o \"$OUTFILE\"\n\n## exit $?\n\n ";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -227,11 +281,8 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = _ObjC.pch;
@@ -246,10 +297,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 			};
 			name = Debug;
 		};
@@ -268,11 +318,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = _ObjC.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -285,9 +333,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MTL_ENABLE_DEBUG_INFO = NO;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 			};
 			name = Release;
 		};
@@ -350,7 +398,7 @@
 				7B3835801AC681C700D617B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7B9B40291AC14E7D002EDD01 /* Build configuration list for PBXProject "_ObjC" */ = {
 			isa = XCConfigurationList;
@@ -359,7 +407,7 @@
 				7B9B402B1AC14E7D002EDD01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7B9B403A1AC14EB6002EDD01 /* Build configuration list for PBXNativeTarget "_ObjC_Tests" */ = {
 			isa = XCConfigurationList;
@@ -368,7 +416,7 @@
 				7B9B403C1AC14EB6002EDD01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

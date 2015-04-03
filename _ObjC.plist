@@ -1,119 +1,39 @@
-(
-    "/*!   @abstract _ObjC is concise dialect of ObjC that is terse and compatible - without needless tricks.",
-        (
-        "    @discussion It strives to minimize excessive *'s, {}'s, and ()'s, and so on, and so forth.",
-        "                Class pointers and types are typedef'd to aliases, with no pointer,",
-        "                formatted like _Four lettes, starting with an underscore, capitalized. */\n",
-        "#ifdef   __OBJC__\n#ifndef   _ObjC__\n#define   _ObjC__\n",
-        "#define        _ ;\n\n#define IOS_ONLY TARGET_OS_IPHONE\n#define MAC_ONLY !IOS_ONLY\n\n#define    _Type typedef\n#define     Incl import\n#define     Optn optional\n#define     Reqd required\n#define     Stop end\n#define        \Uffed @Stop\n"
-    ),
-    "/// Let's standarize the preprocessor names too!\n",
-        (
-        "@import ObjectiveC _\n @class AVAudioPlayer,\n        WebView _",
-        "#    if MAC_ONLY",
-        "@import Cocoa _",
-        "#  elif IOS_ONLY",
-        "@import UIKit _\n\n"
-    ),
-    "// Standarize names 1:1 between platforms.\n",
-        {
-        define =         {
-            NSApp = UIApp;
-            NSApplication = UIApplication;
-            NSBezierPath = UIBezierPath;
-            NSColor = UIColor;
-            NSEvent = UIEvent;
-            NSFont = UIFont;
-            NSImage = UIImage;
-            NSNib = UINib;
-            NSPoint = CGPoint;
-            NSRect = CGRect;
-            NSScreen = UIScreen;
-            NSSize = CGSize;
-            NSTableView = UITableView;
-            NSUserNotification = UILocalNotification;
-            NSView = UIView;
-            NSWindow = UIWindow;
-            NSZeroPoint = CGPointZero;
-            NSZeroRect = CGRectZero;
-            NSZeroSize = CGSizeZero;
+{
+    DEFINES =     {
+        ABBREVIATIONS =         {
+            "_C" = const;
+            "_E" = extern;
+            "_I" = inline;
+            "_S" = static;
+            "_U" = unsigned;
+            bFK = boolForKey;
+            bV = boolValue;
+            dV = doubleValue;
+            fV = floatValue;
+            iV = integerValue;
+            mAVFK = mutableArrayValueForKey;
+            mC = mutableCopy;
+            oFK = objectForKey;
+            pV = pointValue;
+            rV = rectValue;
+            rngV = rangeValue;
+            strV = stringValue;
+            uIV = unsignedIntegerValue;
+            vFK = valueForKey;
+            vFKP = valueForKeyPath;
         };
-    },
-    "#endif // Per-Platform Imports",
-        {
-        map =         {
-            pointers =             {
-                "AVAudioPlayer *" = "_SndP";
-                "CALayer *" = "_Layr";
-                "NSApplication *" = "_Appl";
-                "NSArray *" = "_List";
-                "NSBezierPath *" = "_Path";
-                "NSBundle *" = "_Bndl";
-                "NSColor *" = "_Colr";
-                "NSData *" = "_Data";
-                "NSDictionary *" = "_Dict";
-                "NSError *" = "_Errr";
-                "NSEvent *" = "_Evnt";
-                "NSFileHandle *" = "_File";
-                "NSFont *" = "_Font";
-                "NSImage *" = "_Pict";
-                "NSMutableArray *" = mList;
-                "NSMutableData *" = mData;
-                "NSMutableDictionary *" = mDict;
-                "NSMutableParagraphStyle *" = mPStl;
-                "NSMutableString *" = mText;
-                "NSNotification *" = "_Note";
-                "NSNumber *" = "_Numb";
-                "NSObject *" = "_NObj";
-                "NSParagraphStyle *" = "_PStl";
-                "NSPipe *" = "_Pipe";
-                "NSString *" = "_Text";
-                "NSTableView *" = "_TblV";
-                "NSURL *" = "_NUrl";
-                "NSUserDefaults *" = "_Defs";
-                "NSView *" = "_View";
-                "NSWindow *" = "_Wind";
-                "char *" = "_Char";
-                "const char *" = "_CChr";
-                "unsigned char *" = "_UChr";
-            };
-            "pointers_MAC_ONLY" =             {
-                "NSArrayController *" = "_LstX";
-                "NSImageView *" = "_PicV";
-                "NSMenu *" = "_Menu";
-                "NSMenuItem *" = "_SubM";
-                "NSOutlineView *" = "_OutV";
-                "NSScrollView *" = "_Scrl";
-                "NSSplitView *" = "_Splt";
-                "NSTableColumn *" = "_TCol";
-                "NSTask *" = "_Task";
-                "WebView *" = "_WebV";
-            };
-            primitives =             {
-                BOOL = "_IsIt";
-                Class = "_Meta";
-                NSComparisonResult = "_Comp";
-                NSInteger = "_SInt";
-                NSUInteger = "_UInt";
-                SEL = "_Meth";
-                id = "_ObjC";
-                long = "_Long";
-                "unsigned long" = "_ULng";
-                void = "_Void";
-            };
-            structs =             {
-                CGAffineTransform = "_AffT";
-                CGFloat = "_Flot";
-                CGPoint = "_Cord";
-                CGRect = "_Rect";
-                CGSize = "_Size";
-                NSRange = "_Rnge";
-            };
+        "GEOMETRY_TRANSLATIONS" =         {
+            NSEqualPoints = CGPointEqualToPoint;
+            NSEqualRects = CGRectEqualToRect;
+            NSEqualSizes = CGSizeEqualToSize;
+            NSMakePoint = CGPointMake;
+            NSMakeRect = CGRectMake;
+            NSMakeSize = CGSizeMake;
+            "NSPointInRect(P,R)" = "CGRectContainsPoint(R,P)";
+            pointValue = CGPointValue;
+            rectValue = CGRectValue;
         };
-    },
-    "\n/*! Kind - Interface (Prototypes, Public, Name, etc)\n    Vows - Protocol  (Promises, etc)\n    Plan - Implemenation\n    Xtra - Categories                                      */\n",
-        {
-        define =         {
+        MISC =         {
             "INIT_(K,...)" = "[[K alloc] init##__VA_ARGS__]";
             "INTERFACE(X,...)" = "@interface X : __VA_ARGS__ + (instancetype)";
             "Kind(Name,...)" = "Kind_(Name,NObj,__VA_ARGS__)";
@@ -137,49 +57,30 @@
             "_Kind_" = "(instancetype) /// Sugar for (instancetype) methods.";
             "_PRTO" = "@protocol";
             "_Test(X,...)" = "- (void) test##X { ({ __VA_ARGS__; }); }";
-            "\Uff3f" = Plan;
         };
-    },
-        {
-        define =         {
-            "_C" = const;
-            "_E" = extern;
-            "_I" = inline;
-            "_S" = static;
-            "_U" = unsigned;
-            bFK = boolForKey;
-            bV = boolValue;
-            dV = doubleValue;
-            fV = floatValue;
-            iV = integerValue;
-            mAVFK = mutableArrayValueForKey;
-            mC = mutableCopy;
-            oFK = objectForKey;
-            pV = pointValue;
-            rV = rectValue;
-            rngV = rangeValue;
-            strV = stringValue;
-            uIV = unsignedIntegerValue;
-            vFK = valueForKey;
-            vFKP = valueForKeyPath;
+        "STANDARD_NAMES" =         {
+            NSApp = UIApp;
+            NSApplication = UIApplication;
+            NSBezierPath = UIBezierPath;
+            NSColor = UIColor;
+            NSEvent = UIEvent;
+            NSFont = UIFont;
+            NSImage = UIImage;
+            NSNib = UINib;
+            NSPoint = CGPoint;
+            NSRect = CGRect;
+            NSScreen = UIScreen;
+            NSSize = CGSize;
+            NSTableView = UITableView;
+            NSUserNotification = UILocalNotification;
+            NSView = UIView;
+            NSWindow = UIWindow;
+            NSZeroPoint = CGPointZero;
+            NSZeroRect = CGRectZero;
+            NSZeroSize = CGSizeZero;
         };
-    },
-    "// GEOMETRY TRANSLATIONS",
-        {
-        "define_IOS_ONLY" =         {
-            NSEqualPoints = CGPointEqualToPoint;
-            NSEqualRects = CGRectEqualToRect;
-            NSEqualSizes = CGSizeEqualToSize;
-            NSMakePoint = CGPointMake;
-            NSMakeRect = CGRectMake;
-            NSMakeSize = CGSizeMake;
-            "NSPointInRect(P,R)" = "CGRectContainsPoint(R,P)";
-            pointValue = CGPointValue;
-            rectValue = CGRectValue;
-        };
-    },
-    "#endif // _ObjC__\n#endif // __ObjC__\n",
-        {
+    };
+    REFERENCE =     {
         AllCLasses =         (
             ABAddressBook,
             ABGroup,
@@ -1011,5 +912,80 @@
             NSWritingDirection,
             NSZone
         );
-    }
-)
+    };
+    "SORT_ALPHA" =     (
+        "DEFINES.ABBREVIATIONS"
+    );
+    "SORT_LENGTH" =     (
+        "TYPES.PRIMITIVES"
+    );
+    TYPES =     {
+        POINTERS =         {
+            "AVAudioPlayer *" = "_SndP";
+            "CALayer *" = "_Layr";
+            "NSApplication *" = "_Appl";
+            "NSArray *" = "_List";
+            "NSBezierPath *" = "_Path";
+            "NSBundle *" = "_Bndl";
+            "NSColor *" = "_Colr";
+            "NSData *" = "_Data";
+            "NSDictionary *" = "_Dict";
+            "NSError *" = "_Errr";
+            "NSEvent *" = "_Evnt";
+            "NSFileHandle *" = "_File";
+            "NSFont *" = "_Font";
+            "NSImage *" = "_Pict";
+            "NSMutableArray *" = mList;
+            "NSMutableData *" = mData;
+            "NSMutableDictionary *" = mDict;
+            "NSMutableParagraphStyle *" = mPStl;
+            "NSMutableString *" = mText;
+            "NSNotification *" = "_Note";
+            "NSNumber *" = "_Numb";
+            "NSObject *" = "_NObj";
+            "NSParagraphStyle *" = "_PStl";
+            "NSPipe *" = "_Pipe";
+            "NSString *" = "_Text";
+            "NSTableView *" = "_TblV";
+            "NSURL *" = "_NUrl";
+            "NSUserDefaults *" = "_Defs";
+            "NSView *" = "_View";
+            "NSWindow *" = "_Wind";
+            "char *" = "_Char";
+            "const char *" = "_CChr";
+            "unsigned char *" = "_UChr";
+        };
+        "POINTERS_MAC" =         {
+            "NSArrayController *" = "_LstX";
+            "NSImageView *" = "_PicV";
+            "NSMenu *" = "_Menu";
+            "NSMenuItem *" = "_SubM";
+            "NSOutlineView *" = "_OutV";
+            "NSScrollView *" = "_Scrl";
+            "NSSplitView *" = "_Splt";
+            "NSTableColumn *" = "_TCol";
+            "NSTask *" = "_Task";
+            "WebView *" = "_WebV";
+        };
+        PRIMITIVES =         {
+            BOOL = "_IsIt";
+            Class = "_Meta";
+            NSComparisonResult = "_Comp";
+            NSInteger = "_SInt";
+            NSUInteger = "_UInt";
+            SEL = "_Meth";
+            id = "_ObjC";
+            long = "_Long";
+            "unsigned long" = "_ULng";
+            void = "_Void";
+        };
+        STRUCTS =         {
+            CGAffineTransform = "_AffT";
+            CGFloat = "_Flot";
+            CGPoint = "_Cord";
+            CGRect = "_Rect";
+            CGSize = "_Size";
+            NSRange = "_Rnge";
+        };
+    };
+}

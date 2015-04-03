@@ -28,6 +28,26 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7B9B40321AC14EB6002EDD01"
+               BuildableName = "_ObjC_Tests.xctest"
+               BlueprintName = "_ObjC_Tests"
+               ReferencedContainer = "container:_ObjC.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BC7CC7E91848F63E007FCB6B"
+               BuildableName = "Objective-C-Regex-Categories-Tests.xctest"
+               BlueprintName = "Objective-C-Regex-Categories-Tests"
+               ReferencedContainer = "container:Objective-C-RegEx-Categories/TestProject/Objective-C-Regex-Categories.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

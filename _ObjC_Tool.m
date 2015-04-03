@@ -1,124 +1,101 @@
 
-#define TEMPLATE  @""\
-"/*!   @abstract _ObjC is concise dialect of ObjC that is terse and compatible - without needless tricks."\
-
 
 NSString * thisFile (){ return [NSString stringWithUTF8String:__FILE__]; }
+
 NSString *  srcroot (){ return thisFile().stringByDeletingLastPathComponent; }
+
 NSString *  projNme (){ return srcroot().lastPathComponent; }
- NSArray * outPaths (){ id defs = [UDEFS stringForKey:@"o"];
 
-  return defs ? [defs componentsSeparatedByString:@":"] :
-                @[ $(@"%s/%@.h", BUILT_PRODUCTS_DIR, projNme()),
-                   $(@"%@/%@.h", srcroot(),            projNme())];
+static  id outPaths (){
+
+  return [[UDEFS stringForKey:@"o"] componentsSeparatedByString:@":"]
+      ?: @[ $(@"%s/%@.h", BUILT_PRODUCTS_DIR, projNme()), $(@"%@/%@.h", srcroot(),projNme())];
 }
-
-static M(Dictionary)* primitives, *pointers,  *classShortcuts, *parenthized, *qualifiers;
-
-@implementation M(String) (Plist2Header)
-
-- (void) _if:key do:(void (^)())stuff {
-
-    NSString* exclusive = LOC(key,@"_") == NSNotFound ? nil : key[ - (LOC(key,@"_") + 1) ];
-
-    exclusive ? $APPEND(self, @"\n#if %@ // $@\n\n", exclusive) : CR(self); stuff();
-    exclusive ? $APPEND(self, @"\n#endif // %@\n",   exclusive) : CR(self);
+static  id listPath () { return  args.count > 1 ? args[1] : $(@"%@/%@.plist", srcroot(), projNme()); }
+static  id plistRef () { return [NSDictionary dictionaryWithContentsOfFile:listPath()];
 }
+static  id template () { return @"/Volumes/2T/ServiceData/AtoZ.framework/AtoZUniversal/_ObjC/_ObjC_Template.h"; }
 
-- (void) _appendMap:dict { M(String)* methArgs, *dereferenceable;
 
-    methArgs = @"\n/// Good to make \"shortcuts\" for ALL `_ObjC` types as \"method arguments\"\n"
-                "/// with a leading Underscore to use ase parenthesis-free method parameterts!\n".mutableCopy;
+NSString * _genTokens (id parse) { id _backing = [plistRef() valueForKeyPath:parse];
 
-    dereferenceable = @"/// For ObjC classes, let's define a preprocessor Macro to call the direct Classes, without the _.\n".mutableCopy;
+  NSLog(@"gettting KP:%@", parse);
 
-    [dict enumerateKeysAndObjectsUsingBlock:^(id mapping, id map, BOOL* stop) {
+  id key = [parse componentsSeparatedByString:@"."];
+  BOOL _emitsTypes = [key[0] isEqualToString:@"TYPES"],
+         _sortName = ( [_backing[ @"SORT_ALPHA"]containsObject:parse] || _emitsTypes) &&
+                      ![_backing[@"SORT_LENGTH"]containsObject:parse];
 
-      [self _if:mapping do:^{
+  id sortedKs = [[_backing allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    return _sortName ? [obj1 compare:obj2 options:NSCaseInsensitiveSearch]
+                     : [@([obj1 length]) compare:@([obj2 length])];
+  }];
 
-        $APPEND(self,@"#pragma mark - %@ \n\n", mapping);
+  M(String) *snippet = @"".mutableCopy, *pointerMap = [key[1] containsString:@"POINT"] ? @"".mutableCopy : nil,
+                                        *methArgs = _emitsTypes ? @"".mutableCopy : nil;
 
-        [self appendString:CUTE_HEADER(@"VAGEEN")];
-        
-        for (NSString * standard in [map keysSortedByValueUsingSelector:@selector(compare:)]) {
+  for (id k in sortedKs) {
 
-          NSString *newType = map[standard];
-          BOOL    isPointer = LOC(standard,@"*") != NSNotFound;
+    [snippet appendFormat:@"%@ %30s %@ %@\n", _emitsTypes ? @"_Type": @"#define", [k UTF8String], _backing[k],
+                                              _emitsTypes ? @"_": @""];
 
-          $APPEND(self,@"_Type %30s  %@ _\n", standard.UTF8String, newType);
+      if (pointerMap) {
 
-          if (isPointer && [@[@"CA", @"NS", @"AV"] containsObject:[standard substringToIndex:2]]) { // dereferenceable
-
-            NSString *prefix = [newType substringToIndex:1],
-                  * originalClassName = standard[standard.length -2],
-                  * shortcut = [newType[-1] stringByAppendingString: ![prefix isEqualToString:@"_"]
+              NSString *prefix = [_backing[k] substringToIndex:1],
+                  * originalClassName = k[[k length] -2],
+                  * shortcut = [_backing[k][-1] stringByAppendingString: ![prefix isEqualToString:@"_"]
                                                                      ? prefix.uppercaseString : @""];
 
-            $APPEND(dereferenceable, @"\n#define %30s  %@", shortcut.UTF8String, originalClassName);
-            (classShortcuts = classShortcuts ?:@{}.mutableCopy)[originalClassName] = shortcut;
-          }
+            [pointerMap appendFormat:@"\n#define %26s  %@", shortcut.UTF8String, originalClassName];
+      }
+      if (_emitsTypes) {
 
-          // Add parenthised to dict for regex.
-          (parenthized = parenthized ?: @{}.mutableCopy)[$(@"(%@)", newType)] = $(@"%@_", newType);
+        [methArgs appendFormat:@"#define %22s_ (%@)\n", [_backing[k] UTF8String], _backing[k]];
 
-          $APPEND(methArgs,@"\n#define %15s_  (%@)", newType.UTF8String, newType); // add panethised to header in methargs block
-        }
-      }];
+      }
 
-    }];
+    }
 
-    $APPEND(self,@"%@\n\n%@", _uSort(methArgs),_uSort(dereferenceable));
+    [snippet appendFormat:@"%@\n%@\n", pointerMap ?: @"", methArgs ?: @""];
+
+
+  return snippet.copy;
 }
 
-@end
+id _hMake() {
 
-#pragma mark - UTILS
+  for (id x in @[template(), listPath()])
+    NSCAssert([NSFileManager.defaultManager fileExistsAtPath:x isDirectory:NULL], @"need %@", x);
 
-id _hMake(id path) {
+  id defs = plistRef();
+    NSCAssert(defs, @"need definigions");
 
-  NSCAssert([NSFileManager.defaultManager fileExistsAtPath:path isDirectory:NULL], @"need plist");
-
-  M(String) *head = [M(String) stringWithFormat:@"\n"
+  NSString *head = [NSString stringWithFormat:@"\n"
 
     "/*! @note This is an AUTOMATICALLY generated file!\n"
-    "    Built on %@ from %@ */\n", [NSDateFormatter localizedStringFromDate:NSDate.date
-                                                                   dateStyle:NSDateFormatterMediumStyle
-                                                                   timeStyle:NSDateFormatterMediumStyle], path];
+    "    Built on %@ from %@ */\n%@",
 
-  for (id entry in [NSArray arrayWithContentsOfFile:path]) { [head appendString:@"\n"];
+      [NSDateFormatter localizedStringFromDate:NSDate.date dateStyle:NSDateFormatterMediumStyle
+                                                           timeStyle:NSDateFormatterMediumStyle],
+                                                           listPath(),
+      [NSString stringWithContentsOfFile:template() encoding:NSUTF8StringEncoding error:nil]];
 
-    [entry isKindOfClass:NSString.class] ||
-    [entry  isKindOfClass:NSArray.class] ? [head appendString:
-    [entry isKindOfClass:NSString.class] ? entry : [entry componentsJoinedByString:@"\n"]] :
+  return [head replace:RX(@"%% (.*) %%") withDetailsBlock:^NSString *(RxMatch *match) {
+  
+    return _genTokens([match.groups.lastObject value]);
+  }];
 
-    [entry enumerateKeysAndObjectsUsingBlock:^(NSString* kind, id defs, BOOL* s) {
-
-      [kind    hasPrefix:@"define"] ? [head _if:kind do:^{
-
-        for (id k in [defs keysSortedByValueUsingSelector:@selector(compare:)]) {
-          [head appendFormat:@"#define %30s %@\n", [k UTF8String], defs[k]];
-
-        }
-      }] :
-//      for (id def in defs) [head _addDefine:def]; }]:
-
-      [kind isEqualToString:@"map"] ? [head _appendMap:defs] : nil;
-    }];
-  }
-  return head;
 }
 
 int main() { @autoreleasepool {
 
-  id plist = args.count > 1 ? args[1] : $(@"%@/%@.plist", srcroot(), projNme());
-
-  id genHeader = _hMake(plist); NSError *e = nil;
+  id genHeader = _hMake(); NSError *e = nil;
 
   for (id x in outPaths())
 
     [genHeader writeToFile:x atomically:YES encoding:NSUTF8StringEncoding error:&e]; !e ?: NSLog(@"error:%@",e);
 
-//  _preProc();
+  _sTask(@" terminal-notifier -title 'poop' -message 'vageen'");
 
 } return EXIT_SUCCESS; }
 
@@ -222,4 +199,59 @@ void _preProc() {
 
 }
 
+
+@implementation M(String) (Plist2Header)
+
+- (void) _if:key do:(void (^)())stuff {
+
+    NSString* exclusive = LOC(key,@"_") == NSNotFound ? nil : key[ - (LOC(key,@"_") + 1) ];
+
+    exclusive ? $APPEND(self, @"\n#if %@ // $@\n\n", exclusive) : CR(self); stuff();
+    exclusive ? $APPEND(self, @"\n#endif // %@\n",   exclusive) : CR(self);
+}
+
+- (void) _appendMap:dict { M(String)* methArgs, *dereferenceable;
+
+    [dict enumerateKeysAndObjectsUsingBlock:^(id mapping, id map, BOOL* stop) {
+
+      [self _if:mapping do:^{
+
+        $APPEND(self,@"#pragma mark - %@ \n\n", mapping);
+
+        [self appendString:CUTE_HEADER(@"VAGEEN")];
+        
+        for (NSString * standard in [map keysSortedByValueUsingSelector:@selector(compare:)]) {
+
+          NSString *newType = map[standard];
+          BOOL    isPointer = LOC(standard,@"*") != NSNotFound;
+
+          $APPEND(self,@"_Type %30s  %@ _\n", standard.UTF8String, newType);
+
+          if (isPointer && [@[@"CA", @"NS", @"AV"] containsObject:[standard substringToIndex:2]]) { // dereferenceable
+
+            NSString *prefix = [newType substringToIndex:1],
+                  * originalClassName = standard[standard.length -2],
+                  * shortcut = [newType[-1] stringByAppendingString: ![prefix isEqualToString:@"_"]
+                                                                     ? prefix.uppercaseString : @""];
+
+            $APPEND(dereferenceable, @"\n#define %30s  %@", shortcut.UTF8String, originalClassName);
+            (classShortcuts = classShortcuts ?:@{}.mutableCopy)[originalClassName] = shortcut;
+          }
+
+          // Add parenthised to dict for regex.
+          (parenthized = parenthized ?: @{}.mutableCopy)[$(@"(%@)", newType)] = $(@"%@_", newType);
+
+          $APPEND(methArgs,@"\n#define %15s_  (%@)", newType.UTF8String, newType); // add panethised to header in methargs block
+        }
+      }];
+
+    }];
+
+    $APPEND(self,@"%@\n\n%@", _uSort(methArgs),_uSort(dereferenceable));
+}
+typedef NS_ENUM(int,Emits) { EmitsDefines, EmitsTypes  };
+typedef NS_ENUM(int,SortBy){ SortByLength, SortByAlpha };
+
+@end
 */
+
