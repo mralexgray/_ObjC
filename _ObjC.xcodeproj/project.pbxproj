@@ -32,6 +32,13 @@
 			remoteGlobalIDString = 7B3835791AC681C700D617B9;
 			remoteInfo = _ObjC_Tool;
 		};
+		7BC0FABA1AD30AB400EB9A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B9B40261AC14E7D002EDD01 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7BB415361ACEB7F50024D285;
+			remoteInfo = _ObjC;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -47,7 +54,7 @@
 		7B9B403D1AC14ED5002EDD01 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		7B9B403E1AC14ED5002EDD01 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		7B9B403F1AC14ED5002EDD01 /* _ObjC.classic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = _ObjC.classic.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		7B9B40401AC14ED5002EDD01 /* _ObjC.podspec.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = _ObjC.podspec.json; sourceTree = "<group>"; };
+		7B9B40401AC14ED5002EDD01 /* _ObjC.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = _ObjC.podspec; sourceTree = "<group>"; };
 		7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = _ObjC_Tool.m; path = _ObjC/_ObjC_Tool.m; sourceTree = SOURCE_ROOT; wrapsLines = 1; };
 		7B9B40421AC14ED5002EDD01 /* INSTALL.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = INSTALL.command; sourceTree = "<group>"; };
 		7B9B40431AC14ED5002EDD01 /* ObjCIfy.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = ObjCIfy.app; sourceTree = "<group>"; };
@@ -66,8 +73,7 @@
 		7B179CE51ACEC7DC00670408 /* _ObjC */ = {
 			isa = PBXGroup;
 			children = (
-				7B9B40401AC14ED5002EDD01 /* _ObjC.podspec.json */,
-				7B9B403D1AC14ED5002EDD01 /* Makefile */,
+				7B9B40401AC14ED5002EDD01 /* _ObjC.podspec */,
 				7B9B40451AC14ED5002EDD01 /* README.md */,
 				7B6BBBE21AD2F9DE0057802A /* LICENSE */,
 				7B38357A1AC681C700D617B9 /* _ObjC_Tool */,
@@ -77,6 +83,7 @@
 				7B380C881ACADE6B00285B4E /* RegExCategories.h */,
 				7B380C891ACADE6B00285B4E /* RegExCategories.m */,
 				7B9B40731AC16530002EDD01 /* Universal.xcconfig */,
+				7B9B403D1AC14ED5002EDD01 /* Makefile */,
 			);
 			name = _ObjC;
 			sourceTree = "<group>";
@@ -163,6 +170,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7BC0FABB1AD30AB400EB9A0A /* PBXTargetDependency */,
 			);
 			name = _ObjC_Tests;
 			productName = "_ObjC Tests";
@@ -232,6 +240,11 @@
 			isa = PBXTargetDependency;
 			target = 7B3835791AC681C700D617B9 /* _ObjC_Tool */;
 			targetProxy = 7BB4153D1ACEC0D00024D285 /* PBXContainerItemProxy */;
+		};
+		7BC0FABB1AD30AB400EB9A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7BB415361ACEB7F50024D285 /* _ObjC */;
+			targetProxy = 7BC0FABA1AD30AB400EB9A0A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

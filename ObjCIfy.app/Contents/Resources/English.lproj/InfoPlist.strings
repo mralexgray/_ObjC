@@ -1,4 +1,0 @@
-CFBundleName = "ObjCIfy";
-CFBundleShortVersionString = "1.0";
-CFBundleGetInfoString = "ObjCIfy version 1.0 Copyright 2015 Alex Gray";
-NSHumanReadableCopyright = "Copyright 2015 Alex Gray.";

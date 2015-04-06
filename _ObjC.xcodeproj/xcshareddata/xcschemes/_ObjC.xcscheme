@@ -20,6 +20,20 @@
                ReferencedContainer = "container:_ObjC.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7B3835791AC681C700D617B9"
+               BuildableName = "_ObjC_Tool"
+               BlueprintName = "_ObjC_Tool"
+               ReferencedContainer = "container:_ObjC.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -42,9 +56,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7BB415361ACEB7F50024D285"
-            BuildableName = "_ObjC"
-            BlueprintName = "_ObjC"
+            BlueprintIdentifier = "7B3835791AC681C700D617B9"
+            BuildableName = "_ObjC_Tool"
+            BlueprintName = "_ObjC_Tool"
             ReferencedContainer = "container:_ObjC.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,17 +70,19 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
-      debugDocumentVersioning = "YES"
-      allowLocationSimulation = "YES">
-      <MacroExpansion>
+      debugDocumentVersioning = "NO"
+      allowLocationSimulation = "NO"
+      viewDebuggingEnabled = "No">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7BB415361ACEB7F50024D285"
-            BuildableName = "_ObjC"
-            BlueprintName = "_ObjC"
+            BlueprintIdentifier = "7B3835791AC681C700D617B9"
+            BuildableName = "_ObjC_Tool"
+            BlueprintName = "_ObjC_Tool"
             ReferencedContainer = "container:_ObjC.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
