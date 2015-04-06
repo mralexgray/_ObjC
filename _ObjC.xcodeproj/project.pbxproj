@@ -40,6 +40,7 @@
 		7B380C8D1ACAF5A100285B4E /* _ObjC.xcspec */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xcspec; name = _ObjC.xcspec; path = Xcode/_ObjC.xcspec; sourceTree = "<group>"; };
 		7B380C8E1ACAF64500285B4E /* _ObjC.xclangspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xclangspec; name = _ObjC.xclangspec; path = Xcode/_ObjC.xclangspec; sourceTree = "<group>"; };
 		7B38357A1AC681C700D617B9 /* _ObjC_Tool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = _ObjC_Tool; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B6BBBE21AD2F9DE0057802A /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		7B8BD9631AC67C6C001DD440 /* _ObjC.trashedplist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _ObjC.trashedplist; sourceTree = "<group>"; };
 		7B905BCB1ACB1FFC00795D14 /* _ObjC_install.zsh */ = {isa = PBXFileReference; lastKnownFileType = text; name = _ObjC_install.zsh; path = Xcode/_ObjC_install.zsh; sourceTree = "<group>"; };
 		7B9B40331AC14EB6002EDD01 /* _ObjC_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = _ObjC_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,12 +66,16 @@
 		7B179CE51ACEC7DC00670408 /* _ObjC */ = {
 			isa = PBXGroup;
 			children = (
+				7B9B40401AC14ED5002EDD01 /* _ObjC.podspec.json */,
+				7B9B403D1AC14ED5002EDD01 /* Makefile */,
+				7B9B40451AC14ED5002EDD01 /* README.md */,
+				7B6BBBE21AD2F9DE0057802A /* LICENSE */,
+				7B38357A1AC681C700D617B9 /* _ObjC_Tool */,
 				7B9B40331AC14EB6002EDD01 /* _ObjC_Tests.xctest */,
 				7B9B40521AC14FB0002EDD01 /* Unused */,
 				7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */,
 				7B380C881ACADE6B00285B4E /* RegExCategories.h */,
 				7B380C891ACADE6B00285B4E /* RegExCategories.m */,
-				7B9B40451AC14ED5002EDD01 /* README.md */,
 				7B9B40731AC16530002EDD01 /* Universal.xcconfig */,
 			);
 			name = _ObjC;
@@ -93,8 +98,6 @@
 				7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */,
 				7BB414D91ACE62F70024D285 /* _ObjC_Template.h */,
 				7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */,
-				7B9B403D1AC14ED5002EDD01 /* Makefile */,
-				7B38357A1AC681C700D617B9 /* _ObjC_Tool */,
 				7BF684A71ACD76EE00C06D22 /* _ObjC.pch */,
 				7B179CE51ACEC7DC00670408 /* _ObjC */,
 			);
@@ -107,7 +110,6 @@
 				7B8BD9631AC67C6C001DD440 /* _ObjC.trashedplist */,
 				7B9B403E1AC14ED5002EDD01 /* .travis.yml */,
 				7B9B403F1AC14ED5002EDD01 /* _ObjC.classic.h */,
-				7B9B40401AC14ED5002EDD01 /* _ObjC.podspec.json */,
 				7B9B40421AC14ED5002EDD01 /* INSTALL.command */,
 				7B9B40431AC14ED5002EDD01 /* ObjCIfy.app */,
 				7B9B40441AC14ED5002EDD01 /* ObjCIfy.platypus */,

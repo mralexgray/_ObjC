@@ -72,8 +72,16 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Volumes/2T/ServiceData/AtoZ.framework/AtoZUniversal/_ObjC/_ObjC_Tests.m"
-            isEnabled = "NO">
+            argument = "-o $(BUILT_PRODUCTS_DIR)/$(PROJECT_NAME).h"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-plist $(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME).plist"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-header $(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME)_Template.h"
+            isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

@@ -1,143 +1,99 @@
 
-@import Darwin.getopt;
+NSString * _genTokens (NSDictionary *_plistData, NSString* _section) {
 
-NSString * _genTokens (NSDictionary *plistData, id section) {
+  id        backing = [_plistData valueForKeyPath:_section],
+           keyParts = [_section componentsSeparatedByString:@"."];
 
-  id      _backing = [plistData valueForKeyPath:section],
-               key = [section componentsSeparatedByString:@"."];
+  BOOL   emitsTypes = [keyParts[0] isEqualToString:@"TYPES"],
+           sortName = ([_plistData[ @"SORT_ALPHA"]containsObject:_section] || emitsTypes) &&
+                      ![_plistData[@"SORT_LENGTH"]containsObject:_section];
 
-  BOOL _emitsTypes = [key[0] isEqualToString:@"TYPES"],
-         _sortName = ([plistData[ @"SORT_ALPHA"]containsObject:section] || _emitsTypes) &&
-                     ![plistData[@"SORT_LENGTH"]containsObject:section];
-
-  id      sortedKs = [[_backing allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-    return _sortName ? [obj1 compare:obj2 options:NSCaseInsensitiveSearch]
-                     : [@([obj1 length]) compare:@([obj2 length])];
+  id       sortedKs = [[backing allKeys] sortedArrayUsingComparator:^NSComparisonResult(NSString*x1, NSString*x2) {
+    return sortName ? [x1           compare:x2 options:NSCaseInsensitiveSearch]
+                    : [@(x1.length) compare:@(x2.length)];
   }];
 
-  M(String) *snippet = $(@"#pragma mark - %@\n\n", [section pathExtension]).mutableCopy,
-         *pointerMap = [key[1] containsString:@"POINT"] ? @"".mutableCopy : nil,
-           *methArgs = _emitsTypes                      ? @"".mutableCopy : nil;
+  M(String) *snippet = $(@"#pragma mark - %@\n\n", _section.pathExtension).mutableCopy,
+         *pointerMap = [keyParts[1] containsString:@"POINT"] ? @"".mutableCopy : nil,
+           *methArgs = emitsTypes                            ? @"".mutableCopy : nil;
 
-  for (id k in sortedKs) {
+  for (NSString *k in sortedKs) {
 
-    [snippet appendFormat:@"%@ %30s %@%@ %@\n", _emitsTypes ? @"_Type": @"#define",
-                                     [k UTF8String], pointerMap ? @"" : @" ", _backing[k],
-                                              _emitsTypes ? @"___": @""];
+    [snippet appendFormat:@"%@ %30s %@%@ %@\n", emitsTypes ? @"_Type" : @"#define",
+                                  k.UTF8String, pointerMap ? @""      : @" ", backing[k],
+                                                emitsTypes ? @"___"   : @""];
 
       if (pointerMap) {
-        NSString *prefix =  _backing[k][ 1],
-     * originalClassName = k[[k length] -2],
-              * shortcut = [_backing[k][-1] stringByAppendingString:
-                          ![prefix isEqualToString:@"_"] ? prefix.uppercaseString : @""];
+        NSString *prefix =  backing[k][  1],
+     * originalClassName =  k[k.length - 2],
+              * shortcut =  $(@"%@%@", backing[k][-1], ![prefix isEqualToString:@"_"] ? prefix.uppercaseString : @"");
 
         $APPEND(pointerMap,@"\n#define  %26s  %@", shortcut.UTF8String, originalClassName);
       }
 
-      !_emitsTypes ?: [methArgs appendFormat:@"#define %26s_  (%@)\n", [_backing[k] UTF8String], _backing[k]];
+      !emitsTypes ?: [methArgs appendFormat:@"#define %26s_  (%@)\n", [backing[k] UTF8String], backing[k]];
 
     }
 
-    [snippet appendFormat:@"%@\n\n%@", pointerMap ?: @"", methArgs ?: @""];
+    [snippet appendFormat:@"%@%@%@", pointerMap ?: @"", methArgs ? @"\n\n" : @"", methArgs ?: @""];
 
   return snippet.copy;
 }
 
-NSString* header (NSString *_plistPath, NSString *_templatePath) { NSDictionary *plistData;
+NSString* header (NSString *plist, NSString *template) { NSDictionary *_data; id _template;
 
-    NSCAssert((plistData = [NSDictionary dictionaryWithContentsOfFile:_plistPath]), @"NEEd data, mami");
+  NSCAssert(( _template = [NSString stringWithContentsOfFile:template encoding:NSUTF8StringEncoding error:nil]) &&
+            (     _data = [NSDictionary dictionaryWithContentsOfFile:plist]), @"Need data + template, mami");
 
     NSString *head = [NSString stringWithFormat:@"\n"
 
     "/*!       @note This file is AUTO_GENERATED! Changes will NOT persist!\n"
-    "                Built on %@ from template:%@ with data from:%@ */\n%@",
-
-      [NSDateFormatter localizedStringFromDate:NSDate.date dateStyle:NSDateFormatterMediumStyle
-                                                           timeStyle:NSDateFormatterMediumStyle],
-                                                           _plistPath.lastPathComponent,
-                                                           _templatePath.lastPathComponent,
-      [NSString stringWithContentsOfFile:_templatePath encoding:NSUTF8StringEncoding error:nil]];
+    "                Built on %@ from template:%@ with data from:%@ */\n%@", THEDATE,
+                                                              plist.lastPathComponent,
+                                                           template.lastPathComponent, _template];
 
   return [head replace:RX(@"%% (.*) %%") withDetailsBlock:^NSString *(RxMatch *match) {
   
-        return _genTokens(plistData,[match.groups.lastObject value]);
+        return _genTokens(_data,[match.groups.lastObject value]);
   }];
 }
 
-NSString * srcroot (){
+id ObjectForAnyKeyPassingTest (NSDictionary *values, NSArray*okKeys, BOOL(^test)(id)) {
 
-  return [NSString stringWithUTF8String:__FILE__].stringByDeletingLastPathComponent;
+  __block id found = nil;
+  [okKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+
+      if ((found = [values objectForKey:obj])) { *stop = (test == NULL) || test(found); }
+  }];
+  return found;
 }
 
-      id  listPath (){
+BOOL( ^IsFileAndExists )(id) = ^BOOL(id p){ BOOL dir = NO, exists =[FM fileExistsAtPath:p isDirectory:&dir];
 
-  return  args.count > 1 ? args[1] : $(@"%@/%@.plist", srcroot(), srcroot().lastPathComponent);
-}
-
-      id template (){ return $(@"%@/%@_Template.h", srcroot(), srcroot().lastPathComponent); }
-
-NSString *error, *dataPath, *templatePath; __unused NSArray *outPaths;
-
-void print_usage(id error) {
-
-  fprintf(stderr,"\nUsage: %s -t <templatefile> -d <dataPlistFile> <outputPath> [otherOutputPaths]\n\n"
-    " -t, --template      <file>  POOPIE the protoype template file's path\n"
-    " -d, --definisitions <file>  the plist data file's path\n\n"
-    "What we have:\n"
-    "  Template: %s\n      Data: %s\n  Outfiles: %lu%s%s\n",
-    NSProcessInfo.processInfo.processName.UTF8String,
-    templatePath.UTF8String, dataPath.UTF8String, outPaths.count,
-    error ? "\n\nError: " : "", error ? [error UTF8String] : "");
-}
-
-NSString* _validatePath(const char *p) { id path = nil;
-
-    return [NSFileManager.defaultManager fileExistsAtPath:path = [NSString stringWithUTF8String:p]
-                                              isDirectory:NULL] ? path : nil;
-}
-
-struct io_opts { /* name of long option */
-	const char *name;
-	/* one of no_argument, required_argument, and optional_argument: whether option takes an argument */
-	int has_arg;
-	/* if not NULL, set *flag to val when option found */
-	int *flag;
-	/* if flag not NULL, value to set *flag to; else return value */
-	int val;
+  return exists && !dir ?: NSLog(@"%@ %s exist. %s a directory.",p, exists ? "DOES" : "does NOT",
+                                                       dir ? "It is, but CANNOT be" : "Thankully, it's not"), NO;
 };
 
+int main() { @autoreleasepool {
 
-int main(int argc, char *argv[]) { @autoreleasepool { int ch;
+  NSDictionary *opts = ParseArgs();
 
-  static struct option longopts[] = { { "template",    required_argument, NULL, 't' },
-                                      { "definitions", required_argument, NULL, 'd' }, {NULL, 0, NULL, 0 }};
+  NSString *model = ObjectForAnyKeyPassingTest(opts,@[@"d",@"data",@"model",@"plist"], IsFileAndExists),
+           *templ = ObjectForAnyKeyPassingTest(opts,@[@"t",@"template",@"header"], IsFileAndExists);
+        id output = ObjectForAnyKeyPassingTest(opts,@[@"o",@"output"], NULL);
 
-  while ((ch = getopt_long(argc, argv, "t:d:", longopts, NULL)) != -1)
+  if (!model || !templ) return EXIT_FAILURE;
 
-    error = ch == 't' ? (templatePath = _validatePath(optarg)) ? nil : @"need a valid template file"  :
-            ch == 'd' ? (    dataPath = _validatePath(optarg)) ? nil : @"ned a valid plist path"
-                      : @"something went wrong";
+  id x = header(model, templ);
 
-  argc -= optind;
-  argv += optind;
-
-  /* Print any remaining command line arguments (not options). */
-  if (optind < argc) while (optind < argc) {
-
-      const char *extra = argv[optind++];
-      NSString *outF = [FM stringWithFileSystemRepresentation:extra length:strlen(extra)];
-      if (outF) outPaths = [outPaths?:@[] arrayByAddingObject:outF];
-    }
-
-  if (error || argc < 2) print_usage(error), exit(EXIT_SUCCESS);
+  if (!output) fprintf(stdout, "%s", [x UTF8String]);
+  else for (id place in [output isKindOfClass:NSString.class] ? @[output] : output)
+      [x writeToFile:place atomically:YES encoding:NSUTF8StringEncoding error:nil];
 
 } return EXIT_SUCCESS; }
-
 
 @implementation NSString (Subscript)
 
 - objectAtIndexedSubscript:(NSInteger)i { return i < 0 ? [self substringFromIndex:ABS(i)] : [self substringToIndex:i]; }
 
 @end
-
-
