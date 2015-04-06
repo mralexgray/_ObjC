@@ -12,20 +12,25 @@
 		7B9B40501AC14F6E002EDD01 /* _ObjC_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		7BB4152D1ACE76F50024D285 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BB415281ACE76F40024D285 /* Objective-C-Regex-Categories.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BC7CC7CF1848F63D007FCB6B;
-			remoteInfo = "Objective-C-Regex-Categories";
+/* Begin PBXBuildRule section */
+		7BB415351ACEB67A0024D285 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "";
 		};
-		7BB4152F1ACE76F50024D285 /* PBXContainerItemProxy */ = {
+/* End PBXBuildRule section */
+
+/* Begin PBXContainerItemProxy section */
+		7BB4153D1ACEC0D00024D285 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7BB415281ACE76F40024D285 /* Objective-C-Regex-Categories.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BC7CC7EA1848F63E007FCB6B;
-			remoteInfo = "Objective-C-Regex-Categories-Tests";
+			containerPortal = 7B9B40261AC14E7D002EDD01 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B3835791AC681C700D617B9;
+			remoteInfo = _ObjC_Tool;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -40,9 +45,9 @@
 		7B9B40331AC14EB6002EDD01 /* _ObjC_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = _ObjC_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B9B403D1AC14ED5002EDD01 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		7B9B403E1AC14ED5002EDD01 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
-		7B9B403F1AC14ED5002EDD01 /* _ObjC.classic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC.classic.h; sourceTree = "<group>"; };
+		7B9B403F1AC14ED5002EDD01 /* _ObjC.classic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = _ObjC.classic.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7B9B40401AC14ED5002EDD01 /* _ObjC.podspec.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = _ObjC.podspec.json; sourceTree = "<group>"; };
-		7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _ObjC_Tool.m; sourceTree = "<group>"; wrapsLines = 1; };
+		7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = _ObjC_Tool.m; path = _ObjC/_ObjC_Tool.m; sourceTree = SOURCE_ROOT; wrapsLines = 1; };
 		7B9B40421AC14ED5002EDD01 /* INSTALL.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = INSTALL.command; sourceTree = "<group>"; };
 		7B9B40431AC14ED5002EDD01 /* ObjCIfy.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = ObjCIfy.app; sourceTree = "<group>"; };
 		7B9B40441AC14ED5002EDD01 /* ObjCIfy.platypus */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ObjCIfy.platypus; sourceTree = "<group>"; };
@@ -50,24 +55,27 @@
 		7B9B40461AC14ED5002EDD01 /* scratch.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = scratch.sh; sourceTree = "<group>"; };
 		7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = _ObjC_Tests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B9B40731AC16530002EDD01 /* Universal.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Universal.xcconfig; path = ../../xcconfigs/Base/Universal.xcconfig; sourceTree = "<group>"; };
-		7BB414D91ACE62F70024D285 /* _ObjC_Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC_Template.h; sourceTree = "<group>"; };
-		7BB415281ACE76F40024D285 /* Objective-C-Regex-Categories.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Objective-C-Regex-Categories.xcodeproj"; path = "Objective-C-RegEx-Categories/TestProject/Objective-C-Regex-Categories.xcodeproj"; sourceTree = "<group>"; };
+		7BB414D91ACE62F70024D285 /* _ObjC_Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = _ObjC_Template.h; path = _ObjC/_ObjC_Template.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7BF684A71ACD76EE00C06D22 /* _ObjC.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC.pch; sourceTree = "<group>"; };
-		7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = _ObjC.plist; sourceTree = "<group>"; };
-		7BF684AC1ACDDE9000C06D22 /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC.h; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = _ObjC.plist; path = _ObjC/_ObjC.plist; sourceTree = "<group>"; };
+		7BF684AC1ACDDE9000C06D22 /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = _ObjC.h; sourceTree = BUILT_PRODUCTS_DIR; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 /* End PBXFileReference section */
 
-/* Begin PBXFrameworksBuildPhase section */
-		7B9B40741AC166DC002EDD01 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
+		7B179CE51ACEC7DC00670408 /* _ObjC */ = {
+			isa = PBXGroup;
+			children = (
+				7B9B40331AC14EB6002EDD01 /* _ObjC_Tests.xctest */,
+				7B9B40521AC14FB0002EDD01 /* Unused */,
+				7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */,
+				7B380C881ACADE6B00285B4E /* RegExCategories.h */,
+				7B380C891ACADE6B00285B4E /* RegExCategories.m */,
+				7B9B40451AC14ED5002EDD01 /* README.md */,
+				7B9B40731AC16530002EDD01 /* Universal.xcconfig */,
+			);
+			name = _ObjC;
+			sourceTree = "<group>";
+		};
 		7B380C8C1ACAF54E00285B4E /* Xcode */ = {
 			isa = PBXGroup;
 			children = (
@@ -78,43 +86,28 @@
 			name = Xcode;
 			sourceTree = "<group>";
 		};
-		7B5DC23A1AC8658E0063D701 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7B9B40331AC14EB6002EDD01 /* _ObjC_Tests.xctest */,
-				7B38357A1AC681C700D617B9 /* _ObjC_Tool */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		7B9B40251AC14E7D002EDD01 = {
 			isa = PBXGroup;
 			children = (
 				7BF684AC1ACDDE9000C06D22 /* _ObjC.h */,
-				7BB414D91ACE62F70024D285 /* _ObjC_Template.h */,
 				7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */,
-				7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */,
-				7BB415281ACE76F40024D285 /* Objective-C-Regex-Categories.xcodeproj */,
+				7BB414D91ACE62F70024D285 /* _ObjC_Template.h */,
 				7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */,
+				7B9B403D1AC14ED5002EDD01 /* Makefile */,
+				7B38357A1AC681C700D617B9 /* _ObjC_Tool */,
 				7BF684A71ACD76EE00C06D22 /* _ObjC.pch */,
-				7B380C881ACADE6B00285B4E /* RegExCategories.h */,
-				7B380C891ACADE6B00285B4E /* RegExCategories.m */,
-				7B9B40451AC14ED5002EDD01 /* README.md */,
-				7B5DC23A1AC8658E0063D701 /* Products */,
-				7B9B40731AC16530002EDD01 /* Universal.xcconfig */,
-				7B380C8C1ACAF54E00285B4E /* Xcode */,
-				7B9B40521AC14FB0002EDD01 /* Unused */,
+				7B179CE51ACEC7DC00670408 /* _ObjC */,
 			);
 			sourceTree = "<group>";
 		};
 		7B9B40521AC14FB0002EDD01 /* Unused */ = {
 			isa = PBXGroup;
 			children = (
+				7B380C8C1ACAF54E00285B4E /* Xcode */,
 				7B8BD9631AC67C6C001DD440 /* _ObjC.trashedplist */,
 				7B9B403E1AC14ED5002EDD01 /* .travis.yml */,
 				7B9B403F1AC14ED5002EDD01 /* _ObjC.classic.h */,
 				7B9B40401AC14ED5002EDD01 /* _ObjC.podspec.json */,
-				7B9B403D1AC14ED5002EDD01 /* Makefile */,
 				7B9B40421AC14ED5002EDD01 /* INSTALL.command */,
 				7B9B40431AC14ED5002EDD01 /* ObjCIfy.app */,
 				7B9B40441AC14ED5002EDD01 /* ObjCIfy.platypus */,
@@ -123,16 +116,24 @@
 			name = Unused;
 			sourceTree = "<group>";
 		};
-		7BB415291ACE76F40024D285 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7BB4152E1ACE76F50024D285 /* Objective-C-Regex-Categories.app */,
-				7BB415301ACE76F50024D285 /* Objective-C-Regex-Categories-Tests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		7BB415361ACEB7F50024D285 /* _ObjC */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 7BB415371ACEB7F50024D285 /* Build configuration list for PBXLegacyTarget "_ObjC" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+				7BB4153E1ACEC0D00024D285 /* PBXTargetDependency */,
+			);
+			name = _ObjC;
+			passBuildSettingsInEnvironment = 1;
+			productName = _ObjC;
+		};
+/* End PBXLegacyTarget section */
 
 /* Begin PBXNativeTarget section */
 		7B3835791AC681C700D617B9 /* _ObjC_Tool */ = {
@@ -140,9 +141,9 @@
 			buildConfigurationList = 7B38357E1AC681C700D617B9 /* Build configuration list for PBXNativeTarget "_ObjC_Tool" */;
 			buildPhases = (
 				7B3835761AC681C700D617B9 /* Sources */,
-				7B5DC2351AC841190063D701 /* Run Script */,
 			);
 			buildRules = (
+				7BB415351ACEB67A0024D285 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -156,7 +157,6 @@
 			buildConfigurationList = 7B9B403A1AC14EB6002EDD01 /* Build configuration list for PBXNativeTarget "_ObjC_Tests" */;
 			buildPhases = (
 				7B9B402F1AC14EB6002EDD01 /* Sources */,
-				7B9B40741AC166DC002EDD01 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -181,6 +181,9 @@
 					7B9B40321AC14EB6002EDD01 = {
 						CreatedOnToolsVersion = 6.3;
 					};
+					7BB415361ACEB7F50024D285 = {
+						CreatedOnToolsVersion = 6.3;
+					};
 				};
 			};
 			buildConfigurationList = 7B9B40291AC14E7D002EDD01 /* Build configuration list for PBXProject "_ObjC" */;
@@ -193,57 +196,14 @@
 			mainGroup = 7B9B40251AC14E7D002EDD01;
 			productRefGroup = 7B9B40251AC14E7D002EDD01;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 7BB415291ACE76F40024D285 /* Products */;
-					ProjectRef = 7BB415281ACE76F40024D285 /* Objective-C-Regex-Categories.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
+				7BB415361ACEB7F50024D285 /* _ObjC */,
 				7B3835791AC681C700D617B9 /* _ObjC_Tool */,
 				7B9B40321AC14EB6002EDD01 /* _ObjC_Tests */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		7BB4152E1ACE76F50024D285 /* Objective-C-Regex-Categories.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "Objective-C-Regex-Categories.app";
-			remoteRef = 7BB4152D1ACE76F50024D285 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BB415301ACE76F50024D285 /* Objective-C-Regex-Categories-Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Objective-C-Regex-Categories-Tests.xctest";
-			remoteRef = 7BB4152F1ACE76F50024D285 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		7B5DC2351AC841190063D701 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/_ObjC.plist",
-				"$(SRCROOT)/_ObjC_Template.h",
-			);
-			name = "Run Script";
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/_ObjC.h",
-				"$(SRCROOT)/_ObjC.h",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/zsh;
-			shellScript = "\nset -x\n\nTARGET=\"${BUILT_PRODUCTS_DIR}/${TARGET_NAME}\"\n\n\n[[ -f \"$TARGET\" ]] || { say \"missing executable\" && open -R \"${TARGET:h}\" && exit 9 }\n[[ -f \"$SCRIPT_INPUT_FILE_0\" ]] || { say \"missing plist $SCRIPT_INPUT_FILE_0\" && exit 6 }\n\notool -L \"$TARGET\" || say binary is fucked\n\nfor i in {1..$(expr $SCRIPT_OUTPUT_FILE_COUNT - 1)}; {\n\n    OUTFILE=\"${OUTFILE:-$SCRIPT_OUTPUT_FILE_0}:$(eval echo \\$SCRIPT_OUTPUT_FILE_$i)\"\n}\nsay \"$TARGET\"\n\n\"$TARGET\" \"$SCRIPT_INPUT_FILE_0\" -o \"$OUTFILE\"\n\n## exit $?\n\n ";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7B3835761AC681C700D617B9 /* Sources */ = {
@@ -265,6 +225,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7BB4153E1ACEC0D00024D285 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B3835791AC681C700D617B9 /* _ObjC_Tool */;
+			targetProxy = 7BB4153D1ACEC0D00024D285 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		7B38357F1AC681C700D617B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -281,15 +249,10 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = _ObjC.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"SRCROOT=\\\"$(SRCROOT)\\\"",
-					"BUILT_PRODUCTS_DIR=\\\"$(BUILT_PRODUCTS_DIR)\\\"",
-				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -319,14 +282,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = _ObjC.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"SRCROOT=\\\"$(SRCROOT)\\\"",
-					"BUILT_PRODUCTS_DIR=\\\"$(BUILT_PRODUCTS_DIR)\\\"",
-				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -388,6 +346,91 @@
 			};
 			name = Release;
 		};
+		7BB415381ACEB7F50024D285 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		7BB415391ACEB7F50024D285 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -414,6 +457,15 @@
 			buildConfigurations = (
 				7B9B403B1AC14EB6002EDD01 /* Debug */,
 				7B9B403C1AC14EB6002EDD01 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7BB415371ACEB7F50024D285 /* Build configuration list for PBXLegacyTarget "_ObjC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BB415381ACEB7F50024D285 /* Debug */,
+				7BB415391ACEB7F50024D285 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

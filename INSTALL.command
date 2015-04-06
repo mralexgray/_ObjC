@@ -1,6 +1,52 @@
 #!/bin/zsh
 
+say starting
+
+trap "say exiting abruptly; exit" SIGHUP SIGINT SIGTERM
+
+set -e
+
 xcodebuild
+
+DD=$(xcodebuild -showBuildSettings | grep -m 1 "CODESIGNING_FOLDER_PATH" | grep -oEi  "\/.*")
+open -R $DD
+
+$DD `pwd`/_ObjC/_ObjC.plist -o "`pwd`/_ObjC.h:${DD}/../_ObjC.h"
+
+
+say done
+
+#TARGET="${DD}/_ObjC_Tool"
+
+#TARGET="${BUILT_PRODUCTS_DIR}/${TARGET_NAME}"
+
+
+#[[ -f "$TARGET" ]] || { say "missing executable" && open -R "${TARGET:h}" && exit 9 }
+
+#[[ -f "$SCRIPT_INPUT_FILE_0" ]] || { say "missing plist $SCRIPT_INPUT_FILE_0" && exit 6 }
+
+#otool -L "$TARGET" || say binary is fucked
+
+#for i in {1..$(expr $SCRIPT_OUTPUT_FILE_COUNT - 1)}; {
+#
+#    OUTFILE="${OUTFILE:-$SCRIPT_OUTPUT_FILE_0}:$(eval echo \$SCRIPT_OUTPUT_FILE_$i)"
+#}
+#
+#echo "\a"
+#echo "$OUTFILE" | pbcopy
+#
+#
+#"$TARGET" "$SCRIPT_INPUT_FILE_0" -o "$OUTFILE"
+
+## exit $?
+
+
+#xcodebuild -showBuildSettings | sort | mate
+
+#say starting
+
+
+
 
 : '
 
@@ -86,6 +132,4 @@ regex() {
                                           regex "$@"
 
 '
-
-say done
 

@@ -3,27 +3,29 @@
 
 #import "_ObjC.h"
 
-  _Kind  Kind : NSObject   /// A simple @interface declaration.
-+ _Kind_ instanceOfKind ;  /// Sugar for (instancetype) methods.
--        ______________ _  /// use underscore instead of ;
-  @Stop                    /// Alias for end.
+  _Kind   Kind : NObj         /// A simple @interface declaration.
++ _Kind_  instanceOf ___      /// Sugar for (instancetype) methods.
+-         methodName ___      /// use triple underscore instead of ;
+  @Stop                       /// Alias for end.
 
-  @Kind  (KindOfNSObject)  /// Function-like, we can assume it's an NSObject.
-  ￭                        /// Symbolic alias for @Stop / @end.
+  @Kind  (KindOfNSObject)     /// Function-like @interface declaration, subclasses NSObject.
+  ￭                           /// Symbolic alias for @Stop / @end.
 
   @Kind_ (KindOfXCTest,XCTestCase) ￭  // Function-like, but Still able to spec the superclass.
   @Kind  (KindWithVows,<NSCoding>) ￭  // Both function-like versions can conform to protocols.
 
   @Plan   KindOfXCTest
 
-- (void) testIfDefs { BOOL importOK = NO, isMacOsX = NO _
+- (void) testIfDefs { _IsIt importOK = NO, isMacOsX = NO ___
 
 #ifdef _ObjC__
-  importOK = YES _ XCTAssert(importOK, @"_ObjC__ should be defined by importing the header!") _
+  importOK = YES ___ XCTAssert(importOK, @"_ObjC__ should be defined by importing the header!") ___
+#else
+                     XCTAssert(importOK, @"we should never get here!") ___
 #endif
 
 #ifdef MAC_ONLY
-  isMacOsX = YES _ XCTAssert(isMacOsX, @"This is a MAC testing bundle!") _
+  isMacOsX = YES ___ XCTAssert(isMacOsX, @"This is a MAC testing bundle!") ___
 #endif
 
 }

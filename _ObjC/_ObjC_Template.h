@@ -4,58 +4,56 @@
                 Class pointers and types are typedef'd to aliases, with no pointer,
                 formatted like _Four lettes, starting with an underscore, capitalized. */
 
+
 #ifdef   __OBJC__
 #ifndef   _ObjC__
 #define   _ObjC__
 
-#define        _ ;
+#define        _ :
+#define       __ ,
+#define      ___ ;
+#define     ____ <
+#define    _____ >
 
 #define IOS_ONLY TARGET_OS_IPHONE
 #define MAC_ONLY !IOS_ONLY
 
+#define  NSLog(...)  (void)printf("%s %s\n",__PRETTY_FUNCTION__,$(__VA_ARGS__).UTF8String)
+
 #define    _Type typedef
+
 #define     Incl import
 #define     Optn optional
 #define     Reqd required
 #define     Stop end
 #define        ￭ @Stop
-#define ＿ Plan
-
+#define       ＿ Plan
 
 /// Let's standarize the preprocessor names too!
 
-@import ObjectiveC _
+@import ObjectiveC ___
  @class AVAudioPlayer,
-        WebView _
+        WebView ___
 #    if MAC_ONLY
-@import Cocoa _
+@import Cocoa ___
 #  elif IOS_ONLY
-@import UIKit _
+@import UIKit ___
 
-// Standarize names 1:1 between platforms.
+// Standarize names 1:1 between platforms. (DEFINES.STANDARD_NAMES)
 
 %% DEFINES.STANDARD_NAMES %%
 
-#endif // Per-Platform Imports
-
-
-#pragma mark - primitives 
+#endif // Per-Platform Imports (DEFINES.STANDARD_NAMES)
 
 %% TYPES.PRIMITIVES %%
 
-#pragma mark - structs 
-
 %% TYPES.STRUCTS %%
-
-#pragma mark - pointers (MAC_ONLY)
 
 #if MAC_ONLY
 
 %% TYPES.POINTERS_MAC %%
 
 #endif // MAC_ONLY
-
-#pragma mark - pointers 
 
 %% TYPES.POINTERS %%
 
@@ -70,19 +68,18 @@
     Plan - Implemenation
     Xtra - Categories                                      */
 
-
 %% DEFINES.MISC %%
 
 %% DEFINES.ABBREVIATIONS %%
 
-// GEOMETRY TRANSLATIONS
-
-#if IOS_ONLY // $@
+#if IOS_ONLY //
 
 %% DEFINES.GEOMETRY_TRANSLATIONS %%
 
-#endif // IOS_ONLY
+#endif // IOS_ONLY/GEOMETRY
 
-#endif // _ObjC__
+@Kind(_ObjC_Load) ￭
+
+#endif //  _ObjC__
 #endif // __ObjC__
 

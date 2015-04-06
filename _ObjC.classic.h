@@ -22,10 +22,10 @@
 #define _C  const
 
 #if         MAC_ONLY
-  @import   Cocoa _
+  @import   Cocoa ___
 
 #elif       IOS_ONLY
-  @import   UIKit _
+  @import   UIKit ___
 
   #define              NSNib UINib      // Standarize names 1:1 between platforms.
   #define              NSApp UIApp

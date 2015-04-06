@@ -1,11 +1,30 @@
 {
     DEFINES =     {
-        ABBREVIATIONS =         {
-            "_C" = const;
+        UNUSED = {
+                    "_C" = const;
             "_E" = extern;
             "_I" = inline;
             "_S" = static;
             "_U" = unsigned;
+          };
+        ABBREVIATIONS =         {
+            ASS = assign;
+            CP = copy;
+            NA = nonatomic;
+            RO = readonly;
+            RW = readwrite;
+            STR = strong;
+            UNSF = "unsafe_unretained";
+            WK = weak;
+            _AT= "@property";
+_NC="@property (NA,CP)";
+_NA = "@property (NA)";
+_RO = "@property (RO)";
+_CP = "@property (CP)";
+_AS = "@property (AS)";
+_RC = "@property (RO,CP)";
+_WK = "@property (WK)";
+
             bFK = boolForKey;
             bV = boolValue;
             dV = doubleValue;
@@ -956,7 +975,7 @@
             "unsigned char *" = "_UChr";
         };
         "POINTERS_MAC" =         {
-            "NSArrayController *" = "_LstX";
+            "NSArrayController *" = xList;
             "NSImageView *" = "_PicV";
             "NSMenu *" = "_Menu";
             "NSMenuItem *" = "_SubM";

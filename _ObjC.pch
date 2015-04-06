@@ -3,15 +3,15 @@
 #ifndef _ObjC__ObjC_pch
 #define _ObjC__ObjC_pch
 
-
-#define     UDEFS NSUserDefaults.standardUserDefaults
-#define      args NSProcessInfo.processInfo.arguments
-#define XcodePath _system(@"printf \"${$(xcode-select -p)%.app/*}.app\"")
-#define      M(X) NSMutable##X
-#define LOC(S,LOC) [S rangeOfString:LOC].location
-#define $(...) [NSString stringWithFormat:__VA_ARGS__]
-#define $APPEND(X,...) [X appendFormat:__VA_ARGS__]
-#define CR(MSTR) [MSTR appendString:@"\n"]
+//#define XcodePath _system(@"printf \"${$(xcode-select -p)%.app/*}.app\"")
+#define        FM       NSFileManager.defaultManager
+#define     UDEFS       NSUserDefaults.standardUserDefaults
+#define      args       NSProcessInfo.processInfo.arguments
+#define       M(X)       NSMutable##X
+#define     LOC(S,LOC)   [S rangeOfString:LOC].location
+#define       $(...)     [NSString stringWithFormat:__VA_ARGS__]
+#define $APPEND(X,...)   [X appendFormat:__VA_ARGS__]
+#define      CR(MSTR)    [MSTR appendString:@"\n"]
 
 #import "RegExCategories.h"
 
@@ -37,6 +37,6 @@ NS_INLINE NSString * CUTE_HEADER(id str) { M(String)*line = @"".mutableCopy;
 }
 
 
-@interface NSString  (Subscript) - objectAtIndexedSubscript:(NSInteger)i; @end
+//@interface NSString  (Subscript) - objectAtIndexedSubscript:(NSInteger)i; @end
 
 #endif
