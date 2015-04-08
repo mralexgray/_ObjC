@@ -4,7 +4,6 @@
                 Class pointers and types are typedef'd to aliases, with no pointer,
                 formatted like _Four lettes, starting with an underscore, capitalized. */
 
-
 #ifdef   __OBJC__
 #ifndef   _ObjC__
 #define   _ObjC__
