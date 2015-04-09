@@ -237,6 +237,7 @@
 				GCC_C_LANGUAGE_STANDARD = c11;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
