@@ -1,6 +1,9 @@
 
 language: objective-c
 
-install: true
+before_script: make clean
 
-script: ./INSTALL.command
+script: make
+
+after_script: make test
+

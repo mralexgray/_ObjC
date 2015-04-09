@@ -1,18 +1,18 @@
 
-@import XCTest;
-
+@import   XCTest;
 #import "_ObjC.h"
 
-  _Kind   Kind : NObj         /// A simple @interface declaration.
-+ _Kind_  instanceOf ___      /// Sugar for (instancetype) methods.
--         methodName ___      /// use triple underscore instead of ;
-  @Stop                       /// Alias for end.
+  _Kind   Kind : NObj                 // A simple @interface declaration.
+  @Stop                               // Alias for end.
 
-  @Kind  (KindOfNSObject)     /// Function-like @interface declaration, subclasses NSObject.
-  ￭                           /// Symbolic alias for @Stop / @end.
-
-  @Kind_ (KindOfXCTest,XCTestCase) ￭  // Function-like, but Still able to spec the superclass.
+  @Kind  (KindOfNSObject)             // Function-like @interface declaration, subclasses NSObject.
+  ￭                                   // Symbolic alias for @Stop / @end.
+  @Xtra (KindOfNSObject, Category)
+  ￭
+  @Kind_ (KindOfXCTest,XCTestCase)   // Function-like, but Still able to spec the superclass.
+  ￭
   @Kind  (KindWithVows,<NSCoding>) ￭  // Both function-like versions can conform to protocols.
+
 
   @Plan   KindOfXCTest
 

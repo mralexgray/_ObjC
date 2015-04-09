@@ -10,22 +10,21 @@
 #define THEDATE        [NSDateFormatter localizedStringFromDate:NSDate.date \
                                                        dateStyle:NSDateFormatterMediumStyle \
                                                        timeStyle:NSDateFormatterMediumStyle]
-@interface RxMatchGroup : NSObject
-@property (nonatomic, copy) NSString * value;    /* The substring that matched the expression. */
-@property (nonatomic)        NSRange   range;    /* The range of the original string that was matched. */
-@end
-@interface RxMatch : RxMatchGroup
-@property (nonatomic, copy)  NSArray * groups;   /* Each object is an RxMatchGroup. */
-@property (nonatomic, copy) NSString * original; /* The full original string that was matched against.  */
-@end
 
-NSString* replace(NSRegularExpression*, NSString *, NSString*(^)(RxMatch*));
-
-@implementation NSString (Subscript) - objectAtIndexedSubscript:(NSInteger)i {
+@implementation             NSString   (Subscript)
+          - objectAtIndexedSubscript : (NSInteger)i {
 
 return i < 0 ? [self substringFromIndex:ABS(i)] : [self substringToIndex:i];
 
-} @end
+}
+@end
+@interface                   RxMatch : NSObject
+@property (nonatomic)        NSRange   range;    // The range of the original string that was matched.
+@property (nonatomic, copy)  NSArray * groups;   // Group ONLY. Each object is an RxMatchGroup.
+@property (nonatomic, copy) NSString * value,    // The substring that matched the expression.
+                                     * original; // Group ONLY. The full original string that was matched against.
+@end @implementation         RxMatch
+@end
 
 NSDictionary * ParseArgs() { id opts = @{}.mutableCopy, flag = nil;
 
@@ -57,39 +56,85 @@ NSString * _genTokens (NSDictionary *_plistData, NSString* _section) {
 
   id        backing = [_plistData       valueForKeyPath:_section],
            keyParts = [_section componentsSeparatedByString:@"."];
-  BOOL   emitsTypes = [keyParts[0]      isEqualToString:@"TYPES"],
-           sortName = (SORT_ALPHA || emitsTypes) && !SORT_LNGTH;
+  BOOL   emitsTypes = [keyParts[0]      isEqualToString:@"TYPES"];
 
   id       sortedKs = [[backing allKeys] sortedArrayUsingComparator:^NSComparisonResult(NSString*x1, NSString*x2) {
-    return sortName ? [x1           compare:x2 options:NSCaseInsensitiveSearch]
-                    : [@(x1.length) compare:@(x2.length)];
+
+    return (SORT_ALPHA || emitsTypes) && !SORT_LNGTH ? [x1           compare:x2 options:NSCaseInsensitiveSearch]
+                                                     : [@(x1.length) compare:@(x2.length)];
   }];
 
-  M(String) *snippet = $(@"#pragma mark - %@\n\n", _section.pathExtension).mutableCopy,
-         *pointerMap = [keyParts[1] containsString:@"POINT"] ? @"".mutableCopy : nil,
-           *methArgs = emitsTypes                            ? @"".mutableCopy : nil;
+  M(String)
 
-  void(^writeTypeOrDef)(id) = ^(NSString * k){
+      * snippet = $(@"#pragma mark - %@\n\n", _section.pathExtension).mutableCopy,
+   * pointerMap = [keyParts[1] containsString:@"POINT"] ? @"".mutableCopy : nil,
+     * methArgs =                            emitsTypes ? @"".mutableCopy : nil;
 
-    [snippet appendFormat:@"%@ %30s %@%@ %@\n", emitsTypes ? @"_Type" : @"#define",
-                                  k.UTF8String, pointerMap ? @""      : @" ", backing[k],
-                                                emitsTypes ? @"___"   : @""];
+  void(^writeTypeOrDef)(id) = ^(NSString*k){
+
+    APPEND(snippet, @"%@ %30s %@%@ %@\n", emitsTypes ? @"_Type" : @"#define",
+                            k.UTF8String, pointerMap ? @""      : @" ", backing[k],
+                                          emitsTypes ? @"___"   : @"");
       if (pointerMap) {
-        NSString *prefix =  backing[k][  1],
-     * originalClassName =  k[k.length - 2],
-              * shortcut =  $(@"%@%@", backing[k][-1], ![prefix isEqualToString:@"_"] ? prefix.uppercaseString : @"");
+        NSString *prefix = backing[k][  1],
+     * originalClassName = k[k.length - 2],
+              * shortcut = $(@"%@%@", backing[k][-1], ![prefix isEqualToString:@"_"] ? prefix.uppercaseString : @"");
 
         APPEND(pointerMap,@"\n#define  %26s  %@", shortcut.UTF8String, originalClassName);
       }
 
-      !emitsTypes ?: [methArgs appendFormat:@"#define %26s_  (%@)\n#define %21s%@_  :%@_\n", [backing[k] UTF8String], backing[k], "_", backing[k], backing[k]];
-
+      !emitsTypes ?: APPEND(methArgs,@"#define %26s_  (%@)\n"
+                                      "#define %21s%@_ : %@_\n", [backing[k] UTF8String], backing[k],
+                                                             "_", backing[k],             backing[k]);
     };
-    for (NSString *k in sortedKs)  writeTypeOrDef(k);
 
-    [snippet appendFormat:@"%@%@%@", pointerMap ?: @"", methArgs ? @"\n\n" : @"", methArgs ?: @""];
+  for (NSString *k in sortedKs) writeTypeOrDef(k);
+
+  APPEND(snippet,@"%@%@%@", pointerMap ?: @"", methArgs ? @"\n\n" : @"", methArgs ?: @"");
 
   return snippet.copy;
+}
+
+RxMatch* resultToMatch(NSTextCheckingResult* result, NSString* original) {
+
+    RxMatch* match  = RxMatch.new;
+    match.original  = original;
+    match.range     = result.range;
+    match.value     = result.range.length ? [original substringWithRange:result.range] : nil;
+
+    NSMutableArray* groups = @[].mutableCopy;
+    for(int i=0; i<result.numberOfRanges; i++){
+        RxMatch* group = RxMatch.new;
+        group.range         = [result rangeAtIndex:i];
+        group.value         = group.range.length ? [original substringWithRange:group.range] : nil;
+        [groups addObject:group];
+    }
+    match.groups = groups;
+    return match;
+}
+
+NSString* replace(NSRegularExpression*self, NSString *string, NSString*(^replacer)(RxMatch*)) {
+
+    if (!replacer) return string; //no replacer? just return
+    NSMutableString* replaced = string.mutableCopy; //copy the string so we can replace subsections
+    NSArray* matches = [self matchesInString:string options:0 range:NSMakeRange(0, string.length)]; //get matches
+    for (int i=(int)matches.count-1; i>=0; i--) { //replace each match (right to left so indexing doesn't get messed up)
+        NSTextCheckingResult* result = matches[i];
+        RxMatch* match = resultToMatch(result,string);
+        NSString* replacement = replacer(match);
+        [replaced replaceCharactersInRange:result.range withString:replacement];
+    }
+    return replaced;
+}
+
+id ObjectForAnyKeyPassingTest (NSDictionary *values, NSArray*okKeys, BOOL(^test)(id)) {
+
+  __block id found = nil;
+  [okKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+
+      if ((found = [values objectForKey:obj]))  *stop = !test || test(found); 
+  }];
+  return found;
 }
 
 NSString* header (NSString *plist, NSString *template) { NSDictionary *_data; id _template;
@@ -107,18 +152,7 @@ $(@"\n/*!       @note This file is AUTO_GENERATED! Changes will NOT persist!\n"
         ^NSString *(RxMatch *match) { return _genTokens(_data,[match.groups.lastObject value]); });
 }
 
-id ObjectForAnyKeyPassingTest (NSDictionary *values, NSArray*okKeys, BOOL(^test)(id)) {
-
-  __block id found = nil;
-  [okKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-
-      if ((found = [values objectForKey:obj]))  *stop = !test || test(found); 
-  }];
-  return found;
-}
-
 int main() { @autoreleasepool {
-
 
   NSDictionary *opts = ParseArgs();
 
@@ -132,7 +166,7 @@ int main() { @autoreleasepool {
         id output = ObjectForAnyKeyPassingTest(opts,@[@"o",@"output"], NULL);
 
   if (!model || !templ)
-    return fprintf(stderr, "ERROR. Need valid input for both plist data and header template!, got %s\nmodel:%s\ntemplate:%s",opts.description.UTF8String, model.UTF8String, templ.UTF8String), EXIT_FAILURE;
+    return fprintf(stdout, "%s\n ERROR. Need valid input for both plist data and header template!, got %s\nmodel:%s\ntemplate:%s", [ARGS[0] UTF8String], opts.description.UTF8String, model.UTF8String, templ.UTF8String), EXIT_FAILURE;
 
   id x = header(model, templ);
 
@@ -142,40 +176,3 @@ int main() { @autoreleasepool {
     if (![x writeToFile:place atomically:YES encoding:NSUTF8StringEncoding error:nil]) return EXIT_FAILURE;
 
 } return EXIT_SUCCESS; }
-
-@implementation RxMatch @end @implementation RxMatchGroup @end
-
-RxMatch* resultToMatch(NSTextCheckingResult* result, NSString* original) {
-
-    RxMatch* match  = RxMatch.new;
-    match.original  = original;
-    match.range     = result.range;
-    match.value     = result.range.length ? [original substringWithRange:result.range] : nil;
-
-    NSMutableArray* groups = @[].mutableCopy;
-    for(int i=0; i<result.numberOfRanges; i++){
-        RxMatchGroup* group = RxMatchGroup.new;
-        group.range         = [result rangeAtIndex:i];
-        group.value         = group.range.length ? [original substringWithRange:group.range] : nil;
-        [groups addObject:group];
-    }
-    match.groups = groups;
-    return match;
-}
-NSString* replace(NSRegularExpression*self, NSString *string, NSString*(^replacer)(RxMatch*)) {
-
-    if (!replacer) return string; //no replacer? just return
-    NSMutableString* replaced = string.mutableCopy; //copy the string so we can replace subsections
-    NSArray* matches = [self matchesInString:string options:0 range:NSMakeRange(0, string.length)]; //get matches
-    for (int i=(int)matches.count-1; i>=0; i--) { //replace each match (right to left so indexing doesn't get messed up)
-        NSTextCheckingResult* result = matches[i];
-        RxMatch* match = resultToMatch(result,string);
-        NSString* replacement = replacer(match);
-        [replaced replaceCharactersInRange:result.range withString:replacement];
-    }
-    return replaced;
-}
-
-
-//#import "RegExCategories.h"
-

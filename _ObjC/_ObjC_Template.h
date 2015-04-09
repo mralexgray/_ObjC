@@ -17,7 +17,8 @@
 #define IOS_ONLY TARGET_OS_IPHONE
 #define MAC_ONLY !IOS_ONLY
 
-#define  NSLog(...)  (void)printf("%s %s\n",__PRETTY_FUNCTION__,$(__VA_ARGS__).UTF8String)
+#define  NSLog(...)  (void)fprintf(stderr,"%s\n",$(__VA_ARGS__).UTF8String)
+//#define  NSLog(...)  (void)printf("%s %s\n",__PRETTY_FUNCTION__,$(__VA_ARGS__).UTF8String)
 
 #define    _Type typedef
 
@@ -27,6 +28,9 @@
 #define     Stop end
 #define        ￭ @Stop
 #define       ＿ Plan
+#define ｜(...) ___
+#define ￤(...)
+
 
 /// Let's standarize the preprocessor names too!
 

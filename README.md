@@ -33,3 +33,7 @@ go from
 - (NSString*)  base64EncodedString;
 - (NSString*) base64EncodedStringWithSeparateLines:(BOOL)separateLines; // added by Hiroshi Hashiguchi
 @end
+
+Below is the header as was last compiled..
+
+%%CURRENT_VERSION_OF_HEADER_GOES_HERE%%

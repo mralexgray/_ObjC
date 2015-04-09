@@ -1,6 +1,7 @@
 {
 	"SORT_EXCEPTIONS" = {
 		ALPHA = (
+			"DEFINES.MISC",
 			"DEFINES.ABBREVIATIONS",
 		);
 		LENGTH = (
@@ -17,6 +18,7 @@
 			"_U" = unsigned;
 		};
 		ABBREVIATIONS = {
+			"_VD" = "- _Void_ ";
 			ASS = assign;
 			CP = copy;
 			NA = nonatomic;
