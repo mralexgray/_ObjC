@@ -3,8 +3,10 @@
        TOOL = $(PROJ)_Tool
    TEMPLATE = $(PROJ)/$(PROJ)_Template.h
       PLIST = $(PROJ)/$(PROJ).plist
-         DD = $(shell xcodebuild -showBuildSettings 2> /dev/null | grep BUILD_ROOT | sed 's:.* = ::g')
-		 PRETTY = xcpretty -c
+        DD := $(shell xcodebuild -showBuildSettings 2> /dev/null | grep BUILD_ROOT | sed 's:.* = ::g'| sed 's:/Build.*::g')
+	 TOOLPATH = $(shell xcodebuild -target $(TOOL) -showBuildSettings | grep CODESIGNING_FOLDER_PATH | sed 's:.* = ::g')
+		 PRETTY = 
+		 # xcpretty -c
 		 
 ifdef BUILT_PRODUCTS_DIR
   DSTHEADER = $(BUILT_PRODUCTS_DIR)/$(PROJ).h
@@ -20,7 +22,8 @@ clean:
 	rm -f **/*/.DS_Store
 
 build-tool: $(PROJ)/$(PROJ)_Tool.m
-	xcodebuild -scheme $(TOOL) -derivedDataPath $(DD) 2> /dev/null | $(PRETTY)
+	echo "derived data is $(DD)"
+	xcodebuild -scheme $(TOOL) -derivedDataPath $(DD) 2> /dev/null  $(PRETTY)
 
 test: run-tool
 	xcodebuild -scheme $(PROJ) test 2> /dev/null
@@ -29,7 +32,7 @@ show: run-tool
 	open -R $(DSTHEADER)
 		
 run-tool: build-tool $(TEMPLATE) $(PLIST)
-	$(DD)/Release/$(TOOL) -plist $(PLIST) -template $(TEMPLATE)  -o $(DSTHEADER)
+	 $(TOOLPATH) -plist $(PLIST) -template $(TEMPLATE)  -o $(DSTHEADER)
 
 
 
