@@ -22,39 +22,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7B380C8D1ACAF5A100285B4E /* _ObjC.xcspec */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xcspec; path = _ObjC.xcspec; sourceTree = "<group>"; };
-		7B380C8E1ACAF64500285B4E /* _ObjC.xclangspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xclangspec; path = _ObjC.xclangspec; sourceTree = "<group>"; };
-		7B8BD9631AC67C6C001DD440 /* _ObjC.trashedplist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = _ObjC.trashedplist; path = excludes/_ObjC.trashedplist; sourceTree = "<group>"; };
-		7B905BCB1ACB1FFC00795D14 /* _ObjC_install.zsh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = _ObjC_install.zsh; sourceTree = "<group>"; };
 		7B9B40331AC14EB6002EDD01 /* _ObjC_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = _ObjC_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B9B403D1AC14ED5002EDD01 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
 		7B9B403E1AC14ED5002EDD01 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
-		7B9B403F1AC14ED5002EDD01 /* _ObjC.classic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = _ObjC.classic.h; path = excludes/_ObjC.classic.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = _ObjC_Tool.m; path = _ObjC/_ObjC_Tool.m; sourceTree = SOURCE_ROOT; wrapsLines = 0; };
-		7B9B40421AC14ED5002EDD01 /* INSTALL.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = INSTALL.command; path = excludes/INSTALL.command; sourceTree = "<group>"; };
-		7B9B40431AC14ED5002EDD01 /* ObjCIfy.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; name = ObjCIfy.app; path = excludes/ObjCIfy.app; sourceTree = "<group>"; };
-		7B9B40441AC14ED5002EDD01 /* ObjCIfy.platypus */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ObjCIfy.platypus; path = excludes/ObjCIfy.platypus; sourceTree = "<group>"; };
+		7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _ObjC_Tool.m; sourceTree = SOURCE_ROOT; wrapsLines = 0; };
 		7B9B40451AC14ED5002EDD01 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		7B9B40461AC14ED5002EDD01 /* scratch.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = scratch.sh; sourceTree = "<group>"; };
 		7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = _ObjC_Tests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		7BB414D91ACE62F70024D285 /* _ObjC_Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = _ObjC_Template.h; path = _ObjC/_ObjC_Template.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7BB414D91ACE62F70024D285 /* _ObjC_Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = _ObjC_Template.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7BC4594A1AD68DAA0097F508 /* _ObjC_Tool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = _ObjC_Tool; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BC4594E1AD6955F0097F508 /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC.h; sourceTree = BUILT_PRODUCTS_DIR; };
-		7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = _ObjC.plist; path = _ObjC/_ObjC.plist; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
+		7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = _ObjC.plist; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		7B380C8C1ACAF54E00285B4E /* Xcode */ = {
-			isa = PBXGroup;
-			children = (
-				7B380C8E1ACAF64500285B4E /* _ObjC.xclangspec */,
-				7B905BCB1ACB1FFC00795D14 /* _ObjC_install.zsh */,
-				7B380C8D1ACAF5A100285B4E /* _ObjC.xcspec */,
-			);
-			name = Xcode;
-			path = excludes/Xcode;
-			sourceTree = "<group>";
-		};
 		7B9B40251AC14E7D002EDD01 = {
 			isa = PBXGroup;
 			children = (
@@ -63,37 +43,14 @@
 				7BB414D91ACE62F70024D285 /* _ObjC_Template.h */,
 				7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */,
 				7BC4594B1AD68DCA0097F508 /* Support */,
-				7B9B40521AC14FB0002EDD01 /* Unused */,
 			);
-			sourceTree = "<group>";
-		};
-		7B9B40521AC14FB0002EDD01 /* Unused */ = {
-			isa = PBXGroup;
-			children = (
-				7BC2C99A1AD5D46E00D3923D /* Products */,
-				7B380C8C1ACAF54E00285B4E /* Xcode */,
-				7B8BD9631AC67C6C001DD440 /* _ObjC.trashedplist */,
-				7B9B403F1AC14ED5002EDD01 /* _ObjC.classic.h */,
-				7B9B40421AC14ED5002EDD01 /* INSTALL.command */,
-				7B9B40431AC14ED5002EDD01 /* ObjCIfy.app */,
-				7B9B40441AC14ED5002EDD01 /* ObjCIfy.platypus */,
-				7B9B40461AC14ED5002EDD01 /* scratch.sh */,
-			);
-			name = Unused;
-			sourceTree = "<group>";
-		};
-		7BC2C99A1AD5D46E00D3923D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		7BC4594B1AD68DCA0097F508 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				7B9B403E1AC14ED5002EDD01 /* .travis.yml */,
 				7B9B403D1AC14ED5002EDD01 /* Makefile */,
+				7B9B403E1AC14ED5002EDD01 /* .travis.yml */,
 				7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */,
 				7B9B40451AC14ED5002EDD01 /* README.md */,
 				7BC4594A1AD68DAA0097F508 /* _ObjC_Tool */,
