@@ -46,6 +46,8 @@
 
 %% DEFINES.STANDARD_NAMES %%
 
+%% DEFINES.GEOMETRY_TRANSLATIONS %%
+
 #endif // Per-Platform Imports (DEFINES.STANDARD_NAMES)
 
 %% TYPES.PRIMITIVES %%
@@ -65,21 +67,16 @@
 
 /// For ObjC classes, let's define a preprocessor Macro to call the direct Classes, without the _.
 
+%% DEFINES.PROPERTIES %%
 
 /*! Kind - Interface (Prototypes, Public, Name, etc)
     Vows - Protocol  (Promises, etc)
     Plan - Implemenation
     Xtra - Categories                                      */
 
-%% DEFINES.MISC %%
-
 %% DEFINES.ABBREVIATIONS %%
 
-#if IOS_ONLY //
-
-%% DEFINES.GEOMETRY_TRANSLATIONS %%
-
-#endif // IOS_ONLY/GEOMETRY
+%% DEFINES.MISC %%
 
 @Kind(_ObjC_Load) ￭
 

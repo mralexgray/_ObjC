@@ -6,6 +6,9 @@
         DD := $(shell xcodebuild -showBuildSettings 2> /dev/null | grep BUILD_ROOT | sed 's:.* = ::g'| sed 's:/Build.*::g')
 	 TOOLPATH = $(shell xcodebuild -target $(TOOL) -showBuildSettings | grep CODESIGNING_FOLDER_PATH | sed 's:.* = ::g')
 		 
+ifndef CONFIGURATION
+	CONFIGURATION = Debug
+endif
 ifdef BUILT_PRODUCTS_DIR
   DSTHEADER = $(BUILT_PRODUCTS_DIR)/$(PROJ).h
 else
@@ -21,7 +24,7 @@ clean:
 
 build-tool: $(PROJ)_Tool.m
 	echo "derived data is $(DD)"
-	xcodebuild -scheme $(TOOL) -derivedDataPath $(DD) 2> /dev/null
+	xcodebuild -scheme $(TOOL) -configuration $(CONFIGURATION) -derivedDataPath $(DD) 2> /dev/null
 
 test: run-tool
 	xcodebuild -scheme $(PROJ) test 2> /dev/null

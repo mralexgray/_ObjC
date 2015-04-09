@@ -1,4 +1,3 @@
-@import Foundation;
 
 #define       M(X)       NSMutable##X
 #define       $(...)     [NSString stringWithFormat:__VA_ARGS__]
@@ -10,90 +9,79 @@
 #define THEDATE        [NSDateFormatter localizedStringFromDate:NSDate.date \
                                                        dateStyle:NSDateFormatterMediumStyle \
                                                        timeStyle:NSDateFormatterMediumStyle]
+@import Foundation;
 
-@implementation             NSString   (Subscript)
-          - objectAtIndexedSubscript : (NSInteger)i {
+@implementation  NSString (SubstringToOrFrom)
 
-return i < 0 ? [self substringFromIndex:ABS(i)] : [self substringToIndex:i];
-
-}
-@end
-@interface                   RxMatch : NSObject
-@property (nonatomic)        NSRange   range;    // The range of the original string that was matched.
-@property (nonatomic, copy)  NSArray * groups;   // Group ONLY. Each object is an RxMatchGroup.
-@property (nonatomic, copy) NSString * value,    // The substring that matched the expression.
-                                     * original; // Group ONLY. The full original string that was matched against.
-@end @implementation         RxMatch
+- objectAtIndexedSubscript : (NSInteger)i { return i < 0 ? [self substringFromIndex:ABS(i)]
+                                                         : [self substringToIndex:i]; }
 @end
 
-NSDictionary * ParseArgs() { id opts = @{}.mutableCopy, flag = nil;
+@interface RxMatch : NSObject
 
-  for (NSString *argv in [ARGS subarrayWithRange:(NSRange){1,ARGS.count-1}]) { BOOL isFlag = [argv hasPrefix:@"-"];
+@property (nonatomic)       NSRange   range;    // The range of the original string that was matched.
+@property (nonatomic,copy)  NSArray * groups;   // Group ONLY. Each object is an RxMatchGroup.
+@property (nonatomic,copy) NSString * value,    // The substring that matched the expression.
+                                    * original; // Group ONLY. The full original string that was matched against.
+@end
 
-    id arg = !isFlag ? argv : ({ id newFlag = argv.copy; while ([newFlag hasPrefix:@"-"])
-                                    newFlag = [newFlag substringFromIndex:1]; newFlag; });
 
-    flag ? ({ isFlag && ![opts objectForKey:flag = arg] ? ({ opts[flag] = NSNull.null; }) : ({
-
-        id existing = opts[flag]; // doesn't have - prefix ... adding or creating a value.
-
-        opts[flag] = !existing || [existing isKindOfClass: NSNull.class] ? arg :
-                                  [existing isKindOfClass:NSArray.class] ?
-                                  [existing     arrayByAddingObject:arg] : @[existing, arg]; });
-
-    }) : ({ isFlag && !opts[flag = arg] ? ({ opts[flag] = NSNull.null; })
-
-       : ({ opts[@"?"] = [opts[@"?"] ?: @[] arrayByAddingObject:arg]; flag = nil; }); // No '-', add to unnamed array.
-    });
-
-  }  return [opts copy];
-}
+NSDictionary * ParseArgs();
 
 NSString * _genTokens (NSDictionary *_plistData, NSString* _section) {
 
-#define SORT_ALPHA [[_plistData valueForKeyPath: @"SORT_EXCEPTIONS.ALPHA"]containsObject:_section]
-#define SORT_LNGTH [[_plistData valueForKeyPath:@"SORT_EXCEPTIONS.LENGTH"]containsObject:_section]
+#define SORT(X) [[_plistData valueForKeyPath: @"SORT_EXCEPTIONS." #X ]containsObject:_section]
 
   id        backing = [_plistData       valueForKeyPath:_section],
            keyParts = [_section componentsSeparatedByString:@"."];
   BOOL   emitsTypes = [keyParts[0]      isEqualToString:@"TYPES"];
 
-  id       sortedKs = [[backing allKeys] sortedArrayUsingComparator:^NSComparisonResult(NSString*x1, NSString*x2) {
+  id(^processDictionary)(id) = ^NSString*(NSDictionary*defs) {
 
-    return (SORT_ALPHA || emitsTypes) && !SORT_LNGTH ? [x1           compare:x2 options:NSCaseInsensitiveSearch]
-                                                     : [@(x1.length) compare:@(x2.length)];
-  }];
+    id       sortedKs = [defs.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString*x1, NSString*x2) {
 
-  M(String)
+      return (SORT(ALPHA) || emitsTypes) && !SORT(LENGTH) ? [x1 compare:x2 options:NSCaseInsensitiveSearch]
+                                                          : [@(x1.length) compare:@(x2.length)];
+    }];
 
-      * snippet = $(@"#pragma mark - %@\n\n", _section.pathExtension).mutableCopy,
-   * pointerMap = [keyParts[1] rangeOfString:@"POINT"].location != NSNotFound
-                ? @"".mutableCopy : nil,
-     * methArgs =  emitsTypes ? @"".mutableCopy : nil;
+    M(String)
 
-  void(^writeTypeOrDef)(id) = ^(NSString*k){
+        * snippet = $(@"#pragma mark - %@\n\n", _section.pathExtension).mutableCopy,
+     * pointerMap = [keyParts[1] rangeOfString:@"POINT"].location != NSNotFound
+                  ? @"".mutableCopy : nil,
+       * methArgs =  emitsTypes ? @"".mutableCopy : nil;
 
-    APPEND(snippet, @"%@ %30s %@%@ %@\n", emitsTypes ? @"_Type" : @"#define",
-                            k.UTF8String, pointerMap ? @""      : @" ", backing[k],
-                                          emitsTypes ? @"___"   : @"");
-      if (pointerMap) {
-        NSString *prefix = backing[k][  1],
-     * originalClassName = k[k.length - 2],
-              * shortcut = $(@"%@%@", backing[k][-1], ![prefix isEqualToString:@"_"] ? prefix.uppercaseString : @"");
+    void(^writeTypeOrDef)(id) = ^(NSString*k){
 
-        APPEND(pointerMap,@"\n#define  %26s  %@", shortcut.UTF8String, originalClassName);
-      }
+      APPEND(snippet, @"%@ %30s %@%@ %@\n", emitsTypes ? @"_Type" : @"#define",
+                              k.UTF8String, pointerMap ? @""      : @" ", defs[k],
+                                            emitsTypes ? @"___"   : @"");
+        if (pointerMap) {
+          NSString *prefix = defs[k][  1],
+       * originalClassName = k[k.length - 2],
+                * shortcut = $(@"%@%@", defs[k][-1], ![prefix isEqualToString:@"_"] ? prefix.uppercaseString : @"");
 
-      !emitsTypes ?: APPEND(methArgs,@"#define %26s_  (%@)\n"
-                                      "#define %21s%@_ : %@_\n", [backing[k] UTF8String], backing[k],
-                                                             "_", backing[k],             backing[k]);
-    };
+          APPEND(pointerMap,@"\n#define  %26s  %@", shortcut.UTF8String, originalClassName);
+        }
 
-  for (NSString *k in sortedKs) writeTypeOrDef(k);
+        !emitsTypes ?: APPEND(methArgs,@"#define %26s_  (%@)\n"
+                                        "#define %21s%@_ : %@_\n", [defs[k] UTF8String], defs[k],
+                                                               "_", defs[k],          defs[k]);
+      };
 
-  APPEND(snippet,@"%@%@%@", pointerMap ?: @"", methArgs ? @"\n\n" : @"", methArgs ?: @"");
+    for (NSString *k in sortedKs) writeTypeOrDef(k);
 
-  return snippet.copy;
+    APPEND(snippet,@"%@%@%@", pointerMap ?: @"", methArgs ? @"\n\n" : @"", methArgs ?: @"");
+
+    return snippet.copy;
+  };
+
+  return [backing isKindOfClass:NSDictionary.class] ? processDictionary(backing) : ({
+
+    M(String) * concat = @"".mutableCopy; for (NSDictionary *d in backing) APPEND(concat,@"\n%@", processDictionary(d));
+
+    concat.copy;
+  });
 }
 
 RxMatch* resultToMatch(NSTextCheckingResult* result, NSString* original) {
@@ -177,3 +165,30 @@ int main() { @autoreleasepool {
     if (![x writeToFile:place atomically:YES encoding:NSUTF8StringEncoding error:nil]) return EXIT_FAILURE;
 
 } return EXIT_SUCCESS; }
+
+
+
+NSDictionary * ParseArgs() { id opts = @{}.mutableCopy, flag = nil;
+
+  for (NSString *argv in [ARGS subarrayWithRange:(NSRange){1,ARGS.count-1}]) { BOOL isFlag = [argv hasPrefix:@"-"];
+
+    id arg = !isFlag ? argv : ({ id newFlag = argv.copy; while ([newFlag hasPrefix:@"-"])
+                                    newFlag = [newFlag substringFromIndex:1]; newFlag; });
+
+    flag ? ({ isFlag && ![opts objectForKey:flag = arg] ? ({ opts[flag] = NSNull.null; }) : ({
+
+        id existing = opts[flag]; // doesn't have - prefix ... adding or creating a value.
+
+        opts[flag] = !existing || [existing isKindOfClass: NSNull.class] ? arg :
+                                  [existing isKindOfClass:NSArray.class] ?
+                                  [existing     arrayByAddingObject:arg] : @[existing, arg]; });
+
+    }) : ({ isFlag && !opts[flag = arg] ? ({ opts[flag] = NSNull.null; })
+
+       : ({ opts[@"?"] = [opts[@"?"] ?: @[] arrayByAddingObject:arg]; flag = nil; }); // No '-', add to unnamed array.
+    });
+
+  }  return [opts copy];
+} // Parses CLI to dictionary.  Generic, chic, and unrelated to task at hand.
+
+@implementation RxMatch @end
