@@ -67,8 +67,9 @@ NSString * _genTokens (NSDictionary *_plistData, NSString* _section) {
   M(String)
 
       * snippet = $(@"#pragma mark - %@\n\n", _section.pathExtension).mutableCopy,
-   * pointerMap = [keyParts[1] containsString:@"POINT"] ? @"".mutableCopy : nil,
-     * methArgs =                            emitsTypes ? @"".mutableCopy : nil;
+   * pointerMap = [keyParts[1] rangeOfString:@"POINT"].location != NSNotFound
+                ? @"".mutableCopy : nil,
+     * methArgs =  emitsTypes ? @"".mutableCopy : nil;
 
   void(^writeTypeOrDef)(id) = ^(NSString*k){
 
