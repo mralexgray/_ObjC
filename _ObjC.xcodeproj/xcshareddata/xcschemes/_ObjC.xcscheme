@@ -22,10 +22,10 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7B9B40321AC14EB6002EDD01"
@@ -70,8 +70,9 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       ignoresPersistentStateOnLaunch = "NO"
-      debugDocumentVersioning = "YES"
-      allowLocationSimulation = "YES">
+      debugDocumentVersioning = "NO"
+      allowLocationSimulation = "NO"
+      viewDebuggingEnabled = "No">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"

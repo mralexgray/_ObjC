@@ -4,7 +4,8 @@
    TEMPLATE = $(PROJ)/$(PROJ)_Template.h
       PLIST = $(PROJ)/$(PROJ).plist
          DD = $(shell xcodebuild -showBuildSettings 2> /dev/null | grep BUILD_ROOT | sed 's:.* = ::g')
-
+		 PRETTY = xcpretty -c
+		 
 ifdef BUILT_PRODUCTS_DIR
   DSTHEADER = $(BUILT_PRODUCTS_DIR)/$(PROJ).h
 else
@@ -19,10 +20,10 @@ clean:
 	rm -f **/*/.DS_Store
 
 build-tool: $(PROJ)/$(PROJ)_Tool.m
-	xcodebuild -scheme $(TOOL) -derivedDataPath $(DD)
+	xcodebuild -scheme $(TOOL) -derivedDataPath $(DD) 2> /dev/null | $(PRETTY)
 
 test: run-tool
-	xcodebuild -scheme $(PROJ) test
+	xcodebuild -scheme $(PROJ) test 2> /dev/null
 	
 show: run-tool
 	open -R $(DSTHEADER)
@@ -45,9 +46,7 @@ run-tool: build-tool $(TEMPLATE) $(PLIST)
 
 
 
-
-	# -o /tmp/output
-	
+# -o /tmp/output
 # genheader:
 # 	$(BUILT_PRODUCTS_DIR)/_ObjC_Tool -plist $(INPLIST) -header  -o $(DSTHEADER):$(HEADER)
 #
@@ -55,9 +54,6 @@ run-tool: build-tool $(TEMPLATE) $(PLIST)
 # 	say "running"
 #
 # sexy:
-
-	
-	
 # docs: _ObjC.h
 # 	headerdoc2html -p _ObjC.h -o docs
 # APP = $(xcodebuild -target _ObjC_Tool -showBuildSettings | grep -m 1 "CODESIGNING_FOLDER_PATH" | grep -oEi  "\/.*")
