@@ -3,4 +3,4 @@ language: objective-c
 
 xcode_project: _ObjC.xcodeproj
 
-xcode_scheme: _objC
+xcode_scheme: _ObjC
