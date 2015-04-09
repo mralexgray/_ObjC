@@ -1,9 +1,6 @@
 
 language: objective-c
 
-before_script: make clean
+xcode_project: _ObjC.xcodeproj
 
-script: make
-
-after_script: make test
-
+xcode_scheme: _objC
