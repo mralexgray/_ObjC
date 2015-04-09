@@ -222,6 +222,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+				);
 			};
 			name = Release;
 		};
