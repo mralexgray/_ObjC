@@ -1,19 +1,23 @@
 
-       PROJ = _ObjC
-       TOOL = $(PROJ)_Tool
-   TEMPLATE = $(PROJ)_Template.h
-      PLIST = $(PROJ).plist
-        DD := $(shell xcodebuild -showBuildSettings 2> /dev/null | grep BUILD_ROOT | sed 's:.* = ::g'| sed 's:/Build.*::g')
-	 TOOLPATH = $(shell xcodebuild -target $(TOOL) -showBuildSettings | grep CODESIGNING_FOLDER_PATH | sed 's:.* = ::g')
+					 PROJ = _ObjC
+					 TOOL = $(PROJ)_Tool
+			 TEMPLATE = $(PROJ)_Template.h
+					PLIST = $(PROJ).plist
 		 
-ifndef CONFIGURATION
+				 ifndef   BUILT_PRODUCTS_DIR
+
+						 DD:= $(shell xcodebuild -showBuildSettings 2> /dev/null | grep BUILD_ROOT | sed 's:.* = ::g'| sed 's:/Build.*::g')
 	CONFIGURATION = Debug
-endif
-ifdef BUILT_PRODUCTS_DIR
-  DSTHEADER = $(BUILT_PRODUCTS_DIR)/$(PROJ).h
-else
-  DSTHEADER = $(PROJ).h
-endif
+	     TOOLPATH = $(shell xcodebuild -target $(TOOL) -showBuildSettings | grep CODESIGNING_FOLDER_PATH | sed 's:.* = ::g')
+      DSTHEADER = $(BUILT_PRODUCTS_DIR)/$(PROJ).h
+
+									else
+
+			 TOOLPATH = $(BUILT_PRODUCTS_DIR)/$(TOOL)
+      DSTHEADER = $(PROJ).h
+						 DD = $(BUILD_ROOT)
+
+									endif
 
 all: run-tool
 
@@ -33,5 +37,5 @@ show: run-tool
 	open -R $(DSTHEADER)
 		
 run-tool: build-tool $(TEMPLATE) $(PLIST)
-	 $(TOOLPATH) -plist $(PLIST) -template $(TEMPLATE)  -o $(DSTHEADER)
+	$(TOOLPATH) -p $(PLIST) -t $(TEMPLATE) -o $(DSTHEADER)
 

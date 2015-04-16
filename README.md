@@ -5,17 +5,24 @@
 
 A terse, 1:1 dialect of ObjC for Mac + iOS fat targets.
 
+    if ([self isKindOfClass:[NSColor class]]) { [self set]; }
 
+to  
 
+    !ISA(self,Colr) 💩 [self set] ___
+ 
+ 
+ ?  _Text_ [Colr fromTTY:(_Numb_ self).iV] 
+ 
 
 go from 
 
 /*  NSNib+XMLBase64.h  *  AtoZCodeFactory */
 
 #if TARGET_OS_IPHONE
-@import UIKit;
+#import <UIKit/UIKit.h>
 #else
-@import AppKit;
+#import <AppKit/AppKit.h>
 #endif
 
 @interface			             NSNib (XMLBase64)

@@ -14,6 +14,26 @@
 #define     ____ <
 #define    _____ >
 
+#define        💩 ?:
+
+#define BLOCKTYPE(NAME,...) _Type void(^NAME)(__VA_ARGS__)
+
+#define   P(...) id<__VA_ARGS__>
+#define  _P(...) (id<__VA_ARGS__>)
+ #ifdef __P
+ #undef __P
+ #endif
+#define __P(...) : (id<__VA_ARGS__>)
+
+#define _ID - _ObjC_ 
+#define Kind_Plan(CLASS,SUPER,...) Kind_ (CLASS,SUPER) ￭ @Plan CLASS
+
+#define ___DSRC_HELPER(X) X##DataSource
+#define ___DLGT_HELPER(X) X##Delegate
+#define DSRC(X) ___DSRC_HELPER(X)
+#define DLGT(X) ___DLGT_HELPER(X)
+
+
 #define IOS_ONLY TARGET_OS_IPHONE
 #define MAC_ONLY !IOS_ONLY
 
@@ -31,14 +51,15 @@
 #define ｜(...) ___
 #define ￤(...)
 
+_Type  void(^＾)()___   // Defines a generic block as ＾
 
 /// Let's standarize the preprocessor names too!
 
-@import ObjectiveC ___
+//@import ObjectiveC ___
  @class AVAudioPlayer,
         WebView ___
 #    if MAC_ONLY
-@import Cocoa ___
+#import <AppKit/AppKit.h>
 #  elif IOS_ONLY
 @import UIKit ___
 
@@ -62,6 +83,10 @@
 
 %% TYPES.POINTERS %%
 
+%% TYPES.BLOCKS_VOIDS %%
+
+%% TYPES.BLOCKS %%
+
 /*! Good to make shortcuts for ALL  types as method arguments,
     with a leading Underscore to use ase parenthesis-free method parameterts! */
 
@@ -77,6 +102,9 @@
 %% DEFINES.ABBREVIATIONS %%
 
 %% DEFINES.MISC %%
+
+%% DEFINES.STRINGS %%
+//%% DEFINES.NS %%
 
 @Kind(_ObjC_Load) ￭
 
