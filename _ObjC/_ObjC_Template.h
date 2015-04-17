@@ -14,16 +14,20 @@
 #define     ____ <
 #define    _____ >
 
+#define FULLW_DIGIT ０１２３４５６７８９
+#define FULLW_alpha ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ
+#define FULLW_ALPHA ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ
+#define FULLW_OTHER ！＂＃＄％＆＇（）＊＋，－．／：；＜＝＞？＠［＼］＾＿｀｛｜｝～｟｠￠￡￢￣￤￥￦
+#define HALFW_OTHER ｡｢｣･ￜ￨￩￪￫￬￭￮
+#define MATH_SANS 𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭
+#define MATH_sans 𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇
 #define        💩 ?:
 
 #define BLOCKTYPE(NAME,...) _Type void(^NAME)(__VA_ARGS__)
 
-#define   P(...) id<__VA_ARGS__>
-#define  _P(...) (id<__VA_ARGS__>)
- #ifdef __P
- #undef __P
- #endif
-#define __P(...) : (id<__VA_ARGS__>)
+#define    Ｐ(...) id<__VA_ARGS__>
+#define   _Ｐ(...) (id<__VA_ARGS__>)
+ #define __Ｐ(...) : (id<__VA_ARGS__>)
 
 #define _ID - _ObjC_ 
 #define Kind_Plan(CLASS,SUPER,...) Kind_ (CLASS,SUPER) ￭ @Plan CLASS

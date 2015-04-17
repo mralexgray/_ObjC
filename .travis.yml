@@ -1,6 +1,6 @@
 
 language: objective-c
 
-xcode_project: _ObjC.xcodeproj
+xcode_project: _ObjC/_ObjC.xcodeproj
 
 xcode_scheme: _ObjC
