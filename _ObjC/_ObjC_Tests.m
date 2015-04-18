@@ -2,19 +2,20 @@
 #import <XCTest/XCTest.h>
 #import "_ObjC.h"
 
-  _Kind   Kind : NObj                 // A simple @interface declaration.
-  @Stop                               // Alias for end.
+_Kind   Kind : NObj                 // A simple @interface declaration.
+@Stop                               // Alias for end.
 
-  @Kind  (KindOfNSObject)             // Function-like @interface declaration, subclasses NSObject.
-  ￭                                   // Symbolic alias for @Stop / @end.
-  @Xtra (KindOfNSObject, Category)
-  ￭
-  @Kind_ (KindOfXCTest,XCTestCase)   // Function-like, but Still able to spec the superclass.
-  ￭
-  @Kind  (KindWithVows,<NSCoding>) ￭  // Both function-like versions can conform to protocols.
+@Kind  (KindOfNSObject)             // Function-like @interface declaration, subclasses NSObject.
+￭                                   // Symbolic alias for @Stop / @end.
+
+@Xtra (KindOfNSObject, Category)
+￭
+@Kind_ (KindOfXCTest,XCTestCase)   // Function-like, but Still able to spec the superclass.
+￭
+@Kind  (KindWithVows,<NSCoding>) ￭  // Both function-like versions can conform to protocols.
 
 
-  @Plan   KindOfXCTest
+@Plan   KindOfXCTest
 
 - (void) testIfDefs { _IsIt importOK = NO, isMacOsX = NO ___
 
