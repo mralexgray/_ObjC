@@ -1,16 +1,60 @@
+<div style="float:left;text-align:right;block:none;"><img src="./_ObjC/_ObjC.svg" width="50"/></div>
+# `_ObjC` ![Swift] ![BStatus] ![Issues] ![Platforms]
 
-# _ObjC ![Joke](https://img.shields.io/badge/sexy-definitely-blue.svg) [![Build Status](https://travis-ci.org/mralexgray/_ObjC.svg?branch=master)](https://travis-ci.org/mralexgray/_ObjC) ![Issues](https://img.shields.io/github/issues/mralexgray/_ObjC.svg) ![Platforms](https://img.shields.io/badge/platform-mac%2Bios%2Bsimulator-lightgrey.svg)
+##### A terse, 1:1 dialect of ObjC for Mac + iOS fat targets.
 
-![Platform](https://img.shields.io/cocoapods/p/_ObjC.svg)
+| Left-Aligned  | Center Aligned  | Right Aligned |
+| :------------ |:---------------:| -----:|
+| col 3 is      | some wordy text | $1600 |
+| col 2 is      | centered        |   $12 |
+| zebra stripes | are neat        |    $1 |
 
-A terse, 1:1 dialect of ObjC for Mac + iOS fat targets.
 
-    if ([self isKindOfClass:[NSColor class]]) { [self set]; }
+- [ ] a bigger project
+  - [ ] first subtask #1234
+  - [ ] follow up subtask #4321
+  - [ ] final subtask cc @mention
+- [ ] a separate task
 
+
+``` ruby
+require 'redcarpet'
+markdown = Redcarpet.new("Hello World!")
+puts markdown.to_html
+```
+
+``` objective-c
+if ([self isKindOfClass:[NSColor class]]) { [self set]; }
+```
 to  
-
-    !ISA(self,Colr) 💩 [self set] ___
+``` objective-c
+!ISA(self,Colr) 💩 [self set] ___
+```
  
+ 
+"Full Width" digits...
+    
+    ０１２３４５６７８９
+
+"Full Width" lowercase letters
+    
+    ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ
+
+"Full Width" uppercase letters
+    
+    ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ
+
+"Full Width" punctuatuion, etc.
+    
+    ！＂＃＄％＆＇（）＊＋，－．／：；＜＝＞？＠［＼］＾＿｀｛｜｝～｟｠￠￡￢￣￤￥￦
+
+"Full Width" other symbols...
+
+     ｡｢｣･ￜ￨￩￪￫￬￭￮
+#define MATH_SANS 𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭
+#define MATH_sans 𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇
+
+
  
  ?  _Text_ [Colr fromTTY:(_Numb_ self).iV] 
  
@@ -44,3 +88,8 @@ go from
 Below is the header as was last compiled..
 
 %%CURRENT_VERSION_OF_HEADER_GOES_HERE%%
+
+[Swift]: https://img.shields.io/badge/NOT%20Swift-YES-blue.svg
+[BStatus]: https://travis-ci.org/mralexgray/_ObjC.svg?branch=master (https://travis-ci.org/mralexgray/_ObjC) "Build Status"
+[Platorms]: https://img.shields.io/badge/platform-mac%2Bios%2Bsimulator-lightgrey.svg
+[Issues]: https://img.shields.io/github/issues/mralexgray/_ObjC.svg
