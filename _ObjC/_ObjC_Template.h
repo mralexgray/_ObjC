@@ -1,18 +1,19 @@
 
-/*!   @abstract _ObjC is concise dialect of ObjC that is terse and compatible - without needless tricks.
-    @discussion It strives to minimize excessive *'s, {}'s, and ()'s, and so on, and so forth.
-                Class pointers and types are typedef'd to aliases, with no pointer,
-                formatted like _Four lettes, starting with an underscore, capitalized. */
+/*!   @abstract % % META.@abstract % %
+    @discussion  */
 
-#ifdef   __OBJC__
-#ifndef   _ObjC__
-#define   _ObjC__
+#ifdef   __OBJC__ /// Let's stick to what we know.
+
+#define PRAGMA(X) _Pragma(#X)
+
+PRAGMA(once)
 
 #define        _ :
 #define       __ ,
 #define      ___ ;
 #define     ____ <
 #define    _____ >
+
 
 #define FULLW_DIGIT ０１２３４５６７８９
 #define FULLW_alpha ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ
@@ -28,6 +29,10 @@
 #define    Ｐ(...) id<__VA_ARGS__>
 #define   _Ｐ(...) (id<__VA_ARGS__>)
  #define __Ｐ(...) : (id<__VA_ARGS__>)
+
+#define Code NSCoding
+#define Copy NSCopying
+#define Fast NSFastEnumeration
 
 #define _ID - _ObjC_ 
 #define Kind_Plan(CLASS,SUPER,...) Kind_ (CLASS,SUPER) ￭ @Plan CLASS
@@ -112,6 +117,5 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 
 @Kind(_ObjC_Load) ￭
 
-#endif //  _ObjC__
-#endif // __ObjC__
 
+#endif // __ObjC__
