@@ -93,3 +93,13 @@ Below is the header as was last compiled..
 [BStatus]: https://travis-ci.org/mralexgray/_ObjC.svg?branch=master (https://travis-ci.org/mralexgray/_ObjC) "Build Status"
 [Platorms]: https://img.shields.io/badge/platform-mac%2Bios%2Bsimulator-lightgrey.svg
 [Issues]: https://img.shields.io/github/issues/mralexgray/_ObjC.svg
+
+
+
+/// Also in AutoBox (redundancy needs fix)
+
+//  #define NSStringifyWithoutExpandingMacros(x) @#x
+//  #define NSStringify(x) NSStringifyWithoutExpandingMacros(x)
+//  #define NSSTRINGIFY(z) NSStringify(z)
+
+  // CLANG_IGNORE(-Wuninitialized);

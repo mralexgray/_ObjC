@@ -1,12 +1,33 @@
 
-/*!   @abstract % % META.@abstract % %
-    @discussion  */
 
-#ifdef   __OBJC__ /// Let's stick to what we know.
+#pragma once
+
+#ifdef __OBJC__                     // Let's stick to what we know.
+#if    __STDC_VERSION__ >= 201112L  // We only speak c11 here.
+
+/*!   @abstract _ObjC is concise dialect of ObjC that is terse and compatible - without needless tricks.
+
+    @discussion It strives to minimize excessive *'s, {}'s, and ()'s, and so on, and so forth.
+                Class pointers and types are typedef'd to aliases, with no pointer,
+                formatted like _Four lettes, starting with an underscore, capitalized. */
 
 #define PRAGMA(X) _Pragma(#X)
 
-PRAGMA(once)
+#define CLANG_IGNORE_HELPER0(x) #x
+#define CLANG_IGNORE_HELPER1(x) CLANG_IGNORE_HELPER0(clang diagnostic ignored x)
+#define CLANG_IGNORE_HELPER2(y) CLANG_IGNORE_HELPER1(#y)
+
+#define CLANG_POP               PRAGMA(clang diagnostic pop)
+#define CLANG_IGNORE(x)         PRAGMA(clang diagnostic push); _Pragma(CLANG_IGNORE_HELPER2(x))
+
+#define CLANG_IGNORE_DEPRECATED CLANG_IGNORE(-Wdeprecated-declarations)
+#define CLANG_IGNORE_PROTOCOL   CLANG_IGNORE(-Wprotocol)
+#define CLANG_IGNORE_NO_ATTR    CLANG_IGNORE(-Wobjc-property-no-attribute)
+
+CLANG_IGNORE_NO_ATTR
+
+
+
 
 #define        _ :
 #define       __ ,
@@ -118,4 +139,14 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 @Kind(_ObjC_Load) ￭
 
 
+NS_INLINE id concatDescriptions(id uno, ...) { id result = @"".mutableCopy; va_list args; va_start(args, uno);
+
+  for (id arg = uno; arg != nil; arg = va_arg(args, id)) [result appendString:[arg description]]; va_end(args); return result;
+}
+
+#define $$$(FIRST,...) concatDescriptions(FIRST,__VA_ARGS__,nil)
+
+
 #endif // __ObjC__
+
+

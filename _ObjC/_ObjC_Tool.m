@@ -6,9 +6,9 @@ int main() { @autoreleasepool {
     templatePath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"t",@"template",@"header"],          IsFileAndExists);
           output = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"o",@"output"],                      NULL);
 
-    if (!plistPath || !templatePath || !PlistDataModel() || !HeaderTemplate() || !CompiledHeader())
+    if (!plistPath || !templatePath || !PlistDataModel() || !HeaderTemplate() || !CompiledHeader() || ParseArgs()[@"help"])
 
-      return fprintf(stdout, "%s\n ERROR. Need valid input for both plist data and header template!, got %s\nmodel:%s\ntemplate:%s", [ARGS[0] UTF8String], [ParseArgs() description].UTF8String, [plistPath UTF8String], [templatePath UTF8String]), EXIT_FAILURE;
+      return fprintf(stdout, "%s\n --plist, -p\tplist to parse\n --template, -t\theader template!.\n--output, -o \tpath or paths to write compiled header to.\ngot %s\nmodel:%s\ntemplate:%s", [ARGS[0] UTF8String], [ParseArgs() description].UTF8String, [plistPath UTF8String], [templatePath UTF8String]), EXIT_FAILURE;
 
     if (!output) return fprintf(stdout, "%s", [CompiledHeader() UTF8String]);
 
@@ -48,20 +48,23 @@ NSString * _genTokens(NSDictionary *plistData, NSString*head) {
            * pointerMap = emit == e_TYPE_PMAP ? @"".mutableCopy : nil,
              * problems = @"".mutableCopy;
 
-#define SENTINEL(BEGIN,e_emitter) BEGIN && e_emitter & e_TYPE ? "_Type" : BEGIN ? "#define" :  e_emitter & e_TYPE ? " ___" : ""
+      #define SENTINEL(Context) Context == NSFormattingContextBeginningOfSentence ? \
+                                        emit & e_TYPE ? "_Type"   : "#define"  :    \
+                                        emit & e_TYPE ? " ___"    : ""
 
     void(^writeTypeOrDef)(id) = ^(NSString*k){  // Write it out, girl.
 
-//      if (      emit & e_TYPE && [defs[k] length] != 5) // and the definition is NOT 6 letters
-//        return APPEND(problems, @" %@ (type+not5) ", k);
+      //   if (      emit & e_TYPE && [defs[k] length] != 5) // and the definition is NOT 6 letters return APPEND(problems, @" %@ (type+not5) ", k);
 
       // it might be a block type, so replace its occurance of ^ with one with a space and then the def.
       NSString * theKey = [k stringByReplacingOccurrencesOfString:@"^"  withString:$(@"^ %@", defs[k])];
 
-      APPEND(snippet, @"%s %*s%@   %@ %s\n", SENTINEL(YES,emit),
-                                    31 - (int)theKey.length, "", theKey,
-                        emit == e_TYPE_BLKS ? @"" : defs[k],
-                                         SENTINEL(NO,emit));
+      APPEND(snippet, @"%s %*s%@   %@ %s\n", SENTINEL(NSFormattingContextBeginningOfSentence),
+                                             31 - (int)theKey.length,
+                                             "",
+                                             theKey,
+                                             emit == e_TYPE_BLKS ? @"" : defs[k],
+                                             SENTINEL(0));
 
       if (pointerMap) { NSString *prefix = defs[k][1]; BOOL lead_ = [prefix isEqualToString:@"_"];
 

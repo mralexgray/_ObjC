@@ -1,5 +1,6 @@
 
-#import <XCTest/XCTest.h>
+@import XCTest;
+
 #import "_ObjC.h"
 
 _Kind   Kind : NObj                 // A simple @interface declaration.

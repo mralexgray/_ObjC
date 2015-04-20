@@ -1,7 +1,4 @@
 {
-	META = {};
-	"@abstract" = "_ObjC is concise dialect of ObjC that is terse and compatible - without needless tricks.";
-	"@discussion" = "It strives to minimize excessive *'s, {}'s, and ()'s, and so on, and so forth.\n                Class pointers and types are typedef'd to aliases, with no pointer,\n                formatted like _Four lettes, starting with an underscore, capitalized.";
 	"ALIAS_INSTANCE_RETURN" = (
 		"_CSet",
 		"_Rnge",
@@ -82,7 +79,7 @@
 			"INTERFACE(X,...)" = "@interface X : __VA_ARGS__ + (instancetype)";
 			"Kind(Name,...)" = "Kind_(Name,NObj,__VA_ARGS__)";
 			"Kind_(Name,Meta,...)" = "interface Name : Meta __VA_ARGS__";
-			"NEW(A,B)" = "A *B = A.new";
+			"NEW(A,B)" = "A * B = [A new]";
 			NSStringValue = "@\"stringValue\"";
 			Plan = implementation;
 			"SELFINIT(...)" = "return self = super.init ? ({ __VA_ARGS__; }), self : nil";
@@ -379,6 +376,7 @@
 			"_U" = unsigned;
 		};
 	};
+	META = {};
 	NS = {
 		AZOQMAX = "NSOperationQueueDefaultMaxConcurrentOperationCount";
 		ISADICT = "isKindOfClass:NSDictionary.class";
@@ -516,6 +514,7 @@
 		POINTERS = {
 			"AVAudioPlayer *" = "_SndP";
 			"CALayer *" = "_Layr";
+			"NSDateFormatter *" = "_DFmt";
 			"NSApplication *" = "_Appl";
 			"NSArray *" = "_List";
 			"NSAttributedString *" = "_ATxt";
@@ -524,6 +523,7 @@
 			"NSCharacterSet *" = "_CSet";
 			"NSColor *" = "_Colr";
 			"NSData *" = "_Data";
+			"NSDate *" = "_Date";
 			"NSDictionary *" = "_Dict";
 			"NSError *" = "_Errr";
 			"NSEvent *" = "_Evnt";
@@ -547,6 +547,7 @@
 			"NSParagraphStyle *" = "_PStl";
 			"NSPipe *" = "_Pipe";
 			"NSString *" = "_Text";
+			"NSScanner *" = "_Scnr";
 			"NSTableView *" = "_TblV";
 			"NSURL *" = "_NUrl";
 			"NSUserDefaults *" = "_Defs";
@@ -571,12 +572,15 @@
 			"NSTask *" = "_Task";
 			"NSTextField *" = "_Labl";
 			"NSTextView *" = "_TxtV";
+			"NSUserNotification *" = uNote;
+			"NSUserNotificationCenter *" = uNCtr;
 			"NSWindowController *" = xWind;
 			"WebView *" = "_WebV";
 		};
 		PRIMITIVES = {
 			BOOL = "_IsIt";
 			Class = "_Meta";
+			"dispatch_queue_t" = "_DQue";
 			NSComparisonResult = "_Comp";
 			NSInteger = "_SInt";
 			NSUInteger = "_UInt";
