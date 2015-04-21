@@ -26,21 +26,14 @@
 		7B9B40501AC14F6E002EDD01 /* _ObjC_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXBuildRule section */
-		7BFDE1981AE1552A0012A607 /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.compilers.proxy.script;
-			filePatterns = "*.plist";
-			fileType = pattern.proxy;
-			isEditable = 1;
-			outputFiles = (
-				"$(BUILT_PRODUCTS_DIR)/$(PROJECT_NAME).h",
-			);
-			script = "say \"${INPUT_FILE_PATH}\"";
-		};
-/* End PBXBuildRule section */
-
 /* Begin PBXContainerItemProxy section */
+		7B32D8A11AE5865D00062CB8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B9B40261AC14E7D002EDD01 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B32D89D1AE5864300062CB8;
+			remoteInfo = _ObjC_Clean;
+		};
 		7BFDE1941AE1484E0012A607 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B9B40261AC14E7D002EDD01 /* Project object */;
@@ -51,8 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7B32D8A31AE5873C00062CB8 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; name = Makefile; path = _ObjC/Makefile; sourceTree = "<group>"; };
 		7B9B40331AC14EB6002EDD01 /* _ObjC_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = _ObjC_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B9B403D1AC14ED5002EDD01 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; usesTabs = 1; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
 		7B9B403E1AC14ED5002EDD01 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = SOURCE_ROOT; };
 		7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = _ObjC_Tool.m; path = _ObjC/_ObjC_Tool.m; sourceTree = SOURCE_ROOT; wrapsLines = 0; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B9B40451AC14ED5002EDD01 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; lineEnding = 0; path = README.md; sourceTree = SOURCE_ROOT; wrapsLines = 1; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
@@ -81,7 +74,7 @@
 		7BC4594B1AD68DCA0097F508 /* _ObjC, etc */ = {
 			isa = PBXGroup;
 			children = (
-				7B9B403D1AC14ED5002EDD01 /* Makefile */,
+				7B32D8A31AE5873C00062CB8 /* Makefile */,
 				7B9B403E1AC14ED5002EDD01 /* .travis.yml */,
 				7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */,
 				7BC4594A1AD68DAA0097F508 /* _ObjC_Tool */,
@@ -92,6 +85,23 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXLegacyTarget section */
+		7B32D89D1AE5864300062CB8 /* _ObjC_Clean */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 7B32D89E1AE5864300062CB8 /* Build configuration list for PBXLegacyTarget "_ObjC_Clean" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "$(PROJECT_NAME)";
+			dependencies = (
+			);
+			name = _ObjC_Clean;
+			passBuildSettingsInEnvironment = 1;
+			productName = _ObjC_Clean;
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXNativeTarget section */
 		7B3835791AC681C700D617B9 /* _ObjC_Tool */ = {
 			isa = PBXNativeTarget;
@@ -100,9 +110,9 @@
 				7B3835761AC681C700D617B9 /* Sources */,
 			);
 			buildRules = (
-				7BFDE1981AE1552A0012A607 /* PBXBuildRule */,
 			);
 			dependencies = (
+				7B32D8A21AE5865D00062CB8 /* PBXTargetDependency */,
 			);
 			name = _ObjC_Tool;
 			productName = _migrate;
@@ -132,6 +142,9 @@
 			attributes = {
 				LastUpgradeCheck = 0630;
 				TargetAttributes = {
+					7B32D89D1AE5864300062CB8 = {
+						CreatedOnToolsVersion = 6.3;
+					};
 					7B3835791AC681C700D617B9 = {
 						CreatedOnToolsVersion = 6.3;
 					};
@@ -157,6 +170,7 @@
 			targets = (
 				7BFDE18F1AE1483D0012A607 /* _ObjC */,
 				7B3835791AC681C700D617B9 /* _ObjC_Tool */,
+				7B32D89D1AE5864300062CB8 /* _ObjC_Clean */,
 				7B9B40321AC14EB6002EDD01 /* _ObjC_Tests */,
 			);
 		};
@@ -175,12 +189,12 @@
 			);
 			name = "Run Script";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/$(PROJECT_NAME).h",
 				"$(BUILT_PRODUCTS_DIR)/$(PROJECT_NAME).h",
+				"$(PROJECT_NAME)/$(PROJECT_NAME)_Tests.m",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\n\"${SCRIPT_INPUT_FILE_0}\" \\\n    -plist  \"${SCRIPT_INPUT_FILE_1}\" \\\n    -header \"${SCRIPT_INPUT_FILE_2}\"  \\\n    -output \"${SCRIPT_OUTPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_1}\"\n\n#ln -F \"${SCRIPT_OUTPUT_FILE_0}\" \"${BUILT_PRODUCTS_DIR}\"\n#open -R \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "head -n $(grep -n GENER \"${SCRIPT_OUTPUT_FILE_1}\" | cut -f1 -d:) \"${SCRIPT_OUTPUT_FILE_1}\" >! \"${SCRIPT_OUTPUT_FILE_1}\"\n\n\n\n\"${SCRIPT_INPUT_FILE_0}\"                                \\\n    -plist  \"${SCRIPT_INPUT_FILE_1}\"                    \\\n    -header \"${SCRIPT_INPUT_FILE_2}\"                    \\\n    -output \"${BUILT_PRODUCTS_DIR}/${PROJECT_NAME}.h\"   \\\n    -tests  \"${SCRIPT_OUTPUT_FILE_1}\"\n\n    #\"${DERIVED_FILE_DIR}/${PROJECT_NAME}.h\"\n\n    # \"${SCRIPT_OUTPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_1}\"\n\n#ln -F \"${SCRIPT_OUTPUT_FILE_0}\" \"${BUILT_PRODUCTS_DIR}\"\n#open -R \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -204,6 +218,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7B32D8A21AE5865D00062CB8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B32D89D1AE5864300062CB8 /* _ObjC_Clean */;
+			targetProxy = 7B32D8A11AE5865D00062CB8 /* PBXContainerItemProxy */;
+		};
 		7BFDE1951AE1484E0012A607 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7B3835791AC681C700D617B9 /* _ObjC_Tool */;
@@ -212,6 +231,84 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		7B32D89F1AE5864300062CB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		7B32D8A01AE5864300062CB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
 		7B38357F1AC681C700D617B9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -260,6 +357,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -309,6 +407,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7B32D89E1AE5864300062CB8 /* Build configuration list for PBXLegacyTarget "_ObjC_Clean" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B32D89F1AE5864300062CB8 /* Release */,
+				7B32D8A01AE5864300062CB8 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		7B38357E1AC681C700D617B9 /* Build configuration list for PBXNativeTarget "_ObjC_Tool" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -343,6 +450,7 @@
 				7BFDE1921AE1483D0012A607 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,53 +1,50 @@
 
-#ifndef _ObjC__ObjC_Tool_pch
-#define _ObjC__ObjC_Tool_pch
+#ifndef _ObjC_Tool_pch
+#define _ObjC_Tool_pch
 
 #define       M(X)       NSMutable##X
 #define       $(...)     [NSString stringWithFormat:__VA_ARGS__]
 #define      CR(MSTR)    [MSTR appendString:@"\n"]
 #define     LOC(S,LOC)   [S rangeOfString:LOC].location
+#define    MAIN(...)     int main() { @autoreleasepool {  __VA_ARGS__  } return EXIT_SUCCESS; }
 #define  APPEND(X,...)   [X appendFormat:__VA_ARGS__]
-#define      FM          NSFileManager.defaultManager
-#define    ARGS          NSProcessInfo.processInfo.arguments
+#define      FM          [NSFileManager defaultManager]
+#define    ARGS          [NSProcessInfo processInfo].arguments
 #define THEDATE          [NSDateFormatter localizedStringFromDate:NSDate.date dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle]
 
 @import Foundation;
 
-static NSString     * CompiledHeader();
-static NSString     * HeaderTemplate();
-static NSDictionary * PlistDataModel();
-static NSDictionary * ParseArgs ();
+static NSString     * CompiledHeader ();
+static NSString     * HeaderTemplate ();
+static NSDictionary * PlistDataModel ();
+static NSDictionary *      ParseArgs ();
+       void               WriteTests ();
+       
+static id template, templatePath, plist, plistPath, output, compiled, testFilePath;
 
-static id templatePath, template, plistPath, plist, output, compiled;
+id ObjectForAnyKeyPassingTest(NSDictionary*,NSArray*,BOOL(*OptionalTest)(id));
 
-id ObjectForAnyKeyPassingTest(NSDictionary*,NSArray*,BOOL(*)(id));
-
-id _genTokens (id,id);
-
-
-
-
-@interface RxMatch : NSObject
-
-@property (nonatomic)       NSRange   range;    // The range of the original string that was matched.
-@property (nonatomic,copy)  NSArray * groups;   // Group ONLY. Each object is an RxMatchGroup.
-@property (nonatomic,copy) NSString * value,    // The substring that matched the expression.
-                                    * original; // Group ONLY. The full original string that was matched against.
+@interface                  RxMatch : NSObject
+- initWithTextCheckingResult:(NSTextCheckingResult*)tx forString:(NSString*)s;
+@property             NSRange   range;    // The range of the original string that was matched.
+@property             NSArray * groups;   // Group ONLY. Each object is an RxMatchGroup.
+@property (copy)     NSString * value,    // The substring that matched the expression.
+                              * original; // Group ONLY. The full original string that was matched against.
 @end
 
-@interface  NSString (SubstringToOrFrom)
+@interface                 NSString   (SubstringToOrFrom)
+@property (readonly,copy)  NSString * refactor;
 
-- (NSString*) refactor;
 - objectAtIndexedSubscript:(NSInteger)i;
-
 @end
 
 NS_INLINE BOOL IsFileAndExists(id p) { BOOL dir = NO;  return [FM fileExistsAtPath:p isDirectory:&dir] && !dir; }
 
-/*! @abstract The data we are deling with is broadly defined as either #define's or _Type typedefs. */
-typedef NS_OPTIONS(int, _Emit) { e_DEFS      = 0x00000000,            /// All #define's are 0.
-                                 e_TYPE      = 0x00000001,            /// All typedefs will include the <<1 bit
-                                 e_TYPE_BLKS = 0x00000010 | e_TYPE,   /// 0x00000011
-                                 e_TYPE_PMAP = 0x00000100 | e_TYPE};  /// 0x00000101
+/// @abstract The data we are deling with is broadly defined as either #define's or _Type typedefs.
 
+typedef NS_OPTIONS(int, _Emit) { e_DEFS      = 0x00000000,            // All #define's are 0.
+                                 e_TYPE      = 0x00000001,            // All typedefs will include the <<1 bit
+                                 e_TYPE_BLKS = 0x00000010 | e_TYPE,   // 0x00000011
+                                 e_TYPE_PMAP = 0x00000100 | e_TYPE};  // 0x00000101
 #endif
+

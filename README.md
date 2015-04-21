@@ -103,3 +103,6 @@ Below is the header as was last compiled..
 //  #define NSSTRINGIFY(z) NSStringify(z)
 
   // CLANG_IGNORE(-Wuninitialized);
+
+#define     ____ <
+#define    _____ >

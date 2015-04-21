@@ -555,7 +555,6 @@
 			"NSView *" = "_View";
 			"NSWindow *" = "_Wind";
 			"char *" = "_Char";
-			"const char *" = "_CChr";
 			"unsigned char *" = "_UChr";
 		};
 		"POINTERS_MAC" = {

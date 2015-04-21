@@ -1,43 +1,44 @@
 
+MAIN(
 
-int main() { @autoreleasepool {
+     plistPath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"d",@"p",@"data",@"model",@"plist"], IsFileAndExists);
+  templatePath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"t",@"template",@"header"],          IsFileAndExists);
+        output = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"o",@"output"],                      NULL);
+  testFilePath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"tests",@"test",@"x"],               IsFileAndExists);
 
-       plistPath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"d",@"p",@"data",@"model",@"plist"], IsFileAndExists);
-    templatePath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"t",@"template",@"header"],          IsFileAndExists);
-          output = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"o",@"output"],                      NULL);
+  if (ParseArgs()[@"help"] || !plistPath || !templatePath || !PlistDataModel() || !HeaderTemplate() || !CompiledHeader())
 
-    if (!plistPath || !templatePath || !PlistDataModel() || !HeaderTemplate() || !CompiledHeader() || ParseArgs()[@"help"])
+    return fprintf(stdout, "%s\n --plist, -p\tplist to parse\n --template, -t\theader template!.\n--output, -o \tpath or paths to write compiled header to.\ngot %s\nmodel:%s\ntemplate:%s", [ARGS[0] UTF8String], [ParseArgs() description].UTF8String, [plistPath UTF8String], [templatePath UTF8String]), EXIT_FAILURE;
+     
+  if (!output) return fprintf(stdout, "%s", [CompiledHeader() UTF8String]); // no output, no worries, print to stdout!
 
-      return fprintf(stdout, "%s\n --plist, -p\tplist to parse\n --template, -t\theader template!.\n--output, -o \tpath or paths to write compiled header to.\ngot %s\nmodel:%s\ntemplate:%s", [ARGS[0] UTF8String], [ParseArgs() description].UTF8String, [plistPath UTF8String], [templatePath UTF8String]), EXIT_FAILURE;
+  for (id place in [output isKindOfClass:NSString.class] ? @[output] : output) {
 
-    if (!output) return fprintf(stdout, "%s", [CompiledHeader() UTF8String]);
+    fprintf(stdout, "Outputting header to destination:%s\n", [place UTF8String]);
 
-    for (id place in [output isKindOfClass:NSString.class] ? @[output] : output) {
-
-      fprintf(stdout, "Outputting header to destination:%s\n", [place UTF8String]);
-
-      if (![CompiledHeader() writeToFile:place atomically:YES encoding:NSUTF8StringEncoding error:nil]) return EXIT_FAILURE;
-    }
+    if (![CompiledHeader() writeToFile:place atomically:YES encoding:NSUTF8StringEncoding error:nil]) return EXIT_FAILURE;
   }
-  return EXIT_SUCCESS;
-}
+  if (testFilePath) WriteTests();
+)
 
-static NSDictionary * PlistDataModel () { static id data;  return data  = data ?:  [NSDictionary dictionaryWithContentsOfFile:plistPath]; }
+static NSDictionary * PlistDataModel () { return plist    = plist    ?: [NSDictionary dictionaryWithContentsOfFile:plistPath]; }
 static     NSString * HeaderTemplate () { return template = template ?: [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:nil]; }
 
-NSString * _genTokens(NSDictionary *plistData, NSString*head) {
+NSString * GenerateSection(NSString * head)     {
 
-#define SORT(X) [[plistData valueForKeyPath: @"SORT_EXCEPTIONS." #X ]containsObject:head]
-
-  id backing = [plistData        valueForKeyPath:head],
+  id backing = [PlistDataModel() valueForKeyPath:head],
     keyParts = [head componentsSeparatedByString:@"."];
-  _Emit emit = [keyParts[0]  isEqualToString:@"TYPES"] ? e_TYPE : 0;
-        emit = [keyParts[1]   containsString:@"POINT"] ? emit | e_TYPE_PMAP
-             : [keyParts[1]   containsString:@"BLOCK"] ? emit | e_TYPE_BLKS : emit;
+
+  _Emit emit = [keyParts[0] isEqualToString:@"TYPES"] ? e_TYPE : e_DEFS;
+
+  if      ([keyParts[1] containsString:@"POINT"]) emit |= e_TYPE_PMAP;
+  else if ([keyParts[1] containsString:@"BLOCK"]) emit |= e_TYPE_BLKS;
 
   id(^__processDictionary)(id) = ^NSString*(NSDictionary*defs) {
 
-    id       sortedKs = [defs.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString*x1, NSString*x2) {
+    id sortedKs = [defs.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString*x1, NSString*x2) {
+
+      #define SORT(X) [[PlistDataModel() valueForKeyPath: @"SORT_EXCEPTIONS." #X ]containsObject:head]
 
       return (SORT(ALPHA) || emit&e_TYPE) && !SORT(LENGTH) ? [x1 compare:x2 options:NSCaseInsensitiveSearch]
                                                            : [@(x1.length) compare:@(x2.length)];
@@ -95,34 +96,19 @@ NSString * _genTokens(NSDictionary *plistData, NSString*head) {
     return snippet.copy;
   };
 
-  return [backing isKindOfClass:NSDictionary.class] ? __processDictionary(backing) : ({
+  return [backing isKindOfClass:NSDictionary.class] ? __processDictionary(backing) :
 
-    M(String) * concat = @"".mutableCopy;
+  [({ M(Array) *parts; for (id d in backing) [parts addObject:__processDictionary(d)]; parts; }) componentsJoinedByString:@"\n"];
 
-    for (id d in backing) APPEND(concat,@"\n%@", __processDictionary(d)); concat.copy; });
+//    M(String) * concat = @"".mutableCopy;
+//    for (id d in backing) APPEND(concat,@"\n%@", __processDictionary(d)); concat.copy; });
 }
 
-RxMatch * result2Match(NSTextCheckingResult* result, NSString* original) {
 
-  RxMatch* match  = RxMatch.new;
-  match.original  = original;
-  match.range     = result.range;
-  match.value     = result.range.length ? [original substringWithRange:result.range] : nil;
-
-  NSMutableArray* groups = @[].mutableCopy;
-  for(int i=0; i<result.numberOfRanges; i++){
-    RxMatch* group = RxMatch.new;
-    group.range         = [result rangeAtIndex:i];
-    group.value         = group.range.length ? [original substringWithRange:group.range] : nil;
-    [groups addObject:group];
-  }
-  match.groups = groups;
-  return match;
-}
-
-id ObjectForAnyKeyPassingTest(NSDictionary *values, NSArray*okKeys, BOOL(*test)(id)) {
+id ObjectForAnyKeyPassingTest(  NSDictionary * values,     NSArray * okKeys, BOOL(*test)(id)) {
 
   __block id found = nil;
+
   [okKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 
     if ((found = [values objectForKey:obj]))  *stop = !test || test(found);
@@ -132,12 +118,7 @@ id ObjectForAnyKeyPassingTest(NSDictionary *values, NSArray*okKeys, BOOL(*test)(
 
 static NSString * CompiledHeader() { return compiled = compiled ?: ({
 
-    NSRegularExpression *self = [NSRegularExpression.alloc initWithPattern:@"%% (.*) %%" options:0 error:nil];
-
-    NSString*(^replacer)(RxMatch*) = ^NSString*(RxMatch*match) {
-
-      return _genTokens(PlistDataModel(),[match.groups.lastObject value]);
-    };
+    NSRegularExpression *regex = [NSRegularExpression.alloc initWithPattern:@"%% (.*) %%" options:0 error:nil];
 
     NSString* string = //copy the string so we can replace subsections
 
@@ -147,18 +128,37 @@ static NSString * CompiledHeader() { return compiled = compiled ?: ({
 
     NSMutableString *replaced = string.mutableCopy;
 
-    NSArray* matches = [self matchesInString:string options:0 range:NSMakeRange(0, string.length)]; //get matches
-
-    for (int i= (int)matches.count-1; i>=0; i--) { //replace each match (right to left so indexing doesn't get messed up)
-
-      NSTextCheckingResult* result = matches[i];
+    [[regex matchesInString:string options:0 range:NSMakeRange(0, string.length)]
+      enumerateObjectsWithOptions:NSEnumerationReverse
+                       usingBlock:^(NSTextCheckingResult* result, NSUInteger idx, BOOL *stop) {
 
       [replaced replaceCharactersInRange:result.range
-                              withString:
-      /* replacement */ replacer(/*RxMatch* match */result2Match(result,string))];
-    }
+                withString: GenerateSection([[RxMatch.alloc initWithTextCheckingResult:result forString:string].groups.lastObject value])];
+
+              ///* replacement */ replacer(/*RxMatch* match */];
+    }];
     [replaced copy];
   });
+}
+
+void WriteTests () {
+
+  id delimiter = @"/// AUTO-GENERATED TESTS BELOW",
+      contents = [NSString stringWithContentsOfFile:testFilePath encoding:NSUTF8StringEncoding error:nil];
+  M(String) *tests = [contents substringToIndex:[contents rangeOfString:delimiter].location + [delimiter length]].mutableCopy;
+
+  APPEND(tests,@"\n\n_Case(DefinesTestCase)\n_Test(TheyWorked,\n \n");
+
+  for (id keypath in @[@"TYPES.STRUCTS",@"TYPES.POINTERS",@"TYPES.POINTERS_MAC"]) {
+    APPEND(tests,@"\n\n");
+    [[PlistDataModel() valueForKeyPath:keypath] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+      APPEND(tests,@"\tXCTAssert(@encode(%@) == @encode(%@), @\"%%s should equal %%s!\",@encode(%@),@encode(%@));\n", key, obj, key, obj);
+    }];
+    APPEND(tests,@"\n\n");
+  }
+  APPEND(tests,@"\n\n)\n@end\n");
+  [FM removeItemAtPath:testFilePath error:nil];
+  [tests writeToFile:testFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
 @implementation  NSString (SubstringToOrFrom)
@@ -169,7 +169,25 @@ static NSString * CompiledHeader() { return compiled = compiled ?: ({
 
 @end
 
-@implementation RxMatch @end
+@implementation RxMatch
+- initWithTextCheckingResult:(NSTextCheckingResult*)result forString:(NSString*)original {
+
+  self = super.init;
+  _original  = original;
+  _range     = result.range;
+  _value     = result.range.length ? [original substringWithRange:result.range] : nil;
+
+  NSMutableArray* groups = @[].mutableCopy;
+  for(int i=0; i<result.numberOfRanges; i++){
+    RxMatch* group = RxMatch.new;
+    group.range         = [result rangeAtIndex:i];
+    group.value         = group.range.length ? [original substringWithRange:group.range] : nil;
+    [groups addObject:group];
+  }
+  _groups = [groups copy];
+  return self;
+}
+@end
 
 static NSDictionary * ParseArgs() { static id opts; static dispatch_once_t onceToken; dispatch_once(&onceToken, ^{
 
