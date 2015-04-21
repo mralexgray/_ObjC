@@ -25,6 +25,13 @@ to
 #ifdef __OBJC__                     // Let's stick to what we know.
 #if    __STDC_VERSION__ >= 201112L  // We only speak c11 here.
 
+#define DECLARECONFORMANCE(_CLASS_,_PROTOCOL_) @interface _CLASS_ (_PROTOCOL_) <_PROTOCOL_> @end
+#define CONFORM(_CLASS_,_PROTOCOL_) @Plan _CLASS_ (_PROTOCOL_) @end
+
+#define NSSTRINGIFY_HELPER_NO_EXPAND(x) @#x
+#define NSSTRINGIFY_HELPER(x) NSSTRINGIFY_HELPER_NO_EXPAND(x)
+#define NSSTRINGIFY(z) NSSTRINGIFY_HELPER(z)
+
 
 #define      💩 ?:
 

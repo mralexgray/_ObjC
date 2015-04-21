@@ -94,9 +94,6 @@ Below is the header as was last compiled..
 
 /// Also in AutoBox (redundancy needs fix)
 
-//  #define NSStringifyWithoutExpandingMacros(x) @#x
-//  #define NSStringify(x) NSStringifyWithoutExpandingMacros(x)
-//  #define NSSTRINGIFY(z) NSStringify(z)
 
   // CLANG_IGNORE(-Wuninitialized);
 

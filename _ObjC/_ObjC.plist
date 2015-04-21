@@ -499,6 +499,8 @@
 		BLOCKS = {};
 		"BLOCKS_VOIDS" = {
 			"_Void (^)  _Void_" = "\Uff3eVoid";
+			"_Void (^) (_ObjC x, _SInt c)" = "\Uff3eIDST";
+			"_Void (^) (_ObjC x, _UInt c)" = "\Uff3eIDUT";
 			"_Void (^) ()" = "\Uff3eBlok";
 			"_Void (^) (_Cord p)" = "\Uff3eCord";
 			"_Void (^) (_Data d)" = "\Uff3eData";
