@@ -39,8 +39,6 @@ _XCTest(PerformanceExample, // This is an example of a performance test case.
 
 _XCTCase(DefinesTestCase)
 _XCTest(TheyWorked,
- 
-
 
 	XCTAssert(@encode(CGSize) == @encode(_Size), @"%s should equal %s!",@encode(CGSize),@encode(_Size));
 	XCTAssert(@encode(NSRange) == @encode(_Rnge), @"%s should equal %s!",@encode(NSRange),@encode(_Rnge));
@@ -48,8 +46,6 @@ _XCTest(TheyWorked,
 	XCTAssert(@encode(CGFloat) == @encode(_Flot), @"%s should equal %s!",@encode(CGFloat),@encode(_Flot));
 	XCTAssert(@encode(CGAffineTransform) == @encode(_AffT), @"%s should equal %s!",@encode(CGAffineTransform),@encode(_AffT));
 	XCTAssert(@encode(CGRect) == @encode(_Rect), @"%s should equal %s!",@encode(CGRect),@encode(_Rect));
-
-
 
 
 	XCTAssert(@encode(NSMutableData *) == @encode(mData), @"%s should equal %s!",@encode(NSMutableData *),@encode(mData));
@@ -98,8 +94,6 @@ _XCTest(TheyWorked,
 	XCTAssert(@encode(NSApplication *) == @encode(_Appl), @"%s should equal %s!",@encode(NSApplication *),@encode(_Appl));
 
 
-
-
 	XCTAssert(@encode(NSOutlineView *) == @encode(_OutV), @"%s should equal %s!",@encode(NSOutlineView *),@encode(_OutV));
 	XCTAssert(@encode(NSTableView *) == @encode(_Tabl), @"%s should equal %s!",@encode(NSTableView *),@encode(_Tabl));
 	XCTAssert(@encode(NSMenuItem *) == @encode(_SubM), @"%s should equal %s!",@encode(NSMenuItem *),@encode(_SubM));
@@ -117,8 +111,6 @@ _XCTest(TheyWorked,
 	XCTAssert(@encode(NSTask *) == @encode(_Task), @"%s should equal %s!",@encode(NSTask *),@encode(_Task));
 	XCTAssert(@encode(NSTableColumn *) == @encode(_TCol), @"%s should equal %s!",@encode(NSTableColumn *),@encode(_TCol));
 	XCTAssert(@encode(NSTextField *) == @encode(_Labl), @"%s should equal %s!",@encode(NSTextField *),@encode(_Labl));
-
-
 
 
 )

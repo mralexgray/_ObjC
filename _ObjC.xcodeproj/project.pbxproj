@@ -196,7 +196,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "head -n $(grep -n GENER \"${SCRIPT_OUTPUT_FILE_1}\" | cut -f1 -d:) \"${SCRIPT_OUTPUT_FILE_1}\" >! \"${SCRIPT_OUTPUT_FILE_1}\"\n\n\n\n\"${SCRIPT_INPUT_FILE_0}\"                                \\\n    -plist  \"${SCRIPT_INPUT_FILE_1}\"                    \\\n    -header \"${SCRIPT_INPUT_FILE_2}\"                    \\\n    -output \"${BUILT_PRODUCTS_DIR}/${PROJECT_NAME}.h\"   \\\n    -tests  \"${SCRIPT_OUTPUT_FILE_1}\"\n\n    #\"${DERIVED_FILE_DIR}/${PROJECT_NAME}.h\"\n\n    # \"${SCRIPT_OUTPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_1}\"\n\n#ln -F \"${SCRIPT_OUTPUT_FILE_0}\" \"${BUILT_PRODUCTS_DIR}\"\n#open -R \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\n#head -n $(grep -n GENER \"${SCRIPT_OUTPUT_FILE_1}\" | cut -f1 -d:) \"${SCRIPT_OUTPUT_FILE_1}\" >! \"${SCRIPT_OUTPUT_FILE_1}\"\n\n\"${SCRIPT_INPUT_FILE_0}\"                                \\\n    -plist  \"${SCRIPT_INPUT_FILE_1}\"                    \\\n    -header \"${SCRIPT_INPUT_FILE_2}\"                    \\\n    -output \"${BUILT_PRODUCTS_DIR}/${PROJECT_NAME}.h\"   \\\n    -tests  \"${SCRIPT_OUTPUT_FILE_1}\"\n\n#\"${DERIVED_FILE_DIR}/${PROJECT_NAME}.h\"\n# \"${SCRIPT_OUTPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_1}\"\n#ln -F \"${SCRIPT_OUTPUT_FILE_0}\" \"${BUILT_PRODUCTS_DIR}\"\n#open -R \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 

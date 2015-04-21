@@ -147,16 +147,16 @@ void WriteTests () {
       contents = [NSString stringWithContentsOfFile:testFilePath encoding:NSUTF8StringEncoding error:nil];
   M(String) *tests = [contents substringToIndex:[contents rangeOfString:delimiter].location + [delimiter length]].mutableCopy;
 
-  APPEND(tests,@"\n\n_Case(DefinesTestCase)\n_XCTest(TheyWorked,\n \n");
+  APPEND(tests,@"\n\n_XCTCase(DefinesTestCase)\n_XCTest(TheyWorked,\n");
 
   for (id keypath in @[@"TYPES.STRUCTS",@"TYPES.POINTERS",@"TYPES.POINTERS_MAC"]) {
-    APPEND(tests,@"\n\n");
+    APPEND(tests,@"\n");
     [[PlistDataModel() valueForKeyPath:keypath] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
       APPEND(tests,@"\tXCTAssert(@encode(%@) == @encode(%@), @\"%%s should equal %%s!\",@encode(%@),@encode(%@));\n", key, obj, key, obj);
     }];
-    APPEND(tests,@"\n\n");
+    APPEND(tests,@"\n");
   }
-  APPEND(tests,@"\n\n)\n@end\n");
+  APPEND(tests,@"\n)\n@end\n");
   [FM removeItemAtPath:testFilePath error:nil];
   [tests writeToFile:testFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
@@ -166,6 +166,9 @@ void WriteTests () {
 - (NSString*) refactor { NSDictionary *rules = @{}; return @""; }
 
 - objectAtIndexedSubscript:(NSInteger)i { return i < 0 ? [self substringFromIndex:ABS(i)] : [self substringToIndex:i]; }
+#ifndef MAC_OS_X_VERSION_10_10
+- (BOOL) containsString:(NSString*)x { return [self rangeOfString:x].location != NSNotFound; }
+#endif
 
 @end
 

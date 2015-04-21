@@ -34,8 +34,10 @@ id ObjectForAnyKeyPassingTest(NSDictionary*,NSArray*,BOOL(*OptionalTest)(id));
 
 @interface                 NSString   (SubstringToOrFrom)
 @property (readonly,copy)  NSString * refactor;
-
 - objectAtIndexedSubscript:(NSInteger)i;
+#ifndef MAC_OS_X_VERSION_10_10
+- (BOOL) containsString:(NSString*)x;
+#endif
 @end
 
 NS_INLINE BOOL IsFileAndExists(id p) { BOOL dir = NO;  return [FM fileExistsAtPath:p isDirectory:&dir] && !dir; }
