@@ -147,7 +147,7 @@ void WriteTests () {
       contents = [NSString stringWithContentsOfFile:testFilePath encoding:NSUTF8StringEncoding error:nil];
   M(String) *tests = [contents substringToIndex:[contents rangeOfString:delimiter].location + [delimiter length]].mutableCopy;
 
-  APPEND(tests,@"\n\n_Case(DefinesTestCase)\n_Test(TheyWorked,\n \n");
+  APPEND(tests,@"\n\n_Case(DefinesTestCase)\n_XCTest(TheyWorked,\n \n");
 
   for (id keypath in @[@"TYPES.STRUCTS",@"TYPES.POINTERS",@"TYPES.POINTERS_MAC"]) {
     APPEND(tests,@"\n\n");

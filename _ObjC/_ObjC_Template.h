@@ -52,6 +52,13 @@ to
 #define DLGT(X) ___DLGT_HELPER(X)
 
 
+
+#define _XCTCase(_name_)  @Kind_(_name_,XCTestCase) ￭ @Plan _name_
+#define _XCTest(X,...)    - (void)  test##X { ({ __VA_ARGS__; }); }
+#define _XCTDown(...)     - (void) tearDown { ({ __VA_ARGS__; }); [super tearDown]; }
+#define _XCTUp(...)       - (void)    setUp { [super setUp]; ({ __VA_ARGS__; }); }
+
+
 #define IOS_ONLY TARGET_OS_IPHONE
 #define MAC_ONLY !IOS_ONLY
 

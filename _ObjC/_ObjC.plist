@@ -84,8 +84,6 @@
 			Plan = implementation;
 			"SELFINIT(...)" = "return self = super.init ? ({ __VA_ARGS__; }), self : nil";
 			Vows = protocol;
-			"XCTDown(...)" = "- (void) tearDown { ({ __VA_ARGS__; }); [super tearDown]; }";
-			"XCTUp(...)" = "- (void) setUp { [super setUp]; ({ __VA_ARGS__; }); }";
 			"Xtra(Extends,Named)" = "interface Extends      (Named)";
 			"XtraPlan(Extends,Named)" = "implementation Extends (Named)";
 			"XtraStop(...)" = Stop;
@@ -98,7 +96,6 @@
 			"_Kind" = "@interface";
 			"_Kind_" = "(instancetype) /// Sugar for (instancetype) methods.";
 			"_PRTO" = "@protocol";
-			"_Test(X,...)" = "- (void) test##X { ({ __VA_ARGS__; }); }";
 		};
 		NS = {
 			AZOQMAX = "NSOperationQueueDefaultMaxConcurrentOperationCount";

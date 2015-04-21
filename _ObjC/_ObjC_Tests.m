@@ -18,7 +18,7 @@ _Kind   Kind : NObj                 // A simple @interface declaration.
 
 @Plan   KindOfXCTest
 
-_Test(IfDefs,
+_XCTest(IfDefs,
 
 #ifdef _ObjC_
   XCTAssert(YES, @"_ObjC__ should be defined by importing the header!") ___
@@ -28,7 +28,7 @@ _Test(IfDefs,
 #endif
 )
 
-_Test(PerformanceExample, // This is an example of a performance test case.
+_XCTest(PerformanceExample, // This is an example of a performance test case.
 
   [self measureBlock:^{ /* Put the code you want to measure the time of here. */  }];
 )
@@ -37,8 +37,8 @@ _Test(PerformanceExample, // This is an example of a performance test case.
 
 /// AUTO-GENERATED TESTS BELOW
 
-_Case(DefinesTestCase)
-_Test(TheyWorked,
+_XCTCase(DefinesTestCase)
+_XCTest(TheyWorked,
  
 
 
