@@ -1,7 +1,9 @@
-<div style="float:left;text-align:right;block:none;"><img src="./_ObjC/_ObjC.svg" width="50"/></div>
-# `_ObjC` ![Swift] ![BStatus] ![Issues] ![Platforms]
+ <span style="float:right;">
+<img src="https://rawgit.com/mralexgray/_ObjC/master/_ObjC/_ObjC.svg" width="50"/>
+</span> 
+#`_ObjC` ![NOTSwift]  [![][BStatusImage]][BStatusLink] ![Issues] ![Platforms]
 
-##### A terse, 1:1 dialect of ObjC for Mac + iOS fat targets.
+## `A terse, 1:1 dialect of ObjC for Mac + iOS fat targets.`
 
 | Left-Aligned  | Center Aligned  | Right Aligned |
 | :------------ |:---------------:| -----:|
@@ -89,12 +91,6 @@ Below is the header as was last compiled..
 
 %%CURRENT_VERSION_OF_HEADER_GOES_HERE%%
 
-[Swift]: https://img.shields.io/badge/NOT%20Swift-YES-blue.svg
-[BStatus]: https://travis-ci.org/mralexgray/_ObjC.svg?branch=master (https://travis-ci.org/mralexgray/_ObjC) "Build Status"
-[Platorms]: https://img.shields.io/badge/platform-mac%2Bios%2Bsimulator-lightgrey.svg
-[Issues]: https://img.shields.io/github/issues/mralexgray/_ObjC.svg
-
-
 
 /// Also in AutoBox (redundancy needs fix)
 
@@ -106,3 +102,9 @@ Below is the header as was last compiled..
 
 #define     ____ <
 #define    _____ >
+
+[Platforms]:    https://img.shields.io/badge/platforms-mac%2Bios%2Bsimulator-lightgrey.svg
+[Issues]:       https://img.shields.io/github/issues/mralexgray/_ObjC.svg
+[BStatusLink]:  https://travis-ci.org/mralexgray/_ObjC
+[BStatusImage]: https://travis-ci.org/mralexgray/_ObjC.svg?branch=master (Travis Build Status)
+[NOTSwift]:        https://img.shields.io/badge/NOT%20Swift-YES-blue.svg (NOT swift, lol)
