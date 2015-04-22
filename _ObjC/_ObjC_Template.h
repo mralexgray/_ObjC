@@ -173,6 +173,81 @@ NS_INLINE id concatDescriptions(id uno, ...) { id result = @"".mutableCopy; va_l
 
 CLANG_IGNORE_NO_ATTR
 
+
+#define _Enum(ENUM_TYPENAME, ENUM_CONSTANTS...) \
+                _Type enum { ENUM_CONSTANTS } ENUM_TYPENAME ___ \
+                              static _Text _##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS ___ \
+                               _Enum_Gen_Plan(ENUM_TYPENAME)
+
+#define _EnumKind(ENUM_TYPENAME, ENUM_CONSTANTS...) _Type enum { ENUM_CONSTANTS } ENUM_TYPENAME ___ \
+    extern _Dict ENUM_TYPENAME##xHex() ___  \
+    extern _Dict ENUM_TYPENAME##xVal() ___  \
+    extern _Dict ENUM_TYPENAME##xLbl() ___  \
+    extern _Text ENUM_TYPENAME##2Text(int enumKind) ___  \
+    extern _IsIt ENUM_TYPENAME##4Text(_Text enumLabel, ENUM_TYPENAME *enumValue)___  \
+    CLANG_IGNORE(-Wunused-variable) \
+    static _Text _##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS ___  \
+    CLANG_POP
+
+#define _EnumPlan(ENUM_TYPENAME) _Enum_Gen_Plan(ENUM_TYPENAME)
+
+#define _Enum_Gen_Plan(ENUM_TYPENAME)  \
+\
+  CLANG_IGNORE(-Wmissing-prototypes) \
+  _List _EnumParse##ENUM_TYPENAME##ConstantsString() {	\
+    _Text constantsString = [[_##ENUM_TYPENAME##_constants_string componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] componentsJoinedByString:@""]; \
+    constantsString = ![constantsString hasSuffix:@","] ? constantsString : [constantsString substringToIndex:constantsString.length-1]; \
+    mList labelsAndValues = @[].mC;	\
+    int nextDefaultValue  = 0;	\
+    for (_Text stringPair in [constantsString componentsSeparatedByString:@","]) {	\
+      _List labelAndValueString = [stringPair componentsSeparatedByString:@"="];	\
+      _Text label               = labelAndValueString[0];	\
+      _Text valueString         = labelAndValueString.count > 1 ? labelAndValueString[1] : nil;	\
+        int value; \
+      if (valueString) { \
+        _Rnge shiftTokenRange = [valueString rangeOfString:@"<<"]; \
+        if (shiftTokenRange.location != NSNotFound) { \
+          valueString = [valueString substringFromIndex:shiftTokenRange.location + 2]; \
+          value = 1 << valueString.intValue; \
+        } else if ([valueString hasPrefix:@"0x"]) { \
+          [[NSScanner scannerWithString:valueString] scanHexInt:(unsigned int*)&value]; \
+        } else value = valueString.intValue; \
+      } else { value = nextDefaultValue; \
+      nextDefaultValue = value + 1;	\
+      [labelsAndValues addObject:label];	\
+      [labelsAndValues addObject:[NSNumber numberWithInt:value]];	\
+    }	\
+    return labelsAndValues;	\
+  } \
+  _Dict ENUM_TYPENAME##xVal() {	\
+    _List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	\
+    mDict result    = @{}.mC; \
+    for (_UInt i = 0; i < [constants count]; i += 2) result[constants[i+1]] = constants[i];	\
+    return result;	\
+  }	\
+  _Dict ENUM_TYPENAME##xLbl() {	\
+    _List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	\
+    mDict result = @{}.mC; \
+    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1];	\
+    return result;	\
+  }	\
+  _Dict ENUM_TYPENAME##xHex() {	\
+    _List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	\
+    mDict result = @{}.mC; \
+    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1];	\
+    return result;	\
+  } \
+  _Text ENUM_TYPENAME##2Text(int enumValue) {	\
+    return ENUM_TYPENAME##xVal()[[NSNumber numberWithInt:enumValue]] ?: $(@"<unknown "#ENUM_TYPENAME": %d>", enumValue);	\
+  }	\
+  _IsIt ENUM_TYPENAME##4Text(_Text enumLabel, ENUM_TYPENAME *enumValue) {	\
+    _Numb value = ENUM_TYPENAME##xLbl()[enumLabel];	\
+    return value ? ({ *enumValue = (ENUM_TYPENAME)[value intValue];	YES; }) : NO; \
+  } \
+  CLANG_POP
+
+
+
 #endif // __STDC_VERSION__ >= 201112L
 #endif // __ObjC__
 

@@ -104,10 +104,12 @@ _XCTest(TheyWorked,
 	XCTAssert(@encode(WebView *) == @encode(_WebV), @"%s should equal %s!",@encode(WebView *),@encode(_WebV));
 	XCTAssert(@encode(NSArrayController *) == @encode(xList), @"%s should equal %s!",@encode(NSArrayController *),@encode(xList));
 	XCTAssert(@encode(NSWindowController *) == @encode(xWind), @"%s should equal %s!",@encode(NSWindowController *),@encode(xWind));
-	XCTAssert(@encode(NSScrollView *) == @encode(_Scrl), @"%s should equal %s!",@encode(NSScrollView *),@encode(_Scrl));
+	XCTAssert(@encode(NSAppleScript *) == @encode(_Scpt), @"%s should equal %s!",@encode(NSAppleScript *),@encode(_Scpt));
 	XCTAssert(@encode(NSMenu *) == @encode(_Menu), @"%s should equal %s!",@encode(NSMenu *),@encode(_Menu));
-	XCTAssert(@encode(NSTextView *) == @encode(_TxtV), @"%s should equal %s!",@encode(NSTextView *),@encode(_TxtV));
+	XCTAssert(@encode(NSScrollView *) == @encode(_Scrl), @"%s should equal %s!",@encode(NSScrollView *),@encode(_Scrl));
 	XCTAssert(@encode(NSSplitView *) == @encode(_Splt), @"%s should equal %s!",@encode(NSSplitView *),@encode(_Splt));
+	XCTAssert(@encode(NSTextView *) == @encode(_TxtV), @"%s should equal %s!",@encode(NSTextView *),@encode(_TxtV));
+	XCTAssert(@encode(NSAppleEventDescriptor *) == @encode(_AEvD), @"%s should equal %s!",@encode(NSAppleEventDescriptor *),@encode(_AEvD));
 	XCTAssert(@encode(NSTask *) == @encode(_Task), @"%s should equal %s!",@encode(NSTask *),@encode(_Task));
 	XCTAssert(@encode(NSTableColumn *) == @encode(_TCol), @"%s should equal %s!",@encode(NSTableColumn *),@encode(_TCol));
 	XCTAssert(@encode(NSTextField *) == @encode(_Labl), @"%s should equal %s!",@encode(NSTextField *),@encode(_Labl));
