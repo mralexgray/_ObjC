@@ -1,41 +1,49 @@
 
 @import XCTest;
-
-#import "_ObjC.h"
-
-_Kind   Kind : NObj                 // A simple @interface declaration.
-@Stop                               // Alias for end.
-
-@Kind  (KindOfNSObject)             // Function-like @interface declaration, subclasses NSObject.
-￭                                   // Symbolic alias for @Stop / @end.
-
-@Xtra (KindOfNSObject, Category)
-￭
-@Kind_ (KindOfXCTest,XCTestCase)   // Function-like, but Still able to spec the superclass.
-￭
-@Kind  (KindWithVows,<NSCoding>) ￭  // Both function-like versions can conform to protocols.
+#import <_ObjC.h>
 
 
-@Plan   KindOfXCTest
+#define 🅺 @Kind
+#define 🅚(...) @Kind_(__VA_ARGS__)
+#define 🆇 @Xtra
+#define 🅧(...) @Xtra(__VA_ARGS__)
+#define 🅿︎ @Plan // 🅟
+#define 🆅 @Vows // 🅥
 
-_XCTest(IfDefs,
+_Kind Kind : NObj                   /// A simple \c @interface declaration.
+@Stop                               /// Alias for \c @end.
+
+🅺 (KindOfNObj)                     /// Function-like \c @interface declaration, subclasses NSObject.
+￭                                   /// @see \c @Stop @see \c @end.
+
+🅚 (KindOfXCTest,Case)          ￭   /// Function-like, but Still able to spec the superclass.
+
+🅺 (KindWithVows,<Code>)        ￭   /// Both function-like versions can conform to protocols.
+
+@Xtra(KindOfNObj,CategoryName)  ￭
+
+🅧 (KindOfNObj,SomeOtherCat)    ￭
+
+@Plan KindOfXCTest                  /// A simple \c @implementation declaration.
+
+_XCTest(IfDefs,                     /// equivalent to - (void)  testIfDefs { .... }
 
 #ifdef _ObjC_
   XCTAssert(YES, @"_ObjC__ should be defined by importing the header!") ___
 #if IOS_ONLY
-  XCTFail(@"This is a MAC testing bundle!, we should never get here") ___
+    XCTFail(@"This is a MAC testing bundle!, we should never get here") ___
 #endif
 #endif
 )
 
-_XCTest(PerformanceExample, // This is an example of a performance test case.
+//_XCTest(PerformanceExample, // This is an example of a performance test case.
+//
+//  [self measureBlock:^{ /* Put the code you want to measure the time of here. */  }];
+//)
 
-  [self measureBlock:^{ /* Put the code you want to measure the time of here. */  }];
-)
+￭
 
-@end
-
-/// AUTO-GENERATED TESTS BELOW
+/// AUTO-GENERATED TESTS BELOW(Generated at Apr 24, 2015, 12:11:11 PM)
 
 _XCTCase(DefinesTestCase)
 _XCTest(TheyWorked,
@@ -86,6 +94,7 @@ _XCTest(TheyWorked,
 	XCTAssert(@encode(NSObject *) == @encode(_NObj), @"%s should equal %s!",@encode(NSObject *),@encode(_NObj));
 	XCTAssert(@encode(NSCharacterSet *) == @encode(_CSet), @"%s should equal %s!",@encode(NSCharacterSet *),@encode(_CSet));
 	XCTAssert(@encode(NSUserDefaults *) == @encode(_Defs), @"%s should equal %s!",@encode(NSUserDefaults *),@encode(_Defs));
+	XCTAssert(@encode(XCTestCase *) == @encode(_Case), @"%s should equal %s!",@encode(XCTestCase *),@encode(_Case));
 	XCTAssert(@encode(NSView *) == @encode(_View), @"%s should equal %s!",@encode(NSView *),@encode(_View));
 	XCTAssert(@encode(NSInvocation *) == @encode(_Call), @"%s should equal %s!",@encode(NSInvocation *),@encode(_Call));
 	XCTAssert(@encode(NSDateFormatter *) == @encode(_DFmt), @"%s should equal %s!",@encode(NSDateFormatter *),@encode(_DFmt));

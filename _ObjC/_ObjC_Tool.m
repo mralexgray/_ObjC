@@ -8,7 +8,7 @@ MAIN(
 
   if (ParseArgs()[@"help"] || !plistPath || !templatePath || !PlistDataModel() || !HeaderTemplate() || !CompiledHeader())
 
-    return fprintf(stdout, "%s\n --plist, -p\tplist to parse\n --template, -t\theader template!.\n--output, -o \tpath or paths to write compiled header to.\ngot %s\nmodel:%s\ntemplate:%s", [ARGS[0] UTF8String], [ParseArgs() description].UTF8String, [plistPath UTF8String], [templatePath UTF8String]), EXIT_FAILURE;
+    return fprintf(stdout, "%s\n --plist, -p\tplist to parse\n --template, -t\theader template!.\n--output, -o \tpath or paths to write compiled header to.\ngot %s\nmodel:%s\ntemplate:%s\nplatform:%x", [ARGS[0] UTF8String], [ParseArgs() description].UTF8String, [plistPath UTF8String], [templatePath UTF8String], BuildingFor()), EXIT_FAILURE;
      
   if (!output) return fprintf(stdout, "%s", [CompiledHeader() UTF8String]); // no output, no worries, print to stdout!
 
@@ -20,11 +20,18 @@ MAIN(
   }
   if (testFilePath) WriteTests();
 )
+static _Emit             BuildingFor () { static _Emit _env; return _env = _env ?:
+
+  LOC(ENV[@"BUILT_PRODUCTS_DIR"],@"iphone") != NSNotFound ? e_TYPE_IOS : e_TYPE_MAC;
+}
 
 static NSDictionary * PlistDataModel () { return plist    = plist    ?: [NSDictionary dictionaryWithContentsOfFile:plistPath]; }
 static     NSString * HeaderTemplate () { return template = template ?: [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:nil]; }
 
 NSString * GenerateSection(NSString * head)     {
+
+//  if ( (LOC(head,@"MAC") != NSNotFound && BuildingFor() == e_TYPE_IOS)) return @""; // ||
+//       (LOC(head,@"IOS") != NSNotFound && BuildingFor() == e_TYPE_MAC)) return @"";
 
   id backing = [PlistDataModel() valueForKeyPath:head],
     keyParts = [head componentsSeparatedByString:@"."];
@@ -128,12 +135,17 @@ static NSString * CompiledHeader() { return compiled = compiled ?: ({
 
     NSMutableString *replaced = string.mutableCopy;
 
-    [[regex matchesInString:string options:0 range:NSMakeRange(0, string.length)]
-      enumerateObjectsWithOptions:NSEnumerationReverse
+    id matches = [regex matchesInString:string options:0 range:NSMakeRange(0, string.length)];
+
+    NSLog(@"found %@ matches", @([matches count]));
+
+    [matches enumerateObjectsWithOptions:NSEnumerationReverse
                        usingBlock:^(NSTextCheckingResult* result, NSUInteger idx, BOOL *stop) {
 
+      NSLog(@"replacing %@", [string substringWithRange:result.range]);
       [replaced replaceCharactersInRange:result.range
-                withString: GenerateSection([[RxMatch.alloc initWithTextCheckingResult:result forString:string].groups.lastObject value])];
+                withString: GenerateSection(
+          [[[[RxMatch.alloc initWithTextCheckingResult:result forString:string] groups] lastObject] value])];
 
               ///* replacement */ replacer(/*RxMatch* match */];
     }];
@@ -145,9 +157,10 @@ void WriteTests () {
 
   id delimiter = @"/// AUTO-GENERATED TESTS BELOW",
       contents = [NSString stringWithContentsOfFile:testFilePath encoding:NSUTF8StringEncoding error:nil];
+
   M(String) *tests = [contents substringToIndex:[contents rangeOfString:delimiter].location + [delimiter length]].mutableCopy;
 
-  APPEND(tests,@"\n\n_XCTCase(DefinesTestCase)\n_XCTest(TheyWorked,\n");
+  APPEND(tests,@"(Generated at %@)\n\n_XCTCase(DefinesTestCase)\n_XCTest(TheyWorked,\n", THEDATE);
 
   for (id keypath in @[@"TYPES.STRUCTS",@"TYPES.POINTERS",@"TYPES.POINTERS_MAC"]) {
     APPEND(tests,@"\n");

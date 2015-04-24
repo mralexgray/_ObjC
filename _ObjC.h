@@ -1,36 +1,54 @@
 
 /*!       @note This file is AUTO_GENERATED! Changes will NOT persist!
-                Built on Apr 16, 2015, 12:21:16 PM from template:_ObjC.plist with data from:_ObjC_Template.h */
+                Built on Apr 24, 2015, 12:11:11 PM from template:_ObjC.plist with data from:_ObjC_Template.h */
 
-/*!   @abstract _ObjC is concise dialect of ObjC that is terse and compatible - without needless tricks.
+/*!   @abstract _ObjC is a concise, readable dialect of ObjC that is 100% compatible - without needless tricks.
+
     @discussion It strives to minimize excessive *'s, {}'s, and ()'s, and so on, and so forth.
                 Class pointers and types are typedef'd to aliases, with no pointer,
                 formatted like _Four lettes, starting with an underscore, capitalized. */
 
-#ifdef   __OBJC__
-#ifndef   _ObjC__
-#define   _ObjC__
+//#pragma once
+
+//#include <TargetConditionals.h>
+
+#import <TargetConditionals.h>
+
+#ifdef __OBJC__                     // Let's stick to what we know.
+#if    __STDC_VERSION__ >= 201112L  // We only speak c11 here.
+
+/*! Our raison d'étre is to make things more readable.. With these simple additions we go from
+
+  - (id) initWithFrame:(NSRect)f;
+to 
+  _ID initWithFrame __Rect_ r ___
+
+*/
+
 
 #define        _ :
 #define       __ ,
 #define      ___ ;
-#define     ____ <
-#define    _____ >
 
-#define        💩 ?:
-//#define     ✳️  - (instancetype)
-//#define     ❇️  + (instancetype)
+#define     $(...)    (_Text_ [Text stringWithFormat:__VA_ARGS__,nil])
+
+#define DECLARECONFORMANCE(_CLASS_,_PROTOCOL_) @interface _CLASS_ (_PROTOCOL_) <_PROTOCOL_> @end
+#define CONFORM(_CLASS_,_PROTOCOL_) @Plan _CLASS_ (_PROTOCOL_) @end
+
+#define NSSTRINGIFY_HELPER_NO_EXPAND(x) @#x
+#define NSSTRINGIFY_HELPER(x) NSSTRINGIFY_HELPER_NO_EXPAND(x)
+#define NSSTRINGIFY(z) NSSTRINGIFY_HELPER(z)
 
 
-#define BLOCKTYPE(NAME,...) _Type void(^NAME)(__VA_ARGS__)
-//#define _ObjC_Please(CLASS) [NSUD
+#define      💩 ?:
 
-#define P(...) id<__VA_ARGS__>
-#define _P(...) (id<__VA_ARGS__>)
-#ifdef __P
-#undef __P
-#endif
-#define __P(...) : (id<__VA_ARGS__>)
+#define    Ｐ(...) id<__VA_ARGS__>
+#define   _Ｐ(...) (id<__VA_ARGS__>)
+ #define __Ｐ(...) : (id<__VA_ARGS__>)
+
+#define Code NSCoding
+#define Copy NSCopying
+#define Fast NSFastEnumeration
 
 #define _ID - _ObjC_ 
 #define Kind_Plan(CLASS,SUPER,...) Kind_ (CLASS,SUPER) ￭ @Plan CLASS
@@ -41,10 +59,18 @@
 #define DLGT(X) ___DLGT_HELPER(X)
 
 
+
+#define _XCTCase(_name_)  @Kind_(_name_,XCTestCase) ￭ @Plan _name_
+#define _XCTest(X,...)    - (void)  test##X { ({ __VA_ARGS__; }); }
+#define _XCTDown(...)     - (void) tearDown { ({ __VA_ARGS__; }); [super tearDown]; }
+#define _XCTUp(...)       - (void)    setUp { [super setUp]; ({ __VA_ARGS__; }); }
+
+
 #define IOS_ONLY TARGET_OS_IPHONE
 #define MAC_ONLY !IOS_ONLY
 
 #define  NSLog(...)  (void)fprintf(stderr,"%s\n",$(__VA_ARGS__).UTF8String)
+
 //#define  NSLog(...)  (void)printf("%s %s\n",__PRETTY_FUNCTION__,$(__VA_ARGS__).UTF8String)
 
 #define    _Type typedef
@@ -58,17 +84,23 @@
 #define ｜(...) ___
 #define ￤(...)
 
+#define BLOCKTYPE(NAME,...) _Type void(^NAME)(__VA_ARGS__)
+
 _Type  void(^＾)()___   // Defines a generic block as ＾
 
 /// Let's standarize the preprocessor names too!
 
-//@import ObjectiveC ___
- @class AVAudioPlayer,
-        WebView ___
+@import ObjectiveC
+    ___
+ @class AVAudioPlayer
+     __ WebView
+     __ XCTestCase
+    ___
+
 #    if MAC_ONLY
 #import <AppKit/AppKit.h>
 #  elif IOS_ONLY
-@import UIKit ___
+#import <UIKit/UIKit.h>
 
 // Standarize names 1:1 between platforms. (DEFINES.STANDARD_NAMES)
 
@@ -100,14 +132,27 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 #pragma mark - GEOMETRY_TRANSLATIONS
 
 #define                       rectValue   CGRectValue 
-#define                      NSMakeRect   CGRectMake 
-#define                      NSMakeSize   CGSizeMake 
+#define                       sizeValue   CGSizeValue 
 #define                      pointValue   CGPointValue 
+#define                      NSMakeSize   CGSizeMake 
+#define                      NSMakeRect   CGRectMake 
 #define                     NSMakePoint   CGPointMake 
-#define                    NSEqualRects   CGRectEqualToRect 
 #define                    NSEqualSizes   CGSizeEqualToSize 
+#define                    NSEqualRects   CGRectEqualToRect 
 #define                   NSEqualPoints   CGPointEqualToPoint 
+#define                   valueWithRect   valueWithCGRect 
+#define                   valueWithSize   valueWithCGSize 
+#define                  valueWithPoint   valueWithCGPoint 
+#define                NSRectFromString   CGRectFromString 
+#define                NSStringFromRect   NSStringFromCGRect 
+#define                NSSizeFromString   CGSizeFromString 
+#define                NSStringFromSize   NSStringFromCGSize 
+#define               NSPointFromString   CGPointFromString 
+#define               NSStringFromPoint   NSStringFromCGPoint 
+#define              colorWithDeviceRed   colorWithRed 
 #define              NSPointInRect(P,R)   CGRectContainsPoint(R,P) 
+#define          colorWithCalibratedRed   colorWithRed 
+#define          colorWithCalibratedHue   colorWithHue 
 
 
 #pragma mark - END DEFINES.GEOMETRY_TRANSLATIONS PROBLEMS: 
@@ -125,6 +170,7 @@ _Type                           Class   _Meta  ___
 _Type                       NSInteger   _SInt  ___
 _Type                      NSUInteger   _UInt  ___
 _Type                   unsigned long   _ULng  ___
+_Type                dispatch_queue_t   _DQue  ___
 _Type              NSComparisonResult   _Comp  ___
 
 
@@ -152,6 +198,8 @@ _Type              NSComparisonResult   _Comp  ___
 #define                      _UT      - _UInt_
 #define                      _ULng_   ( _ULng )
 #define                     __ULng_   : ( _ULng )
+#define                      _DQue_   ( _DQue )
+#define                     __DQue_   : ( _DQue )
 #define                      _Comp_   ( _Comp )
 #define                     __Comp_   : ( _Comp )
 
@@ -189,84 +237,18 @@ _Type                         NSRange   _Rnge  ___
 
 #pragma mark - END TYPES.STRUCTS PROBLEMS: 
 
-#if MAC_ONLY
 
-#pragma mark - POINTERS_MAC
+//typdeffing.  for example, I will show mapping of const char *, as ironically, it cannot be achieved like the others
 
-_Type             NSArrayController *   xList  ___
-_Type                  NSFileHandle *   _Hndl  ___
-_Type                   NSImageView *   _PicV  ___
-_Type                        NSMenu *   _Menu  ___
-_Type                    NSMenuItem *   _SubM  ___
-_Type                 NSOutlineView *   _OutV  ___
-_Type                  NSScrollView *   _Scrl  ___
-_Type                   NSSplitView *   _Splt  ___
-_Type                 NSTableColumn *   _TCol  ___
-_Type                   NSTableView *   _Tabl  ___
-_Type                        NSTask *   _Task  ___
-_Type                   NSTextField *   _Labl  ___
-_Type                    NSTextView *   _TxtV  ___
-_Type            NSWindowController *   xWind  ___
-_Type                       WebView *   _WebV  ___
-
-#define                       ListX   NSArrayController
-#define                        Hndl   NSFileHandle
-#define                        PicV   NSImageView
-#define                        Menu   NSMenu
-#define                        SubM   NSMenuItem
-#define                        OutV   NSOutlineView
-#define                        Scrl   NSScrollView
-#define                        Splt   NSSplitView
-#define                        TCol   NSTableColumn
-#define                        Tabl   NSTableView
-#define                        Task   NSTask
-#define                        Labl   NSTextField
-#define                        TxtV   NSTextView
-#define                       WindX   NSWindowController
-#define                        WebV   WebView
-
-#define                      xList_   ( xList )
-#define                     _xList_   : ( xList )
-#define                      _Hndl_   ( _Hndl )
-#define                     __Hndl_   : ( _Hndl )
-#define                      _PicV_   ( _PicV )
-#define                     __PicV_   : ( _PicV )
-#define                      _Menu_   ( _Menu )
-#define                     __Menu_   : ( _Menu )
-#define                      _SubM_   ( _SubM )
-#define                     __SubM_   : ( _SubM )
-#define                      _OutV_   ( _OutV )
-#define                     __OutV_   : ( _OutV )
-#define                      _Scrl_   ( _Scrl )
-#define                     __Scrl_   : ( _Scrl )
-#define                      _Splt_   ( _Splt )
-#define                     __Splt_   : ( _Splt )
-#define                      _TCol_   ( _TCol )
-#define                     __TCol_   : ( _TCol )
-#define                      _Tabl_   ( _Tabl )
-#define                     __Tabl_   : ( _Tabl )
-#define                      _Task_   ( _Task )
-#define                     __Task_   : ( _Task )
-#define                      _Labl_   ( _Labl )
-#define                     __Labl_   : ( _Labl )
-#define                      _TxtV_   ( _TxtV )
-#define                     __TxtV_   : ( _TxtV )
-#define                      xWind_   ( xWind )
-#define                     _xWind_   : ( xWind )
-#define                      _WebV_   ( _WebV )
-#define                     __WebV_   : ( _WebV )
-
-
-#pragma mark - END TYPES.POINTERS_MAC PROBLEMS: 
-
-#endif // MAC_ONLY
+#define _CChr const char *
+#define _CChr_ (_CChr)
+#define __CChr_ : _CChr_
 
 #pragma mark - POINTERS
 
 _Type                 AVAudioPlayer *   _SndP  ___
 _Type                       CALayer *   _Layr  ___
 _Type                          char *   _Char  ___
-_Type                    const char *   _CChr  ___
 _Type                 NSApplication *   _Appl  ___
 _Type                       NSArray *   _List  ___
 _Type            NSAttributedString *   _ATxt  ___
@@ -275,6 +257,8 @@ _Type                      NSBundle *   _Bndl  ___
 _Type                NSCharacterSet *   _CSet  ___
 _Type                       NSColor *   _Colr  ___
 _Type                        NSData *   _Data  ___
+_Type                        NSDate *   _Date  ___
+_Type               NSDateFormatter *   _DFmt  ___
 _Type                  NSDictionary *   _Dict  ___
 _Type                       NSError *   _Errr  ___
 _Type                       NSEvent *   _Evnt  ___
@@ -297,6 +281,7 @@ _Type                      NSNumber *   _Numb  ___
 _Type                      NSObject *   _NObj  ___
 _Type              NSParagraphStyle *   _PStl  ___
 _Type                        NSPipe *   _Pipe  ___
+_Type                     NSScanner *   _Scnr  ___
 _Type                      NSString *   _Text  ___
 _Type                   NSTableView *   _TblV  ___
 _Type                         NSURL *   _NUrl  ___
@@ -305,11 +290,11 @@ _Type                       NSValue *   _Valu  ___
 _Type                        NSView *   _View  ___
 _Type                      NSWindow *   _Wind  ___
 _Type                 unsigned char *   _UChr  ___
+_Type                    XCTestCase *   _Case  ___
 
 #define                        SndP   AVAudioPlayer
 #define                        Layr   CALayer
 #define                        Char   char
-#define                        CChr   const char
 #define                        Appl   NSApplication
 #define                        List   NSArray
 #define                        ATxt   NSAttributedString
@@ -318,6 +303,8 @@ _Type                 unsigned char *   _UChr  ___
 #define                        CSet   NSCharacterSet
 #define                        Colr   NSColor
 #define                        Data   NSData
+#define                        Date   NSDate
+#define                        DFmt   NSDateFormatter
 #define                        Dict   NSDictionary
 #define                        Errr   NSError
 #define                        Evnt   NSEvent
@@ -340,6 +327,7 @@ _Type                 unsigned char *   _UChr  ___
 #define                        NObj   NSObject
 #define                        PStl   NSParagraphStyle
 #define                        Pipe   NSPipe
+#define                        Scnr   NSScanner
 #define                        Text   NSString
 #define                        TblV   NSTableView
 #define                        NUrl   NSURL
@@ -348,16 +336,16 @@ _Type                 unsigned char *   _UChr  ___
 #define                        View   NSView
 #define                        Wind   NSWindow
 #define                        UChr   unsigned char
+#define                        Case   XCTestCase
 
 #define                      _SndP_   ( _SndP )
 #define                     __SndP_   : ( _SndP )
+#define                      _SP      - _SndP_
 #define                      _Layr_   ( _Layr )
 #define                     __Layr_   : ( _Layr )
 #define                      _LR      - _Layr_
 #define                      _Char_   ( _Char )
 #define                     __Char_   : ( _Char )
-#define                      _CChr_   ( _CChr )
-#define                     __CChr_   : ( _CChr )
 #define                      _Appl_   ( _Appl )
 #define                     __Appl_   : ( _Appl )
 #define                      _List_   ( _List )
@@ -380,6 +368,10 @@ _Type                 unsigned char *   _UChr  ___
 #define                      _Data_   ( _Data )
 #define                     __Data_   : ( _Data )
 #define                      _DA      - _Data_
+#define                      _Date_   ( _Date )
+#define                     __Date_   : ( _Date )
+#define                      _DFmt_   ( _DFmt )
+#define                     __DFmt_   : ( _DFmt )
 #define                      _Dict_   ( _Dict )
 #define                     __Dict_   : ( _Dict )
 #define                      _DT      - _Dict_
@@ -439,6 +431,8 @@ _Type                 unsigned char *   _UChr  ___
 #define                      _Pipe_   ( _Pipe )
 #define                     __Pipe_   : ( _Pipe )
 #define                      _PE      - _Pipe_
+#define                      _Scnr_   ( _Scnr )
+#define                     __Scnr_   : ( _Scnr )
 #define                      _Text_   ( _Text )
 #define                     __Text_   : ( _Text )
 #define                      _TT      - _Text_
@@ -460,9 +454,99 @@ _Type                 unsigned char *   _UChr  ___
 #define                      _WD      - _Wind_
 #define                      _UChr_   ( _UChr )
 #define                     __UChr_   : ( _UChr )
+#define                      _Case_   ( _Case )
+#define                     __Case_   : ( _Case )
 
 
 #pragma mark - END TYPES.POINTERS PROBLEMS: 
+
+#if MAC_ONLY
+
+#pragma mark - POINTERS_MAC
+
+_Type        NSAppleEventDescriptor *   _AEvD  ___
+_Type                 NSAppleScript *   _Scpt  ___
+_Type             NSArrayController *   xList  ___
+_Type                  NSFileHandle *   _Hndl  ___
+_Type                   NSImageView *   _PicV  ___
+_Type                        NSMenu *   _Menu  ___
+_Type                    NSMenuItem *   _SubM  ___
+_Type                 NSOutlineView *   _OutV  ___
+_Type                  NSScrollView *   _Scrl  ___
+_Type                   NSSplitView *   _Splt  ___
+_Type                 NSTableColumn *   _TCol  ___
+_Type                   NSTableView *   _Tabl  ___
+_Type                        NSTask *   _Task  ___
+_Type                   NSTextField *   _Labl  ___
+_Type                    NSTextView *   _TxtV  ___
+_Type            NSUserNotification *   uNote  ___
+_Type      NSUserNotificationCenter *   uNCtr  ___
+_Type            NSWindowController *   xWind  ___
+_Type                       WebView *   _WebV  ___
+
+#define                        AEvD   NSAppleEventDescriptor
+#define                        Scpt   NSAppleScript
+#define                       ListX   NSArrayController
+#define                        Hndl   NSFileHandle
+#define                        PicV   NSImageView
+#define                        Menu   NSMenu
+#define                        SubM   NSMenuItem
+#define                        OutV   NSOutlineView
+#define                        Scrl   NSScrollView
+#define                        Splt   NSSplitView
+#define                        TCol   NSTableColumn
+#define                        Tabl   NSTableView
+#define                        Task   NSTask
+#define                        Labl   NSTextField
+#define                        TxtV   NSTextView
+#define                       NoteU   NSUserNotification
+#define                       NCtrU   NSUserNotificationCenter
+#define                       WindX   NSWindowController
+#define                        WebV   WebView
+
+#define                      _AEvD_   ( _AEvD )
+#define                     __AEvD_   : ( _AEvD )
+#define                      _Scpt_   ( _Scpt )
+#define                     __Scpt_   : ( _Scpt )
+#define                      xList_   ( xList )
+#define                     _xList_   : ( xList )
+#define                      _Hndl_   ( _Hndl )
+#define                     __Hndl_   : ( _Hndl )
+#define                      _PicV_   ( _PicV )
+#define                     __PicV_   : ( _PicV )
+#define                      _Menu_   ( _Menu )
+#define                     __Menu_   : ( _Menu )
+#define                      _SubM_   ( _SubM )
+#define                     __SubM_   : ( _SubM )
+#define                      _OutV_   ( _OutV )
+#define                     __OutV_   : ( _OutV )
+#define                      _Scrl_   ( _Scrl )
+#define                     __Scrl_   : ( _Scrl )
+#define                      _Splt_   ( _Splt )
+#define                     __Splt_   : ( _Splt )
+#define                      _TCol_   ( _TCol )
+#define                     __TCol_   : ( _TCol )
+#define                      _Tabl_   ( _Tabl )
+#define                     __Tabl_   : ( _Tabl )
+#define                      _Task_   ( _Task )
+#define                     __Task_   : ( _Task )
+#define                      _Labl_   ( _Labl )
+#define                     __Labl_   : ( _Labl )
+#define                      _TxtV_   ( _TxtV )
+#define                     __TxtV_   : ( _TxtV )
+#define                      uNote_   ( uNote )
+#define                     _uNote_   : ( uNote )
+#define                      uNCtr_   ( uNCtr )
+#define                     _uNCtr_   : ( uNCtr )
+#define                      xWind_   ( xWind )
+#define                     _xWind_   : ( xWind )
+#define                      _WebV_   ( _WebV )
+#define                     __WebV_   : ( _WebV )
+
+
+#pragma mark - END TYPES.POINTERS_MAC PROBLEMS: 
+
+#endif // MAC_ONLY
 
 #pragma mark - BLOCKS_VOIDS
 
@@ -476,6 +560,8 @@ _Type       _Void (^ ＾List) (_List a)     ___
 _Type       _Void (^ ＾Numb) (_Numb n)     ___
 _Type       _Void (^ ＾NUrl) (_NUrl u)     ___
 _Type       _Void (^ ＾ObjC) (_ObjC x)     ___
+_Type _Void (^ ＾IDST) (_ObjC x, _SInt c)     ___
+_Type _Void (^ ＾IDUT) (_ObjC x, _UInt c)     ___
 _Type       _Void (^ ＾Rect) (_Rect r)     ___
 _Type       _Void (^ ＾Text) (_Text p)     ___
 
@@ -500,6 +586,10 @@ _Type       _Void (^ ＾Text) (_Text p)     ___
 #define                      ＾NUrl_   : ( ＾NUrl )
 #define                      _＾ObjC   ( ＾ObjC )
 #define                      ＾ObjC_   : ( ＾ObjC )
+#define                      _＾IDST   ( ＾IDST )
+#define                      ＾IDST_   : ( ＾IDST )
+#define                      _＾IDUT   ( ＾IDUT )
+#define                      ＾IDUT_   : ( ＾IDUT )
 #define                      _＾Rect   ( ＾Rect )
 #define                      ＾Rect_   : ( ＾Rect )
 #define                      _＾Text   ( ＾Text )
@@ -584,19 +674,16 @@ _Type       _Void (^ ＾Text) (_Text p)     ___
 #define                           _Kind   @interface 
 #define                          _Kind_   (instancetype) /// Sugar for (instancetype) methods. 
 #define                           _PRTO   @protocol 
-#define                    _Test(X,...)   - (void) test##X { ({ __VA_ARGS__; }); } 
 #define                    INIT_(K,...)   [[K alloc] init##__VA_ARGS__] 
 #define                  INIT_THEN(...)   SUPERINIT; ({ __VA_ARGS__ }); return self; 
 #define                INTERFACE(X,...)   @interface X : __VA_ARGS__ + (instancetype) 
 #define                  Kind(Name,...)   Kind_(Name,NObj,__VA_ARGS__) 
 #define            Kind_(Name,Meta,...)   interface Name : Meta __VA_ARGS__ 
-#define                        NEW(A,B)   A *B = A.new 
+#define                        NEW(A,B)   A * B = [A new] 
 #define                   NSStringValue   @"stringValue" 
 #define                            Plan   implementation 
 #define                   SELFINIT(...)   return self = super.init ? ({ __VA_ARGS__; }), self : nil 
 #define                            Vows   protocol 
-#define                    XCTDown(...)   - (void) tearDown { ({ __VA_ARGS__; }); [super tearDown]; } 
-#define                      XCTUp(...)   - (void) setUp { [super setUp]; ({ __VA_ARGS__; }); } 
 #define             Xtra(Extends,Named)   interface Extends      (Named) 
 #define         XtraPlan(Extends,Named)   implementation Extends (Named) 
 #define                   XtraStop(...)   Stop 
@@ -758,6 +845,113 @@ _Type       _Void (^ ＾Text) (_Text p)     ___
 
 @Kind(_ObjC_Load) ￭
 
-#endif //  _ObjC__
+
+NS_INLINE id concatDescriptions(id uno, ...) { id result = @"".mutableCopy; va_list args; va_start(args, uno);
+
+  for (id arg = uno; arg != nil; arg = va_arg(args, id)) [result appendString:[arg description]]; va_end(args); return result;
+}
+
+#define $$$(FIRST,...) concatDescriptions(FIRST,__VA_ARGS__,nil)
+
+#define FULLW_DIGIT ０１２３４５６７８９
+#define FULLW_alpha ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ
+#define FULLW_ALPHA ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ
+#define FULLW_OTHER ！＂＃＄％＆＇（）＊＋，－．／：；＜＝＞？＠［＼］＾＿｀｛｜｝～｟｠￠￡￢￣￤￥￦
+#define HALFW_OTHER ｡｢｣･ￜ￨￩￪￫￬￭￮
+#define MATH_SANS 𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭
+#define MATH_sans 𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇
+
+#define PRAGMA(X) _Pragma(#X)
+
+#define CLANG_IGNORE_HELPER0(x) #x
+#define CLANG_IGNORE_HELPER1(x) CLANG_IGNORE_HELPER0(clang diagnostic ignored x)
+#define CLANG_IGNORE_HELPER2(y) CLANG_IGNORE_HELPER1(#y)
+
+#define CLANG_POP               PRAGMA(clang diagnostic pop)
+#define CLANG_IGNORE(x)         PRAGMA(clang diagnostic push); _Pragma(CLANG_IGNORE_HELPER2(x))
+
+#define CLANG_IGNORE_DEPRECATED CLANG_IGNORE(-Wdeprecated-declarations)
+#define CLANG_IGNORE_PROTOCOL   CLANG_IGNORE(-Wprotocol)
+#define CLANG_IGNORE_NO_ATTR    CLANG_IGNORE(-Wobjc-property-no-attribute)
+
+CLANG_IGNORE_NO_ATTR
+
+
+#define _Enum(ENUM_TYPENAME, ENUM_CONSTANTS...) \
+                _Type enum { ENUM_CONSTANTS } ENUM_TYPENAME ___ \
+                              static _Text _##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS ___ \
+                               _EnumPlan(ENUM_TYPENAME)
+
+#define _EnumKind(ENUM_TYPENAME, ENUM_CONSTANTS...) _Type enum { ENUM_CONSTANTS } ENUM_TYPENAME ___ \
+    extern _Dict ENUM_TYPENAME##xHex() ___  \
+    extern _Dict ENUM_TYPENAME##xVal() ___  \
+    extern _Dict ENUM_TYPENAME##xLbl() ___  \
+    extern _List ENUM_TYPENAME##All() ___  \
+    extern _Text ENUM_TYPENAME##2Text(int enumKind) ___  \
+    extern _IsIt ENUM_TYPENAME##4Text(_Text enumLabel, ENUM_TYPENAME *enumValue)___  \
+    CLANG_IGNORE(-Wunused-variable) \
+    static _Text _##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS ___  \
+    CLANG_POP
+
+#define _EnumPlan(ENUM_TYPENAME) \
+\
+  CLANG_IGNORE(-Wmissing-prototypes) \
+  _List _EnumParse##ENUM_TYPENAME##ConstantsString() {	\
+    _Text constantsString = [[_##ENUM_TYPENAME##_constants_string componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] componentsJoinedByString:@""]; \
+    constantsString = ![constantsString hasSuffix:@","] ? constantsString : [constantsString substringToIndex:constantsString.length-1]; \
+    mList labelsAndValues = @[].mC;	\
+    int nextDefaultValue  = 0;	\
+    for (_Text stringPair in [constantsString componentsSeparatedByString:@","]) {	\
+      _List labelAndValueString = [stringPair componentsSeparatedByString:@"="];	\
+      _Text label               = labelAndValueString[0];	\
+      _Text valueString         = labelAndValueString.count > 1 ? labelAndValueString[1] : nil;	\
+        int value; \
+      if (valueString) { \
+        _Rnge shiftTokenRange = [valueString rangeOfString:@"<<"]; \
+        if (shiftTokenRange.location != NSNotFound) { \
+          valueString = [valueString substringFromIndex:shiftTokenRange.location + 2]; \
+          value = 1 << valueString.intValue; \
+        } else if ([valueString hasPrefix:@"0x"]) { \
+          [[NSScanner scannerWithString:valueString] scanHexInt:(unsigned int*)&value]; \
+        } else value = valueString.intValue; \
+      } else value = nextDefaultValue; \
+      nextDefaultValue = value + 1;	\
+      [labelsAndValues addObject:label];	\
+      [labelsAndValues addObject:[NSNumber numberWithInt:value]];	\
+    }	\
+    return labelsAndValues;	\
+  } \
+  _Dict ENUM_TYPENAME##xVal() {	\
+    _List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	\
+    mDict result    = @{}.mC; \
+    for (_UInt i = 0; i < [constants count]; i += 2) result[constants[i+1]] = constants[i];	\
+    return result;	\
+  }	\
+  _Dict ENUM_TYPENAME##xLbl() {	\
+    _List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	\
+    mDict result = @{}.mC; \
+    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1];	\
+    return result;	\
+  }	\
+  _Dict ENUM_TYPENAME##xHex() {	\
+    _List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	\
+    mDict result = @{}.mC; \
+    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1];	\
+    return result;	\
+  } \
+  _Text ENUM_TYPENAME##2Text(int enumValue) {	\
+    return ENUM_TYPENAME##xVal()[[NSNumber numberWithInt:enumValue]] ?: $(@"<unknown "#ENUM_TYPENAME": %d>", enumValue);	\
+  }	\
+  _IsIt ENUM_TYPENAME##4Text(_Text enumLabel, ENUM_TYPENAME *enumValue) {	\
+    _Numb value = ENUM_TYPENAME##xLbl()[enumLabel];	\
+    return value ? ({ *enumValue = (ENUM_TYPENAME)[value intValue];	YES; }) : NO; \
+  } \
+  _List ENUM_TYPENAME##All() { return ENUM_TYPENAME##xVal().allKeys; } \
+  CLANG_POP
+
+
+
+#endif // __STDC_VERSION__ >= 201112L
 #endif // __ObjC__
+
 

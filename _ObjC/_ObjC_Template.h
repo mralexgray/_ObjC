@@ -5,7 +5,14 @@
                 Class pointers and types are typedef'd to aliases, with no pointer,
                 formatted like _Four lettes, starting with an underscore, capitalized. */
 
-#pragma once
+//#pragma once
+
+//#include <TargetConditionals.h>
+
+#import <TargetConditionals.h>
+
+#ifdef __OBJC__                     // Let's stick to what we know.
+#if    __STDC_VERSION__ >= 201112L  // We only speak c11 here.
 
 /*! Our raison d'étre is to make things more readable.. With these simple additions we go from
 
@@ -20,10 +27,7 @@ to
 #define       __ ,
 #define      ___ ;
 
-
-
-#ifdef __OBJC__                     // Let's stick to what we know.
-#if    __STDC_VERSION__ >= 201112L  // We only speak c11 here.
+#define     $(...)    (_Text_ [Text stringWithFormat:__VA_ARGS__,nil])
 
 #define DECLARECONFORMANCE(_CLASS_,_PROTOCOL_) @interface _CLASS_ (_PROTOCOL_) <_PROTOCOL_> @end
 #define CONFORM(_CLASS_,_PROTOCOL_) @Plan _CLASS_ (_PROTOCOL_) @end
@@ -63,6 +67,7 @@ to
 #define MAC_ONLY !IOS_ONLY
 
 #define  NSLog(...)  (void)fprintf(stderr,"%s\n",$(__VA_ARGS__).UTF8String)
+
 //#define  NSLog(...)  (void)printf("%s %s\n",__PRETTY_FUNCTION__,$(__VA_ARGS__).UTF8String)
 
 #define    _Type typedef
@@ -82,13 +87,17 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 
 /// Let's standarize the preprocessor names too!
 
-//@import ObjectiveC ___
- @class AVAudioPlayer,
-        WebView ___
+@import ObjectiveC
+    ___
+ @class AVAudioPlayer
+     __ WebView
+     __ XCTestCase
+    ___
+
 #    if MAC_ONLY
 #import <AppKit/AppKit.h>
 #  elif IOS_ONLY
-@import UIKit ___
+#import <UIKit/UIKit.h>
 
 // Standarize names 1:1 between platforms. (DEFINES.STANDARD_NAMES)
 
@@ -177,21 +186,20 @@ CLANG_IGNORE_NO_ATTR
 #define _Enum(ENUM_TYPENAME, ENUM_CONSTANTS...) \
                 _Type enum { ENUM_CONSTANTS } ENUM_TYPENAME ___ \
                               static _Text _##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS ___ \
-                               _Enum_Gen_Plan(ENUM_TYPENAME)
+                               _EnumPlan(ENUM_TYPENAME)
 
 #define _EnumKind(ENUM_TYPENAME, ENUM_CONSTANTS...) _Type enum { ENUM_CONSTANTS } ENUM_TYPENAME ___ \
     extern _Dict ENUM_TYPENAME##xHex() ___  \
     extern _Dict ENUM_TYPENAME##xVal() ___  \
     extern _Dict ENUM_TYPENAME##xLbl() ___  \
+    extern _List ENUM_TYPENAME##All() ___  \
     extern _Text ENUM_TYPENAME##2Text(int enumKind) ___  \
     extern _IsIt ENUM_TYPENAME##4Text(_Text enumLabel, ENUM_TYPENAME *enumValue)___  \
     CLANG_IGNORE(-Wunused-variable) \
     static _Text _##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS ___  \
     CLANG_POP
 
-#define _EnumPlan(ENUM_TYPENAME) _Enum_Gen_Plan(ENUM_TYPENAME)
-
-#define _Enum_Gen_Plan(ENUM_TYPENAME)  \
+#define _EnumPlan(ENUM_TYPENAME) \
 \
   CLANG_IGNORE(-Wmissing-prototypes) \
   _List _EnumParse##ENUM_TYPENAME##ConstantsString() {	\
@@ -212,7 +220,7 @@ CLANG_IGNORE_NO_ATTR
         } else if ([valueString hasPrefix:@"0x"]) { \
           [[NSScanner scannerWithString:valueString] scanHexInt:(unsigned int*)&value]; \
         } else value = valueString.intValue; \
-      } else { value = nextDefaultValue; \
+      } else value = nextDefaultValue; \
       nextDefaultValue = value + 1;	\
       [labelsAndValues addObject:label];	\
       [labelsAndValues addObject:[NSNumber numberWithInt:value]];	\
@@ -244,6 +252,7 @@ CLANG_IGNORE_NO_ATTR
     _Numb value = ENUM_TYPENAME##xLbl()[enumLabel];	\
     return value ? ({ *enumValue = (ENUM_TYPENAME)[value intValue];	YES; }) : NO; \
   } \
+  _List ENUM_TYPENAME##All() { return ENUM_TYPENAME##xVal().allKeys; } \
   CLANG_POP
 
 

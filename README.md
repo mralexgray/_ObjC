@@ -19,6 +19,35 @@
 - [ ] a separate task
 
 
+<table cellpadding="0" cellspacing="3">
+      <tbody><tr>
+	<td>
+	  <a href="/blog/archive/2010/8/16/TargetConditionalsh.html"><img src="/link.gif" width="14" height="16" border="0" alt="(link)"></a>
+	</td>
+	<td>
+	  <b><font size="+1">TargetConditionals.h</font></b> &nbsp; 
+	  <font size="-1">(<a href="/blog/archive/2010/8/16/TargetConditionalsh.html">2010-8-16 2:30 PM</a>)</font>
+	</td>
+      </tr>
+      <tr>
+	<td>
+	  &nbsp;
+	</td>
+	<td>
+      <br>
+    <table border="1" cellspacing="0" cellpadding="4">
+      <tbody><tr><th></th><td align="center">Mac OS X</td><td align="center">iOS device</td><td align="center">iOS simulator</td>
+      </tr><tr><td>TARGET_OS_MAC</td><td bgcolor="#eeffee">1</td><td bgcolor="#eeffee">1</td><td bgcolor="#eeffee">1</td></tr>
+      <tr><td>TARGET_OS_IPHONE</td><td>0</td><td bgcolor="#eeffee">1</td><td bgcolor="#eeffee">1</td></tr>
+      <tr><td>TARGET_OS_EMBEDDED</td><td>0</td><td bgcolor="#eeffee">1</td><td>0</td></tr>
+      <tr><td>TARGET_IPHONE_SIMULATOR</td><td>0</td><td>0</td><td bgcolor="#eeffee">1</td></tr>
+    </tbody></table>
+    <br>
+
+	</td>
+      </tr>
+  </tbody></table>
+  
 ``` ruby
 require 'redcarpet'
 markdown = Redcarpet.new("Hello World!")
