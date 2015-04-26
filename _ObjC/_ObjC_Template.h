@@ -32,11 +32,6 @@ to
 #define DECLARECONFORMANCE(_CLASS_,_PROTOCOL_) @interface _CLASS_ (_PROTOCOL_) <_PROTOCOL_> @end
 #define CONFORM(_CLASS_,_PROTOCOL_) @Plan _CLASS_ (_PROTOCOL_) @end
 
-#define NSSTRINGIFY_HELPER_NO_EXPAND(x) @#x
-#define NSSTRINGIFY_HELPER(x) NSSTRINGIFY_HELPER_NO_EXPAND(x)
-#define NSSTRINGIFY(z) NSSTRINGIFY_HELPER(z)
-
-
 #define      💩 ?:
 
 #define    Ｐ(...) id<__VA_ARGS__>
@@ -71,6 +66,16 @@ to
 //#define  NSLog(...)  (void)printf("%s %s\n",__PRETTY_FUNCTION__,$(__VA_ARGS__).UTF8String)
 
 #define    _Type typedef
+
+
+#define 🅺 @Kind
+#define 🅚(...) @Kind_(__VA_ARGS__)
+#define 🆇 @Xtra
+#define 🅧(...) @Xtra(__VA_ARGS__)
+#define 🅿︎ @Plan // 🅟
+#define 🆅 @Vows // 🅥
+#define 🅲 @concrete
+#define 🅒(...) @concreteprotocol(__VA_ARGS__)
 
 #define     Incl import
 #define     Optn optional
@@ -167,6 +172,10 @@ NS_INLINE id concatDescriptions(id uno, ...) { id result = @"".mutableCopy; va_l
 #define MATH_SANS 𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭
 #define MATH_sans 𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇
 
+#define NSSTRINGIFY_HELPER_NO_EXPAND(x) @#x
+#define NSSTRINGIFY_HELPER(x) NSSTRINGIFY_HELPER_NO_EXPAND(x)
+#define NSSTRINGIFY(z) NSSTRINGIFY_HELPER(z)
+
 #define PRAGMA(X) _Pragma(#X)
 
 #define CLANG_IGNORE_HELPER0(x) #x
@@ -182,21 +191,22 @@ NS_INLINE id concatDescriptions(id uno, ...) { id result = @"".mutableCopy; va_l
 
 CLANG_IGNORE_NO_ATTR
 
+#define _Enum(ENUM_TYPENAME, ENUM_CONSTANTS...)                                                           \
+                _Type enum { ENUM_CONSTANTS } ENUM_TYPENAME ___                                           \
+                              static _Text _##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS ___  \
+                                    _EnumPlan(ENUM_TYPENAME)
 
-#define _Enum(ENUM_TYPENAME, ENUM_CONSTANTS...) \
-                _Type enum { ENUM_CONSTANTS } ENUM_TYPENAME ___ \
-                              static _Text _##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS ___ \
-                               _EnumPlan(ENUM_TYPENAME)
-
-#define _EnumKind(ENUM_TYPENAME, ENUM_CONSTANTS...) _Type enum { ENUM_CONSTANTS } ENUM_TYPENAME ___ \
-    extern _Dict ENUM_TYPENAME##xHex() ___  \
-    extern _Dict ENUM_TYPENAME##xVal() ___  \
-    extern _Dict ENUM_TYPENAME##xLbl() ___  \
-    extern _List ENUM_TYPENAME##All() ___  \
-    extern _Text ENUM_TYPENAME##2Text(int enumKind) ___  \
-    extern _IsIt ENUM_TYPENAME##4Text(_Text enumLabel, ENUM_TYPENAME *enumValue)___  \
-    CLANG_IGNORE(-Wunused-variable) \
-    static _Text _##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS ___  \
+#define _EnumKind(ENUM_TYPENAME, ENUM_CONSTANTS...)                                    \
+                                                                                       \
+    _Type enum { ENUM_CONSTANTS } ENUM_TYPENAME ___                                    \
+    extern _Dict ENUM_TYPENAME##xHex  ()                                          ___  \
+    extern _Dict ENUM_TYPENAME##xVal  ()                                          ___  \
+    extern _Dict ENUM_TYPENAME##xLbl  ()                                          ___  \
+    extern _List ENUM_TYPENAME##All   ()                                          ___  \
+    extern _Text ENUM_TYPENAME##2Text (int enumKind)                              ___  \
+    extern _IsIt ENUM_TYPENAME##4Text(_Text enumLabel, ENUM_TYPENAME *enumValue)  ___  \
+    CLANG_IGNORE(-Wunused-variable)                                                    \
+    static _Text _##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS        ___  \
     CLANG_POP
 
 #define _EnumPlan(ENUM_TYPENAME) \
@@ -205,8 +215,8 @@ CLANG_IGNORE_NO_ATTR
   _List _EnumParse##ENUM_TYPENAME##ConstantsString() {	\
     _Text constantsString = [[_##ENUM_TYPENAME##_constants_string componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] componentsJoinedByString:@""]; \
     constantsString = ![constantsString hasSuffix:@","] ? constantsString : [constantsString substringToIndex:constantsString.length-1]; \
-    mList labelsAndValues = @[].mC;	\
-    int nextDefaultValue  = 0;	\
+    NEW(NSMutableArray,labelsAndValues) \
+    VAR(int,nextDefaultValue,0)	\
     for (_Text stringPair in [constantsString componentsSeparatedByString:@","]) {	\
       _List labelAndValueString = [stringPair componentsSeparatedByString:@"="];	\
       _Text label               = labelAndValueString[0];	\
@@ -227,23 +237,15 @@ CLANG_IGNORE_NO_ATTR
     }	\
     return labelsAndValues;	\
   } \
-  _Dict ENUM_TYPENAME##xVal() {	\
-    _List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	\
-    mDict result    = @{}.mC; \
-    for (_UInt i = 0; i < [constants count]; i += 2) result[constants[i+1]] = constants[i];	\
-    return result;	\
+  _Dict ENUM_TYPENAME##xVal() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	NEW(NSMutableDIctionary,result) \
+    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i+1]] = constants[i];	return result; \
   }	\
-  _Dict ENUM_TYPENAME##xLbl() {	\
-    _List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	\
-    mDict result = @{}.mC; \
-    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1];	\
-    return result;	\
+  _Dict ENUM_TYPENAME##xLbl() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	\
+    NEW(NSMutableDIctionary,result) \
+    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1]; return result;	\
   }	\
-  _Dict ENUM_TYPENAME##xHex() {	\
-    _List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	\
-    mDict result = @{}.mC; \
-    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1];	\
-    return result;	\
+  _Dict ENUM_TYPENAME##xHex() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	NEW(NSMutableDIctionary,result) \
+    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1];	return result;	\
   } \
   _Text ENUM_TYPENAME##2Text(int enumValue) {	\
     return ENUM_TYPENAME##xVal()[[NSNumber numberWithInt:enumValue]] ?: $(@"<unknown "#ENUM_TYPENAME": %d>", enumValue);	\
@@ -252,10 +254,7 @@ CLANG_IGNORE_NO_ATTR
     _Numb value = ENUM_TYPENAME##xLbl()[enumLabel];	\
     return value ? ({ *enumValue = (ENUM_TYPENAME)[value intValue];	YES; }) : NO; \
   } \
-  _List ENUM_TYPENAME##All() { return ENUM_TYPENAME##xVal().allKeys; } \
-  CLANG_POP
-
-
+  _List ENUM_TYPENAME##All() { return ENUM_TYPENAME##xVal().allKeys; } CLANG_POP
 
 #endif // __STDC_VERSION__ >= 201112L
 #endif // __ObjC__

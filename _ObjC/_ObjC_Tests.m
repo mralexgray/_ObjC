@@ -3,13 +3,6 @@
 #import <_ObjC.h>
 
 
-#define 🅺 @Kind
-#define 🅚(...) @Kind_(__VA_ARGS__)
-#define 🆇 @Xtra
-#define 🅧(...) @Xtra(__VA_ARGS__)
-#define 🅿︎ @Plan // 🅟
-#define 🆅 @Vows // 🅥
-
 _Kind Kind : NObj                   /// A simple \c @interface declaration.
 @Stop                               /// Alias for \c @end.
 
@@ -43,7 +36,7 @@ _XCTest(IfDefs,                     /// equivalent to - (void)  testIfDefs { ...
 
 ￭
 
-/// AUTO-GENERATED TESTS BELOW(Generated at Apr 24, 2015, 12:11:11 PM)
+/// AUTO-GENERATED TESTS BELOW(Generated at Apr 25, 2015, 7:45:49 AM)
 
 _XCTCase(DefinesTestCase)
 _XCTest(TheyWorked,

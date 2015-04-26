@@ -24,6 +24,8 @@ typedef NS_OPTIONS(int, _Emit) { e_DEFS      = 0x00000000,            // All #de
                                  e_TYPE_MAC  = 0x10000000,
                                  e_TYPE_IOS  = 0x01000000};
 
+typedef NS_ENUM(BOOL, SentinelLocation) { ENDING = NO, BEGINNING = YES };
+
 static _Emit             BuildingFor ();
 static NSString     * CompiledHeader ();
 static NSString     * HeaderTemplate ();

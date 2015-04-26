@@ -51,32 +51,40 @@ NSString * GenerateSection(NSString * head)     {
                                                            : [@(x1.length) compare:@(x2.length)];
     }];
 
+    /// We build our string from here, with an opening prgam mark.
     M(String) * snippet = $(@"#pragma mark - %@\n\n", head.pathExtension).mutableCopy,
-             * methArgs = emit  & e_TYPE      ? @"".mutableCopy : nil,
+             * methArgs = emit  & e_TYPE      ? @"".mutableCopy : nil, /// "- (id)" -> "_ID" (if it's a typedef)
            * pointerMap = emit == e_TYPE_PMAP ? @"".mutableCopy : nil,
-             * problems = @"".mutableCopy;
+             * problems = @"".mutableCopy;  // Unused
 
-      #define SENTINEL(Context) Context == NSFormattingContextBeginningOfSentence ? \
-                                        emit & e_TYPE ? "_Type"   : "#define"  :    \
-                                        emit & e_TYPE ? " ___"    : ""
+      #define SENTINEL(Context) Context == BEGINNING ? emit & e_TYPE ? "_Type"   : "#define"  \
+                                                     : emit & e_TYPE ? " ___"    : ""
 
     void(^writeTypeOrDef)(id) = ^(NSString*k){  // Write it out, girl.
 
+      SentinelLocation commentsGo = BEGINNING;
+
       //   if (      emit & e_TYPE && [defs[k] length] != 5) // and the definition is NOT 6 letters return APPEND(problems, @" %@ (type+not5) ", k);
 
+      id theDef = defs[k], comment = nil;
       // it might be a block type, so replace its occurance of ^ with one with a space and then the def.
-      NSString * theKey = [k stringByReplacingOccurrencesOfString:@"^"  withString:$(@"^ %@", defs[k])];
+      NSString * theKey = [k stringByReplacingOccurrencesOfString:@"^"  withString:$(@"^ %@", defs[k])],
+             * declared = [theDef isKindOfClass:NSString.class] ? theDef : ({ comment = theDef[0]; theDef[1]; });
 
-      APPEND(snippet, @"%s %*s%@   %@ %s\n", SENTINEL(NSFormattingContextBeginningOfSentence),
-                                             31 - (int)theKey.length,
-                                             "",
-                                             theKey,
-                                             emit == e_TYPE_BLKS ? @"" : defs[k],
-                                             SENTINEL(0));
+      APPEND(snippet, @"%@%s %*s%@   %@ %s%@\n",
+                      commentsGo == ENDING || !comment ? @"" : $(@"    ///%35s%@\n", "", comment),
+                      SENTINEL(BEGINNING),
+                      31 - (int)theKey.length,              /// Padding length
+                      "",                                   /// Pad with
+                      theKey,                               /// the "declaration"
+                      emit == e_TYPE_BLKS ? @"" : declared, /// Blocks are weird
+                      SENTINEL(ENDING),
+                      commentsGo == BEGINNING || !comment ? @"" : $(@" /// %@", comment)
+      );
 
       if (pointerMap) { NSString *prefix = defs[k][1]; BOOL lead_ = [prefix isEqualToString:@"_"];
 
-        APPEND(pointerMap,@"\n#define %*s%@%@   %@", lead_ ? 23  : 22, " ", defs[k][-1],
+        APPEND(pointerMap,@"\n#define %*s%@%@   %@", lead_ ? 23  : 22, " ", declared[-1],
                                                      lead_ ? @"" : prefix.uppercaseString, // shortcut
                                                      k[k.length - 2]);  // original class name
       }
@@ -91,9 +99,9 @@ NSString * GenerateSection(NSString * head)     {
       #define METHOD_RETURN_SHORTCUT(X) APPEND(methArgs, @"#define %21s%@%@      - %@_\n",\
                                               " ",X[2],[X[-([X length]-1)] uppercaseString],    X)
 
-      !emit & e_TYPE ?: AS_ARG_SHORTCUTS(defs[k]); // if NOT a type, generate method argument variations
+      !emit & e_TYPE ?: AS_ARG_SHORTCUTS(declared); // if NOT a type, generate method argument variations
       
-      ![PlistDataModel()[@"ALIAS_INSTANCE_RETURN"] containsObject:defs[k]] ?: METHOD_RETURN_SHORTCUT(defs[k]);
+      ![PlistDataModel()[@"ALIAS_INSTANCE_RETURN"] containsObject:declared] ?: METHOD_RETURN_SHORTCUT(declared);
     };
 
     for (NSString *k in sortedKs) writeTypeOrDef(k);

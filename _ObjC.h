@@ -1,6 +1,6 @@
 
 /*!       @note This file is AUTO_GENERATED! Changes will NOT persist!
-                Built on Apr 24, 2015, 12:11:11 PM from template:_ObjC.plist with data from:_ObjC_Template.h */
+                Built on Apr 25, 2015, 7:45:49 AM from template:_ObjC.plist with data from:_ObjC_Template.h */
 
 /*!   @abstract _ObjC is a concise, readable dialect of ObjC that is 100% compatible - without needless tricks.
 
@@ -74,6 +74,16 @@ to
 //#define  NSLog(...)  (void)printf("%s %s\n",__PRETTY_FUNCTION__,$(__VA_ARGS__).UTF8String)
 
 #define    _Type typedef
+
+
+#define 🅺 @Kind
+#define 🅚(...) @Kind_(__VA_ARGS__)
+#define 🆇 @Xtra
+#define 🅧(...) @Xtra(__VA_ARGS__)
+#define 🅿︎ @Plan // 🅟
+#define 🆅 @Vows // 🅥
+#define 🅲 @concrete
+#define 🅒(...) @concreteprotocol(__VA_ARGS__)
 
 #define     Incl import
 #define     Optn optional
@@ -563,7 +573,9 @@ _Type       _Void (^ ＾ObjC) (_ObjC x)     ___
 _Type _Void (^ ＾IDST) (_ObjC x, _SInt c)     ___
 _Type _Void (^ ＾IDUT) (_ObjC x, _UInt c)     ___
 _Type       _Void (^ ＾Rect) (_Rect r)     ___
+_Type       _Void (^ ＾SInt) (_SInt i)     ___
 _Type       _Void (^ ＾Text) (_Text p)     ___
+_Type       _Void (^ ＾UInt) (_UInt i)     ___
 
 
 #define                      _＾Void   ( ＾Void )
@@ -592,8 +604,12 @@ _Type       _Void (^ ＾Text) (_Text p)     ___
 #define                      ＾IDUT_   : ( ＾IDUT )
 #define                      _＾Rect   ( ＾Rect )
 #define                      ＾Rect_   : ( ＾Rect )
+#define                      _＾SInt   ( ＾SInt )
+#define                      ＾SInt_   : ( ＾SInt )
 #define                      _＾Text   ( ＾Text )
 #define                      ＾Text_   : ( ＾Text )
+#define                      _＾UInt   ( ＾UInt )
+#define                      ＾UInt_   : ( ＾UInt )
 
 
 #pragma mark - END TYPES.BLOCKS_VOIDS PROBLEMS: 
@@ -672,17 +688,27 @@ _Type       _Void (^ ＾Text) (_Text p)     ___
 #define                           _IMPL   @implementation 
 #define                           _IMPT   @import 
 #define                           _Kind   @interface 
-#define                          _Kind_   (instancetype) /// Sugar for (instancetype) methods. 
+    ///                                   Sugar for (instancetype) methods.
+#define                          _Kind_   (instancetype) 
 #define                           _PRTO   @protocol 
+    ///                                   Apple's take on main()
+#define                      APPLE_MAIN   int main(int argc, char **argv, char **envp, char **apple) 
 #define                    INIT_(K,...)   [[K alloc] init##__VA_ARGS__] 
 #define                  INIT_THEN(...)   SUPERINIT; ({ __VA_ARGS__ }); return self; 
 #define                INTERFACE(X,...)   @interface X : __VA_ARGS__ + (instancetype) 
 #define                  Kind(Name,...)   Kind_(Name,NObj,__VA_ARGS__) 
 #define            Kind_(Name,Meta,...)   interface Name : Meta __VA_ARGS__ 
-#define                        NEW(A,B)   A * B = [A new] 
+    ///                                   Cute shortcute for Mentioning mutable NS-classes.
+#define                            M(X)   NSMutable##X 
+    ///                                   Makes writing main functions WAY less verbose. @note assign non-zero value to "EXIT" for failure.
+#define                       MAIN(...)   APPLE_MAIN { int EXIT = 0; @autoreleasepool { ({ __VA_ARGS__; }); } return EXIT; } 
+    ///                                   Creates a new one.
+#define                        NEW(A,B)   A * B = [A new]; 
 #define                   NSStringValue   @"stringValue" 
 #define                            Plan   implementation 
 #define                   SELFINIT(...)   return self = super.init ? ({ __VA_ARGS__; }), self : nil 
+    ///                                   Generates declaration of primitive variable named @oaram B, of type @param A, with initial value of @param C
+#define                      VAR(A,B,C)   A B = C; 
 #define                            Vows   protocol 
 #define             Xtra(Extends,Named)   interface Extends      (Named) 
 #define         XtraPlan(Extends,Named)   implementation Extends (Named) 
@@ -899,8 +925,8 @@ CLANG_IGNORE_NO_ATTR
   _List _EnumParse##ENUM_TYPENAME##ConstantsString() {	\
     _Text constantsString = [[_##ENUM_TYPENAME##_constants_string componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] componentsJoinedByString:@""]; \
     constantsString = ![constantsString hasSuffix:@","] ? constantsString : [constantsString substringToIndex:constantsString.length-1]; \
-    mList labelsAndValues = @[].mC;	\
-    int nextDefaultValue  = 0;	\
+    NEW(NSMutableArray,labelsAndValues) \
+    VAR(int,nextDefaultValue,0)	\
     for (_Text stringPair in [constantsString componentsSeparatedByString:@","]) {	\
       _List labelAndValueString = [stringPair componentsSeparatedByString:@"="];	\
       _Text label               = labelAndValueString[0];	\
