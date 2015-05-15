@@ -1,0 +1,3 @@
+[submodule "Universal"]
+	path = Universal
+	url = git@github.com:mralexgray/Universal.git
