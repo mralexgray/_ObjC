@@ -1,6 +1,6 @@
 
 /*!       @note This file is AUTO_GENERATED! Changes will NOT persist!
-                Built on Apr 25, 2015, 7:45:49 AM from template:_ObjC.plist with data from:_ObjC_Template.h */
+                Built on May 15, 2015, 1:48:10 PM from template:_ObjC.plist with data from:_ObjC_Template.h */
 
 /*!   @abstract _ObjC is a concise, readable dialect of ObjC that is 100% compatible - without needless tricks.
 
@@ -8,11 +8,11 @@
                 Class pointers and types are typedef'd to aliases, with no pointer,
                 formatted like _Four lettes, starting with an underscore, capitalized. */
 
-//#pragma once
+#pragma once
 
-//#include <TargetConditionals.h>
+#include <TargetConditionals.h>
 
-#import <TargetConditionals.h>
+//#import <TargetConditionals.h>
 
 #ifdef __OBJC__                     // Let's stick to what we know.
 #if    __STDC_VERSION__ >= 201112L  // We only speak c11 here.
@@ -34,11 +34,6 @@ to
 
 #define DECLARECONFORMANCE(_CLASS_,_PROTOCOL_) @interface _CLASS_ (_PROTOCOL_) <_PROTOCOL_> @end
 #define CONFORM(_CLASS_,_PROTOCOL_) @Plan _CLASS_ (_PROTOCOL_) @end
-
-#define NSSTRINGIFY_HELPER_NO_EXPAND(x) @#x
-#define NSSTRINGIFY_HELPER(x) NSSTRINGIFY_HELPER_NO_EXPAND(x)
-#define NSSTRINGIFY(z) NSSTRINGIFY_HELPER(z)
-
 
 #define      💩 ?:
 
@@ -100,7 +95,8 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 
 /// Let's standarize the preprocessor names too!
 
-@import ObjectiveC
+//@import ObjectiveC
+#import <objc/runtime.h>
     ___
  @class AVAudioPlayer
      __ WebView
@@ -864,6 +860,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 #define                       NSMURLREQ   NSMutableURLRequest 
 #define                       ISANARRAY   isKindOfClass:NSArray.class 
 #define                     NSAorDCLASS   @[NSArray.class, NSDictionary.class] 
+#define                   WHITESPACESET   NSCharacterSet.whitespaceAndNewlineCharacterSet 
 #define                  ISADICTorARRAY   isKindOfAnyClass:NSAorDCLASS 
 
 
@@ -887,6 +884,10 @@ NS_INLINE id concatDescriptions(id uno, ...) { id result = @"".mutableCopy; va_l
 #define MATH_SANS 𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭
 #define MATH_sans 𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇
 
+#define NSSTRINGIFY_HELPER_NO_EXPAND(x) @#x
+#define NSSTRINGIFY_HELPER(x) NSSTRINGIFY_HELPER_NO_EXPAND(x)
+#define NSSTRINGIFY(z) NSSTRINGIFY_HELPER(z)
+
 #define PRAGMA(X) _Pragma(#X)
 
 #define CLANG_IGNORE_HELPER0(x) #x
@@ -902,21 +903,22 @@ NS_INLINE id concatDescriptions(id uno, ...) { id result = @"".mutableCopy; va_l
 
 CLANG_IGNORE_NO_ATTR
 
+#define _Enum(ENUM_TYPENAME, ENUM_CONSTANTS...)                                                           \
+                _Type enum { ENUM_CONSTANTS } ENUM_TYPENAME ___                                           \
+                              static _Text _##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS ___  \
+                                    _EnumPlan(ENUM_TYPENAME)
 
-#define _Enum(ENUM_TYPENAME, ENUM_CONSTANTS...) \
-                _Type enum { ENUM_CONSTANTS } ENUM_TYPENAME ___ \
-                              static _Text _##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS ___ \
-                               _EnumPlan(ENUM_TYPENAME)
-
-#define _EnumKind(ENUM_TYPENAME, ENUM_CONSTANTS...) _Type enum { ENUM_CONSTANTS } ENUM_TYPENAME ___ \
-    extern _Dict ENUM_TYPENAME##xHex() ___  \
-    extern _Dict ENUM_TYPENAME##xVal() ___  \
-    extern _Dict ENUM_TYPENAME##xLbl() ___  \
-    extern _List ENUM_TYPENAME##All() ___  \
-    extern _Text ENUM_TYPENAME##2Text(int enumKind) ___  \
-    extern _IsIt ENUM_TYPENAME##4Text(_Text enumLabel, ENUM_TYPENAME *enumValue)___  \
-    CLANG_IGNORE(-Wunused-variable) \
-    static _Text _##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS ___  \
+#define _EnumKind(ENUM_TYPENAME, ENUM_CONSTANTS...)                                    \
+                                                                                       \
+    _Type enum { ENUM_CONSTANTS } ENUM_TYPENAME ___                                    \
+    extern _Dict ENUM_TYPENAME##xHex  ()                                          ___  \
+    extern _Dict ENUM_TYPENAME##xVal  ()                                          ___  \
+    extern _Dict ENUM_TYPENAME##xLbl  ()                                          ___  \
+    extern _List ENUM_TYPENAME##All   ()                                          ___  \
+    extern _Text ENUM_TYPENAME##2Text (int enumKind)                              ___  \
+    extern _IsIt ENUM_TYPENAME##4Text(_Text enumLabel, ENUM_TYPENAME *enumValue)  ___  \
+    CLANG_IGNORE(-Wunused-variable)                                                    \
+    static _Text _##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS        ___  \
     CLANG_POP
 
 #define _EnumPlan(ENUM_TYPENAME) \
@@ -947,23 +949,15 @@ CLANG_IGNORE_NO_ATTR
     }	\
     return labelsAndValues;	\
   } \
-  _Dict ENUM_TYPENAME##xVal() {	\
-    _List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	\
-    mDict result    = @{}.mC; \
-    for (_UInt i = 0; i < [constants count]; i += 2) result[constants[i+1]] = constants[i];	\
-    return result;	\
+  _Dict ENUM_TYPENAME##xVal() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	NEW(NSMutableDictionary,result) \
+    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i+1]] = constants[i];	return result; \
   }	\
-  _Dict ENUM_TYPENAME##xLbl() {	\
-    _List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	\
-    mDict result = @{}.mC; \
-    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1];	\
-    return result;	\
+  _Dict ENUM_TYPENAME##xLbl() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	\
+    NEW(NSMutableDictionary,result) \
+    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1]; return result;	\
   }	\
-  _Dict ENUM_TYPENAME##xHex() {	\
-    _List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	\
-    mDict result = @{}.mC; \
-    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1];	\
-    return result;	\
+  _Dict ENUM_TYPENAME##xHex() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	NEW(NSMutableDictionary,result) \
+    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1];	return result;	\
   } \
   _Text ENUM_TYPENAME##2Text(int enumValue) {	\
     return ENUM_TYPENAME##xVal()[[NSNumber numberWithInt:enumValue]] ?: $(@"<unknown "#ENUM_TYPENAME": %d>", enumValue);	\
@@ -972,10 +966,7 @@ CLANG_IGNORE_NO_ATTR
     _Numb value = ENUM_TYPENAME##xLbl()[enumLabel];	\
     return value ? ({ *enumValue = (ENUM_TYPENAME)[value intValue];	YES; }) : NO; \
   } \
-  _List ENUM_TYPENAME##All() { return ENUM_TYPENAME##xVal().allKeys; } \
-  CLANG_POP
-
-
+  _List ENUM_TYPENAME##All() { return ENUM_TYPENAME##xVal().allKeys; } CLANG_POP
 
 #endif // __STDC_VERSION__ >= 201112L
 #endif // __ObjC__

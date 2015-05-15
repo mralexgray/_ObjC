@@ -5,11 +5,11 @@
                 Class pointers and types are typedef'd to aliases, with no pointer,
                 formatted like _Four lettes, starting with an underscore, capitalized. */
 
-//#pragma once
+#pragma once
 
-//#include <TargetConditionals.h>
+#include <TargetConditionals.h>
 
-#import <TargetConditionals.h>
+//#import <TargetConditionals.h>
 
 #ifdef __OBJC__                     // Let's stick to what we know.
 #if    __STDC_VERSION__ >= 201112L  // We only speak c11 here.
@@ -92,7 +92,8 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 
 /// Let's standarize the preprocessor names too!
 
-@import ObjectiveC
+//@import ObjectiveC
+#import <objc/runtime.h>
     ___
  @class AVAudioPlayer
      __ WebView
@@ -237,14 +238,14 @@ CLANG_IGNORE_NO_ATTR
     }	\
     return labelsAndValues;	\
   } \
-  _Dict ENUM_TYPENAME##xVal() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	NEW(NSMutableDIctionary,result) \
+  _Dict ENUM_TYPENAME##xVal() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	NEW(NSMutableDictionary,result) \
     for (_UInt i = 0; i < constants.count; i += 2) result[constants[i+1]] = constants[i];	return result; \
   }	\
   _Dict ENUM_TYPENAME##xLbl() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	\
-    NEW(NSMutableDIctionary,result) \
+    NEW(NSMutableDictionary,result) \
     for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1]; return result;	\
   }	\
-  _Dict ENUM_TYPENAME##xHex() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	NEW(NSMutableDIctionary,result) \
+  _Dict ENUM_TYPENAME##xHex() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	NEW(NSMutableDictionary,result) \
     for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1];	return result;	\
   } \
   _Text ENUM_TYPENAME##2Text(int enumValue) {	\
