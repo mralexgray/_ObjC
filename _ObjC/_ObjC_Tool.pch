@@ -13,7 +13,7 @@
 #define     ENV          [NSProcessInfo.processInfo environment]
 #define THEDATE          [NSDateFormatter localizedStringFromDate:NSDate.date dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle]
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 /// @abstract The data we are deling with is broadly defined as either #define's or _Type typedefs.
 
