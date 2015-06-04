@@ -1,3 +1,4 @@
 [submodule "Universal"]
 	path = Universal
 	url = https://github.com/mralexgray/Universal.git
+	ignore = dirty
