@@ -2,7 +2,6 @@
 @import XCTest;
 #import <_ObjC.h>
 
-
 _Kind Kind : NObj                   /// A simple \c @interface declaration.
 @Stop                               /// Alias for \c @end.
 
@@ -36,7 +35,7 @@ _XCTest(IfDefs,                     /// equivalent to - (void)  testIfDefs { ...
 
 ￭
 
-/// AUTO-GENERATED TESTS BELOW(Generated at Jun 4, 2015, 12:00:46 PM)
+/// AUTO-GENERATED TESTS BELOW(Generated at Jun 4, 2015, 12:56:07 PM)
 
 _XCTCase(DefinesTestCase)
 _XCTest(TheyWorked,
