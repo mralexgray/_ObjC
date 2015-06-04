@@ -4,3 +4,5 @@ language: objective-c
 xcode_project: _ObjC.xcodeproj
 
 xcode_scheme: _ObjC
+
+osx_image:      beta-xcode6.3
