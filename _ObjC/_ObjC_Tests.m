@@ -36,7 +36,7 @@ _XCTest(IfDefs,                     /// equivalent to - (void)  testIfDefs { ...
 
 ￭
 
-/// AUTO-GENERATED TESTS BELOW(Generated at Jun 2, 2015, 3:49:30 PM)
+/// AUTO-GENERATED TESTS BELOW(Generated at Jun 4, 2015, 12:00:46 PM)
 
 _XCTCase(DefinesTestCase)
 _XCTest(TheyWorked,

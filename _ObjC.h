@@ -1,6 +1,6 @@
 
 /*!       @note This file is AUTO_GENERATED! Changes will NOT persist!
-                Built on Jun 2, 2015, 3:49:30 PM from template:_ObjC.plist with data from:_ObjC_Template.h */
+                Built on Jun 4, 2015, 12:00:45 PM from template:_ObjC.plist with data from:_ObjC_Template.h */
 
 /*!   @abstract _ObjC is a concise, readable dialect of ObjC that is 100% compatible - without needless tricks.
 
