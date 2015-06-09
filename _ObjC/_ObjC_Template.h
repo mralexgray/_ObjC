@@ -7,8 +7,6 @@
 
 #pragma once
 
-#include <TargetConditionals.h>
-
 //#import <TargetConditionals.h>
 
 #ifdef __OBJC__                     // Let's stick to what we know.

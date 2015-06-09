@@ -1,16 +1,22 @@
 
 MAIN(
 
+  // Dirty, dirty arg parsing.  Supports long or short opts.
+
      plistPath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"d",@"p",@"data",@"model",@"plist"], IsFileAndExists);
   templatePath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"t",@"template",@"header"],          IsFileAndExists);
         output = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"o",@"output"],                      NULL);
   testFilePath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"tests",@"test",@"x"],               IsFileAndExists);
 
-  if (ParseArgs()[@"help"] || !plistPath || !templatePath || !PlistDataModel() || !HeaderTemplate() || !CompiledHeader())
+  if ( ParseArgs()[@"help"] ||
+                 !plistPath || !templatePath      ||
+          !PlistDataModel() || !HeaderTemplate()  || !CompiledHeader()  )
 
     return fprintf(stdout, "%s\n --plist, -p\tplist to parse\n --template, -t\theader template!.\n--output, -o \tpath or paths to write compiled header to.\ngot %s\nmodel:%s\ntemplate:%s\nplatform:%x", [ARGS[0] UTF8String], [ParseArgs() description].UTF8String, [plistPath UTF8String], [templatePath UTF8String], BuildingFor()), EXIT_FAILURE;
-     
-  if (!output) return fprintf(stdout, "%s", [CompiledHeader() UTF8String]); // no output, no worries, print to stdout!
+
+
+  // no output, no worries - just print to stdout
+  if (!output) return fprintf(stdout, "%s", CompiledHeader().UTF8String);
 
   for (id place in [output isKindOfClass:NSString.class] ? @[output] : output) {
 

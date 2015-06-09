@@ -1,6 +1,9 @@
 
-#ifndef _ObjC_Tool_pch
-#define _ObjC_Tool_pch
+/// Nothing to see here, move along.  (Ugly mish-mosh of shit - attempts to simpliy tool code.
+
+#pragma once
+
+#import <Foundation/Foundation.h>
 
 #define       M(X)       NSMutable##X
 #define       $(...)     [NSString stringWithFormat:__VA_ARGS__]
@@ -8,23 +11,23 @@
 #define     LOC(S,LOC)   [S rangeOfString:LOC].location
 #define    MAIN(...)     int main() { @autoreleasepool {  __VA_ARGS__  } return EXIT_SUCCESS; }
 #define  APPEND(X,...)   [X appendFormat:__VA_ARGS__]
-#define      FM          [NSFileManager defaultManager]
-#define    ARGS          [NSProcessInfo processInfo].arguments
-#define     ENV          [NSProcessInfo.processInfo environment]
+#define      FM          NSFileManager.defaultManager
+#define    ARGS          NSProcessInfo.processInfo.arguments
+#define     ENV          NSProcessInfo.processInfo.environment
 #define THEDATE          [NSDateFormatter localizedStringFromDate:NSDate.date dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle]
-
-#import <Foundation/Foundation.h>
 
 /// @abstract The data we are deling with is broadly defined as either #define's or _Type typedefs.
 
 typedef NS_OPTIONS(int, _Emit) { e_DEFS      = 0x00000000,            // All #define's are 0.
                                  e_TYPE      = 0x00000001,            // All typedefs will include the <<1 bit
-                                 e_TYPE_BLKS = 0x00000010 | e_TYPE,   // 0x00000011
-                                 e_TYPE_PMAP = 0x00000100 | e_TYPE,  // 0x00000101
+                                 e_TYPE_BLKS = 0x00000010 | e_TYPE,   // aka 0x00000011
+                                 e_TYPE_PMAP = 0x00000100 | e_TYPE,   // aka 0x00000101
                                  e_TYPE_MAC  = 0x10000000,
                                  e_TYPE_IOS  = 0x01000000};
 
 typedef NS_ENUM(BOOL, SentinelLocation) { ENDING = NO, BEGINNING = YES };
+
+#pragma mark - Declarations
 
 static _Emit             BuildingFor ();
 static NSString     * CompiledHeader ();
@@ -54,6 +57,4 @@ id ObjectForAnyKeyPassingTest(NSDictionary*,NSArray*,BOOL(*OptionalTest)(id));
 @end
 
 NS_INLINE BOOL IsFileAndExists(id p) { BOOL dir = NO;  return [FM fileExistsAtPath:p isDirectory:&dir] && !dir; }
-
-#endif
 

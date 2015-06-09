@@ -1,6 +1,6 @@
 
 /*!       @note This file is AUTO_GENERATED! Changes will NOT persist!
-                Built on Jun 4, 2015, 12:56:07 PM from template:_ObjC.plist with data from:_ObjC_Template.h */
+                Built on Jun 9, 2015, 12:35:56 AM from template:_ObjC.plist with data from:_ObjC_Template.h */
 
 /*!   @abstract _ObjC is a concise, readable dialect of ObjC that is 100% compatible - without needless tricks.
 
@@ -9,8 +9,6 @@
                 formatted like _Four lettes, starting with an underscore, capitalized. */
 
 #pragma once
-
-#include <TargetConditionals.h>
 
 //#import <TargetConditionals.h>
 
