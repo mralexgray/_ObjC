@@ -22,7 +22,7 @@
 		7BB313D81AE5E35500BF1DBA /* _ObjC.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = _ObjC.svg; path = _ObjC/_ObjC.svg; sourceTree = "<group>"; };
 		7BB414D91ACE62F70024D285 /* _ObjC_Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = _ObjC_Template.h; path = _ObjC/_ObjC_Template.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7BC4594A1AD68DAA0097F508 /* _ObjC_Tool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = _ObjC_Tool; sourceTree = BUILT_PRODUCTS_DIR; };
-		7BC4594E1AD6955F0097F508 /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC.h; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BC4594E1AD6955F0097F508 /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = _ObjC.h; path = ../_ObjC.h; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = _ObjC.plist; path = _ObjC/_ObjC.plist; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7BFDE1971AE14F6C0012A607 /* _ObjC_Tool.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = _ObjC_Tool.pch; path = _ObjC/_ObjC_Tool.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,6 +161,7 @@
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "#\"${CODESIGNING_FOLDER_PATH}\"            \\\n#    -plist  \"${SCRIPT_INPUT_FILE_0}\"    \\\n#    -header \"${SCRIPT_INPUT_FILE_1}\"    \\\n#    -output \"${SCRIPT_OUTPUT_FILE_0}\"\n#    -tests  \"${SCRIPT_OUTPUT_FILE_1}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -201,17 +202,12 @@
 		7B38357F1AC681C700D617B9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = _ObjC/_ObjC_Tool.pch;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-				);
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = macosx;
-				STRIP_INSTALLED_PRODUCT = NO;
 				SUPPORTED_PLATFORMS = macosx;
 				VALID_ARCHS = x86_64;
 			};
@@ -230,7 +226,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B0E207F1AEA54B900C955CF /* Universal.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -241,7 +236,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.10.xctoolchain/usr/include,
-					"$(BUILT_PRODUCTS_DIR)",
+					"$(BUILT_PRODUCTS_DIR)/..",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -261,17 +256,12 @@
 		7BC4595A1AD6BD420097F508 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = _ObjC/_ObjC_Tool.pch;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-				);
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = macosx;
-				STRIP_INSTALLED_PRODUCT = NO;
 				SUPPORTED_PLATFORMS = macosx;
 				VALID_ARCHS = x86_64;
 			};
@@ -281,7 +271,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B0E207F1AEA54B900C955CF /* Universal.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -292,7 +281,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.10.xctoolchain/usr/include,
-					"$(BUILT_PRODUCTS_DIR)",
+					"$(BUILT_PRODUCTS_DIR)/..",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

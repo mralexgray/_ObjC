@@ -2,21 +2,23 @@
 @import XCTest;
 #import <_ObjC.h>
 
-_Kind Kind : NObj                   /// A simple \c @interface declaration.
+@Kind Kinda : NObj                  /// A simple \c @interface declaration.
 @Stop                               /// Alias for \c @end.
 
-🅺 (KindOfNObj)                     /// Function-like \c @interface declaration, subclasses NSObject.
+
+//🅺 KindaNObj : NObj
+🅚 (KindaNObj, NObj)                      /// Function-like \c @interface declaration, subclasses NSObject.
 ￭                                   /// @see \c @Stop @see \c @end.
 
-🅚 (KindOfXCTest,Case)          ￭   /// Function-like, but Still able to spec the superclass.
+🅚 (KindaXCTest,Case)          ￭   /// Function-like, but Still able to spec the superclass.
 
-🅺 (KindWithVows,<Code>)        ￭   /// Both function-like versions can conform to protocols.
+🅚 (KindWithVows, NObj <Code>)        ￭   /// Both function-like versions can conform to protocols.
 
-@Xtra(KindOfNObj,CategoryName)  ￭
+@Xtra(KindaNObj,CategoryName)  ￭
 
-🅧 (KindOfNObj,SomeOtherCat)    ￭
+🅧 (KindaNObj,SomeOtherCat)    ￭
 
-@Plan KindOfXCTest                  /// A simple \c @implementation declaration.
+@Plan KindaXCTest                  /// A simple \c @implementation declaration.
 
 _XCTest(IfDefs,                     /// equivalent to - (void)  testIfDefs { .... }
 
@@ -35,7 +37,7 @@ _XCTest(IfDefs,                     /// equivalent to - (void)  testIfDefs { ...
 
 ￭
 
-/// AUTO-GENERATED TESTS BELOW(Generated at Jun 9, 2015, 12:35:56 AM)
+/// AUTO-GENERATED TESTS BELOW(Generated at Jun 17, 2015, 6:40:47 AM)
 
 _XCTCase(DefinesTestCase)
 _XCTest(TheyWorked,
@@ -64,27 +66,33 @@ _XCTest(TheyWorked,
 	XCTAssert(@encode(AVAudioPlayer *) == @encode(_SndP), @"%s should equal %s!",@encode(AVAudioPlayer *),@encode(_SndP));
 	XCTAssert(@encode(NSURL *) == @encode(_NUrl), @"%s should equal %s!",@encode(NSURL *),@encode(_NUrl));
 	XCTAssert(@encode(NSTableView *) == @encode(_TblV), @"%s should equal %s!",@encode(NSTableView *),@encode(_TblV));
+	XCTAssert(@encode(NSURLResponse *) == @encode(_NRes), @"%s should equal %s!",@encode(NSURLResponse *),@encode(_NRes));
 	XCTAssert(@encode(NSValue *) == @encode(_Valu), @"%s should equal %s!",@encode(NSValue *),@encode(_Valu));
 	XCTAssert(@encode(NSNumber *) == @encode(_Numb), @"%s should equal %s!",@encode(NSNumber *),@encode(_Numb));
 	XCTAssert(@encode(NSMutableArray *) == @encode(mList), @"%s should equal %s!",@encode(NSMutableArray *),@encode(mList));
 	XCTAssert(@encode(NSError *) == @encode(_Errr), @"%s should equal %s!",@encode(NSError *),@encode(_Errr));
 	XCTAssert(@encode(CALayer *) == @encode(_Layr), @"%s should equal %s!",@encode(CALayer *),@encode(_Layr));
 	XCTAssert(@encode(NSData *) == @encode(_Data), @"%s should equal %s!",@encode(NSData *),@encode(_Data));
+	XCTAssert(@encode(NSMutableURLRequest * ) == @encode(mNReq), @"%s should equal %s!",@encode(NSMutableURLRequest * ),@encode(mNReq));
 	XCTAssert(@encode(NSParagraphStyle *) == @encode(_PStl), @"%s should equal %s!",@encode(NSParagraphStyle *),@encode(_PStl));
+	XCTAssert(@encode(NSURLConnection *) == @encode(_NCon), @"%s should equal %s!",@encode(NSURLConnection *),@encode(_NCon));
 	XCTAssert(@encode(unsigned char *) == @encode(_UChr), @"%s should equal %s!",@encode(unsigned char *),@encode(_UChr));
 	XCTAssert(@encode(NSDate *) == @encode(_Date), @"%s should equal %s!",@encode(NSDate *),@encode(_Date));
 	XCTAssert(@encode(NSDictionary *) == @encode(_Dict), @"%s should equal %s!",@encode(NSDictionary *),@encode(_Dict));
 	XCTAssert(@encode(NSString *) == @encode(_Text), @"%s should equal %s!",@encode(NSString *),@encode(_Text));
+	XCTAssert(@encode(NSURLRequest *) == @encode(_NReq), @"%s should equal %s!",@encode(NSURLRequest *),@encode(_NReq));
 	XCTAssert(@encode(NSJSONSerialization *) == @encode(_Json), @"%s should equal %s!",@encode(NSJSONSerialization *),@encode(_Json));
 	XCTAssert(@encode(NSBezierPath *) == @encode(_Path), @"%s should equal %s!",@encode(NSBezierPath *),@encode(_Path));
+	XCTAssert(@encode(NSStatusBar *) == @encode(_SBar), @"%s should equal %s!",@encode(NSStatusBar *),@encode(_SBar));
 	XCTAssert(@encode(NSNotification *) == @encode(_Note), @"%s should equal %s!",@encode(NSNotification *),@encode(_Note));
 	XCTAssert(@encode(NSPipe *) == @encode(_Pipe), @"%s should equal %s!",@encode(NSPipe *),@encode(_Pipe));
 	XCTAssert(@encode(NSFileHandle *) == @encode(_File), @"%s should equal %s!",@encode(NSFileHandle *),@encode(_File));
+	XCTAssert(@encode(NSTimer *) == @encode(_Timr), @"%s should equal %s!",@encode(NSTimer *),@encode(_Timr));
 	XCTAssert(@encode(NSWindow *) == @encode(_Wind), @"%s should equal %s!",@encode(NSWindow *),@encode(_Wind));
 	XCTAssert(@encode(NSBundle *) == @encode(_Bndl), @"%s should equal %s!",@encode(NSBundle *),@encode(_Bndl));
 	XCTAssert(@encode(NSMutableAttributedString *) == @encode(mATxt), @"%s should equal %s!",@encode(NSMutableAttributedString *),@encode(mATxt));
-	XCTAssert(@encode(NSObject *) == @encode(_NObj), @"%s should equal %s!",@encode(NSObject *),@encode(_NObj));
 	XCTAssert(@encode(NSCharacterSet *) == @encode(_CSet), @"%s should equal %s!",@encode(NSCharacterSet *),@encode(_CSet));
+	XCTAssert(@encode(NSObject *) == @encode(_NObj), @"%s should equal %s!",@encode(NSObject *),@encode(_NObj));
 	XCTAssert(@encode(NSUserDefaults *) == @encode(_Defs), @"%s should equal %s!",@encode(NSUserDefaults *),@encode(_Defs));
 	XCTAssert(@encode(XCTestCase *) == @encode(_Case), @"%s should equal %s!",@encode(XCTestCase *),@encode(_Case));
 	XCTAssert(@encode(NSView *) == @encode(_View), @"%s should equal %s!",@encode(NSView *),@encode(_View));

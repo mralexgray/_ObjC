@@ -96,7 +96,7 @@
             "INIT_(K,...)" = "[[K alloc] init##__VA_ARGS__]";
             "INIT_THEN(...)" = "SUPERINIT; ({ __VA_ARGS__ }); return self;";
             "INTERFACE(X,...)" = "@interface X : __VA_ARGS__ + (instancetype)";
-            "Kind(Name,...)" = "Kind_(Name,NObj,__VA_ARGS__)";
+            "KIND(Name,...)" = "Kind_(Name,NObj,__VA_ARGS__)";
             "Kind_(Name,Meta,...)" = "interface Name : Meta __VA_ARGS__";
             "M(X)" =             (
                 "Cute shortcute for Mentioning mutable NS-classes.",
@@ -133,6 +133,9 @@
                 "(instancetype)"
             );
             "_PRTO" = "@protocol";
+        };
+        "MISC.off" =         {
+            "Kind(Name,...)" = "Kind_(Name,NObj,__VA_ARGS__)";
         };
         NS =         {
             AZOQMAX = NSOperationQueueDefaultMaxConcurrentOperationCount;
@@ -273,6 +276,7 @@
             NSRect = CGRect;
             NSScreen = UIScreen;
             NSSize = CGSize;
+            NSStatusBar = UIStatusBar;
             NSTableView = UITableView;
             NSUserNotification = UILocalNotification;
             NSView = UIView;
@@ -309,6 +313,7 @@
             "PROC_NAME" = "[NSProcessInfo.processInfo processName]";
             "RNG0(X)" = "NSMakeRange(0,X)";
             SAPP = "NSApplication.sharedApplication";
+            SBAR = "SBar.systemStatusBar";
             "VAL3d(t)" = "[NSVAL valueWithCATransform3D: t]";
             "V_Colr(c)" = "[NSVAL valueWithColor: c]";
             "V_Cord(p)" = "[NSVAL valueWithPoint: p]";
@@ -582,15 +587,21 @@
             "NSMutableIndexSet *" = mISet;
             "NSMutableParagraphStyle *" = mPStl;
             "NSMutableString *" = mText;
+            "NSMutableURLRequest * " = mNReq;
             "NSNotification *" = "_Note";
             "NSNumber *" = "_Numb";
             "NSObject *" = "_NObj";
             "NSParagraphStyle *" = "_PStl";
             "NSPipe *" = "_Pipe";
             "NSScanner *" = "_Scnr";
+            "NSStatusBar *" = "_SBar";
             "NSString *" = "_Text";
             "NSTableView *" = "_TblV";
+            "NSTimer *" = "_Timr";
             "NSURL *" = "_NUrl";
+            "NSURLConnection *" = "_NCon";
+            "NSURLRequest *" = "_NReq";
+            "NSURLResponse *" = "_NRes";
             "NSUserDefaults *" = "_Defs";
             "NSValue *" = "_Valu";
             "NSView *" = "_View";

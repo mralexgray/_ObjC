@@ -20,17 +20,39 @@ to
 
 */
 
+#define IOS_ONLY TARGET_OS_IPHONE
+#define MAC_ONLY !IOS_ONLY
 
+#define      💩 ?:
 #define        _ :
 #define       __ ,
 #define      ___ ;
+
+#define    _Type typedef
+
+#define     Kind interface
+#define       🅺 @Kind
+#define  🅚(K,...) 🅺 K : __VA_ARGS__
+#define       🆇 @Xtra
+#define  🅧(...) @Xtra(__VA_ARGS__)
+#define       🅿︎ @Plan // 🅟
+#define       🆅 @Vows // 🅥
+#define       🅲 @concrete
+#define  🅒(...) @concreteprotocol(__VA_ARGS__)
+
+#define     Incl import
+#define     Optn optional
+#define     Reqd required
+#define     Stop end
+#define        ￭ @Stop
+#define       ＿ Plan
+#define ｜(...) ___
+#define ￤(...)
 
 #define     $(...)    (_Text_ [Text stringWithFormat:__VA_ARGS__,nil])
 
 #define DECLARECONFORMANCE(_CLASS_,_PROTOCOL_) @interface _CLASS_ (_PROTOCOL_) <_PROTOCOL_> @end
 #define CONFORM(_CLASS_,_PROTOCOL_) @Plan _CLASS_ (_PROTOCOL_) @end
-
-#define      💩 ?:
 
 #define    Ｐ(...) id<__VA_ARGS__>
 #define   _Ｐ(...) (id<__VA_ARGS__>)
@@ -49,40 +71,16 @@ to
 #define DLGT(X) ___DLGT_HELPER(X)
 
 
-
 #define _XCTCase(_name_)  @Kind_(_name_,XCTestCase) ￭ @Plan _name_
 #define _XCTest(X,...)    - (void)  test##X { ({ __VA_ARGS__; }); }
 #define _XCTDown(...)     - (void) tearDown { ({ __VA_ARGS__; }); [super tearDown]; }
 #define _XCTUp(...)       - (void)    setUp { [super setUp]; ({ __VA_ARGS__; }); }
 
 
-#define IOS_ONLY TARGET_OS_IPHONE
-#define MAC_ONLY !IOS_ONLY
-
 #define  NSLog(...)  (void)fprintf(stderr,"%s\n",$(__VA_ARGS__).UTF8String)
 
 //#define  NSLog(...)  (void)printf("%s %s\n",__PRETTY_FUNCTION__,$(__VA_ARGS__).UTF8String)
 
-#define    _Type typedef
-
-
-#define 🅺 @Kind
-#define 🅚(...) @Kind_(__VA_ARGS__)
-#define 🆇 @Xtra
-#define 🅧(...) @Xtra(__VA_ARGS__)
-#define 🅿︎ @Plan // 🅟
-#define 🆅 @Vows // 🅥
-#define 🅲 @concrete
-#define 🅒(...) @concreteprotocol(__VA_ARGS__)
-
-#define     Incl import
-#define     Optn optional
-#define     Reqd required
-#define     Stop end
-#define        ￭ @Stop
-#define       ＿ Plan
-#define ｜(...) ___
-#define ￤(...)
 
 #define BLOCKTYPE(NAME,...) _Type void(^NAME)(__VA_ARGS__)
 
@@ -153,7 +151,7 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 %% DEFINES.STRINGS %%
 //%% DEFINES.NS %%
 
-@Kind(_ObjC_Load) ￭
+@KIND(_ObjC_Load) ￭
 
 
 NS_INLINE id concatDescriptions(id uno, ...) { id result = @"".mutableCopy; va_list args; va_start(args, uno);

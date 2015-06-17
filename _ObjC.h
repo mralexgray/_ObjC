@@ -1,6 +1,6 @@
 
 /*!       @note This file is AUTO_GENERATED! Changes will NOT persist!
-                Built on Jun 9, 2015, 12:35:56 AM from template:_ObjC.plist with data from:_ObjC_Template.h */
+                Built on Jun 17, 2015, 6:40:47 AM from template:_ObjC.plist with data from:_ObjC_Template.h */
 
 /*!   @abstract _ObjC is a concise, readable dialect of ObjC that is 100% compatible - without needless tricks.
 
@@ -23,17 +23,39 @@ to
 
 */
 
+#define IOS_ONLY TARGET_OS_IPHONE
+#define MAC_ONLY !IOS_ONLY
 
+#define      💩 ?:
 #define        _ :
 #define       __ ,
 #define      ___ ;
+
+#define    _Type typedef
+
+#define     Kind interface
+#define       🅺 @Kind
+#define  🅚(K,...) 🅺 K : __VA_ARGS__
+#define       🆇 @Xtra
+#define  🅧(...) @Xtra(__VA_ARGS__)
+#define       🅿︎ @Plan // 🅟
+#define       🆅 @Vows // 🅥
+#define       🅲 @concrete
+#define  🅒(...) @concreteprotocol(__VA_ARGS__)
+
+#define     Incl import
+#define     Optn optional
+#define     Reqd required
+#define     Stop end
+#define        ￭ @Stop
+#define       ＿ Plan
+#define ｜(...) ___
+#define ￤(...)
 
 #define     $(...)    (_Text_ [Text stringWithFormat:__VA_ARGS__,nil])
 
 #define DECLARECONFORMANCE(_CLASS_,_PROTOCOL_) @interface _CLASS_ (_PROTOCOL_) <_PROTOCOL_> @end
 #define CONFORM(_CLASS_,_PROTOCOL_) @Plan _CLASS_ (_PROTOCOL_) @end
-
-#define      💩 ?:
 
 #define    Ｐ(...) id<__VA_ARGS__>
 #define   _Ｐ(...) (id<__VA_ARGS__>)
@@ -52,40 +74,16 @@ to
 #define DLGT(X) ___DLGT_HELPER(X)
 
 
-
 #define _XCTCase(_name_)  @Kind_(_name_,XCTestCase) ￭ @Plan _name_
 #define _XCTest(X,...)    - (void)  test##X { ({ __VA_ARGS__; }); }
 #define _XCTDown(...)     - (void) tearDown { ({ __VA_ARGS__; }); [super tearDown]; }
 #define _XCTUp(...)       - (void)    setUp { [super setUp]; ({ __VA_ARGS__; }); }
 
 
-#define IOS_ONLY TARGET_OS_IPHONE
-#define MAC_ONLY !IOS_ONLY
-
 #define  NSLog(...)  (void)fprintf(stderr,"%s\n",$(__VA_ARGS__).UTF8String)
 
 //#define  NSLog(...)  (void)printf("%s %s\n",__PRETTY_FUNCTION__,$(__VA_ARGS__).UTF8String)
 
-#define    _Type typedef
-
-
-#define 🅺 @Kind
-#define 🅚(...) @Kind_(__VA_ARGS__)
-#define 🆇 @Xtra
-#define 🅧(...) @Xtra(__VA_ARGS__)
-#define 🅿︎ @Plan // 🅟
-#define 🆅 @Vows // 🅥
-#define 🅲 @concrete
-#define 🅒(...) @concreteprotocol(__VA_ARGS__)
-
-#define     Incl import
-#define     Optn optional
-#define     Reqd required
-#define     Stop end
-#define        ￭ @Stop
-#define       ＿ Plan
-#define ｜(...) ___
-#define ￤(...)
 
 #define BLOCKTYPE(NAME,...) _Type void(^NAME)(__VA_ARGS__)
 
@@ -110,22 +108,23 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 
 #pragma mark - STANDARD_NAMES
 
-#define                           NSApp   UIApp 
 #define                           NSNib   UINib 
-#define                          NSRect   CGRect 
-#define                          NSFont   UIFont 
+#define                           NSApp   UIApp 
 #define                          NSSize   CGSize 
+#define                          NSRect   CGRect 
 #define                          NSView   UIView 
+#define                          NSFont   UIFont 
+#define                         NSColor   UIColor 
 #define                         NSPoint   CGPoint 
 #define                         NSImage   UIImage 
 #define                         NSEvent   UIEvent 
-#define                         NSColor   UIColor 
 #define                        NSScreen   UIScreen 
 #define                        NSWindow   UIWindow 
 #define                      NSZeroRect   CGRectZero 
 #define                      NSZeroSize   CGSizeZero 
-#define                     NSZeroPoint   CGPointZero 
 #define                     NSTableView   UITableView 
+#define                     NSStatusBar   UIStatusBar 
+#define                     NSZeroPoint   CGPointZero 
 #define                    NSBezierPath   UIBezierPath 
 #define                   NSApplication   UIApplication 
 #define              NSUserNotification   UILocalNotification 
@@ -280,15 +279,21 @@ _Type           NSMutableDictionary *   mDict  ___
 _Type             NSMutableIndexSet *   mISet  ___
 _Type       NSMutableParagraphStyle *   mPStl  ___
 _Type               NSMutableString *   mText  ___
+_Type          NSMutableURLRequest *    mNReq  ___
 _Type                NSNotification *   _Note  ___
 _Type                      NSNumber *   _Numb  ___
 _Type                      NSObject *   _NObj  ___
 _Type              NSParagraphStyle *   _PStl  ___
 _Type                        NSPipe *   _Pipe  ___
 _Type                     NSScanner *   _Scnr  ___
+_Type                   NSStatusBar *   _SBar  ___
 _Type                      NSString *   _Text  ___
 _Type                   NSTableView *   _TblV  ___
+_Type                       NSTimer *   _Timr  ___
 _Type                         NSURL *   _NUrl  ___
+_Type               NSURLConnection *   _NCon  ___
+_Type                  NSURLRequest *   _NReq  ___
+_Type                 NSURLResponse *   _NRes  ___
 _Type                NSUserDefaults *   _Defs  ___
 _Type                       NSValue *   _Valu  ___
 _Type                        NSView *   _View  ___
@@ -326,15 +331,21 @@ _Type                    XCTestCase *   _Case  ___
 #define                       ISetM   NSMutableIndexSet
 #define                       PStlM   NSMutableParagraphStyle
 #define                       TextM   NSMutableString
+#define                       NReqM   NSMutableURLRequest 
 #define                        Note   NSNotification
 #define                        Numb   NSNumber
 #define                        NObj   NSObject
 #define                        PStl   NSParagraphStyle
 #define                        Pipe   NSPipe
 #define                        Scnr   NSScanner
+#define                        SBar   NSStatusBar
 #define                        Text   NSString
 #define                        TblV   NSTableView
+#define                        Timr   NSTimer
 #define                        NUrl   NSURL
+#define                        NCon   NSURLConnection
+#define                        NReq   NSURLRequest
+#define                        NRes   NSURLResponse
 #define                        Defs   NSUserDefaults
 #define                        Valu   NSValue
 #define                        View   NSView
@@ -421,6 +432,8 @@ _Type                    XCTestCase *   _Case  ___
 #define                      mText_   ( mText )
 #define                     _mText_   : ( mText )
 #define                      mTT      - mText_
+#define                      mNReq_   ( mNReq )
+#define                     _mNReq_   : ( mNReq )
 #define                      _Note_   ( _Note )
 #define                     __Note_   : ( _Note )
 #define                      _Numb_   ( _Numb )
@@ -437,15 +450,25 @@ _Type                    XCTestCase *   _Case  ___
 #define                      _PE      - _Pipe_
 #define                      _Scnr_   ( _Scnr )
 #define                     __Scnr_   : ( _Scnr )
+#define                      _SBar_   ( _SBar )
+#define                     __SBar_   : ( _SBar )
 #define                      _Text_   ( _Text )
 #define                     __Text_   : ( _Text )
 #define                      _TT      - _Text_
 #define                      _TblV_   ( _TblV )
 #define                     __TblV_   : ( _TblV )
 #define                      _TV      - _TblV_
+#define                      _Timr_   ( _Timr )
+#define                     __Timr_   : ( _Timr )
 #define                      _NUrl_   ( _NUrl )
 #define                     __NUrl_   : ( _NUrl )
 #define                      _NL      - _NUrl_
+#define                      _NCon_   ( _NCon )
+#define                     __NCon_   : ( _NCon )
+#define                      _NReq_   ( _NReq )
+#define                     __NReq_   : ( _NReq )
+#define                      _NRes_   ( _NRes )
+#define                     __NRes_   : ( _NRes )
 #define                      _Defs_   ( _Defs )
 #define                     __Defs_   : ( _Defs )
 #define                      _Valu_   ( _Valu )
@@ -690,7 +713,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 #define                    INIT_(K,...)   [[K alloc] init##__VA_ARGS__] 
 #define                  INIT_THEN(...)   SUPERINIT; ({ __VA_ARGS__ }); return self; 
 #define                INTERFACE(X,...)   @interface X : __VA_ARGS__ + (instancetype) 
-#define                  Kind(Name,...)   Kind_(Name,NObj,__VA_ARGS__) 
+#define                  KIND(Name,...)   Kind_(Name,NObj,__VA_ARGS__) 
 #define            Kind_(Name,Meta,...)   interface Name : Meta __VA_ARGS__ 
     ///                                   Cute shortcute for Mentioning mutable NS-classes.
 #define                            M(X)   NSMutable##X 
@@ -742,6 +765,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 #define                       PROC_NAME   [NSProcessInfo.processInfo processName] 
 #define                         RNG0(X)   NSMakeRange(0,X) 
 #define                            SAPP   NSApplication.sharedApplication 
+#define                            SBAR   SBar.systemStatusBar 
 #define                       V_Colr(c)   [NSVAL valueWithColor: c] 
 #define                       V_Cord(p)   [NSVAL valueWithPoint: p] 
 #define                       V_Rect(r)   [NSVAL		 valueWithRect: r] 
@@ -864,7 +888,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 
 #pragma mark - END DEFINES.NS PROBLEMS: 
 
-@Kind(_ObjC_Load) ￭
+@KIND(_ObjC_Load) ￭
 
 
 NS_INLINE id concatDescriptions(id uno, ...) { id result = @"".mutableCopy; va_list args; va_start(args, uno);

@@ -58,7 +58,7 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "NO"
       debugXPCServices = "NO"
-      allowLocationSimulation = "NO"
+      allowLocationSimulation = "YES"
       viewDebuggingEnabled = "No">
       <MacroExpansion>
          <BuildableReference
