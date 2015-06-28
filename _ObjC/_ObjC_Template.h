@@ -30,7 +30,7 @@ to
 
 #define    _Type typedef
 
-#define     Kind interface
+//#define     Kind interface
 #define       🅺 @Kind
 #define  🅚(K,...) 🅺 K : __VA_ARGS__
 #define       🆇 @Xtra
@@ -49,7 +49,11 @@ to
 #define ｜(...) ___
 #define ￤(...)
 
+#define IFNIL(VAR,...) (VAR = VAR ?: __VA_ARGS__)
+
 #define     $(...)    (_Text_ [Text stringWithFormat:__VA_ARGS__,nil])
+#define     $PICT(...)    (_Pict_ [Pict imageNamed:__VA_ARGS__])
+
 
 #define DECLARECONFORMANCE(_CLASS_,_PROTOCOL_) @interface _CLASS_ (_PROTOCOL_) <_PROTOCOL_> @end
 #define CONFORM(_CLASS_,_PROTOCOL_) @Plan _CLASS_ (_PROTOCOL_) @end

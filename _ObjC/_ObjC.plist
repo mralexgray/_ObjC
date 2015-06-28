@@ -97,6 +97,7 @@
             "INIT_THEN(...)" = "SUPERINIT; ({ __VA_ARGS__ }); return self;";
             "INTERFACE(X,...)" = "@interface X : __VA_ARGS__ + (instancetype)";
             "KIND(Name,...)" = "Kind_(Name,NObj,__VA_ARGS__)";
+            "Kind(Name,...)" = "Kind_(Name,NObj,__VA_ARGS__) ";
             "Kind_(Name,Meta,...)" = "interface Name : Meta __VA_ARGS__";
             "M(X)" =             (
                 "Cute shortcute for Mentioning mutable NS-classes.",
@@ -565,6 +566,7 @@
             "NSAttributedString *" = "_ATxt";
             "NSBezierPath *" = "_Path";
             "NSBundle *" = "_Bndl";
+            "NSCalendar * " = "_NCal";
             "NSCharacterSet *" = "_CSet";
             "NSColor *" = "_Colr";
             "NSData *" = "_Data";
@@ -579,6 +581,7 @@
             NSIndexSet = "_ISet";
             "NSInvocation *" = "_Call";
             "NSJSONSerialization *" = "_Json";
+            "NSLayoutManager *" = "_LMan";
             "NSMutableArray *" = mList;
             "NSMutableAttributedString *" = mATxt;
             "NSMutableCharacterSet *" = mCSet;
@@ -619,8 +622,10 @@
             "NSMenu *" = "_Menu";
             "NSMenuItem *" = "_SubM";
             "NSOutlineView *" = "_OutV";
+            "NSPanel *" = "_Panl";
             "NSScrollView *" = "_Scrl";
             "NSSplitView *" = "_Splt";
+            "NSStatusItem *" = "_SItm";
             "NSTableColumn *" = "_TCol";
             "NSTableView *" = "_Tabl";
             "NSTask *" = "_Task";

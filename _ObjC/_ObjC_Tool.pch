@@ -1,7 +1,8 @@
 
 /// Nothing to see here, move along.  (Ugly mish-mosh of shit - attempts to simpliy tool code.
 
-#pragma once
+#ifndef _ObjC_Tool_pch
+#define _ObjC_Tool_pch
 
 #import <Foundation/Foundation.h>
 
@@ -58,3 +59,4 @@ id ObjectForAnyKeyPassingTest(NSDictionary*,NSArray*,BOOL(*OptionalTest)(id));
 
 NS_INLINE BOOL IsFileAndExists(id p) { BOOL dir = NO;  return [FM fileExistsAtPath:p isDirectory:&dir] && !dir; }
 
+#endif

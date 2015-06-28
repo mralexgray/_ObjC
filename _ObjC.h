@@ -1,6 +1,6 @@
 
 /*!       @note This file is AUTO_GENERATED! Changes will NOT persist!
-                Built on Jun 17, 2015, 6:40:47 AM from template:_ObjC.plist with data from:_ObjC_Template.h */
+                Built on Jun 22, 2015, 8:59:59 PM from template:_ObjC.plist with data from:_ObjC_Template.h */
 
 /*!   @abstract _ObjC is a concise, readable dialect of ObjC that is 100% compatible - without needless tricks.
 
@@ -33,7 +33,7 @@ to
 
 #define    _Type typedef
 
-#define     Kind interface
+//#define     Kind interface
 #define       🅺 @Kind
 #define  🅚(K,...) 🅺 K : __VA_ARGS__
 #define       🆇 @Xtra
@@ -52,7 +52,11 @@ to
 #define ｜(...) ___
 #define ￤(...)
 
+#define IFNIL(VAR,...) (VAR = VAR ?: __VA_ARGS__)
+
 #define     $(...)    (_Text_ [Text stringWithFormat:__VA_ARGS__,nil])
+#define     $PICT(...)    (_Pict_ [Pict imageNamed:__VA_ARGS__])
+
 
 #define DECLARECONFORMANCE(_CLASS_,_PROTOCOL_) @interface _CLASS_ (_PROTOCOL_) <_PROTOCOL_> @end
 #define CONFORM(_CLASS_,_PROTOCOL_) @Plan _CLASS_ (_PROTOCOL_) @end
@@ -257,6 +261,7 @@ _Type                       NSArray *   _List  ___
 _Type            NSAttributedString *   _ATxt  ___
 _Type                  NSBezierPath *   _Path  ___
 _Type                      NSBundle *   _Bndl  ___
+_Type                   NSCalendar *    _NCal  ___
 _Type                NSCharacterSet *   _CSet  ___
 _Type                       NSColor *   _Colr  ___
 _Type                        NSData *   _Data  ___
@@ -271,6 +276,7 @@ _Type                       NSImage *   _Pict  ___
 _Type                      NSIndexSet   _ISet  ___
 _Type                  NSInvocation *   _Call  ___
 _Type           NSJSONSerialization *   _Json  ___
+_Type               NSLayoutManager *   _LMan  ___
 _Type                NSMutableArray *   mList  ___
 _Type     NSMutableAttributedString *   mATxt  ___
 _Type         NSMutableCharacterSet *   mCSet  ___
@@ -309,6 +315,7 @@ _Type                    XCTestCase *   _Case  ___
 #define                        ATxt   NSAttributedString
 #define                        Path   NSBezierPath
 #define                        Bndl   NSBundle
+#define                        NCal   NSCalendar 
 #define                        CSet   NSCharacterSet
 #define                        Colr   NSColor
 #define                        Data   NSData
@@ -323,6 +330,7 @@ _Type                    XCTestCase *   _Case  ___
 #define                        ISet   NSIndexS
 #define                        Call   NSInvocation
 #define                        Json   NSJSONSerialization
+#define                        LMan   NSLayoutManager
 #define                       ListM   NSMutableArray
 #define                       ATxtM   NSMutableAttributedString
 #define                       CSetM   NSMutableCharacterSet
@@ -374,6 +382,8 @@ _Type                    XCTestCase *   _Case  ___
 #define                      _Bndl_   ( _Bndl )
 #define                     __Bndl_   : ( _Bndl )
 #define                      _BL      - _Bndl_
+#define                      _NCal_   ( _NCal )
+#define                     __NCal_   : ( _NCal )
 #define                      _CSet_   ( _CSet )
 #define                     __CSet_   : ( _CSet )
 #define                      _CT      - _CSet_
@@ -411,6 +421,8 @@ _Type                    XCTestCase *   _Case  ___
 #define                      _Json_   ( _Json )
 #define                     __Json_   : ( _Json )
 #define                      _JN      - _Json_
+#define                      _LMan_   ( _LMan )
+#define                     __LMan_   : ( _LMan )
 #define                      mList_   ( mList )
 #define                     _mList_   : ( mList )
 #define                      mLT      - mList_
@@ -499,8 +511,10 @@ _Type                   NSImageView *   _PicV  ___
 _Type                        NSMenu *   _Menu  ___
 _Type                    NSMenuItem *   _SubM  ___
 _Type                 NSOutlineView *   _OutV  ___
+_Type                       NSPanel *   _Panl  ___
 _Type                  NSScrollView *   _Scrl  ___
 _Type                   NSSplitView *   _Splt  ___
+_Type                  NSStatusItem *   _SItm  ___
 _Type                 NSTableColumn *   _TCol  ___
 _Type                   NSTableView *   _Tabl  ___
 _Type                        NSTask *   _Task  ___
@@ -519,8 +533,10 @@ _Type                       WebView *   _WebV  ___
 #define                        Menu   NSMenu
 #define                        SubM   NSMenuItem
 #define                        OutV   NSOutlineView
+#define                        Panl   NSPanel
 #define                        Scrl   NSScrollView
 #define                        Splt   NSSplitView
+#define                        SItm   NSStatusItem
 #define                        TCol   NSTableColumn
 #define                        Tabl   NSTableView
 #define                        Task   NSTask
@@ -547,10 +563,14 @@ _Type                       WebView *   _WebV  ___
 #define                     __SubM_   : ( _SubM )
 #define                      _OutV_   ( _OutV )
 #define                     __OutV_   : ( _OutV )
+#define                      _Panl_   ( _Panl )
+#define                     __Panl_   : ( _Panl )
 #define                      _Scrl_   ( _Scrl )
 #define                     __Scrl_   : ( _Scrl )
 #define                      _Splt_   ( _Splt )
 #define                     __Splt_   : ( _Splt )
+#define                      _SItm_   ( _SItm )
+#define                     __SItm_   : ( _SItm )
 #define                      _TCol_   ( _TCol )
 #define                     __TCol_   : ( _TCol )
 #define                      _Tabl_   ( _Tabl )
@@ -714,6 +734,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 #define                  INIT_THEN(...)   SUPERINIT; ({ __VA_ARGS__ }); return self; 
 #define                INTERFACE(X,...)   @interface X : __VA_ARGS__ + (instancetype) 
 #define                  KIND(Name,...)   Kind_(Name,NObj,__VA_ARGS__) 
+#define                  Kind(Name,...)   Kind_(Name,NObj,__VA_ARGS__)  
 #define            Kind_(Name,Meta,...)   interface Name : Meta __VA_ARGS__ 
     ///                                   Cute shortcute for Mentioning mutable NS-classes.
 #define                            M(X)   NSMutable##X 
