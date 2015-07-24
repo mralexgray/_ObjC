@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7B3835811AC681DA00D617B9 /* _ObjC_Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */; };
 		7B9B40501AC14F6E002EDD01 /* _ObjC_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */; };
+		7BA79BED1B6257E900A7E31D /* _ObjC_Migrator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA79BEC1B6257E900A7E31D /* _ObjC_Migrator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,13 +19,14 @@
 		7B9B403E1AC14ED5002EDD01 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = SOURCE_ROOT; };
 		7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = _ObjC_Tool.m; path = _ObjC/_ObjC_Tool.m; sourceTree = SOURCE_ROOT; wrapsLines = 0; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B9B40451AC14ED5002EDD01 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; lineEnding = 0; path = README.md; sourceTree = SOURCE_ROOT; wrapsLines = 1; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
-		7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = _ObjC_Tests.m; path = _ObjC/_ObjC_Tests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = _ObjC_Tests.m; path = _ObjC/_ObjC_Tests.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7BA79BEC1B6257E900A7E31D /* _ObjC_Migrator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _ObjC_Migrator.m; path = _ObjC/_ObjC_Migrator.m; sourceTree = "<group>"; };
 		7BB313D81AE5E35500BF1DBA /* _ObjC.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = _ObjC.svg; path = _ObjC/_ObjC.svg; sourceTree = "<group>"; };
-		7BB414D91ACE62F70024D285 /* _ObjC_Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = _ObjC_Template.h; path = _ObjC/_ObjC_Template.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7BB414D91ACE62F70024D285 /* _ObjC_Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = _ObjC_Template.h; path = _ObjC/_ObjC_Template.h; sourceTree = "<group>"; wrapsLines = 0; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7BC4594A1AD68DAA0097F508 /* _ObjC_Tool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = _ObjC_Tool; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BC4594E1AD6955F0097F508 /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = _ObjC.h; path = ../_ObjC.h; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = _ObjC.plist; path = _ObjC/_ObjC.plist; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
-		7BFDE1971AE14F6C0012A607 /* _ObjC_Tool.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = _ObjC_Tool.pch; path = _ObjC/_ObjC_Tool.pch; sourceTree = "<group>"; };
+		7BFDE1971AE14F6C0012A607 /* _ObjC_Tool.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = _ObjC_Tool.pch; path = _ObjC/_ObjC_Tool.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -35,8 +37,6 @@
 				7BC4594E1AD6955F0097F508 /* _ObjC.h */,
 				7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */,
 				7BB414D91ACE62F70024D285 /* _ObjC_Template.h */,
-				7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */,
-				7BFDE1971AE14F6C0012A607 /* _ObjC_Tool.pch */,
 				7B9B40451AC14ED5002EDD01 /* README.md */,
 				7BC4594B1AD68DCA0097F508 /* _ObjC, etc */,
 			);
@@ -45,10 +45,13 @@
 		7BC4594B1AD68DCA0097F508 /* _ObjC, etc */ = {
 			isa = PBXGroup;
 			children = (
-				7BB313D81AE5E35500BF1DBA /* _ObjC.svg */,
-				7B32D8A31AE5873C00062CB8 /* Makefile */,
 				7B9B403E1AC14ED5002EDD01 /* .travis.yml */,
+				7B32D8A31AE5873C00062CB8 /* Makefile */,
+				7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */,
+				7BA79BEC1B6257E900A7E31D /* _ObjC_Migrator.m */,
+				7BFDE1971AE14F6C0012A607 /* _ObjC_Tool.pch */,
 				7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */,
+				7BB313D81AE5E35500BF1DBA /* _ObjC.svg */,
 				7BC4594A1AD68DAA0097F508 /* _ObjC_Tool */,
 				7B9B40331AC14EB6002EDD01 /* _ObjC_Tests.xctest */,
 			);
@@ -112,7 +115,7 @@
 		7B9B40261AC14E7D002EDD01 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				TargetAttributes = {
 					7B32D89D1AE5864300062CB8 = {
 						CreatedOnToolsVersion = 6.3;
@@ -151,12 +154,12 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME).plist",
-				"$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME)_Template.h",
+				"\\\"$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME).plist\\\"",
+				"\\\"$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME)_Template.h\\\"",
 			);
 			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(PROJECT_NAME).h",
-				"$(DERIVED_FILE_DIR)/myfile",
+				"\\\"$(BUILT_PRODUCTS_DIR)/$(PROJECT_NAME).h\\\"",
+				"\\\"$(DERIVED_FILE_DIR)/myfile\\\"",
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
@@ -170,6 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BA79BED1B6257E900A7E31D /* _ObjC_Migrator.m in Sources */,
 				7B3835811AC681DA00D617B9 /* _ObjC_Tool.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,7 +206,6 @@
 		7B38357F1AC681C700D617B9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = _ObjC/_ObjC_Tool.pch;
@@ -240,6 +243,7 @@
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -248,6 +252,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				ENABLE_TESTABILITY = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -256,7 +261,6 @@
 		7BC4595A1AD6BD420097F508 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = _ObjC/_ObjC_Tool.pch;
@@ -285,6 +289,7 @@
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
