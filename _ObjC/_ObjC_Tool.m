@@ -1,5 +1,5 @@
 
-MAIN(
+MAIN({
 
   // Dirty, dirty arg parsing.  Supports long or short opts.
 
@@ -10,37 +10,28 @@ MAIN(
 
   if ( ParseArgs()[@"help"] ||
                  !plistPath || !templatePath      ||
-          !PlistDataModel() || !HeaderTemplate()  || !CompiledHeader()  )
+          !PlistDataModel() || !HeaderTemplate()  || !CompiledHeader() ) return Usage(), EXIT_FAILURE;
 
-    return fprintf(stdout, "%s\n --plist, -p\tplist to parse\n --template, -t\theader template!.\n--output, -o \tpath or paths to write compiled header to.\ngot %s\nmodel:%s\ntemplate:%s\nplatform:%x", [ARGS[0] UTF8String], [ParseArgs() description].UTF8String, [plistPath UTF8String], [templatePath UTF8String], BuildingFor()), EXIT_FAILURE;
+  // no output? no worries - just print to stdout
 
-
-  // no output, no worries - just print to stdout
   if (!output) return fprintf(stdout, "%s", CompiledHeader().UTF8String);
 
-  for (id place in [output isKindOfClass:NSString.class] ? @[output] : output) {
+  for (id place in [output isKindOfClass:NSString.class] ? @[output] : output) {  // handle multiple output locations
 
     fprintf(stdout, "Outputting header to destination:%s\n", [place UTF8String]);
 
     if (![CompiledHeader() writeToFile:place atomically:YES encoding:NSUTF8StringEncoding error:nil]) return EXIT_FAILURE;
   }
   if (testFilePath) WriteTests();
-)
-static _Emit             BuildingFor () { static _Emit _env; return _env = _env ?:
+})
 
-  LOC(ENV[@"BUILT_PRODUCTS_DIR"],@"iphone") != NSNotFound ? e_TYPE_IOS : e_TYPE_MAC;
-}
+NSString * GenerateSection(NSString * head) {
 
-static NSDictionary * PlistDataModel () { return plist    = plist    ?: [NSDictionary dictionaryWithContentsOfFile:plistPath]; }
-static     NSString * HeaderTemplate () { return template = template ?: [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:nil]; }
-
-NSString * GenerateSection(NSString * head)     {
-
-//  if ( (LOC(head,@"MAC") != NSNotFound && BuildingFor() == e_TYPE_IOS)) return @""; // ||
-//       (LOC(head,@"IOS") != NSNotFound && BuildingFor() == e_TYPE_MAC)) return @"";
+  //  if ( (LOC(head,@"MAC") != NSNotFound && BuildingFor() == e_TYPE_IOS)) return @""; // ||
+  //       (LOC(head,@"IOS") != NSNotFound && BuildingFor() == e_TYPE_MAC)) return @"";
 
   id backing = [PlistDataModel() valueForKeyPath:head],
-    keyParts = [head componentsSeparatedByString:@"."];
+  keyParts = [head componentsSeparatedByString:@"."];
 
   _Emit emit = [keyParts[0] isEqualToString:@"TYPES"] ? e_TYPE : e_DEFS;
 
@@ -51,20 +42,20 @@ NSString * GenerateSection(NSString * head)     {
 
     id sortedKs = [defs.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString*x1, NSString*x2) {
 
-      #define SORT(X) [[PlistDataModel() valueForKeyPath: @"SORT_EXCEPTIONS." #X ]containsObject:head]
+#define SORT(X) [[PlistDataModel() valueForKeyPath: @"SORT_EXCEPTIONS." #X ]containsObject:head]
 
       return (SORT(ALPHA) || emit&e_TYPE) && !SORT(LENGTH) ? [x1 compare:x2 options:NSCaseInsensitiveSearch]
-                                                           : [@(x1.length) compare:@(x2.length)];
+      : [@(x1.length) compare:@(x2.length)];
     }];
 
     /// We build our string from here, with an opening prgam mark.
     M(String) * snippet = $(@"#pragma mark - %@\n\n", head.pathExtension).mutableCopy,
-             * methArgs = emit  & e_TYPE      ? @"".mutableCopy : nil, /// "- (id)" -> "_ID" (if it's a typedef)
-           * pointerMap = emit == e_TYPE_PMAP ? @"".mutableCopy : nil,
-             * problems = @"".mutableCopy;  // Unused
+    * methArgs = emit  & e_TYPE      ? @"".mutableCopy : nil, /// "- (id)" -> "_ID" (if it's a typedef)
+    * pointerMap = emit == e_TYPE_PMAP ? @"".mutableCopy : nil,
+    * problems = @"".mutableCopy;  // Unused
 
-      #define SENTINEL(Context) Context == BEGINNING ? emit & e_TYPE ? "_Type"   : "#define"  \
-                                                     : emit & e_TYPE ? " ___"    : ""
+#define SENTINEL(Context) Context == BEGINNING ? emit & e_TYPE ? "_Type"   : "#define"  \
+: emit & e_TYPE ? " ___"    : ""
 
     void(^writeTypeOrDef)(id) = ^(NSString*k){  // Write it out, girl.
 
@@ -75,38 +66,38 @@ NSString * GenerateSection(NSString * head)     {
       id theDef = defs[k], comment = nil;
       // it might be a block type, so replace its occurance of ^ with one with a space and then the def.
       NSString * theKey = [k stringByReplacingOccurrencesOfString:@"^"  withString:$(@"^ %@", defs[k])],
-             * declared = [theDef isKindOfClass:NSString.class] ? theDef : ({ comment = theDef[0]; theDef[1]; });
+      * declared = [theDef isKindOfClass:NSString.class] ? theDef : ({ comment = theDef[0]; theDef[1]; });
 
       APPEND(snippet, @"%@%s %*s%@   %@ %s%@\n",
-                      commentsGo == ENDING || !comment ? @"" : $(@"    ///%35s%@\n", "", comment),
-                      SENTINEL(BEGINNING),
-                      31 - (int)theKey.length,              /// Padding length
-                      "",                                   /// Pad with
-                      theKey,                               /// the "declaration"
-                      emit == e_TYPE_BLKS ? @"" : declared, /// Blocks are weird
-                      SENTINEL(ENDING),
-                      commentsGo == BEGINNING || !comment ? @"" : $(@" /// %@", comment)
-      );
+             commentsGo == ENDING || !comment ? @"" : $(@"    ///%35s%@\n", "", comment),
+             SENTINEL(BEGINNING),
+             31 - (int)theKey.length,              /// Padding length
+             "",                                   /// Pad with
+             theKey,                               /// the "declaration"
+             emit == e_TYPE_BLKS ? @"" : declared, /// Blocks are weird
+             SENTINEL(ENDING),
+             commentsGo == BEGINNING || !comment ? @"" : $(@" /// %@", comment)
+             );
 
       if (pointerMap) { NSString *prefix = defs[k][1]; BOOL lead_ = [prefix isEqualToString:@"_"];
 
         APPEND(pointerMap,@"\n#define %*s%@%@   %@", lead_ ? 23  : 22, " ", declared[-1],
-                                                     lead_ ? @"" : prefix.uppercaseString, // shortcut
-                                                     k[k.length - 2]);  // original class name
+               lead_ ? @"" : prefix.uppercaseString, // shortcut
+               k[k.length - 2]);  // original class name
       }
 
-      #define AS_ARG_SHORTCUTS(X) ({ \
-        BOOL isBlock = [X containsString:@"＾"];          /* Special cases for block defs */ \
-        APPEND( methArgs, @"#define %21s%s%@%s   ( %@ )\n"   /* In parenthsis                */ \
-                           "#define %21s%@_   : ( %@ )\n", /* Includes leading ':'         */ \
-                " ", isBlock ? "_" : "", X, isBlock ? "" : "_", X,                                                                   \
-                isBlock ? "" : "_",X, X); })
+#define AS_ARG_SHORTCUTS(X) ({ \
+BOOL isBlock = [X containsString:@"＾"];          /* Special cases for block defs */ \
+APPEND( methArgs, @"#define %21s%s%@%s   ( %@ )\n"   /* In parenthsis                */ \
+"#define %21s%@_   : ( %@ )\n", /* Includes leading ':'         */ \
+" ", isBlock ? "_" : "", X, isBlock ? "" : "_", X,                                                                   \
+isBlock ? "" : "_",X, X); })
 
-      #define METHOD_RETURN_SHORTCUT(X) APPEND(methArgs, @"#define %21s%@%@      - %@_\n",\
-                                              " ",X[2],[X[-([X length]-1)] uppercaseString],    X)
+#define METHOD_RETURN_SHORTCUT(X) APPEND(methArgs, @"#define %21s%@%@      - %@_\n",\
+" ",X[2],[X[-([X length]-1)] uppercaseString],    X)
 
       !emit & e_TYPE ?: AS_ARG_SHORTCUTS(declared); // if NOT a type, generate method argument variations
-      
+
       ![PlistDataModel()[@"ALIAS_INSTANCE_RETURN"] containsObject:declared] ?: METHOD_RETURN_SHORTCUT(declared);
     };
 
@@ -121,56 +112,45 @@ NSString * GenerateSection(NSString * head)     {
 
   [({ M(Array) *parts; for (id d in backing) [parts addObject:__processDictionary(d)]; parts; }) componentsJoinedByString:@"\n"];
 
-//    M(String) * concat = @"".mutableCopy;
-//    for (id d in backing) APPEND(concat,@"\n%@", __processDictionary(d)); concat.copy; });
+  //    M(String) * concat = @"".mutableCopy;
+  //    for (id d in backing) APPEND(concat,@"\n%@", __processDictionary(d)); concat.copy; });
 }
 
+static     NSDictionary * PlistDataModel () { return plist    = plist    ?: [NSDictionary dictionaryWithContentsOfFile:plistPath]; }
+static         NSString * CompiledHeader () {
 
-id ObjectForAnyKeyPassingTest(  NSDictionary * values,     NSArray * okKeys, BOOL(*test)(id)) {
+  if (compiled) return compiled;
 
-  __block id found = nil;
+  NSRegularExpression *regex = [NSRegularExpression.alloc initWithPattern:@"%% (.*) %%" options:0 error:nil];
 
-  [okKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+  NSString* string = //copy the string so we can replace subsections
 
-    if ((found = [values objectForKey:obj]))  *stop = !test || test(found);
-  }];
-  return found;
-}
+  $(WARNING, THEDATE, plistPath.lastPathComponent, templatePath.lastPathComponent, HeaderTemplate());
 
-static NSString * CompiledHeader() { return compiled = compiled ?: ({
+  NSMutableString *replaced = string.mutableCopy;
 
-    NSRegularExpression *regex = [NSRegularExpression.alloc initWithPattern:@"%% (.*) %%" options:0 error:nil];
+  id matches = [regex matchesInString:string options:0 range:NSMakeRange(0, string.length)];
 
-    NSString* string = //copy the string so we can replace subsections
+  NSLog(@"found %@ matches", @([matches count]));
 
-      $(@"\n/*!       @note This file is AUTO_GENERATED! Changes will NOT persist!\n"
-         "                Built on %@ from template:%@ with data from:%@ */\n%@",
-       THEDATE, [plistPath lastPathComponent], [templatePath lastPathComponent],HeaderTemplate());
+  [matches enumerateObjectsWithOptions:NSEnumerationReverse
+                            usingBlock:^(NSTextCheckingResult* result, NSUInteger idx, BOOL *stop) {
 
-    NSMutableString *replaced = string.mutableCopy;
+    NSLog(@"replacing %@", [string substringWithRange:result.range]);
 
-    id matches = [regex matchesInString:string options:0 range:NSMakeRange(0, string.length)];
+    id section = GenerateSection( [[[[RxMatch.alloc initWithTextCheckingResult:result forString:string] groups] lastObject] value]);
 
-    NSLog(@"found %@ matches", @([matches count]));
-
-    [matches enumerateObjectsWithOptions:NSEnumerationReverse
-                       usingBlock:^(NSTextCheckingResult* result, NSUInteger idx, BOOL *stop) {
-
-      NSLog(@"replacing %@", [string substringWithRange:result.range]);
-      [replaced replaceCharactersInRange:result.range
-                withString: GenerateSection(
-          [[[[RxMatch.alloc initWithTextCheckingResult:result forString:string] groups] lastObject] value])];
+    [replaced replaceCharactersInRange:result.range withString:section];
 
               ///* replacement */ replacer(/*RxMatch* match */];
-    }];
-    [replaced copy];
-  });
-}
+  }];
 
-void WriteTests () {
+  return compiled = [replaced copy];
+}
+void                          WriteTests () {
 
   id delimiter = @"/// AUTO-GENERATED TESTS BELOW",
-      contents = [NSString stringWithContentsOfFile:testFilePath encoding:NSUTF8StringEncoding error:nil];
+  contents = [NSString stringWithContentsOfFile:testFilePath encoding:NSUTF8StringEncoding error:nil];
 
   M(String) *tests = [contents substringToIndex:[contents rangeOfString:delimiter].location + [delimiter length]].mutableCopy;
 
@@ -188,11 +168,22 @@ void WriteTests () {
   [tests writeToFile:testFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
+id ObjectForAnyKeyPassingTest(NSDictionary * values, NSArray * okKeys, BOOL(*test)(id)) {
+
+  __block id found = nil;
+
+  [okKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+
+    if ((found = [values objectForKey:obj]))  *stop = !test || test(found);
+  }];
+  return found;
+}
+
 @implementation  NSString (SubstringToOrFrom)
 
-- (NSString*) refactor { NSDictionary *rules = @{}; return @""; }
-
+- refactor { NSDictionary *rules = @{}; return @""; }
 - objectAtIndexedSubscript:(NSInteger)i { return i < 0 ? [self substringFromIndex:ABS(i)] : [self substringToIndex:i]; }
+
 #ifndef MAC_OS_X_VERSION_10_10
 - (BOOL) containsString:(NSString*)x { return [self rangeOfString:x].location != NSNotFound; }
 #endif
@@ -200,7 +191,7 @@ void WriteTests () {
 @end
 
 @implementation RxMatch
-- initWithTextCheckingResult:(NSTextCheckingResult*)result forString:(NSString*)original {
+- initWithTextCheckingResult:(NSTextCheckingResult*)result forString:(NSString*)original{
 
   self = super.init;
   _original  = original;
@@ -219,7 +210,11 @@ void WriteTests () {
 }
 @end
 
-static NSDictionary * ParseArgs() { static id opts; static dispatch_once_t onceToken; dispatch_once(&onceToken, ^{
+// Parses CLI to dictionary.  Generic, chic, and unrelated to task at hand.
+
+static NSDictionary * ParseArgs() {
+
+  static id opts; static dispatch_once_t onceToken; dispatch_once(&onceToken, ^{
 
    id _opts = @{}.mutableCopy, flag = nil;
 
@@ -245,6 +240,5 @@ static NSDictionary * ParseArgs() { static id opts; static dispatch_once_t onceT
   });
 
   return opts;
-
-} // Parses CLI to dictionary.  Generic, chic, and unrelated to task at hand.
+}
 
