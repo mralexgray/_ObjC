@@ -42,7 +42,7 @@ NSString * GenerateSection(NSString * head) {
 
     id sortedKs = [defs.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString*x1, NSString*x2) {
 
-#define SORT(X) [[PlistDataModel() valueForKeyPath: @"SORT_EXCEPTIONS." #X ]containsObject:head]
+      #define SORT(X) [[PlistDataModel() valueForKeyPath: @"SORT_EXCEPTIONS." #X ] containsObject:head]
 
       return (SORT(ALPHA) || emit&e_TYPE) && !SORT(LENGTH) ? [x1 compare:x2 options:NSCaseInsensitiveSearch]
       : [@(x1.length) compare:@(x2.length)];
@@ -54,8 +54,7 @@ NSString * GenerateSection(NSString * head) {
     * pointerMap = emit == e_TYPE_PMAP ? @"".mutableCopy : nil,
     * problems = @"".mutableCopy;  // Unused
 
-#define SENTINEL(Context) Context == BEGINNING ? emit & e_TYPE ? "_Type"   : "#define"  \
-: emit & e_TYPE ? " ___"    : ""
+    #define SENTINEL(CTX) CTX == BEGINNING ? emit & e_TYPE ? "_Type" : "#define" : emit & e_TYPE ? " ___" : ""
 
     void(^writeTypeOrDef)(id) = ^(NSString*k){  // Write it out, girl.
 
@@ -86,15 +85,14 @@ NSString * GenerateSection(NSString * head) {
                k[k.length - 2]);  // original class name
       }
 
-#define AS_ARG_SHORTCUTS(X) ({ \
-BOOL isBlock = [X containsString:@"＾"];          /* Special cases for block defs */ \
-APPEND( methArgs, @"#define %21s%s%@%s   ( %@ )\n"   /* In parenthsis                */ \
-"#define %21s%@_   : ( %@ )\n", /* Includes leading ':'         */ \
-" ", isBlock ? "_" : "", X, isBlock ? "" : "_", X,                                                                   \
-isBlock ? "" : "_",X, X); })
+      #define AS_ARG_SHORTCUTS(X) ({ \
+        BOOL isBlock = [X containsString:@"＾"];             /* Special cases for block defs */ \
+        APPEND( methArgs, @"#define %21s%s%@%s   ( %@ )\n"   /* In parenthsis                */ \
+        "#define %21s%@_   : ( %@ )\n",                      /* Includes leading ':'         */ \
+        " ", isBlock ? "_" : "", X, isBlock ? "" : "_", X,                                      \
+             isBlock ? ""  : "_",X, X); })
 
-#define METHOD_RETURN_SHORTCUT(X) APPEND(methArgs, @"#define %21s%@%@      - %@_\n",\
-" ",X[2],[X[-([X length]-1)] uppercaseString],    X)
+      #define METHOD_RETURN_SHORTCUT(X) APPEND(methArgs, @"#define %21s%@%@      - %@_\n"," ",X[2],[X[-([X length]-1)] uppercaseString], X)
 
       !emit & e_TYPE ?: AS_ARG_SHORTCUTS(declared); // if NOT a type, generate method argument variations
 
@@ -149,7 +147,6 @@ static         NSString * CompiledHeader () {
 }
 void                          WriteTests () {
 
-  id delimiter = @"/// AUTO-GENERATED TESTS BELOW",
   contents = [NSString stringWithContentsOfFile:testFilePath encoding:NSUTF8StringEncoding error:nil];
 
   M(String) *tests = [contents substringToIndex:[contents rangeOfString:delimiter].location + [delimiter length]].mutableCopy;
@@ -157,9 +154,13 @@ void                          WriteTests () {
   APPEND(tests,@"(Generated at %@)\n\n_XCTCase(DefinesTestCase)\n_XCTest(TheyWorked,\n", THEDATE);
 
   for (id keypath in @[@"TYPES.STRUCTS",@"TYPES.POINTERS",@"TYPES.POINTERS_MAC"]) {
+
     APPEND(tests,@"\n");
+
     [[PlistDataModel() valueForKeyPath:keypath] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+
       APPEND(tests,@"\tXCTAssert(@encode(%@) == @encode(%@), @\"%%s should equal %%s!\",@encode(%@),@encode(%@));\n", key, obj, key, obj);
+
     }];
     APPEND(tests,@"\n");
   }
@@ -181,17 +182,17 @@ id ObjectForAnyKeyPassingTest(NSDictionary * values, NSArray * okKeys, BOOL(*tes
 
 @implementation  NSString (SubstringToOrFrom)
 
-- refactor { NSDictionary *rules = @{}; return @""; }
+- refactor                              { NSDictionary *rules = @{}; return @""; }
 - objectAtIndexedSubscript:(NSInteger)i { return i < 0 ? [self substringFromIndex:ABS(i)] : [self substringToIndex:i]; }
 
 #ifndef MAC_OS_X_VERSION_10_10
-- (BOOL) containsString:(NSString*)x { return [self rangeOfString:x].location != NSNotFound; }
+- (BOOL) containsString:(NSString*)x    { return [self rangeOfString:x].location != NSNotFound; }
 #endif
 
 @end
 
 @implementation RxMatch
-- initWithTextCheckingResult:(NSTextCheckingResult*)result forString:(NSString*)original{
+- initWithTextCheckingResult:(NSTextCheckingResult*)result forString:(NSString*)original {
 
   self = super.init;
   _original  = original;
@@ -241,4 +242,3 @@ static NSDictionary * ParseArgs() {
 
   return opts;
 }
-
