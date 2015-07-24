@@ -1,1494 +1,1507 @@
 {
-    "ALIAS_INSTANCE_RETURN" =     (
-        "_Bndl",
-        "_Colr",
-        "_Cord",
-        "_CSet",
-        "_Data",
-        "_Dict",
-        "_Errr",
-        "_Evnt",
-        "_File",
-        "_Flot",
-        "_IsIt",
-        "_Json",
-        "_Layr",
-        "_List",
-        "_Meta",
-        "_Meth",
-        "_NObj",
-        "_Numb",
-        "_NUrl",
-        "_ObjC",
-        "_Path",
-        "_Pict",
-        "_Pipe",
-        "_PStl",
-        "_Rect",
-        "_Rnge",
-        "_SInt",
-        "_Size",
-        "_SndP",
-        "_TblV",
-        "_Text",
-        "_UInt",
-        "_View",
-        "_Wind",
-        mCSet,
-        mData,
-        mDict,
-        mList,
-        mText
-    );
-    DEFINES =     {
-        ABBREVIATIONS =         {
-            "_FM" = "NSFileManager.defaultManager";
-            "_PI" = "NSProcessInfo.processInfo";
-            "_VD" = "- _Void_ ";
-            bFK = boolForKey;
-            bV = boolValue;
-            dV = doubleValue;
-            fV = floatValue;
-            iV = integerValue;
-            mAVFK = mutableArrayValueForKey;
-            mC = mutableCopy;
-            oFK = objectForKey;
-            pV = pointValue;
-            rV = rectValue;
-            rngV = rangeValue;
-            strV = stringValue;
-            uIV = unsignedIntegerValue;
-            vFK = valueForKey;
-            vFKP = valueForKeyPath;
-        };
-        ALIASES =         {
-        };
-        "GEOMETRY_TRANSLATIONS" =         {
-            NSEqualPoints = CGPointEqualToPoint;
-            NSEqualRects = CGRectEqualToRect;
-            NSEqualSizes = CGSizeEqualToSize;
-            NSMakePoint = CGPointMake;
-            NSMakeRect = CGRectMake;
-            NSMakeSize = CGSizeMake;
-            NSPointFromString = CGPointFromString;
-            "NSPointInRect(P,R)" = "CGRectContainsPoint(R,P)";
-            NSRectFromString = CGRectFromString;
-            NSSizeFromString = CGSizeFromString;
-            NSStringFromPoint = NSStringFromCGPoint;
-            NSStringFromRect = NSStringFromCGRect;
-            NSStringFromSize = NSStringFromCGSize;
-            colorWithCalibratedHue = colorWithHue;
-            colorWithCalibratedRed = colorWithRed;
-            colorWithDeviceRed = colorWithRed;
-            pointValue = CGPointValue;
-            rectValue = CGRectValue;
-            sizeValue = CGSizeValue;
-            valueWithPoint = valueWithCGPoint;
-            valueWithRect = valueWithCGRect;
-            valueWithSize = valueWithCGSize;
-        };
-        MISC =         {
-            "$UNIC(C)" = "[NSString stringWithCharacter:C]";
-            "APPLE_MAIN" =             (
-                "Apple's take on main()",
-                "int main(int argc, char **argv, char **envp, char **apple)"
-            );
-            "INIT_(K,...)" = "[[K alloc] init##__VA_ARGS__]";
-            "INIT_THEN(...)" = "SUPERINIT; ({ __VA_ARGS__ }); return self;";
-            "INTERFACE(X,...)" = "@interface X : __VA_ARGS__ + (instancetype)";
-            "KIND(Name,...)" = "Kind_(Name,NObj,__VA_ARGS__)";
-            "Kind(Name,...)" = "Kind_(Name,NObj,__VA_ARGS__) ";
-            "Kind_(Name,Meta,...)" = "interface Name : Meta __VA_ARGS__";
-            "M(X)" =             (
-                "Cute shortcute for Mentioning mutable NS-classes.",
-                "NSMutable##X"
-            );
-            "MAIN(...)" =             (
-                "Makes writing main functions WAY less verbose. @note assign non-zero value to \"EXIT\" for failure.",
-                "APPLE_MAIN { int EXIT = 0; @autoreleasepool { ({ __VA_ARGS__; }); } return EXIT; }"
-            );
-            "NEW(A,B)" =             (
-                "Creates a new one.",
-                "A * B = [A new];"
-            );
-            NSStringValue = "@\"stringValue\"";
-            Plan = implementation;
-            "SELFINIT(...)" = "return self = super.init ? ({ __VA_ARGS__; }), self : nil";
-            "VAR(A,B,C)" =             (
-                "Generates declaration of primitive variable named @oaram B, of type @param A, with initial value of @param C",
-                "A B = C;"
-            );
-            Vows = protocol;
-            "Xtra(Extends,Named)" = "interface Extends      (Named)";
-            "XtraPlan(Extends,Named)" = "implementation Extends (Named)";
-            "XtraStop(...)" = Stop;
-            "_Case(Name,...)" = "@Incl XCTest; @Kind_ (Name,XCTestCase)  \Uffed @Plan Name XCTUp(__VA_ARGS__)";
-            "_Cat(K,...)" = "@interface K (Sans) __VA_ARGS__; @end";
-            "_FINI" = "@end";
-            "_IFCE" = "@interface";
-            "_IMPL" = "@implementation";
-            "_IMPT" = "@import";
-            "_Kind" = "@interface";
-            "_Kind_" =             (
-                "Sugar for (instancetype) methods.",
-                "(instancetype)"
-            );
-            "_PRTO" = "@protocol";
-        };
-        "MISC.off" =         {
-            "Kind(Name,...)" = "Kind_(Name,NObj,__VA_ARGS__)";
-        };
-        NS =         {
-            AZOQMAX = NSOperationQueueDefaultMaxConcurrentOperationCount;
-            ISADICT = "isKindOfClass:NSDictionary.class";
-            ISADICTorARRAY = "isKindOfAnyClass:NSAorDCLASS";
-            ISANARRAY = "isKindOfClass:NSArray.class";
-            NSA = NSArray;
-            NSAC = NSArrayController;
-            NSACLASS = "NSArray.class";
-            NSAPP = NSApplication;
-            NSAS = NSAttributedString;
-            NSAT = NSAffineTransform;
-            NSAorDCLASS = "@[NSArray.class, NSDictionary.class]";
-            NSB = NSBundle;
-            NSBIR = NSBitmapImageRep;
-            NSBLO = NSBlockOperation;
-            NSBP = NSBezierPath;
-            NSBRWSR = NSBrowser;
-            NSBSB = NSBackingStoreBuffered;
-            NSBUTT = NSButton;
-            NSBWM = NSBorderlessWindowMask;
-            NSC = NSColor;
-            NSCL = NSColorList;
-            NSCOMPR = NSComparisonResult;
-            NSCS = NSCountedSet;
-            NSCSV = NSCellStateValue;
-            NSD = NSDictionary;
-            NSDCLASS = "NSDictionary.class";
-            NSDE = NSDirectoryEnumerator;
-            NSDO = NSDragOperation;
-            NSE = NSEvent;
-            NSED = NSEntityDescription;
-            NSEM = NSEventMask;
-            NSERR = NSError;
-            NSF = NSFont;
-            NSFH = NSFileHandle;
-            NSG = NSGradient;
-            NSGC = NSGraphicsContext;
-            NSI = NSInteger;
-            NSIMG = NSImage;
-            NSINV = NSInvocation;
-            NSIP = NSIndexPath;
-            NSIS = NSIndexSet;
-            NSIV = NSImageView;
-            NSJS = NSJSONSerialization;
-            NSM = NSMenu;
-            NSMA = NSMutableArray;
-            NSMAS = NSMutableAttributedString;
-            NSMD = NSMutableDictionary;
-            NSMDATA = NSMutableData;
-            NSMI = NSMenuItem;
-            NSMIS = NSMutableIndexSet;
-            NSMO = NSManagedObject;
-            NSMOC = NSManagedObjectContext;
-            NSMOM = NSManagedObjectModel;
-            NSMPS = NSMutableParagraphStyle;
-            NSMS = NSMutableString;
-            NSMSet = NSMutableSet;
-            NSMURLREQ = NSMutableURLRequest;
-            NSMenuI = NSMenuItem;
-            NSN = NSNumber;
-            NSNOT = NSNotification;
-            NSO = NSObject;
-            NSOP = NSOperation;
-            NSOQ = NSOperationQueue;
-            NSOV = NSOutlineView;
-            NSP = NSPoint;
-            NSPI = NSProgressIndicator;
-            NSPInRect = NSPointInRect;
-            NSPO = NSPopover;
-            NSPSC = NSPersistentStoreCoordinator;
-            NSPUBUTT = NSPopUpButton;
-            NSR = NSRect;
-            NSRE = NSRectEdge;
-            NSRFill = NSRectFill;
-            NSRNG = NSRange;
-            NSS = NSString;
-            NSSCLASS = "NSString.class";
-            NSSCRLV = NSScrollView;
-            NSSEGC = NSSegmentedControl;
-            NSSHDW = NSShadow;
-            NSSI = NSStatusItem;
-            NSSPLTV = NSSplitView;
-            NSST = NSSet;
-            NSSZ = NSSize;
-            NST = NSTimer;
-            NSTA = NSTrackingArea;
-            NSTABV = NSTabView;
-            NSTBAR = NSToolbar;
-            NSTC = NSTableColumn;
-            NSTI = NSTimeInterval;
-            NSTSK = NSTask;
-            NSTV = NSTableView;
-            NSTVDO = NSTableViewDropOperation;
-            NSTXTF = NSTextField;
-            NSTXTV = NSTextView;
-            NSUI = NSUInteger;
-            NSURLC = NSURLConnection;
-            NSURLREQ = NSURLRequest;
-            NSURLRES = NSURLResponse;
-            NSV = NSView;
-            NSVAL = NSValue;
-            NSVC = NSViewController;
-            NSVT = NSValueTransformer;
-            NSW = NSWindow;
-            NSWC = NSWindowController;
-            SIG = NSMethodSignature;
-            WHITESPACESET = "NSCharacterSet.whitespaceAndNewlineCharacterSet";
-        };
-        PROPERTIES =         {
-            ASS = assign;
-            CP = copy;
-            NA = nonatomic;
-            RO = readonly;
-            RW = readwrite;
-            STR = strong;
-            UNSF = "unsafe_unretained";
-            WK = weak;
-            "_AS" = "@property (AS)";
-            "_AT" = "@property";
-            "_CP" = "@property (CP)";
-            "_NA" = "@property (NA)";
-            "_NC" = "@property (NA,CP)";
-            "_RC" = "@property (RO,CP)";
-            "_RO" = "@property (RO)";
-            "_WK" = "@property (WK)";
-        };
-        "STANDARD_NAMES" =         {
-            NSApp = UIApp;
-            NSApplication = UIApplication;
-            NSBezierPath = UIBezierPath;
-            NSColor = UIColor;
-            NSEvent = UIEvent;
-            NSFont = UIFont;
-            NSImage = UIImage;
-            NSNib = UINib;
-            NSPoint = CGPoint;
-            NSRect = CGRect;
-            NSScreen = UIScreen;
-            NSSize = CGSize;
-            NSStatusBar = UIStatusBar;
-            NSTableView = UITableView;
-            NSUserNotification = UILocalNotification;
-            NSView = UIView;
-            NSWindow = UIWindow;
-            NSZeroPoint = CGPointZero;
-            NSZeroRect = CGRectZero;
-            NSZeroSize = CGSizeZero;
-        };
-        STRINGS =         {
-            "ATTR(NAME_WITHOUT_NS)" = "NS##NAME_WITHOUT_NS##AttributeName";
-            BNDL = "NSBundle.mainBundle";
-            "BNDL_NAME" = "[NSBundle.mainBundle objectForInfoDictionaryKey:@\"CFBundleDisplayName\"]";
-            "BNDL_RSRC" = "[NSBundle.mainBundle resourcePath]";
-            "COLR_PANL" = "NSColorPanel.sharedColorPanel";
-            DEFS = "NSUserDefaults.standardUserDefaults";
-            DEFX = "NSUserDefaultsController.sharedUserDefaultsController";
-            "EV_GLOBAL" = "NSEvent addGlobalMonitorForEventsMatchingMask";
-            "EV_LOCAL" = "NSEvent addLocalMonitorForEventsMatchingMask ";
-            FMAN = "NSFileManager.defaultManager";
-            GCTX = "NSGraphicsContext.currentContext";
-            "KVO_BOTH" = "NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld";
-            "KVO_NEW" = NSKeyValueObservingOptionNew;
-            "KVO_OLD" = NSKeyValueObservingOptionOld;
-            LAYM = "[CAConstraintLayoutManager layoutManager]";
-            "MOUSE_DOWN" = NSLeftMouseDownMask;
-            "MOUSE_DRAG" = NSLeftMouseDraggedMask;
-            "MOUSE_DRAGGING" = "MOUSEDOWN | MOUSEDRAG | MOUSEUP";
-            "MOUSE_UP" = NSLeftMouseUpMask;
-            NADA = "[NSNull  null]";
-            NCTR = "(NSNotificationCenter*)NSNotificationCenter.defaultCenter";
-            NSZeroRange = "NSMakeRange(0,0)";
-            "PDOMAIN(NAME)" = "[DEFS persistentDomainForName:NAME]";
-            PROC = "NSProcessInfo.processInfo";
-            "PROC_NAME" = "[NSProcessInfo.processInfo processName]";
-            "RNG0(X)" = "NSMakeRange(0,X)";
-            SAPP = "NSApplication.sharedApplication";
-            SBAR = "SBar.systemStatusBar";
-            "VAL3d(t)" = "[NSVAL valueWithCATransform3D: t]";
-            "V_Colr(c)" = "[NSVAL valueWithColor: c]";
-            "V_Cord(p)" = "[NSVAL valueWithPoint: p]";
-            "V_Rect(r)" = "[NSVAL\t\t valueWithRect: r]";
-            "V_Rnge(c)" = "[NSVAL  valueWithRange: c]";
-            "V_Size(s)" = "[NSVAL valueWithSize: s]";
-            WORK = "NSWorkspace.sharedWorkspace";
-            pBCN = postsBoundsChangedNotifications;
-            pFCN = postsFrameChangedNotifications;
-        };
-        "STRINGS.disabled" =         {
-            AZGRAPHICSCTX = "NSGraphicsContext.currentContext";
-            AZGVItem = AtoZGridViewItem;
-            AZGView = AtoZGridView;
-            AZIS = AZInstallationStatus;
-            AZLAYOUTMGR = "[CAConstraintLayoutManager layoutManager]";
-            AZNEWMUTEA = "NSMutableArray.array";
-            AZNEWMUTED = "NSMutableDictionary.new";
-            AZNEWPIPE = "NSPipe.pipe";
-            AZNOTCENTER = "(NSNotificationCenter*)NSNotificationCenter.defaultCenter";
-            AZNULL = "[NSNull  null]";
-            AZOS = "AZSharedOperationStack()";
-            AZPAL = AZPalette;
-            AZPOS = AZA;
-            AZPROCINFO = "NSProcessInfo.processInfo";
-            AZPROCNAME = "[NSProcessInfo.processInfo processName]";
-            "AZPROPASS(A,B)" = "@property (NATOM,ASS) A B";
-            "AZPROPIBO(A,B)" = "@property (ASS) IBOutlet A B";
-            "AZPROPSTR(A,B)" = "@property  (nonatomic,strong) A B";
-            AZQTZCONTEXT = "[NSGraphicsContext.currentContext  graphicsPort]";
-            "AZQtzPath(r)" = "[(AZBezPath(r)) quartzPath]";
-            AZSHAREDAPP = "NSApplication.sharedApplication";
-            AZSHAREDLOG = "DDTTYLogger.sharedInstance";
-            AZSOQ = "AZSharedOperationQueue()";
-            AZSSOQ = "AZSharedSingleOperationQueue()";
-            "AZSTRONGSTRING(A)" = "@property (nonatomic, strong) NSString* A";
-            "AZTALK(log)" = "[AZTalker.new say:log]";
-            "AZTArea(frame)" = "[NSTA.alloc initWithRect:frame options:AZTRACKALL owner:self userInfo:nil]";
-            "AZTAreaInfo(frame,info)" = "[NSTA.allocinitWithRect: frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:info] ";
-            AZTRACKALL = "(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved)";
-            AZUSERDEFS = "NSUserDefaults.standardUserDefaults";
-            AZUSERDEFSCTR = "NSUserDefaultsController.sharedUserDefaultsController";
-            "AZV3d(t)" = "[NSVAL valueWithCATransform3D: t]";
-            "AZVclr(c)" = "[NSVAL valueWithColor: c]";
-            "AZVinstall(p)" = "[NSVAL valueWithInstallStatus: p]";
-            "AZVpoint(p)" = "[NSVAL valueWithPoint: p]";
-            "AZVposi(p)" = "[NSVAL      valueWithPosition: p]";
-            "AZVrect(r)" = "[NSVAL\t\t valueWithRect: r]";
-            "AZVrng(c)" = "[NSVAL  valueWithRange: c]";
-            "AZVsize(s)" = "[NSVAL valueWithSize: s]";
-            AZWEBPREFS = "WebPreferences.standardPreferences";
-            AZWORKSPACE = "NSWorkspace.sharedWorkspace";
-            CAMEDIAEASEIN = "[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]";
-            CAMEDIAEASEOUT = "[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]";
-            CAMEDIAEASY = "[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]";
-            "CGSUPRESSINTERVAL(x)" = "CGEventSourceSetLocalEventsSuppressionInterval(nil,x)";
-            ELSENULL = "?:  [NSNull null]";
-            FM = "NSFileManager.defaultManager";
-            FUTURE = "NSDate.distantFuture";
-            KVONEW = NSKeyValueObservingOptionNew;
-            KVOOLD = NSKeyValueObservingOptionOld;
-            MOUSEDOWN = NSLeftMouseDownMask;
-            MOUSEDRAG = NSLeftMouseDraggedMask;
-            MOUSEDRAGGING = "MOUSEDOWN | MOUSEDRAG | MOUSEUP";
-            MOUSEUP = NSLeftMouseUpMask;
-            "NSBezPath(r)" = "AZBezPath(r)";
-            NSEVENTGLOBALMASK = "NSEvent addGlobalMonitorForEventsMatchingMask";
-            NSEVENTLOCALMASK = "NSEvent addLocalMonitorForEventsMatchingMask ";
-            NSKVOBEFOREAFTER = "NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld";
-            NSZeroRange = "NSMakeRange(0,0)";
-            UNSFE = "unsafe_unretained";
-            USF = "unsafe_unretained";
-            fV = floatValue;
-            iV = integerValue;
-            kContentColorKey = "@\"itemColor\"";
-            kContentImageKey = "@\"itemImage\"";
-            kContentTitleKey = "@\"itemTitle\"";
-            kItemSizeSliderPositionKey = "@\"ItemSizeSliderPosition\"";
-            pBCN = postsBoundsChangedNotifications;
-            pFCN = postsFrameChangedNotifications;
-            pV = pointValue;
-            "performBlockIfDelegateRespondsToSelector(block,sel)" = "if ([delegate respondsToSelector:sel]) { block(); }";
-            "performDelegateSelector(sel)" = "if ([delegate respondsToSelector:sel]) { [delegate performSelector:sel]; }";
-            rV = rectValue;
-            rngV = rangeValue;
-            sansLast = arrayByRemovingLastObject;
-            sepByCharsInSet = componentsSeparatedByCharactersInSet;
-            sepByString = componentsSeparatedByString;
-            setPBCN = "setPostsBoundsChangedNotifications:YES";
-            setPFCN = "setPostsFrameChangedNotifications:YES";
-            uiV = unsignedIntegerValue;
-            vFK = valueForKey;
-            vFKP = valueForKeyPath;
-        };
-        UNUSED =         {
-            "_C" = const;
-            "_E" = extern;
-            "_I" = inline;
-            "_S" = static;
-            "_U" = unsigned;
-        };
-    };
-    META =     {
-    };
-    NS =     {
-        AZOQMAX = NSOperationQueueDefaultMaxConcurrentOperationCount;
-        ISADICT = "isKindOfClass:NSDictionary.class";
-        ISADICTorARRAY = "isKindOfAnyClass:NSAorDCLASS";
-        ISANARRAY = "isKindOfClass:NSArray.class";
-        NSA = NSArray;
-        NSAC = NSArrayController;
-        NSACLASS = "NSArray.class";
-        NSAPP = NSApplication;
-        NSAS = NSAttributedString;
-        NSAT = NSAffineTransform;
-        NSAorDCLASS = "@[NSArray.class, NSDictionary.class]";
-        NSB = NSBundle;
-        NSBIR = NSBitmapImageRep;
-        NSBLO = NSBlockOperation;
-        NSBP = NSBezierPath;
-        NSBRWSR = NSBrowser;
-        NSBSB = NSBackingStoreBuffered;
-        NSBUTT = NSButton;
-        NSBWM = NSBorderlessWindowMask;
-        NSC = NSColor;
-        NSCL = NSColorList;
-        NSCOMPR = NSComparisonResult;
-        NSCS = NSCountedSet;
-        NSCSV = NSCellStateValue;
-        NSD = NSDictionary;
-        NSDCLASS = "NSDictionary.class";
-        NSDE = NSDirectoryEnumerator;
-        NSDO = NSDragOperation;
-        NSE = NSEvent;
-        NSED = NSEntityDescription;
-        NSEM = NSEventMask;
-        NSERR = NSError;
-        NSF = NSFont;
-        NSFH = NSFileHandle;
-        NSG = NSGradient;
-        NSGC = NSGraphicsContext;
-        NSI = NSInteger;
-        NSIMG = NSImage;
-        NSINV = NSInvocation;
-        NSIP = NSIndexPath;
-        NSIS = NSIndexSet;
-        NSIV = NSImageView;
-        NSJS = NSJSONSerialization;
-        NSM = NSMenu;
-        NSMA = NSMutableArray;
-        NSMAS = NSMutableAttributedString;
-        NSMD = NSMutableDictionary;
-        NSMDATA = NSMutableData;
-        NSMI = NSMenuItem;
-        NSMIS = NSMutableIndexSet;
-        NSMO = NSManagedObject;
-        NSMOC = NSManagedObjectContext;
-        NSMOM = NSManagedObjectModel;
-        NSMPS = NSMutableParagraphStyle;
-        NSMS = NSMutableString;
-        NSMSet = NSMutableSet;
-        NSMURLREQ = NSMutableURLRequest;
-        NSMenuI = NSMenuItem;
-        NSN = NSNumber;
-        NSNOT = NSNotification;
-        NSO = NSObject;
-        NSOP = NSOperation;
-        NSOQ = NSOperationQueue;
-        NSOV = NSOutlineView;
-        NSP = NSPoint;
-        NSPI = NSProgressIndicator;
-        NSPInRect = NSPointInRect;
-        NSPO = NSPopover;
-        NSPSC = NSPersistentStoreCoordinator;
-        NSPUBUTT = NSPopUpButton;
-        NSR = NSRect;
-        NSRE = NSRectEdge;
-        NSRFill = NSRectFill;
-        NSRNG = NSRange;
-        NSS = NSString;
-        NSSCLASS = "NSString.class";
-        NSSCRLV = NSScrollView;
-        NSSEGC = NSSegmentedControl;
-        NSSHDW = NSShadow;
-        NSSI = NSStatusItem;
-        NSSPLTV = NSSplitView;
-        NSST = NSSet;
-        NSSZ = NSSize;
-        NST = NSTimer;
-        NSTA = NSTrackingArea;
-        NSTABV = NSTabView;
-        NSTBAR = NSToolbar;
-        NSTC = NSTableColumn;
-        NSTI = NSTimeInterval;
-        NSTSK = NSTask;
-        NSTV = NSTableView;
-        NSTVDO = NSTableViewDropOperation;
-        NSTXTF = NSTextField;
-        NSTXTV = NSTextView;
-        NSUI = NSUInteger;
-        NSURLC = NSURLConnection;
-        NSURLREQ = NSURLRequest;
-        NSURLRES = NSURLResponse;
-        NSV = NSView;
-        NSVAL = NSValue;
-        NSVC = NSViewController;
-        NSVT = NSValueTransformer;
-        NSW = NSWindow;
-        NSWC = NSWindowController;
-        SIG = NSMethodSignature;
-    };
-    "SORT_EXCEPTIONS" =     {
-        ALPHA =         (
-            "DEFINES.MISC",
-            "DEFINES.STRINGS",
-            "DEFINES.PROPERTIES",
-            "DEFINES.ABBREVIATIONS"
-        );
-        LENGTH =         (
-            "TYPES.PRIMITIVES"
-        );
-    };
-    TYPES =     {
-        BLOCKS =         {
-        };
-        "BLOCKS_VOIDS" =         {
-            "_Void (^)  _Void_" = "\Uff3eVoid";
-            "_Void (^) ()" = "\Uff3eBlok";
-            "_Void (^) (_Cord p)" = "\Uff3eCord";
-            "_Void (^) (_Data d)" = "\Uff3eData";
-            "_Void (^) (_Dict d)" = "\Uff3eDict";
-            "_Void (^) (_IsIt b)" = "\Uff3eIsIt";
-            "_Void (^) (_List a)" = "\Uff3eList";
-            "_Void (^) (_NUrl u)" = "\Uff3eNUrl";
-            "_Void (^) (_Numb n)" = "\Uff3eNumb";
-            "_Void (^) (_ObjC x)" = "\Uff3eObjC";
-            "_Void (^) (_ObjC x, _SInt c)" = "\Uff3eIDST";
-            "_Void (^) (_ObjC x, _UInt c)" = "\Uff3eIDUT";
-            "_Void (^) (_Rect r)" = "\Uff3eRect";
-            "_Void (^) (_SInt i)" = "\Uff3eSInt";
-            "_Void (^) (_Text p)" = "\Uff3eText";
-            "_Void (^) (_UInt i)" = "\Uff3eUInt";
-        };
-        POINTERS =         {
-            "AVAudioPlayer *" = "_SndP";
-            "CALayer *" = "_Layr";
-            "NSApplication *" = "_Appl";
-            "NSArray *" = "_List";
-            "NSAttributedString *" = "_ATxt";
-            "NSBezierPath *" = "_Path";
-            "NSBundle *" = "_Bndl";
-            "NSCalendar * " = "_NCal";
-            "NSCharacterSet *" = "_CSet";
-            "NSColor *" = "_Colr";
-            "NSData *" = "_Data";
-            "NSDate *" = "_Date";
-            "NSDateFormatter *" = "_DFmt";
-            "NSDictionary *" = "_Dict";
-            "NSError *" = "_Errr";
-            "NSEvent *" = "_Evnt";
-            "NSFileHandle *" = "_File";
-            "NSFont *" = "_Font";
-            "NSImage *" = "_Pict";
-            NSIndexSet = "_ISet";
-            "NSInvocation *" = "_Call";
-            "NSJSONSerialization *" = "_Json";
-            "NSLayoutManager *" = "_LMan";
-            "NSMutableArray *" = mList;
-            "NSMutableAttributedString *" = mATxt;
-            "NSMutableCharacterSet *" = mCSet;
-            "NSMutableData *" = mData;
-            "NSMutableDictionary *" = mDict;
-            "NSMutableIndexSet *" = mISet;
-            "NSMutableParagraphStyle *" = mPStl;
-            "NSMutableString *" = mText;
-            "NSMutableURLRequest * " = mNReq;
-            "NSNotification *" = "_Note";
-            "NSNumber *" = "_Numb";
-            "NSObject *" = "_NObj";
-            "NSParagraphStyle *" = "_PStl";
-            "NSPipe *" = "_Pipe";
-            "NSScanner *" = "_Scnr";
-            "NSStatusBar *" = "_SBar";
-            "NSString *" = "_Text";
-            "NSTableView *" = "_TblV";
-            "NSTimer *" = "_Timr";
-            "NSURL *" = "_NUrl";
-            "NSURLConnection *" = "_NCon";
-            "NSURLRequest *" = "_NReq";
-            "NSURLResponse *" = "_NRes";
-            "NSUserDefaults *" = "_Defs";
-            "NSValue *" = "_Valu";
-            "NSView *" = "_View";
-            "NSWindow *" = "_Wind";
-            "XCTestCase *" = "_Case";
-            "char *" = "_Char";
-            "unsigned char *" = "_UChr";
-        };
-        "POINTERS_MAC" =         {
-            "NSAppleEventDescriptor *" = "_AEvD";
-            "NSAppleScript *" = "_Scpt";
-            "NSArrayController *" = xList;
-            "NSFileHandle *" = "_Hndl";
-            "NSImageView *" = "_PicV";
-            "NSMenu *" = "_Menu";
-            "NSMenuItem *" = "_SubM";
-            "NSOutlineView *" = "_OutV";
-            "NSPanel *" = "_Panl";
-            "NSScrollView *" = "_Scrl";
-            "NSSplitView *" = "_Splt";
-            "NSStatusItem *" = "_SItm";
-            "NSTableColumn *" = "_TCol";
-            "NSTableView *" = "_Tabl";
-            "NSTask *" = "_Task";
-            "NSTextField *" = "_Labl";
-            "NSTextView *" = "_TxtV";
-            "NSUserNotification *" = uNote;
-            "NSUserNotificationCenter *" = uNCtr;
-            "NSWindowController *" = xWind;
-            "WebView *" = "_WebV";
-        };
-        PRIMITIVES =         {
-            BOOL = "_IsIt";
-            Class = "_Meta";
-            NSComparisonResult = "_Comp";
-            NSInteger = "_SInt";
-            NSUInteger = "_UInt";
-            SEL = "_Meth";
-            "dispatch_queue_t" = "_DQue";
-            id = "_ObjC";
-            long = "_Long";
-            "unsigned long" = "_ULng";
-            void = "_Void";
-        };
-        STRUCTS =         {
-            CGAffineTransform = "_AffT";
-            CGFloat = "_Flot";
-            CGPoint = "_Cord";
-            CGRect = "_Rect";
-            CGSize = "_Size";
-            NSRange = "_Rnge";
-        };
-    };
-    "\Ud83d\Udcd5REFERENCE" =     {
-        AllCLasses =         (
-            ABAddressBook,
-            ABGroup,
-            ABMultiValue,
-            ABMutableMultiValue,
-            ABPeoplePickerView,
-            ABPerson,
-            ABPersonView,
-            ABRecord,
-            ABSearchElement,
-            CAAnimation,
-            CAAnimationGroup,
-            CABasicAnimation,
-            CAConstraint,
-            CAConstraintLayoutManager,
-            CAEmitterCell,
-            CAEmitterLayer,
-            CAGradientLayer,
-            CAKeyframeAnimation,
-            CALayer,
-            CAMediaTimingFunction,
-            CAOpenGLLayer,
-            CAPropertyAnimation,
-            CARemoteLayerClient,
-            CARemoteLayerServer,
-            CARenderer,
-            CAReplicatorLayer,
-            CAScrollLayer,
-            CAShapeLayer,
-            CATextLayer,
-            CATiledLayer,
-            CATransaction,
-            CATransformLayer,
-            CATransition,
-            CAValueFunction,
-            CIColor,
-            CIContext,
-            CIDetector,
-            CIFaceFeature,
-            CIFeature,
-            CIFilter,
-            CIFilterGenerator,
-            CIFilterShape,
-            CIImage,
-            CIImageAccumulator,
-            CIKernel,
-            CIPlugIn,
-            CIQRCodeFeature,
-            CIRectangleFeature,
-            CISampler,
-            CIVector,
-            DOMAbstractView,
-            DOMAttr,
-            DOMBlob,
-            DOMCDATASection,
-            DOMCSSCharsetRule,
-            DOMCSSFontFaceRule,
-            DOMCSSImportRule,
-            DOMCSSMediaRule,
-            DOMCSSPageRule,
-            DOMCSSPrimitiveValue,
-            DOMCSSRule,
-            DOMCSSRuleList,
-            DOMCSSStyleDeclaration,
-            DOMCSSStyleRule,
-            DOMCSSStyleSheet,
-            DOMCSSUnknownRule,
-            DOMCSSValue,
-            DOMCSSValueList,
-            DOMCharacterData,
-            DOMComment,
-            DOMCounter,
-            DOMDocument,
-            DOMDocumentFragment,
-            DOMDocumentType,
-            DOMElement,
-            DOMEntity,
-            DOMEntityReference,
-            DOMEvent,
-            DOMFile,
-            DOMFileList,
-            DOMHTMLAnchorElement,
-            DOMHTMLAppletElement,
-            DOMHTMLAreaElement,
-            DOMHTMLBRElement,
-            DOMHTMLBaseElement,
-            DOMHTMLBaseFontElement,
-            DOMHTMLBodyElement,
-            DOMHTMLButtonElement,
-            DOMHTMLCollection,
-            DOMHTMLDListElement,
-            DOMHTMLDirectoryElement,
-            DOMHTMLDivElement,
-            DOMHTMLDocument,
-            DOMHTMLElement,
-            DOMHTMLEmbedElement,
-            DOMHTMLFieldSetElement,
-            DOMHTMLFontElement,
-            DOMHTMLFormElement,
-            DOMHTMLFrameElement,
-            DOMHTMLFrameSetElement,
-            DOMHTMLHRElement,
-            DOMHTMLHeadElement,
-            DOMHTMLHeadingElement,
-            DOMHTMLHtmlElement,
-            DOMHTMLIFrameElement,
-            DOMHTMLImageElement,
-            DOMHTMLInputElement,
-            DOMHTMLLIElement,
-            DOMHTMLLabelElement,
-            DOMHTMLLegendElement,
-            DOMHTMLLinkElement,
-            DOMHTMLMapElement,
-            DOMHTMLMarqueeElement,
-            DOMHTMLMenuElement,
-            DOMHTMLMetaElement,
-            DOMHTMLModElement,
-            DOMHTMLOListElement,
-            DOMHTMLObjectElement,
-            DOMHTMLOptGroupElement,
-            DOMHTMLOptionElement,
-            DOMHTMLOptionsCollection,
-            DOMHTMLParagraphElement,
-            DOMHTMLParamElement,
-            DOMHTMLPreElement,
-            DOMHTMLQuoteElement,
-            DOMHTMLScriptElement,
-            DOMHTMLSelectElement,
-            DOMHTMLStyleElement,
-            DOMHTMLTableCaptionElement,
-            DOMHTMLTableCellElement,
-            DOMHTMLTableColElement,
-            DOMHTMLTableElement,
-            DOMHTMLTableRowElement,
-            DOMHTMLTableSectionElement,
-            DOMHTMLTextAreaElement,
-            DOMHTMLTitleElement,
-            DOMHTMLUListElement,
-            DOMImplementation,
-            DOMKeyboardEvent,
-            DOMMediaList,
-            DOMMouseEvent,
-            DOMMutationEvent,
-            DOMNamedNodeMap,
-            DOMNode,
-            DOMNodeIterator,
-            DOMNodeList,
-            DOMNotation,
-            DOMObject,
-            DOMOverflowEvent,
-            DOMProcessingInstruction,
-            DOMProgressEvent,
-            DOMRGBColor,
-            DOMRange,
-            DOMRect,
-            DOMStyleSheet,
-            DOMStyleSheetList,
-            DOMText,
-            DOMTreeWalker,
-            DOMUIEvent,
-            DOMWheelEvent,
-            DOMXPathExpression,
-            DOMXPathResult,
-            ICCameraDevice,
-            ICCameraFile,
-            ICCameraFolder,
-            ICCameraItem,
-            ICDevice,
-            ICDeviceBrowser,
-            ICScannerBandData,
-            ICScannerDevice,
-            ICScannerFeature,
-            ICScannerFeatureBoolean,
-            ICScannerFeatureEnumeration,
-            ICScannerFeatureRange,
-            ICScannerFeatureTemplate,
-            ICScannerFunctionalUnit,
-            ICScannerFunctionalUnitDocumentFeeder,
-            ICScannerFunctionalUnitFlatbed,
-            ICScannerFunctionalUnitNegativeTransparency,
-            ICScannerFunctionalUnitPositiveTransparency,
-            IKCameraDeviceView,
-            IKDeviceBrowserView,
-            IKFilterBrowserPanel,
-            IKFilterBrowserView,
-            IKFilterUIView,
-            IKImageBrowserCell,
-            IKImageBrowserView,
-            IKImageEditPanel,
-            IKImageView,
-            IKPictureTaker,
-            IKSaveOptions,
-            IKScannerDeviceView,
-            IKSlideshow,
-            NSATSTypesetter,
-            NSAccessibilityElement,
-            NSActionCell,
-            NSAffineTransform,
-            NSAlert,
-            NSAnimation,
-            NSAnimationContext,
-            NSAppearance,
-            NSAppleEventDescriptor,
-            NSAppleEventManager,
-            NSAppleScript,
-            NSApplication,
-            NSArchiver,
-            NSArray,
-            NSArrayController,
-            NSAssertionHandler,
-            NSAsynchronousFetchRequest,
-            NSAsynchronousFetchResult,
-            NSAtomicStore,
-            NSAtomicStoreCacheNode,
-            NSAttributeDescription,
-            NSAttributedString,
-            NSAutoreleasePool,
-            NSBackgroundActivityScheduler,
-            NSBatchUpdateRequest,
-            NSBatchUpdateResult,
-            NSBezierPath,
-            NSBitmapImageRep,
-            NSBlockOperation,
-            NSBox,
-            NSBrowser,
-            NSBrowserCell,
-            NSBundle,
-            NSButton,
-            NSButtonCell,
-            NSByteCountFormatter,
-            NSCIImageRep,
-            NSCache,
-            NSCachedURLResponse,
-            NSCalendar,
-            NSCalendarDate,
-            NSCell,
-            NSCharacterSet,
-            NSClassDescription,
-            NSClickGestureRecognizer,
-            NSClipView,
-            NSCloneCommand,
-            NSCloseCommand,
-            NSCoder,
-            NSCollectionView,
-            NSCollectionViewItem,
-            NSColor,
-            NSColorList,
-            NSColorPanel,
-            NSColorPicker,
-            NSColorSpace,
-            NSColorWell,
-            NSComboBox,
-            NSComboBoxCell,
-            NSComparisonPredicate,
-            NSCompoundPredicate,
-            NSCondition,
-            NSConditionLock,
-            NSConnection,
-            NSConstantString,
-            NSControl,
-            NSController,
-            NSCountCommand,
-            NSCountedSet,
-            NSCreateCommand,
-            NSCursor,
-            NSCustomImageRep,
-            NSData,
-            NSDataDetector,
-            NSDate,
-            NSDateComponents,
-            NSDateComponentsFormatter,
-            NSDateFormatter,
-            NSDateIntervalFormatter,
-            NSDatePicker,
-            NSDatePickerCell,
-            NSDecimalNumber,
-            NSDecimalNumberHandler,
-            NSDeleteCommand,
-            NSDictionary,
-            NSDictionaryController,
-            NSDirectoryEnumerator,
-            NSDistantObject,
-            NSDistantObjectRequest,
-            NSDistributedLock,
-            NSDistributedNotificationCenter,
-            NSDockTile,
-            NSDocument,
-            NSDocumentController,
-            NSDraggingImageComponent,
-            NSDraggingItem,
-            NSDraggingSession,
-            NSDrawer,
-            NSEPSImageRep,
-            NSEnergyFormatter,
-            NSEntityDescription,
-            NSEntityMapping,
-            NSEntityMigrationPolicy,
-            NSEnumerator,
-            NSError,
-            NSEvent,
-            NSException,
-            NSExceptionHandler,
-            NSExistsCommand,
-            NSExpression,
-            NSExpressionDescription,
-            NSExtensionContext,
-            NSExtensionItem,
-            NSFetchRequest,
-            NSFetchRequestExpression,
-            NSFetchedPropertyDescription,
-            NSFileAccessIntent,
-            NSFileCoordinator,
-            NSFileHandle,
-            NSFileManager,
-            NSFileSecurity,
-            NSFileVersion,
-            NSFileWrapper,
-            NSFont,
-            NSFontCollection,
-            NSFontDescriptor,
-            NSFontManager,
-            NSFontPanel,
-            NSForm,
-            NSFormCell,
-            NSFormatter,
-            NSGarbageCollector,
-            NSGestureRecognizer,
-            NSGetCommand,
-            NSGlyphGenerator,
-            NSGlyphInfo,
-            NSGradient,
-            NSGraphicsContext,
-            NSHTTPCookie,
-            NSHTTPCookieStorage,
-            NSHTTPURLResponse,
-            NSHashTable,
-            NSHelpManager,
-            NSHost,
-            NSImage,
-            NSImageCell,
-            NSImageRep,
-            NSImageView,
-            NSIncrementalStore,
-            NSIncrementalStoreNode,
-            NSIndexPath,
-            NSIndexSet,
-            NSIndexSpecifier,
-            NSInputStream,
-            NSInvocation,
-            NSInvocationOperation,
-            NSItemProvider,
-            NSJSONSerialization,
-            NSKeyedArchiver,
-            NSKeyedUnarchiver,
-            NSLayoutConstraint,
-            NSLayoutManager,
-            NSLengthFormatter,
-            NSLevelIndicator,
-            NSLevelIndicatorCell,
-            NSLinguisticTagger,
-            NSLocale,
-            NSLock,
-            NSLogicalTest,
-            NSMachBootstrapServer,
-            NSMachPort,
-            NSMagnificationGestureRecognizer,
-            NSManagedObject,
-            NSManagedObjectContext,
-            NSManagedObjectID,
-            NSManagedObjectModel,
-            NSMapTable,
-            NSMappingModel,
-            NSMassFormatter,
-            NSMatrix,
-            NSMediaLibraryBrowserController,
-            NSMenu,
-            NSMenuItem,
-            NSMenuItemCell,
-            NSMergeConflict,
-            NSMergePolicy,
-            NSMessagePort,
-            NSMessagePortNameServer,
-            NSMetadataItem,
-            NSMetadataQuery,
-            NSMetadataQueryAttributeValueTuple,
-            NSMetadataQueryResultGroup,
-            NSMethodSignature,
-            NSMiddleSpecifier,
-            NSMigrationManager,
-            NSMoveCommand,
-            NSMutableArray,
-            NSMutableAttributedString,
-            NSMutableCharacterSet,
-            NSMutableData,
-            NSMutableDictionary,
-            NSMutableFontCollection,
-            NSMutableIndexSet,
-            NSMutableOrderedSet,
-            NSMutableParagraphStyle,
-            NSMutableSet,
-            NSMutableString,
-            NSMutableURLRequest,
-            NSNameSpecifier,
-            NSNetService,
-            NSNetServiceBrowser,
-            NSNib,
-            NSNotification,
-            NSNotificationCenter,
-            NSNotificationQueue,
-            NSNull,
-            NSNumber,
-            NSNumberFormatter,
-            NSObject,
-            NSObjectController,
-            NSOpenGLContext,
-            NSOpenGLLayer,
-            NSOpenGLPixelFormat,
-            NSOpenGLView,
-            NSOpenPanel,
-            NSOperation,
-            NSOperationQueue,
-            NSOrderedSet,
-            NSOrthography,
-            NSOutlineView,
-            NSOutputStream,
-            NSPDFImageRep,
-            NSPDFInfo,
-            NSPDFPanel,
-            NSPICTImageRep,
-            NSPageController,
-            NSPageLayout,
-            NSPanGestureRecognizer,
-            NSPanel,
-            NSParagraphStyle,
-            NSPasteboard,
-            NSPasteboardItem,
-            NSPathCell,
-            NSPathComponentCell,
-            NSPathControl,
-            NSPathControlItem,
-            NSPersistentDocument,
-            NSPersistentStore,
-            NSPersistentStoreAsynchronousResult,
-            NSPersistentStoreCoordinator,
-            NSPersistentStoreRequest,
-            NSPersistentStoreResult,
-            NSPipe,
-            NSPointerArray,
-            NSPointerFunctions,
-            NSPopUpButton,
-            NSPopUpButtonCell,
-            NSPopover,
-            NSPort,
-            NSPortCoder,
-            NSPortMessage,
-            NSPortNameServer,
-            NSPositionalSpecifier,
-            NSPredicate,
-            NSPredicateEditor,
-            NSPredicateEditorRowTemplate,
-            NSPreferencePane,
-            NSPressGestureRecognizer,
-            NSPrintInfo,
-            NSPrintOperation,
-            NSPrintPanel,
-            NSPrinter,
-            NSProcessInfo,
-            NSProgress,
-            NSProgressIndicator,
-            NSPropertyDescription,
-            NSPropertyListSerialization,
-            NSPropertyMapping,
-            NSPropertySpecifier,
-            NSProtocolChecker,
-            NSProxy,
-            NSPurgeableData,
-            NSQuitCommand,
-            NSRandomSpecifier,
-            NSRangeSpecifier,
-            NSRecursiveLock,
-            NSRegularExpression,
-            NSRelationshipDescription,
-            NSRelativeSpecifier,
-            NSResponder,
-            NSRotationGestureRecognizer,
-            NSRuleEditor,
-            NSRulerMarker,
-            NSRulerView,
-            NSRunLoop,
-            NSRunningApplication,
-            NSSaveChangesRequest,
-            NSSavePanel,
-            NSScanner,
-            NSScreen,
-            NSScriptClassDescription,
-            NSScriptCoercionHandler,
-            NSScriptCommand,
-            NSScriptCommandDescription,
-            NSScriptExecutionContext,
-            NSScriptObjectSpecifier,
-            NSScriptSuiteRegistry,
-            NSScriptWhoseTest,
-            NSScrollView,
-            NSScroller,
-            NSSearchField,
-            NSSearchFieldCell,
-            NSSecureTextField,
-            NSSecureTextFieldCell,
-            NSSegmentedCell,
-            NSSegmentedControl,
-            NSSet,
-            NSSetCommand,
-            NSShadow,
-            NSSharingService,
-            NSSharingServicePicker,
-            NSSimpleCString,
-            NSSlider,
-            NSSliderCell,
-            NSSocketPort,
-            NSSocketPortNameServer,
-            NSSortDescriptor,
-            NSSound,
-            NSSpecifierTest,
-            NSSpeechRecognizer,
-            NSSpeechSynthesizer,
-            NSSpellChecker,
-            NSSpellServer,
-            NSSplitView,
-            NSSplitViewController,
-            NSSplitViewItem,
-            NSStackView,
-            NSStatusBar,
-            NSStatusBarButton,
-            NSStatusItem,
-            NSStepper,
-            NSStepperCell,
-            NSStoryboard,
-            NSStoryboardSegue,
-            NSStream,
-            NSString,
-            NSTabView,
-            NSTabViewController,
-            NSTabViewItem,
-            NSTableCellView,
-            NSTableColumn,
-            NSTableHeaderCell,
-            NSTableHeaderView,
-            NSTableRowView,
-            NSTableView,
-            NSTask,
-            NSText,
-            NSTextAlternatives,
-            NSTextAttachment,
-            NSTextAttachmentCell,
-            NSTextBlock,
-            NSTextCheckingResult,
-            NSTextContainer,
-            NSTextField,
-            NSTextFieldCell,
-            NSTextFinder,
-            NSTextInputContext,
-            NSTextList,
-            NSTextStorage,
-            NSTextTab,
-            NSTextTable,
-            NSTextTableBlock,
-            NSTextView,
-            NSThread,
-            NSTimeZone,
-            NSTimer,
-            NSTitlebarAccessoryViewController,
-            NSTokenField,
-            NSTokenFieldCell,
-            NSToolbar,
-            NSToolbarItem,
-            NSToolbarItemGroup,
-            NSTouch,
-            NSTrackingArea,
-            NSTreeController,
-            NSTreeNode,
-            NSTypesetter,
-            NSURL,
-            NSURLAuthenticationChallenge,
-            NSURLCache,
-            NSURLComponents,
-            NSURLConnection,
-            NSURLCredential,
-            NSURLCredentialStorage,
-            NSURLDownload,
-            NSURLHandle,
-            NSURLProtectionSpace,
-            NSURLProtocol,
-            NSURLQueryItem,
-            NSURLRequest,
-            NSURLResponse,
-            NSURLSession,
-            NSURLSessionConfiguration,
-            NSURLSessionDataTask,
-            NSURLSessionDownloadTask,
-            NSURLSessionTask,
-            NSURLSessionUploadTask,
-            NSUUID,
-            NSUbiquitousKeyValueStore,
-            NSUnarchiver,
-            NSUndoManager,
-            NSUniqueIDSpecifier,
-            NSUserActivity,
-            NSUserAppleScriptTask,
-            NSUserAutomatorTask,
-            NSUserDefaults,
-            NSUserDefaultsController,
-            NSUserNotification,
-            NSUserNotificationAction,
-            NSUserNotificationCenter,
-            NSUserScriptTask,
-            NSUserUnixTask,
-            NSValue,
-            NSValueTransformer,
-            NSView,
-            NSViewAnimation,
-            NSViewController,
-            NSVisualEffectView,
-            NSWhoseSpecifier,
-            NSWindow,
-            NSWindowController,
-            NSWorkspace,
-            NSXMLDTD,
-            NSXMLDTDNode,
-            NSXMLDocument,
-            NSXMLElement,
-            NSXMLNode,
-            NSXMLParser,
-            NSXPCConnection,
-            NSXPCInterface,
-            NSXPCListener,
-            NSXPCListenerEndpoint,
-            PDFAction,
-            PDFActionGoTo,
-            PDFActionNamed,
-            PDFActionRemoteGoTo,
-            PDFActionResetForm,
-            PDFActionURL,
-            PDFAnnotation,
-            PDFAnnotationButtonWidget,
-            PDFAnnotationChoiceWidget,
-            PDFAnnotationCircle,
-            PDFAnnotationFreeText,
-            PDFAnnotationInk,
-            PDFAnnotationLine,
-            PDFAnnotationLink,
-            PDFAnnotationMarkup,
-            PDFAnnotationPopup,
-            PDFAnnotationSquare,
-            PDFAnnotationStamp,
-            PDFAnnotationText,
-            PDFAnnotationTextWidget,
-            PDFBorder,
-            PDFDestination,
-            PDFDocument,
-            PDFOutline,
-            PDFPage,
-            PDFSelection,
-            PDFThumbnailView,
-            PDFView,
-            QCComposition,
-            QCCompositionLayer,
-            QCCompositionParameterView,
-            QCCompositionPickerPanel,
-            QCCompositionPickerView,
-            QCCompositionRepository,
-            QCPatchController,
-            QCPlugIn,
-            QCPlugInViewController,
-            QCRenderer,
-            QCView,
-            QLPreviewPanel,
-            QLPreviewView,
-            QTCaptureAudioPreviewOutput,
-            QTCaptureConnection,
-            QTCaptureDecompressedAudioOutput,
-            QTCaptureDecompressedVideoOutput,
-            QTCaptureDevice,
-            QTCaptureDeviceInput,
-            QTCaptureFileOutput,
-            QTCaptureInput,
-            QTCaptureLayer,
-            QTCaptureMovieFileOutput,
-            QTCaptureOutput,
-            QTCaptureSession,
-            QTCaptureVideoPreviewOutput,
-            QTCaptureView,
-            QTCompressionOptions,
-            QTDataReference,
-            QTFormatDescription,
-            QTMedia,
-            QTMetadataItem,
-            QTMovie,
-            QTMovieLayer,
-            QTMovieModernizer,
-            QTMovieView,
-            QTSampleBuffer,
-            QTTrack,
-            QuartzFilter,
-            QuartzFilterManager,
-            QuartzFilterView,
-            ScreenSaverDefaults,
-            ScreenSaverView,
-            WKBackForwardList,
-            WKBackForwardListItem,
-            WKFrameInfo,
-            WKNavigation,
-            WKNavigationAction,
-            WKNavigationResponse,
-            WKPreferences,
-            WKProcessPool,
-            WKScriptMessage,
-            WKUserContentController,
-            WKUserScript,
-            WKWebView,
-            WKWebViewConfiguration,
-            WKWindowFeatures,
-            WebArchive,
-            WebBackForwardList,
-            WebDataSource,
-            WebDownload,
-            WebFrame,
-            WebFrameView,
-            WebHistory,
-            WebHistoryItem,
-            WebPreferences,
-            WebResource,
-            WebScriptObject,
-            WebUndefined,
-            WebView
-        );
-        AllTypes =         (
-            NSAffineTransformStruct,
-            NSAlertStyle,
-            NSAnimationEffect,
-            NSAnimationProgress,
-            NSAppleEventManagerSuspensionID,
-            NSApplicationDelegateReply,
-            NSApplicationPrintReply,
-            NSApplicationTerminateReply,
-            NSBackingStoreType,
-            NSBezelStyle,
-            NSBitmapImageFileType,
-            NSBorderType,
-            NSBrowserColumnResizingType,
-            NSButtonType,
-            NSCellAttribute,
-            NSCellImagePosition,
-            NSCellState,
-            NSCellType,
-            NSComparisonResult,
-            NSCompositingOperation,
-            NSControlSize,
-            NSControlTint,
-            NSDatePickerElementFlags,
-            NSDocumentChangeType,
-            NSDragOperation,
-            NSDrawerState,
-            NSEventType,
-            NSFocusRingType,
-            NSFontAction,
-            NSFontSymbolicTraits,
-            NSFontTraitMask,
-            NSGlyph,
-            NSGlyphLayoutMode,
-            NSGlyphRelation,
-            NSGradientType,
-            NSHandler,
-            NSHandler2,
-            NSHashEnumerator,
-            NSHashTable,
-            NSImageInterpolation,
-            NSKeyValueObservingOptions,
-            NSLayoutDirection,
-            NSLayoutStatus,
-            NSLineBreakMode,
-            NSMapEnumerator,
-            NSMapTable,
-            NSMatrixMode,
-            NSModalSession,
-            NSOpenGLContextAuxiliary,
-            NSOpenGLPixelFormatAuxiliary,
-            NSPoint,
-            NSPrintingPageOrder,
-            NSProgressIndicatorStyle,
-            NSProgressIndicatorThickness,
-            NSProgressIndicatorThreadInfo,
-            NSRange,
-            NSRect,
-            NSRectEdge,
-            NSSaveOperationType,
-            NSScreenAuxiliaryOpaque,
-            NSScrollArrowPosition,
-            NSScrollerArrow,
-            NSScrollerPart,
-            NSSelectionAffinity,
-            NSSelectionDirection,
-            NSSelectionGranularity,
-            NSSize,
-            NSSocketNativeHandle,
-            NSStringEncoding,
-            NSSwappedDouble,
-            NSSwappedFloat,
-            NSTIFFCompression,
-            NSTabState,
-            NSTabViewType,
-            NSTableViewDropOperation,
-            NSTextAlignment,
-            NSTextTabType,
-            NSThreadPrivate,
-            NSTickMarkPosition,
-            NSTimeInterval,
-            NSTitlePosition,
-            NSTokenStyle,
-            NSToolTipTag,
-            NSToolbarDisplayMode,
-            NSToolbarSizeMode,
-            NSTrackingRectTag,
-            NSTypesetterGlyphInfo,
-            NSUsableScrollerParts,
-            NSWindowDepth,
-            NSWindowOrderingMode,
-            NSWorkspaceIconCreationOptions,
-            NSWorkspaceLaunchOptions,
-            NSWritingDirection,
-            NSZone
-        );
-    };
+	"ALIAS_INSTANCE_RETURN" = (
+		"_Bndl",
+		"_Colr",
+		"_Cord",
+		"_CRes",
+		"_CSet",
+		"_Data",
+		"_Dict",
+		"_Errr",
+		"_Evnt",
+		"_File",
+		"_Flot",
+		"_IsIt",
+		"_Json",
+		"_Layr",
+		"_List",
+		"_Meta",
+		"_Meth",
+		"_NObj",
+		"_Numb",
+		"_NUrl",
+		"_ObjC",
+		"_Path",
+		"_Pict",
+		"_Pipe",
+		"_PStl",
+		"_Rect",
+		"_Rnge",
+		"_SInt",
+		"_Size",
+		"_SndP",
+		"_TblV",
+		"_Text",
+		"_UInt",
+		"_View",
+		"_Wind",
+		mCSet,
+		mData,
+		mDict,
+		mList,
+		mText,
+	);
+	DEFINES = {
+		ABBREVIATIONS = {
+			"_FM" = "NSFileManager.defaultManager";
+			"_PI" = "NSProcessInfo.processInfo";
+			"_VD" = "- _Void_ ";
+			bFK = boolForKey;
+			bV = boolValue;
+			dV = doubleValue;
+			fV = floatValue;
+			iV = integerValue;
+			mAVFK = "mutableArrayValueForKey";
+			mC = mutableCopy;
+			oFK = objectForKey;
+			pV = pointValue;
+			rV = rectValue;
+			rngV = rangeValue;
+			strV = stringValue;
+			uIV = unsignedIntegerValue;
+			vFK = valueForKey;
+			vFKP = valueForKeyPath;
+		};
+		ALIASES = {};
+		"GEOMETRY_TRANSLATIONS" = {
+			NSEqualPoints = CGPointEqualToPoint;
+			NSEqualRects = CGRectEqualToRect;
+			NSEqualSizes = CGSizeEqualToSize;
+			NSMakePoint = CGPointMake;
+			NSMakeRect = CGRectMake;
+			NSMakeSize = CGSizeMake;
+			NSPointFromString = CGPointFromString;
+			"NSPointInRect(P,R)" = "CGRectContainsPoint(R,P)";
+			NSRectFromString = CGRectFromString;
+			NSSizeFromString = CGSizeFromString;
+			NSStringFromPoint = NSStringFromCGPoint;
+			NSStringFromRect = NSStringFromCGRect;
+			NSStringFromSize = NSStringFromCGSize;
+			"colorWithCalibratedHue" = colorWithHue;
+			"colorWithCalibratedRed" = colorWithRed;
+			colorWithDeviceRed = colorWithRed;
+			pointValue = CGPointValue;
+			rectValue = CGRectValue;
+			sizeValue = CGSizeValue;
+			valueWithPoint = valueWithCGPoint;
+			valueWithRect = valueWithCGRect;
+			valueWithSize = valueWithCGSize;
+		};
+		MISC = {
+			"$UNIC(C)" = "[NSString stringWithCharacter:C]";
+			"APPLE_MAIN" = (
+				"Apple's take on main()",
+				"int main(int argc, char **argv, char **envp, char **apple)",
+			);
+			"INIT_(K,...)" = "[[K alloc] init##__VA_ARGS__]";
+			"INIT_THEN(...)" = "SUPERINIT; ({ __VA_ARGS__ }); return self;";
+			"INTERFACE(X,...)" = "@interface X : __VA_ARGS__ + (instancetype)";
+			"KIND(Name,...)" = "Kind_(Name,NObj,__VA_ARGS__)";
+			"Kind_(Name,Meta,...)" = "interface Name : Meta __VA_ARGS__";
+			"M(X)" = (
+				"Cute shortcute for Mentioning mutable NS-classes.",
+				"NSMutable##X",
+			);
+			"MAIN(...)" = (
+				"Makes writing main functions WAY less verbose. @note assign non-zero value to \"EXIT\" for failure.",
+				"APPLE_MAIN { int EXIT = 0; @autoreleasepool { ({ __VA_ARGS__; }); } return EXIT; }",
+			);
+			"NEW(A,B)" = (
+				"Creates a new one.",
+				"A * B = [A new];",
+			);
+			NSStringValue = "@\"stringValue\"";
+			Plan = implementation;
+			"SELFINIT(...)" = "return self = super.init ? ({ __VA_ARGS__; }), self : nil";
+			"VAR(A,B,C)" = (
+				"Generates declaration of primitive variable named @oaram B, of type @param A, with initial value of @param C",
+				"A B = C;",
+			);
+			Vows = protocol;
+			"Xtra(Extends,Named)" = "interface Extends      (Named)";
+			"XtraPlan(Extends,Named)" = "implementation Extends (Named)";
+			"XtraStop(...)" = Stop;
+			"_Case(Name,...)" = "@Incl XCTest; @Kind_ (Name,XCTestCase)  \Uffed @Plan Name XCTUp(__VA_ARGS__)";
+			"_Cat(K,...)" = "@interface K (Sans) __VA_ARGS__; @end";
+			"_FINI" = "@end";
+			"_IFCE" = "@interface";
+			"_IMPL" = "@implementation";
+			"_IMPT" = "@import";
+			"_Kind" = "@interface";
+			"_Kind_" = (
+				"Sugar for (instancetype) methods.",
+				"(instancetype)",
+			);
+			"_PRTO" = "@protocol";
+		};
+		"MISC.off" = {
+			"Kind(Name,...)" = "Kind_(Name,NObj,__VA_ARGS__)";
+		};
+		NS = {
+			AZOQMAX = "NSOperationQueueDefaultMaxConcurrentOperationCount";
+			ISADICT = "isKindOfClass:NSDictionary.class";
+			ISADICTorARRAY = "isKindOfAnyClass:NSAorDCLASS";
+			ISANARRAY = "isKindOfClass:NSArray.class";
+			NSA = NSArray;
+			NSAC = NSArrayController;
+			NSACLASS = "NSArray.class";
+			NSAPP = NSApplication;
+			NSAS = NSAttributedString;
+			NSAT = NSAffineTransform;
+			NSAorDCLASS = "@[NSArray.class, NSDictionary.class]";
+			NSB = NSBundle;
+			NSBIR = NSBitmapImageRep;
+			NSBLO = NSBlockOperation;
+			NSBP = NSBezierPath;
+			NSBRWSR = NSBrowser;
+			NSBSB = "NSBackingStoreBuffered";
+			NSBUTT = NSButton;
+			NSBWM = "NSBorderlessWindowMask";
+			NSC = NSColor;
+			NSCL = NSColorList;
+			NSCOMPR = NSComparisonResult;
+			NSCS = NSCountedSet;
+			NSCSV = NSCellStateValue;
+			NSD = NSDictionary;
+			NSDCLASS = "NSDictionary.class";
+			NSDE = "NSDirectoryEnumerator";
+			NSDO = NSDragOperation;
+			NSE = NSEvent;
+			NSED = NSEntityDescription;
+			NSEM = NSEventMask;
+			NSERR = NSError;
+			NSF = NSFont;
+			NSFH = NSFileHandle;
+			NSG = NSGradient;
+			NSGC = NSGraphicsContext;
+			NSI = NSInteger;
+			NSIMG = NSImage;
+			NSINV = NSInvocation;
+			NSIP = NSIndexPath;
+			NSIS = NSIndexSet;
+			NSIV = NSImageView;
+			NSJS = NSJSONSerialization;
+			NSM = NSMenu;
+			NSMA = NSMutableArray;
+			NSMAS = "NSMutableAttributedString";
+			NSMD = NSMutableDictionary;
+			NSMDATA = NSMutableData;
+			NSMI = NSMenuItem;
+			NSMIS = NSMutableIndexSet;
+			NSMO = NSManagedObject;
+			NSMOC = "NSManagedObjectContext";
+			NSMOM = NSManagedObjectModel;
+			NSMPS = "NSMutableParagraphStyle";
+			NSMS = NSMutableString;
+			NSMSet = NSMutableSet;
+			NSMURLREQ = NSMutableURLRequest;
+			NSMenuI = NSMenuItem;
+			NSN = NSNumber;
+			NSNOT = NSNotification;
+			NSO = NSObject;
+			NSOP = NSOperation;
+			NSOQ = NSOperationQueue;
+			NSOV = NSOutlineView;
+			NSP = NSPoint;
+			NSPI = NSProgressIndicator;
+			NSPInRect = NSPointInRect;
+			NSPO = NSPopover;
+			NSPSC = "NSPersistentStoreCoordinator";
+			NSPUBUTT = NSPopUpButton;
+			NSR = NSRect;
+			NSRE = NSRectEdge;
+			NSRFill = NSRectFill;
+			NSRNG = NSRange;
+			NSS = NSString;
+			NSSCLASS = "NSString.class";
+			NSSCRLV = NSScrollView;
+			NSSEGC = NSSegmentedControl;
+			NSSHDW = NSShadow;
+			NSSI = NSStatusItem;
+			NSSPLTV = NSSplitView;
+			NSST = NSSet;
+			NSSZ = NSSize;
+			NST = NSTimer;
+			NSTA = NSTrackingArea;
+			NSTABV = NSTabView;
+			NSTBAR = NSToolbar;
+			NSTC = NSTableColumn;
+			NSTI = NSTimeInterval;
+			NSTSK = NSTask;
+			NSTV = NSTableView;
+			NSTVDO = "NSTableViewDropOperation";
+			NSTXTF = NSTextField;
+			NSTXTV = NSTextView;
+			NSUI = NSUInteger;
+			NSURLC = NSURLConnection;
+			NSURLREQ = NSURLRequest;
+			NSURLRES = NSURLResponse;
+			NSV = NSView;
+			NSVAL = NSValue;
+			NSVC = NSViewController;
+			NSVT = NSValueTransformer;
+			NSW = NSWindow;
+			NSWC = NSWindowController;
+			SIG = NSMethodSignature;
+			WHITESPACESET = "NSCharacterSet.whitespaceAndNewlineCharacterSet";
+		};
+		PROPERTIES = {
+			ASS = assign;
+			CP = copy;
+			NA = nonatomic;
+			RO = readonly;
+			RW = readwrite;
+			STR = strong;
+			UNSF = "unsafe_unretained";
+			WK = weak;
+			"_AS" = "@property (assign)";
+			"_AT" = "@property";
+			"_CP" = "@property (copy)";
+			"_NA" = "@property (nonatomic)";
+			"_NC" = "@property (nonatomic,copy)";
+			"_RC" = "@property (readonly,copy)";
+			"_RO" = "@property (readonly)";
+			"_WK" = "@property (weak)";
+		};
+		"STANDARD_NAMES" = {
+			NSApp = UIApp;
+			NSApplication = UIApplication;
+			NSBezierPath = UIBezierPath;
+			NSColor = UIColor;
+			NSEvent = UIEvent;
+			NSFont = UIFont;
+			NSImage = UIImage;
+			NSNib = UINib;
+			NSPoint = CGPoint;
+			NSRect = CGRect;
+			NSScreen = UIScreen;
+			NSSize = CGSize;
+			NSStatusBar = UIStatusBar;
+			NSTableView = UITableView;
+			NSUserNotification = UILocalNotification;
+			NSView = UIView;
+			NSWindow = UIWindow;
+			NSZeroPoint = CGPointZero;
+			NSZeroRect = CGRectZero;
+			NSZeroSize = CGSizeZero;
+		};
+		STRINGS = {
+			"ATTR(NAME_WITHOUT_NS)" = "NS##NAME_WITHOUT_NS##AttributeName";
+			BNDL = "NSBundle.mainBundle";
+			"BNDL_NAME" = "[NSBundle.mainBundle objectForInfoDictionaryKey:@\"CFBundleDisplayName\"]";
+			"BNDL_RSRC" = "[NSBundle.mainBundle resourcePath]";
+			"COLR_PANL" = "NSColorPanel.sharedColorPanel";
+			DEFS = "NSUserDefaults.standardUserDefaults";
+			DEFX = "NSUserDefaultsController.sharedUserDefaultsController";
+			"EV_GLOBAL" = "NSEvent addGlobalMonitorForEventsMatchingMask";
+			"EV_LOCAL" = "NSEvent addLocalMonitorForEventsMatchingMask ";
+			FMAN = "NSFileManager.defaultManager";
+			GCTX = "NSGraphicsContext.currentContext";
+			"KVO_BOTH" = "NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld";
+			"KVO_NEW" = "NSKeyValueObservingOptionNew";
+			"KVO_OLD" = "NSKeyValueObservingOptionOld";
+			LAYM = "[CAConstraintLayoutManager layoutManager]";
+			"MOUSE_DOWN" = NSLeftMouseDownMask;
+			"MOUSE_DRAG" = "NSLeftMouseDraggedMask";
+			"MOUSE_DRAGGING" = "MOUSEDOWN | MOUSEDRAG | MOUSEUP";
+			"MOUSE_UP" = NSLeftMouseUpMask;
+			NADA = "[NSNull  null]";
+			NCTR = "(NSNotificationCenter*)NSNotificationCenter.defaultCenter";
+			NSZeroRange = "NSMakeRange(0,0)";
+			"PDOMAIN(NAME)" = "[DEFS persistentDomainForName:NAME]";
+			PROC = "NSProcessInfo.processInfo";
+			"PROC_NAME" = "[NSProcessInfo.processInfo processName]";
+			"RNG0(X)" = "NSMakeRange(0,X)";
+			SAPP = "NSApplication.sharedApplication";
+			SBAR = "SBar.systemStatusBar";
+			"VAL3d(t)" = "[NSVAL valueWithCATransform3D: t]";
+			"V_Colr(c)" = "[NSVAL valueWithColor: c]";
+			"V_Cord(p)" = "[NSVAL valueWithPoint: p]";
+			"V_Rect(r)" = "[NSVAL\t\t valueWithRect: r]";
+			"V_Rnge(c)" = "[NSVAL  valueWithRange: c]";
+			"V_Size(s)" = "[NSVAL valueWithSize: s]";
+			WORK = "NSWorkspace.sharedWorkspace";
+			pBCN = "postsBoundsChangedNotifications";
+			pFCN = "postsFrameChangedNotifications";
+		};
+		"STRINGS.disabled" = {
+			AZGRAPHICSCTX = "NSGraphicsContext.currentContext";
+			AZGVItem = AtoZGridViewItem;
+			AZGView = AtoZGridView;
+			AZIS = AZInstallationStatus;
+			AZLAYOUTMGR = "[CAConstraintLayoutManager layoutManager]";
+			AZNEWMUTEA = "NSMutableArray.array";
+			AZNEWMUTED = "NSMutableDictionary.new";
+			AZNEWPIPE = "NSPipe.pipe";
+			AZNOTCENTER = "(NSNotificationCenter*)NSNotificationCenter.defaultCenter";
+			AZNULL = "[NSNull  null]";
+			AZOS = "AZSharedOperationStack()";
+			AZPAL = AZPalette;
+			AZPOS = AZA;
+			AZPROCINFO = "NSProcessInfo.processInfo";
+			AZPROCNAME = "[NSProcessInfo.processInfo processName]";
+			"AZPROPASS(A,B)" = "@property (NATOM,ASS) A B";
+			"AZPROPIBO(A,B)" = "@property (ASS) IBOutlet A B";
+			"AZPROPSTR(A,B)" = "@property  (nonatomic,strong) A B";
+			AZQTZCONTEXT = "[NSGraphicsContext.currentContext  graphicsPort]";
+			"AZQtzPath(r)" = "[(AZBezPath(r)) quartzPath]";
+			AZSHAREDAPP = "NSApplication.sharedApplication";
+			AZSHAREDLOG = "DDTTYLogger.sharedInstance";
+			AZSOQ = "AZSharedOperationQueue()";
+			AZSSOQ = "AZSharedSingleOperationQueue()";
+			"AZSTRONGSTRING(A)" = "@property (nonatomic, strong) NSString* A";
+			"AZTALK(log)" = "[AZTalker.new say:log]";
+			"AZTArea(frame)" = "[NSTA.alloc initWithRect:frame options:AZTRACKALL owner:self userInfo:nil]";
+			"AZTAreaInfo(frame,info)" = "[NSTA.allocinitWithRect: frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved ) owner:self userInfo:info] ";
+			AZTRACKALL = "(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingMouseMoved)";
+			AZUSERDEFS = "NSUserDefaults.standardUserDefaults";
+			AZUSERDEFSCTR = "NSUserDefaultsController.sharedUserDefaultsController";
+			"AZV3d(t)" = "[NSVAL valueWithCATransform3D: t]";
+			"AZVclr(c)" = "[NSVAL valueWithColor: c]";
+			"AZVinstall(p)" = "[NSVAL valueWithInstallStatus: p]";
+			"AZVpoint(p)" = "[NSVAL valueWithPoint: p]";
+			"AZVposi(p)" = "[NSVAL      valueWithPosition: p]";
+			"AZVrect(r)" = "[NSVAL\t\t valueWithRect: r]";
+			"AZVrng(c)" = "[NSVAL  valueWithRange: c]";
+			"AZVsize(s)" = "[NSVAL valueWithSize: s]";
+			AZWEBPREFS = "WebPreferences.standardPreferences";
+			AZWORKSPACE = "NSWorkspace.sharedWorkspace";
+			CAMEDIAEASEIN = "[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]";
+			CAMEDIAEASEOUT = "[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]";
+			CAMEDIAEASY = "[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]";
+			"CGSUPRESSINTERVAL(x)" = "CGEventSourceSetLocalEventsSuppressionInterval(nil,x)";
+			ELSENULL = "?:  [NSNull null]";
+			FM = "NSFileManager.defaultManager";
+			FUTURE = "NSDate.distantFuture";
+			KVONEW = "NSKeyValueObservingOptionNew";
+			KVOOLD = "NSKeyValueObservingOptionOld";
+			MOUSEDOWN = NSLeftMouseDownMask;
+			MOUSEDRAG = "NSLeftMouseDraggedMask";
+			MOUSEDRAGGING = "MOUSEDOWN | MOUSEDRAG | MOUSEUP";
+			MOUSEUP = NSLeftMouseUpMask;
+			"NSBezPath(r)" = "AZBezPath(r)";
+			NSEVENTGLOBALMASK = "NSEvent addGlobalMonitorForEventsMatchingMask";
+			NSEVENTLOCALMASK = "NSEvent addLocalMonitorForEventsMatchingMask ";
+			NSKVOBEFOREAFTER = "NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld";
+			NSZeroRange = "NSMakeRange(0,0)";
+			UNSFE = "unsafe_unretained";
+			USF = "unsafe_unretained";
+			fV = floatValue;
+			iV = integerValue;
+			kContentColorKey = "@\"itemColor\"";
+			kContentImageKey = "@\"itemImage\"";
+			kContentTitleKey = "@\"itemTitle\"";
+			"kItemSizeSliderPositionKey" = "@\"ItemSizeSliderPosition\"";
+			pBCN = "postsBoundsChangedNotifications";
+			pFCN = "postsFrameChangedNotifications";
+			pV = pointValue;
+			"performBlockIfDelegateRespondsToSelector(block,sel)" = "if ([delegate respondsToSelector:sel]) { block(); }";
+			"performDelegateSelector(sel)" = "if ([delegate respondsToSelector:sel]) { [delegate performSelector:sel]; }";
+			rV = rectValue;
+			rngV = rangeValue;
+			sansLast = "arrayByRemovingLastObject";
+			sepByCharsInSet = "componentsSeparatedByCharactersInSet";
+			sepByString = "componentsSeparatedByString";
+			setPBCN = "setPostsBoundsChangedNotifications:YES";
+			setPFCN = "setPostsFrameChangedNotifications:YES";
+			uiV = unsignedIntegerValue;
+			vFK = valueForKey;
+			vFKP = valueForKeyPath;
+		};
+		UNUSED = {
+			"_C" = const;
+			"_E" = extern;
+			"_I" = inline;
+			"_S" = static;
+			"_U" = unsigned;
+		};
+	};
+	META = {};
+	NS = {
+		AZOQMAX = "NSOperationQueueDefaultMaxConcurrentOperationCount";
+		ISADICT = "isKindOfClass:NSDictionary.class";
+		ISADICTorARRAY = "isKindOfAnyClass:NSAorDCLASS";
+		ISANARRAY = "isKindOfClass:NSArray.class";
+		NSA = NSArray;
+		NSAC = NSArrayController;
+		NSACLASS = "NSArray.class";
+		NSAPP = NSApplication;
+		NSAS = NSAttributedString;
+		NSAT = NSAffineTransform;
+		NSAorDCLASS = "@[NSArray.class, NSDictionary.class]";
+		NSB = NSBundle;
+		NSBIR = NSBitmapImageRep;
+		NSBLO = NSBlockOperation;
+		NSBP = NSBezierPath;
+		NSBRWSR = NSBrowser;
+		NSBSB = "NSBackingStoreBuffered";
+		NSBUTT = NSButton;
+		NSBWM = "NSBorderlessWindowMask";
+		NSC = NSColor;
+		NSCL = NSColorList;
+		NSCOMPR = NSComparisonResult;
+		NSCS = NSCountedSet;
+		NSCSV = NSCellStateValue;
+		NSD = NSDictionary;
+		NSDCLASS = "NSDictionary.class";
+		NSDE = "NSDirectoryEnumerator";
+		NSDO = NSDragOperation;
+		NSE = NSEvent;
+		NSED = NSEntityDescription;
+		NSEM = NSEventMask;
+		NSERR = NSError;
+		NSF = NSFont;
+		NSFH = NSFileHandle;
+		NSG = NSGradient;
+		NSGC = NSGraphicsContext;
+		NSI = NSInteger;
+		NSIMG = NSImage;
+		NSINV = NSInvocation;
+		NSIP = NSIndexPath;
+		NSIS = NSIndexSet;
+		NSIV = NSImageView;
+		NSJS = NSJSONSerialization;
+		NSM = NSMenu;
+		NSMA = NSMutableArray;
+		NSMAS = "NSMutableAttributedString";
+		NSMD = NSMutableDictionary;
+		NSMDATA = NSMutableData;
+		NSMI = NSMenuItem;
+		NSMIS = NSMutableIndexSet;
+		NSMO = NSManagedObject;
+		NSMOC = "NSManagedObjectContext";
+		NSMOM = NSManagedObjectModel;
+		NSMPS = "NSMutableParagraphStyle";
+		NSMS = NSMutableString;
+		NSMSet = NSMutableSet;
+		NSMURLREQ = NSMutableURLRequest;
+		NSMenuI = NSMenuItem;
+		NSN = NSNumber;
+		NSNOT = NSNotification;
+		NSO = NSObject;
+		NSOP = NSOperation;
+		NSOQ = NSOperationQueue;
+		NSOV = NSOutlineView;
+		NSP = NSPoint;
+		NSPI = NSProgressIndicator;
+		NSPInRect = NSPointInRect;
+		NSPO = NSPopover;
+		NSPSC = "NSPersistentStoreCoordinator";
+		NSPUBUTT = NSPopUpButton;
+		NSR = NSRect;
+		NSRE = NSRectEdge;
+		NSRFill = NSRectFill;
+		NSRNG = NSRange;
+		NSS = NSString;
+		NSSCLASS = "NSString.class";
+		NSSCRLV = NSScrollView;
+		NSSEGC = NSSegmentedControl;
+		NSSHDW = NSShadow;
+		NSSI = NSStatusItem;
+		NSSPLTV = NSSplitView;
+		NSST = NSSet;
+		NSSZ = NSSize;
+		NST = NSTimer;
+		NSTA = NSTrackingArea;
+		NSTABV = NSTabView;
+		NSTBAR = NSToolbar;
+		NSTC = NSTableColumn;
+		NSTI = NSTimeInterval;
+		NSTSK = NSTask;
+		NSTV = NSTableView;
+		NSTVDO = "NSTableViewDropOperation";
+		NSTXTF = NSTextField;
+		NSTXTV = NSTextView;
+		NSUI = NSUInteger;
+		NSURLC = NSURLConnection;
+		NSURLREQ = NSURLRequest;
+		NSURLRES = NSURLResponse;
+		NSV = NSView;
+		NSVAL = NSValue;
+		NSVC = NSViewController;
+		NSVT = NSValueTransformer;
+		NSW = NSWindow;
+		NSWC = NSWindowController;
+		SIG = NSMethodSignature;
+	};
+	"SNIPPET_TENPLATES" = {
+		Shortcut = {
+			"IDECodeSnippetCompletionPrefix" = "@end";
+			"IDECodeSnippetCompletionScopes" = (
+				TopLevel,
+			);
+			"IDECodeSnippetContents" = NULL;
+			"IDECodeSnippetIdentifier" = "34649AD6-E39B-41B2-A8E7-56AF64EAEC99";
+			"IDECodeSnippetLanguage" = "Xcode.SourceCodeLanguage.Objective-C";
+			"IDECodeSnippetSummary" = "STOP!";
+			IDECodeSnippetTitle = "_ObjC @end";
+			"IDECodeSnippetUserSnippet" = YES;
+			"IDECodeSnippetVersion" = 2;
+		};
+	};
+	"SORT_EXCEPTIONS" = {
+		ALPHA = (
+			"DEFINES.MISC",
+			"DEFINES.STRINGS",
+			"DEFINES.PROPERTIES",
+			"DEFINES.ABBREVIATIONS",
+		);
+		LENGTH = (
+			"TYPES.PRIMITIVES",
+		);
+	};
+	TYPES = {
+		BLOCKS = {};
+		"BLOCKS_VOIDS" = {
+			"_Void (^)  _Void_" = "\Uff3eVoid";
+			"_Void (^) ()" = "\Uff3eBlok";
+			"_Void (^) (_Cord p)" = "\Uff3eCord";
+			"_Void (^) (_Data d)" = "\Uff3eData";
+			"_Void (^) (_Dict d)" = "\Uff3eDict";
+			"_Void (^) (_IsIt b)" = "\Uff3eIsIt";
+			"_Void (^) (_List a)" = "\Uff3eList";
+			"_Void (^) (_NUrl u)" = "\Uff3eNUrl";
+			"_Void (^) (_Numb n)" = "\Uff3eNumb";
+			"_Void (^) (_ObjC x)" = "\Uff3eObjC";
+			"_Void (^) (_ObjC x, _SInt c)" = "\Uff3eIDST";
+			"_Void (^) (_ObjC x, _UInt c)" = "\Uff3eIDUT";
+			"_Void (^) (_Rect r)" = "\Uff3eRect";
+			"_Void (^) (_SInt i)" = "\Uff3eSInt";
+			"_Void (^) (_Text p)" = "\Uff3eText";
+			"_Void (^) (_Text t)" = "\Uff3eText";
+			"_Void (^) (_UInt i)" = "\Uff3eUInt";
+		};
+		POINTERS = {
+			"AVAudioPlayer *" = "_SndP";
+			"CALayer *" = "_Layr";
+			"NSApplication *" = "_Appl";
+			"NSArray *" = "_List";
+			"NSAttributedString *" = "_ATxt";
+			"NSBezierPath *" = "_Path";
+			"NSBundle *" = "_Bndl";
+			"NSCalendar * " = "_NCal";
+			"NSCharacterSet *" = "_CSet";
+			"NSColor *" = "_Colr";
+			"NSData *" = "_Data";
+			"NSDate *" = "_Date";
+			"NSDateFormatter *" = "_DFmt";
+			"NSDictionary *" = "_Dict";
+			"NSError *" = "_Errr";
+			"NSEvent *" = "_Evnt";
+			"NSFileHandle *" = "_File";
+			"NSFont *" = "_Font";
+			"NSImage *" = "_Pict";
+			NSIndexSet = "_ISet";
+			"NSInvocation *" = "_Call";
+			"NSJSONSerialization *" = "_Json";
+			"NSLayoutManager *" = "_LMan";
+			"NSMutableArray *" = mList;
+			"NSMutableAttributedString *" = mATxt;
+			"NSMutableCharacterSet *" = mCSet;
+			"NSMutableData *" = mData;
+			"NSMutableDictionary *" = mDict;
+			"NSMutableIndexSet *" = mISet;
+			"NSMutableParagraphStyle *" = mPStl;
+			"NSMutableString *" = mText;
+			"NSMutableURLRequest * " = mNReq;
+			"NSNotification *" = "_Note";
+			"NSNumber *" = "_Numb";
+			"NSObject *" = "_NObj";
+			"NSParagraphStyle *" = "_PStl";
+			"NSPipe *" = "_Pipe";
+			"NSScanner *" = "_Scnr";
+			"NSStatusBar *" = "_SBar";
+			"NSString *" = "_Text";
+			"NSTableView *" = "_TblV";
+			"NSTimer *" = "_Timr";
+			"NSURL *" = "_NUrl";
+			"NSURLConnection *" = "_NCon";
+			"NSURLRequest *" = "_NReq";
+			"NSURLResponse *" = "_NRes";
+			"NSUserDefaults *" = "_Defs";
+			"NSValue *" = "_Valu";
+			"NSView *" = "_View";
+			"NSWindow *" = "_Wind";
+			"XCTestCase *" = "_Test";
+			"char *" = "_Char";
+			"unsigned char *" = "_UChr";
+		};
+		"POINTERS_MAC" = {
+			"NSAppleEventDescriptor *" = "_AEvD";
+			"NSAppleScript *" = "_Scpt";
+			"NSArrayController *" = xList;
+			"NSFileHandle *" = "_Hndl";
+			"NSImageView *" = "_PicV";
+			"NSMenu *" = "_Menu";
+			"NSMenuItem *" = "_SubM";
+			"NSOutlineView *" = "_OutV";
+			"NSPanel *" = "_Panl";
+			"NSScrollView *" = "_Scrl";
+			"NSSplitView *" = "_Splt";
+			"NSStatusItem *" = "_SItm";
+			"NSTableColumn *" = "_TCol";
+			"NSTableView *" = "_Tabl";
+			"NSTask *" = "_Task";
+			"NSTextField *" = "_Labl";
+			"NSTextView *" = "_TxtV";
+			"NSUserNotification *" = uNote;
+			"NSUserNotificationCenter *" = uNCtr;
+			"NSWindowController *" = xWind;
+			"WebView *" = "_WebV";
+		};
+		PRIMITIVES = {
+			BOOL = "_IsIt";
+			Class = "_Meta";
+			NSComparisonResult = "_CRes";
+			NSInteger = "_SInt";
+			NSUInteger = "_UInt";
+			SEL = "_Meth";
+			"dispatch_queue_t" = "_DQue";
+			id = "_ObjC";
+			long = "_Long";
+			"unsigned long" = "_ULng";
+			void = "_Void";
+		};
+		STRUCTS = {
+			CGAffineTransform = "_AffT";
+			CGFloat = "_Flot";
+			CGPoint = "_Cord";
+			CGRect = "_Rect";
+			CGSize = "_Size";
+			NSRange = "_Rnge";
+		};
+	};
+	"\Ud83d\Udcd5REFERENCE" = {
+		AllCLasses = (
+			ABAddressBook,
+			ABGroup,
+			ABMultiValue,
+			ABMutableMultiValue,
+			ABPeoplePickerView,
+			ABPerson,
+			ABPersonView,
+			ABRecord,
+			ABSearchElement,
+			CAAnimation,
+			CAAnimationGroup,
+			CABasicAnimation,
+			CAConstraint,
+			"CAConstraintLayoutManager",
+			CAEmitterCell,
+			CAEmitterLayer,
+			CAGradientLayer,
+			CAKeyframeAnimation,
+			CALayer,
+			"CAMediaTimingFunction",
+			CAOpenGLLayer,
+			CAPropertyAnimation,
+			CARemoteLayerClient,
+			CARemoteLayerServer,
+			CARenderer,
+			CAReplicatorLayer,
+			CAScrollLayer,
+			CAShapeLayer,
+			CATextLayer,
+			CATiledLayer,
+			CATransaction,
+			CATransformLayer,
+			CATransition,
+			CAValueFunction,
+			CIColor,
+			CIContext,
+			CIDetector,
+			CIFaceFeature,
+			CIFeature,
+			CIFilter,
+			CIFilterGenerator,
+			CIFilterShape,
+			CIImage,
+			CIImageAccumulator,
+			CIKernel,
+			CIPlugIn,
+			CIQRCodeFeature,
+			CIRectangleFeature,
+			CISampler,
+			CIVector,
+			DOMAbstractView,
+			DOMAttr,
+			DOMBlob,
+			DOMCDATASection,
+			DOMCSSCharsetRule,
+			DOMCSSFontFaceRule,
+			DOMCSSImportRule,
+			DOMCSSMediaRule,
+			DOMCSSPageRule,
+			DOMCSSPrimitiveValue,
+			DOMCSSRule,
+			DOMCSSRuleList,
+			"DOMCSSStyleDeclaration",
+			DOMCSSStyleRule,
+			DOMCSSStyleSheet,
+			DOMCSSUnknownRule,
+			DOMCSSValue,
+			DOMCSSValueList,
+			DOMCharacterData,
+			DOMComment,
+			DOMCounter,
+			DOMDocument,
+			DOMDocumentFragment,
+			DOMDocumentType,
+			DOMElement,
+			DOMEntity,
+			DOMEntityReference,
+			DOMEvent,
+			DOMFile,
+			DOMFileList,
+			DOMHTMLAnchorElement,
+			DOMHTMLAppletElement,
+			DOMHTMLAreaElement,
+			DOMHTMLBRElement,
+			DOMHTMLBaseElement,
+			"DOMHTMLBaseFontElement",
+			DOMHTMLBodyElement,
+			DOMHTMLButtonElement,
+			DOMHTMLCollection,
+			DOMHTMLDListElement,
+			"DOMHTMLDirectoryElement",
+			DOMHTMLDivElement,
+			DOMHTMLDocument,
+			DOMHTMLElement,
+			DOMHTMLEmbedElement,
+			"DOMHTMLFieldSetElement",
+			DOMHTMLFontElement,
+			DOMHTMLFormElement,
+			DOMHTMLFrameElement,
+			"DOMHTMLFrameSetElement",
+			DOMHTMLHRElement,
+			DOMHTMLHeadElement,
+			"DOMHTMLHeadingElement",
+			DOMHTMLHtmlElement,
+			DOMHTMLIFrameElement,
+			DOMHTMLImageElement,
+			DOMHTMLInputElement,
+			DOMHTMLLIElement,
+			DOMHTMLLabelElement,
+			DOMHTMLLegendElement,
+			DOMHTMLLinkElement,
+			DOMHTMLMapElement,
+			"DOMHTMLMarqueeElement",
+			DOMHTMLMenuElement,
+			DOMHTMLMetaElement,
+			DOMHTMLModElement,
+			DOMHTMLOListElement,
+			DOMHTMLObjectElement,
+			"DOMHTMLOptGroupElement",
+			DOMHTMLOptionElement,
+			"DOMHTMLOptionsCollection",
+			"DOMHTMLParagraphElement",
+			DOMHTMLParamElement,
+			DOMHTMLPreElement,
+			DOMHTMLQuoteElement,
+			DOMHTMLScriptElement,
+			DOMHTMLSelectElement,
+			DOMHTMLStyleElement,
+			"DOMHTMLTableCaptionElement",
+			"DOMHTMLTableCellElement",
+			"DOMHTMLTableColElement",
+			DOMHTMLTableElement,
+			"DOMHTMLTableRowElement",
+			"DOMHTMLTableSectionElement",
+			"DOMHTMLTextAreaElement",
+			DOMHTMLTitleElement,
+			DOMHTMLUListElement,
+			DOMImplementation,
+			DOMKeyboardEvent,
+			DOMMediaList,
+			DOMMouseEvent,
+			DOMMutationEvent,
+			DOMNamedNodeMap,
+			DOMNode,
+			DOMNodeIterator,
+			DOMNodeList,
+			DOMNotation,
+			DOMObject,
+			DOMOverflowEvent,
+			"DOMProcessingInstruction",
+			DOMProgressEvent,
+			DOMRGBColor,
+			DOMRange,
+			DOMRect,
+			DOMStyleSheet,
+			DOMStyleSheetList,
+			DOMText,
+			DOMTreeWalker,
+			DOMUIEvent,
+			DOMWheelEvent,
+			DOMXPathExpression,
+			DOMXPathResult,
+			ICCameraDevice,
+			ICCameraFile,
+			ICCameraFolder,
+			ICCameraItem,
+			ICDevice,
+			ICDeviceBrowser,
+			ICScannerBandData,
+			ICScannerDevice,
+			ICScannerFeature,
+			"ICScannerFeatureBoolean",
+			"ICScannerFeatureEnumeration",
+			"ICScannerFeatureRange",
+			"ICScannerFeatureTemplate",
+			"ICScannerFunctionalUnit",
+			"ICScannerFunctionalUnitDocumentFeeder",
+			"ICScannerFunctionalUnitFlatbed",
+			"ICScannerFunctionalUnitNegativeTransparency",
+			"ICScannerFunctionalUnitPositiveTransparency",
+			IKCameraDeviceView,
+			IKDeviceBrowserView,
+			IKFilterBrowserPanel,
+			IKFilterBrowserView,
+			IKFilterUIView,
+			IKImageBrowserCell,
+			IKImageBrowserView,
+			IKImageEditPanel,
+			IKImageView,
+			IKPictureTaker,
+			IKSaveOptions,
+			IKScannerDeviceView,
+			IKSlideshow,
+			NSATSTypesetter,
+			"NSAccessibilityElement",
+			NSActionCell,
+			NSAffineTransform,
+			NSAlert,
+			NSAnimation,
+			NSAnimationContext,
+			NSAppearance,
+			"NSAppleEventDescriptor",
+			NSAppleEventManager,
+			NSAppleScript,
+			NSApplication,
+			NSArchiver,
+			NSArray,
+			NSArrayController,
+			NSAssertionHandler,
+			"NSAsynchronousFetchRequest",
+			"NSAsynchronousFetchResult",
+			NSAtomicStore,
+			"NSAtomicStoreCacheNode",
+			"NSAttributeDescription",
+			NSAttributedString,
+			NSAutoreleasePool,
+			"NSBackgroundActivityScheduler",
+			NSBatchUpdateRequest,
+			NSBatchUpdateResult,
+			NSBezierPath,
+			NSBitmapImageRep,
+			NSBlockOperation,
+			NSBox,
+			NSBrowser,
+			NSBrowserCell,
+			NSBundle,
+			NSButton,
+			NSButtonCell,
+			NSByteCountFormatter,
+			NSCIImageRep,
+			NSCache,
+			NSCachedURLResponse,
+			NSCalendar,
+			NSCalendarDate,
+			NSCell,
+			NSCharacterSet,
+			NSClassDescription,
+			"NSClickGestureRecognizer",
+			NSClipView,
+			NSCloneCommand,
+			NSCloseCommand,
+			NSCoder,
+			NSCollectionView,
+			NSCollectionViewItem,
+			NSColor,
+			NSColorList,
+			NSColorPanel,
+			NSColorPicker,
+			NSColorSpace,
+			NSColorWell,
+			NSComboBox,
+			NSComboBoxCell,
+			"NSComparisonPredicate",
+			NSCompoundPredicate,
+			NSCondition,
+			NSConditionLock,
+			NSConnection,
+			NSConstantString,
+			NSControl,
+			NSController,
+			NSCountCommand,
+			NSCountedSet,
+			NSCreateCommand,
+			NSCursor,
+			NSCustomImageRep,
+			NSData,
+			NSDataDetector,
+			NSDate,
+			NSDateComponents,
+			"NSDateComponentsFormatter",
+			NSDateFormatter,
+			"NSDateIntervalFormatter",
+			NSDatePicker,
+			NSDatePickerCell,
+			NSDecimalNumber,
+			"NSDecimalNumberHandler",
+			NSDeleteCommand,
+			NSDictionary,
+			"NSDictionaryController",
+			"NSDirectoryEnumerator",
+			NSDistantObject,
+			"NSDistantObjectRequest",
+			NSDistributedLock,
+			"NSDistributedNotificationCenter",
+			NSDockTile,
+			NSDocument,
+			NSDocumentController,
+			"NSDraggingImageComponent",
+			NSDraggingItem,
+			NSDraggingSession,
+			NSDrawer,
+			NSEPSImageRep,
+			NSEnergyFormatter,
+			NSEntityDescription,
+			NSEntityMapping,
+			"NSEntityMigrationPolicy",
+			NSEnumerator,
+			NSError,
+			NSEvent,
+			NSException,
+			NSExceptionHandler,
+			NSExistsCommand,
+			NSExpression,
+			"NSExpressionDescription",
+			NSExtensionContext,
+			NSExtensionItem,
+			NSFetchRequest,
+			"NSFetchRequestExpression",
+			"NSFetchedPropertyDescription",
+			NSFileAccessIntent,
+			NSFileCoordinator,
+			NSFileHandle,
+			NSFileManager,
+			NSFileSecurity,
+			NSFileVersion,
+			NSFileWrapper,
+			NSFont,
+			NSFontCollection,
+			NSFontDescriptor,
+			NSFontManager,
+			NSFontPanel,
+			NSForm,
+			NSFormCell,
+			NSFormatter,
+			NSGarbageCollector,
+			NSGestureRecognizer,
+			NSGetCommand,
+			NSGlyphGenerator,
+			NSGlyphInfo,
+			NSGradient,
+			NSGraphicsContext,
+			NSHTTPCookie,
+			NSHTTPCookieStorage,
+			NSHTTPURLResponse,
+			NSHashTable,
+			NSHelpManager,
+			NSHost,
+			NSImage,
+			NSImageCell,
+			NSImageRep,
+			NSImageView,
+			NSIncrementalStore,
+			"NSIncrementalStoreNode",
+			NSIndexPath,
+			NSIndexSet,
+			NSIndexSpecifier,
+			NSInputStream,
+			NSInvocation,
+			"NSInvocationOperation",
+			NSItemProvider,
+			NSJSONSerialization,
+			NSKeyedArchiver,
+			NSKeyedUnarchiver,
+			NSLayoutConstraint,
+			NSLayoutManager,
+			NSLengthFormatter,
+			NSLevelIndicator,
+			NSLevelIndicatorCell,
+			NSLinguisticTagger,
+			NSLocale,
+			NSLock,
+			NSLogicalTest,
+			"NSMachBootstrapServer",
+			NSMachPort,
+			"NSMagnificationGestureRecognizer",
+			NSManagedObject,
+			"NSManagedObjectContext",
+			NSManagedObjectID,
+			NSManagedObjectModel,
+			NSMapTable,
+			NSMappingModel,
+			NSMassFormatter,
+			NSMatrix,
+			"NSMediaLibraryBrowserController",
+			NSMenu,
+			NSMenuItem,
+			NSMenuItemCell,
+			NSMergeConflict,
+			NSMergePolicy,
+			NSMessagePort,
+			"NSMessagePortNameServer",
+			NSMetadataItem,
+			NSMetadataQuery,
+			"NSMetadataQueryAttributeValueTuple",
+			"NSMetadataQueryResultGroup",
+			NSMethodSignature,
+			NSMiddleSpecifier,
+			NSMigrationManager,
+			NSMoveCommand,
+			NSMutableArray,
+			"NSMutableAttributedString",
+			"NSMutableCharacterSet",
+			NSMutableData,
+			NSMutableDictionary,
+			"NSMutableFontCollection",
+			NSMutableIndexSet,
+			NSMutableOrderedSet,
+			"NSMutableParagraphStyle",
+			NSMutableSet,
+			NSMutableString,
+			NSMutableURLRequest,
+			NSNameSpecifier,
+			NSNetService,
+			NSNetServiceBrowser,
+			NSNib,
+			NSNotification,
+			NSNotificationCenter,
+			NSNotificationQueue,
+			NSNull,
+			NSNumber,
+			NSNumberFormatter,
+			NSObject,
+			NSObjectController,
+			NSOpenGLContext,
+			NSOpenGLLayer,
+			NSOpenGLPixelFormat,
+			NSOpenGLView,
+			NSOpenPanel,
+			NSOperation,
+			NSOperationQueue,
+			NSOrderedSet,
+			NSOrthography,
+			NSOutlineView,
+			NSOutputStream,
+			NSPDFImageRep,
+			NSPDFInfo,
+			NSPDFPanel,
+			NSPICTImageRep,
+			NSPageController,
+			NSPageLayout,
+			"NSPanGestureRecognizer",
+			NSPanel,
+			NSParagraphStyle,
+			NSPasteboard,
+			NSPasteboardItem,
+			NSPathCell,
+			NSPathComponentCell,
+			NSPathControl,
+			NSPathControlItem,
+			NSPersistentDocument,
+			NSPersistentStore,
+			"NSPersistentStoreAsynchronousResult",
+			"NSPersistentStoreCoordinator",
+			"NSPersistentStoreRequest",
+			"NSPersistentStoreResult",
+			NSPipe,
+			NSPointerArray,
+			NSPointerFunctions,
+			NSPopUpButton,
+			NSPopUpButtonCell,
+			NSPopover,
+			NSPort,
+			NSPortCoder,
+			NSPortMessage,
+			NSPortNameServer,
+			"NSPositionalSpecifier",
+			NSPredicate,
+			NSPredicateEditor,
+			"NSPredicateEditorRowTemplate",
+			NSPreferencePane,
+			"NSPressGestureRecognizer",
+			NSPrintInfo,
+			NSPrintOperation,
+			NSPrintPanel,
+			NSPrinter,
+			NSProcessInfo,
+			NSProgress,
+			NSProgressIndicator,
+			"NSPropertyDescription",
+			"NSPropertyListSerialization",
+			NSPropertyMapping,
+			NSPropertySpecifier,
+			NSProtocolChecker,
+			NSProxy,
+			NSPurgeableData,
+			NSQuitCommand,
+			NSRandomSpecifier,
+			NSRangeSpecifier,
+			NSRecursiveLock,
+			NSRegularExpression,
+			"NSRelationshipDescription",
+			NSRelativeSpecifier,
+			NSResponder,
+			"NSRotationGestureRecognizer",
+			NSRuleEditor,
+			NSRulerMarker,
+			NSRulerView,
+			NSRunLoop,
+			NSRunningApplication,
+			NSSaveChangesRequest,
+			NSSavePanel,
+			NSScanner,
+			NSScreen,
+			"NSScriptClassDescription",
+			"NSScriptCoercionHandler",
+			NSScriptCommand,
+			"NSScriptCommandDescription",
+			"NSScriptExecutionContext",
+			"NSScriptObjectSpecifier",
+			"NSScriptSuiteRegistry",
+			NSScriptWhoseTest,
+			NSScrollView,
+			NSScroller,
+			NSSearchField,
+			NSSearchFieldCell,
+			NSSecureTextField,
+			"NSSecureTextFieldCell",
+			NSSegmentedCell,
+			NSSegmentedControl,
+			NSSet,
+			NSSetCommand,
+			NSShadow,
+			NSSharingService,
+			"NSSharingServicePicker",
+			NSSimpleCString,
+			NSSlider,
+			NSSliderCell,
+			NSSocketPort,
+			"NSSocketPortNameServer",
+			NSSortDescriptor,
+			NSSound,
+			NSSpecifierTest,
+			NSSpeechRecognizer,
+			NSSpeechSynthesizer,
+			NSSpellChecker,
+			NSSpellServer,
+			NSSplitView,
+			"NSSplitViewController",
+			NSSplitViewItem,
+			NSStackView,
+			NSStatusBar,
+			NSStatusBarButton,
+			NSStatusItem,
+			NSStepper,
+			NSStepperCell,
+			NSStoryboard,
+			NSStoryboardSegue,
+			NSStream,
+			NSString,
+			NSTabView,
+			NSTabViewController,
+			NSTabViewItem,
+			NSTableCellView,
+			NSTableColumn,
+			NSTableHeaderCell,
+			NSTableHeaderView,
+			NSTableRowView,
+			NSTableView,
+			NSTask,
+			NSText,
+			NSTextAlternatives,
+			NSTextAttachment,
+			NSTextAttachmentCell,
+			NSTextBlock,
+			NSTextCheckingResult,
+			NSTextContainer,
+			NSTextField,
+			NSTextFieldCell,
+			NSTextFinder,
+			NSTextInputContext,
+			NSTextList,
+			NSTextStorage,
+			NSTextTab,
+			NSTextTable,
+			NSTextTableBlock,
+			NSTextView,
+			NSThread,
+			NSTimeZone,
+			NSTimer,
+			"NSTitlebarAccessoryViewController",
+			NSTokenField,
+			NSTokenFieldCell,
+			NSToolbar,
+			NSToolbarItem,
+			NSToolbarItemGroup,
+			NSTouch,
+			NSTrackingArea,
+			NSTreeController,
+			NSTreeNode,
+			NSTypesetter,
+			NSURL,
+			"NSURLAuthenticationChallenge",
+			NSURLCache,
+			NSURLComponents,
+			NSURLConnection,
+			NSURLCredential,
+			"NSURLCredentialStorage",
+			NSURLDownload,
+			NSURLHandle,
+			NSURLProtectionSpace,
+			NSURLProtocol,
+			NSURLQueryItem,
+			NSURLRequest,
+			NSURLResponse,
+			NSURLSession,
+			"NSURLSessionConfiguration",
+			NSURLSessionDataTask,
+			"NSURLSessionDownloadTask",
+			NSURLSessionTask,
+			"NSURLSessionUploadTask",
+			NSUUID,
+			"NSUbiquitousKeyValueStore",
+			NSUnarchiver,
+			NSUndoManager,
+			NSUniqueIDSpecifier,
+			NSUserActivity,
+			"NSUserAppleScriptTask",
+			NSUserAutomatorTask,
+			NSUserDefaults,
+			"NSUserDefaultsController",
+			NSUserNotification,
+			"NSUserNotificationAction",
+			"NSUserNotificationCenter",
+			NSUserScriptTask,
+			NSUserUnixTask,
+			NSValue,
+			NSValueTransformer,
+			NSView,
+			NSViewAnimation,
+			NSViewController,
+			NSVisualEffectView,
+			NSWhoseSpecifier,
+			NSWindow,
+			NSWindowController,
+			NSWorkspace,
+			NSXMLDTD,
+			NSXMLDTDNode,
+			NSXMLDocument,
+			NSXMLElement,
+			NSXMLNode,
+			NSXMLParser,
+			NSXPCConnection,
+			NSXPCInterface,
+			NSXPCListener,
+			"NSXPCListenerEndpoint",
+			PDFAction,
+			PDFActionGoTo,
+			PDFActionNamed,
+			PDFActionRemoteGoTo,
+			PDFActionResetForm,
+			PDFActionURL,
+			PDFAnnotation,
+			"PDFAnnotationButtonWidget",
+			"PDFAnnotationChoiceWidget",
+			PDFAnnotationCircle,
+			"PDFAnnotationFreeText",
+			PDFAnnotationInk,
+			PDFAnnotationLine,
+			PDFAnnotationLink,
+			PDFAnnotationMarkup,
+			PDFAnnotationPopup,
+			PDFAnnotationSquare,
+			PDFAnnotationStamp,
+			PDFAnnotationText,
+			"PDFAnnotationTextWidget",
+			PDFBorder,
+			PDFDestination,
+			PDFDocument,
+			PDFOutline,
+			PDFPage,
+			PDFSelection,
+			PDFThumbnailView,
+			PDFView,
+			QCComposition,
+			QCCompositionLayer,
+			"QCCompositionParameterView",
+			"QCCompositionPickerPanel",
+			"QCCompositionPickerView",
+			"QCCompositionRepository",
+			QCPatchController,
+			QCPlugIn,
+			"QCPlugInViewController",
+			QCRenderer,
+			QCView,
+			QLPreviewPanel,
+			QLPreviewView,
+			"QTCaptureAudioPreviewOutput",
+			QTCaptureConnection,
+			"QTCaptureDecompressedAudioOutput",
+			"QTCaptureDecompressedVideoOutput",
+			QTCaptureDevice,
+			QTCaptureDeviceInput,
+			QTCaptureFileOutput,
+			QTCaptureInput,
+			QTCaptureLayer,
+			"QTCaptureMovieFileOutput",
+			QTCaptureOutput,
+			QTCaptureSession,
+			"QTCaptureVideoPreviewOutput",
+			QTCaptureView,
+			QTCompressionOptions,
+			QTDataReference,
+			QTFormatDescription,
+			QTMedia,
+			QTMetadataItem,
+			QTMovie,
+			QTMovieLayer,
+			QTMovieModernizer,
+			QTMovieView,
+			QTSampleBuffer,
+			QTTrack,
+			QuartzFilter,
+			QuartzFilterManager,
+			QuartzFilterView,
+			ScreenSaverDefaults,
+			ScreenSaverView,
+			WKBackForwardList,
+			"WKBackForwardListItem",
+			WKFrameInfo,
+			WKNavigation,
+			WKNavigationAction,
+			WKNavigationResponse,
+			WKPreferences,
+			WKProcessPool,
+			WKScriptMessage,
+			"WKUserContentController",
+			WKUserScript,
+			WKWebView,
+			"WKWebViewConfiguration",
+			WKWindowFeatures,
+			WebArchive,
+			WebBackForwardList,
+			WebDataSource,
+			WebDownload,
+			WebFrame,
+			WebFrameView,
+			WebHistory,
+			WebHistoryItem,
+			WebPreferences,
+			WebResource,
+			WebScriptObject,
+			WebUndefined,
+			WebView,
+		);
+		AllTypes = (
+			"NSAffineTransformStruct",
+			NSAlertStyle,
+			NSAnimationEffect,
+			NSAnimationProgress,
+			"NSAppleEventManagerSuspensionID",
+			"NSApplicationDelegateReply",
+			"NSApplicationPrintReply",
+			"NSApplicationTerminateReply",
+			NSBackingStoreType,
+			NSBezelStyle,
+			"NSBitmapImageFileType",
+			NSBorderType,
+			"NSBrowserColumnResizingType",
+			NSButtonType,
+			NSCellAttribute,
+			NSCellImagePosition,
+			NSCellState,
+			NSCellType,
+			NSComparisonResult,
+			"NSCompositingOperation",
+			NSControlSize,
+			NSControlTint,
+			"NSDatePickerElementFlags",
+			NSDocumentChangeType,
+			NSDragOperation,
+			NSDrawerState,
+			NSEventType,
+			NSFocusRingType,
+			NSFontAction,
+			NSFontSymbolicTraits,
+			NSFontTraitMask,
+			NSGlyph,
+			NSGlyphLayoutMode,
+			NSGlyphRelation,
+			NSGradientType,
+			NSHandler,
+			NSHandler2,
+			NSHashEnumerator,
+			NSHashTable,
+			NSImageInterpolation,
+			"NSKeyValueObservingOptions",
+			NSLayoutDirection,
+			NSLayoutStatus,
+			NSLineBreakMode,
+			NSMapEnumerator,
+			NSMapTable,
+			NSMatrixMode,
+			NSModalSession,
+			"NSOpenGLContextAuxiliary",
+			"NSOpenGLPixelFormatAuxiliary",
+			NSPoint,
+			NSPrintingPageOrder,
+			"NSProgressIndicatorStyle",
+			"NSProgressIndicatorThickness",
+			"NSProgressIndicatorThreadInfo",
+			NSRange,
+			NSRect,
+			NSRectEdge,
+			NSSaveOperationType,
+			"NSScreenAuxiliaryOpaque",
+			"NSScrollArrowPosition",
+			NSScrollerArrow,
+			NSScrollerPart,
+			NSSelectionAffinity,
+			NSSelectionDirection,
+			"NSSelectionGranularity",
+			NSSize,
+			NSSocketNativeHandle,
+			NSStringEncoding,
+			NSSwappedDouble,
+			NSSwappedFloat,
+			NSTIFFCompression,
+			NSTabState,
+			NSTabViewType,
+			"NSTableViewDropOperation",
+			NSTextAlignment,
+			NSTextTabType,
+			NSThreadPrivate,
+			NSTickMarkPosition,
+			NSTimeInterval,
+			NSTitlePosition,
+			NSTokenStyle,
+			NSToolTipTag,
+			NSToolbarDisplayMode,
+			NSToolbarSizeMode,
+			NSTrackingRectTag,
+			"NSTypesetterGlyphInfo",
+			"NSUsableScrollerParts",
+			NSWindowDepth,
+			NSWindowOrderingMode,
+			"NSWorkspaceIconCreationOptions",
+			"NSWorkspaceLaunchOptions",
+			NSWritingDirection,
+			NSZone,
+		);
+	};
 }
