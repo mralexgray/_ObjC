@@ -1,53 +1,69 @@
 
-/*!   @abstract _ObjC is a concise, readable dialect of ObjC that is 100% compatible - without needless tricks.
+/*!
+ 
+ @abstract    _ObjC is a sensible dialect of ObjC that is 100% compiler compatible.
+ @brief       Uncluttered, easy to remember, and obvious to any neophyte.
+              Purge needless punctuation, especially *'s, {}'s, and ()'s, and so on, and so forth.
+              Class pointers and types are typedef'd to aliases, with no pointer,
+              formatted like _Four lettes, starting with an underscore, capitalized.
+*/
 
-    @discussion It strives to minimize excessive *'s, {}'s, and ()'s, and so on, and so forth.
-                Class pointers and types are typedef'd to aliases, with no pointer,
-                formatted like _Four lettes, starting with an underscore, capitalized. */
+#pragma once                        // Lord, please!
 
-#pragma once
+#ifdef __OBJC__                     // Let's stick to what we know. (We know ObjC)
+#if    __STDC_VERSION__ >= 201112L  // std=c11 is REQUIED, honey... catch it.
 
-//#import <TargetConditionals.h>
+#define IOS_ONLY  TARGET_OS_IPHONE  // Why not make this easy on us, Apple?
+#define MAC_ONLY  !IOS_ONLY         // SImple #if MAC_ONLY or #if IOS_ONLY.  duh.
 
-#ifdef __OBJC__                     // Let's stick to what we know.
-#if    __STDC_VERSION__ >= 201112L  // We only speak c11 here.
+#define        _  :                 // Semicolon -> underscore x 1
+#define       __  ,                 //     Comma -> underscore x 2
+#define      ___  ;                 //     Colon -> underscore x 3
+
 
 /*! Our raison d'étre is to make things more readable.. With these simple additions we go from
 
-  - (id) initWithFrame:(NSRect)f;
-to 
-  _ID initWithFrame __Rect_ r ___
+    - (id) initWithFrame:(NSRect)f;
 
-*/
+  to something more like...
 
-#define IOS_ONLY TARGET_OS_IPHONE
-#define MAC_ONLY !IOS_ONLY
+    - initWithFrame __Rect_ r ___
 
-#define      💩 ?:
-#define        _ :
-#define       __ ,
-#define      ___ ;
+  Kind - Interface Declaration (Prototypes, Public, Name, etc)
+  Vows - Protocol  (Promises, etc)
+  Plan - Implemenation
+  Xtra - Categories                                      */
 
-#define    _Type typedef
+#define        💩  ?:                   	/// Some of you are going... to.. hate.. this.
+#define      _Type  typedef              	/// Since we're gonna typedef virtually everything, lets retype typedef, lol.
 
-//#define     Kind interface
-#define       🅺 @Kind
-#define  🅚(K,...) 🅺 K : __VA_ARGS__
-#define       🆇 @Xtra
-#define  🅧(...) @Xtra(__VA_ARGS__)
+#pragma mark - Objective C Keywords
+
+#define       Incl  import
+#define       Optn  optional
+#define       Reqd  required
+#define       Kind  interface            	/// Spade is a spade.
+#define       Stop  end
+
+
+#define         🅺  @Kind                	/// XC: @Kind <#ClassName#>
+#define  🅚(K,...)  🅺 K : __VA_ARGS__
+#define    🅧(...)   @Xtra(__VA_ARGS__)
+#define          ￭  @Stop
+
+#define         🆇  @Xtra
+
 #define       🅿︎ @Plan // 🅟
 #define       🆅 @Vows // 🅥
 #define       🅲 @concrete
 #define  🅒(...) @concreteprotocol(__VA_ARGS__)
 
-#define     Incl import
-#define     Optn optional
-#define     Reqd required
-#define     Stop end
-#define        ￭ @Stop
-#define       ＿ Plan
-#define ｜(...) ___
+#pragma mark - Comment helpers
+
+#define ｜(...) ___                   /// XC shortcut ➜ ____ ➜ ｜('<#comment#>')
 #define ￤(...)
+
+//#define       ＿ Plan
 
 #define IFNIL(VAR,...) (VAR = VAR ?: __VA_ARGS__)
 
@@ -60,7 +76,7 @@ to
 
 #define    Ｐ(...) id<__VA_ARGS__>
 #define   _Ｐ(...) (id<__VA_ARGS__>)
- #define __Ｐ(...) : (id<__VA_ARGS__>)
+#define  __Ｐ(...) : (id<__VA_ARGS__>)
 
 #define Code NSCoding
 #define Copy NSCopying
@@ -85,7 +101,6 @@ to
 
 //#define  NSLog(...)  (void)printf("%s %s\n",__PRETTY_FUNCTION__,$(__VA_ARGS__).UTF8String)
 
-
 #define BLOCKTYPE(NAME,...) _Type void(^NAME)(__VA_ARGS__)
 
 _Type  void(^＾)()___   // Defines a generic block as ＾
@@ -93,6 +108,7 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 /// Let's standarize the preprocessor names too!
 
 //@import ObjectiveC
+
 #import <objc/runtime.h>
     ___
  @class AVAudioPlayer
@@ -142,11 +158,6 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 /// For ObjC classes, let's define a preprocessor Macro to call the direct Classes, without the _.
 
 %% DEFINES.PROPERTIES %%
-
-/*! Kind - Interface (Prototypes, Public, Name, etc)
-    Vows - Protocol  (Promises, etc)
-    Plan - Implemenation
-    Xtra - Categories                                      */
 
 %% DEFINES.ABBREVIATIONS %%
 
