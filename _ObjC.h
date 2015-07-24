@@ -1,7 +1,5 @@
 
 /*!
-	@note This file is AUTO_GENERATED! Changes will NOT persist!
-Built on Jul 24, 2015, 7:35:50 AM from template:_ObjC.plist with data from:_ObjC_Template.h */
 
 /*!
  

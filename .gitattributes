@@ -1,0 +1,3 @@
+
+*.h filter=AUTO-GENERATED
+*.m filter=AUTO-GENERATED

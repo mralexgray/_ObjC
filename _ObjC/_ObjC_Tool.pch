@@ -17,7 +17,7 @@
 #define MEDDATE           NSDateFormatterMediumStyle
 #define THEDATE           [NSDateFormatter localizedStringFromDate:NSDate.date dateStyle:MEDDATE timeStyle:MEDDATE]
 #define WARNING          @"\n/*!\n\t@note This file is AUTO_GENERATED! Changes will NOT persist!\n" \
-                          "Built on %@ from template:%@ with data from:%@ */\n%@"
+                          "AUTO_GENERATED on %@ from template:%@ with data from:%@ */\n%@"
 
 /// @abstract The data we are deling with is broadly defined as either #define's or _Type typedefs.
 
