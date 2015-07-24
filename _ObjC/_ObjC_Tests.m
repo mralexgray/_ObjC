@@ -2,17 +2,22 @@
 @import XCTest;
 #import <_ObjC.h>
 
-@Kind Kinda : NObj                  /// A simple \c @interface declaration.
+
+//@Kind Kinda : NObj                  /// A simple \c @interface declaration.
+
+@KIND(Kinda)                  /// A simple \c @interface declaration.
 @Stop                               /// Alias for \c @end.
 
 
-//🅺 KindaNObj : NObj
-🅚 (KindaNObj, NObj)                      /// Function-like \c @interface declaration, subclasses NSObject.
+//
+🅺 (KindaNObj)
+//🅚 (KindaNObj)                      /// Function-like \c @interface declaration, subclasses NSObject.
 ￭                                   /// @see \c @Stop @see \c @end.
 
-🅚 (KindaXCTest,Case)          ￭   /// Function-like, but Still able to spec the superclass.
+// 🅚
+🅺(KindaXCTest,Case)          ￭   /// Function-like, but Still able to spec the superclass.
 
-🅚 (KindWithVows, NObj <Code>)        ￭   /// Both function-like versions can conform to protocols.
+//🅚 (KindWithVows, NObj <Code>)        ￭   /// Both function-like versions can conform to protocols.
 
 @Xtra(KindaNObj,CategoryName)  ￭
 
@@ -37,7 +42,7 @@ _XCTest(IfDefs,                     /// equivalent to - (void)  testIfDefs { ...
 
 ￭
 
-/// AUTO-GENERATED TESTS BELOW(Generated at Jun 22, 2015, 8:59:59 PM)
+/// AUTO-GENERATED TESTS BELOW(Generated at Jul 24, 2015, 7:35:50 AM)
 
 _XCTCase(DefinesTestCase)
 _XCTest(TheyWorked,
@@ -74,7 +79,7 @@ _XCTest(TheyWorked,
 	XCTAssert(@encode(NSDictionary *) == @encode(_Dict), @"%s should equal %s!",@encode(NSDictionary *),@encode(_Dict));
 	XCTAssert(@encode(unsigned char *) == @encode(_UChr), @"%s should equal %s!",@encode(unsigned char *),@encode(_UChr));
 	XCTAssert(@encode(NSUserDefaults *) == @encode(_Defs), @"%s should equal %s!",@encode(NSUserDefaults *),@encode(_Defs));
-	XCTAssert(@encode(XCTestCase *) == @encode(_Case), @"%s should equal %s!",@encode(XCTestCase *),@encode(_Case));
+	XCTAssert(@encode(XCTestCase *) == @encode(_Test), @"%s should equal %s!",@encode(XCTestCase *),@encode(_Test));
 	XCTAssert(@encode(NSIndexSet) == @encode(_ISet), @"%s should equal %s!",@encode(NSIndexSet),@encode(_ISet));
 	XCTAssert(@encode(NSImage *) == @encode(_Pict), @"%s should equal %s!",@encode(NSImage *),@encode(_Pict));
 	XCTAssert(@encode(NSObject *) == @encode(_NObj), @"%s should equal %s!",@encode(NSObject *),@encode(_NObj));
