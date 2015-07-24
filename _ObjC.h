@@ -1,56 +1,73 @@
 
-/*!       @note This file is AUTO_GENERATED! Changes will NOT persist!
-                Built on Jun 22, 2015, 8:59:59 PM from template:_ObjC.plist with data from:_ObjC_Template.h */
+/*!
+	@note This file is AUTO_GENERATED! Changes will NOT persist!
+Built on Jul 24, 2015, 7:35:50 AM from template:_ObjC.plist with data from:_ObjC_Template.h */
 
-/*!   @abstract _ObjC is a concise, readable dialect of ObjC that is 100% compatible - without needless tricks.
+/*!
+ 
+ @abstract    _ObjC is a sensible dialect of ObjC that is 100% compiler compatible.
+ @brief       Uncluttered, easy to remember, and obvious to any neophyte.
+              Purge needless punctuation, especially *'s, {}'s, and ()'s, and so on, and so forth.
+              Class pointers and types are typedef'd to aliases, with no pointer,
+              formatted like _Four lettes, starting with an underscore, capitalized.
+*/
 
-    @discussion It strives to minimize excessive *'s, {}'s, and ()'s, and so on, and so forth.
-                Class pointers and types are typedef'd to aliases, with no pointer,
-                formatted like _Four lettes, starting with an underscore, capitalized. */
+#pragma once                        // Lord, please!
 
-#pragma once
+#ifdef __OBJC__                     // Let's stick to what we know. (We know ObjC)
+#if    __STDC_VERSION__ >= 201112L  // std=c11 is REQUIED, honey... catch it.
 
-//#import <TargetConditionals.h>
+#define IOS_ONLY  TARGET_OS_IPHONE  // Why not make this easy on us, Apple?
+#define MAC_ONLY  !IOS_ONLY         // SImple #if MAC_ONLY or #if IOS_ONLY.  duh.
 
-#ifdef __OBJC__                     // Let's stick to what we know.
-#if    __STDC_VERSION__ >= 201112L  // We only speak c11 here.
+#define        _  :                 // Semicolon -> underscore x 1
+#define       __  ,                 //     Comma -> underscore x 2
+#define      ___  ;                 //     Colon -> underscore x 3
+
 
 /*! Our raison d'étre is to make things more readable.. With these simple additions we go from
 
-  - (id) initWithFrame:(NSRect)f;
-to 
-  _ID initWithFrame __Rect_ r ___
+    - (id) initWithFrame:(NSRect)f;
 
-*/
+  to something more like...
 
-#define IOS_ONLY TARGET_OS_IPHONE
-#define MAC_ONLY !IOS_ONLY
+    - initWithFrame __Rect_ r ___
 
-#define      💩 ?:
-#define        _ :
-#define       __ ,
-#define      ___ ;
+  Kind - Interface Declaration (Prototypes, Public, Name, etc)
+  Vows - Protocol  (Promises, etc)
+  Plan - Implemenation
+  Xtra - Categories                                      */
 
-#define    _Type typedef
+#define        💩  ?:                   	/// Some of you are going... to.. hate.. this.
+#define      _Type  typedef              	/// Since we're gonna typedef virtually everything, lets retype typedef, lol.
 
-//#define     Kind interface
-#define       🅺 @Kind
-#define  🅚(K,...) 🅺 K : __VA_ARGS__
-#define       🆇 @Xtra
-#define  🅧(...) @Xtra(__VA_ARGS__)
+#pragma mark - Objective C Keywords
+
+#define       Incl  import
+#define       Optn  optional
+#define       Reqd  required
+#define       Kind  interface            	/// Spade is a spade.
+#define       Stop  end
+
+
+#define         🅺  @Kind                	/// XC: @Kind <#ClassName#>
+#define  🅚(K,...)  🅺 K : __VA_ARGS__
+#define    🅧(...)   @Xtra(__VA_ARGS__)
+#define          ￭  @Stop
+
+#define         🆇  @Xtra
+
 #define       🅿︎ @Plan // 🅟
 #define       🆅 @Vows // 🅥
 #define       🅲 @concrete
 #define  🅒(...) @concreteprotocol(__VA_ARGS__)
 
-#define     Incl import
-#define     Optn optional
-#define     Reqd required
-#define     Stop end
-#define        ￭ @Stop
-#define       ＿ Plan
-#define ｜(...) ___
+#pragma mark - Comment helpers
+
+#define ｜(...) ___                   /// XC shortcut ➜ ____ ➜ ｜('<#comment#>')
 #define ￤(...)
+
+//#define       ＿ Plan
 
 #define IFNIL(VAR,...) (VAR = VAR ?: __VA_ARGS__)
 
@@ -63,7 +80,7 @@ to
 
 #define    Ｐ(...) id<__VA_ARGS__>
 #define   _Ｐ(...) (id<__VA_ARGS__>)
- #define __Ｐ(...) : (id<__VA_ARGS__>)
+#define  __Ｐ(...) : (id<__VA_ARGS__>)
 
 #define Code NSCoding
 #define Copy NSCopying
@@ -88,7 +105,6 @@ to
 
 //#define  NSLog(...)  (void)printf("%s %s\n",__PRETTY_FUNCTION__,$(__VA_ARGS__).UTF8String)
 
-
 #define BLOCKTYPE(NAME,...) _Type void(^NAME)(__VA_ARGS__)
 
 _Type  void(^＾)()___   // Defines a generic block as ＾
@@ -96,6 +112,7 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 /// Let's standarize the preprocessor names too!
 
 //@import ObjectiveC
+
 #import <objc/runtime.h>
     ___
  @class AVAudioPlayer
@@ -178,7 +195,7 @@ _Type                       NSInteger   _SInt  ___
 _Type                      NSUInteger   _UInt  ___
 _Type                   unsigned long   _ULng  ___
 _Type                dispatch_queue_t   _DQue  ___
-_Type              NSComparisonResult   _Comp  ___
+_Type              NSComparisonResult   _CRes  ___
 
 
 #define                      _ObjC_   ( _ObjC )
@@ -207,8 +224,9 @@ _Type              NSComparisonResult   _Comp  ___
 #define                     __ULng_   : ( _ULng )
 #define                      _DQue_   ( _DQue )
 #define                     __DQue_   : ( _DQue )
-#define                      _Comp_   ( _Comp )
-#define                     __Comp_   : ( _Comp )
+#define                      _CRes_   ( _CRes )
+#define                     __CRes_   : ( _CRes )
+#define                      _CS      - _CRes_
 
 
 #pragma mark - END TYPES.PRIMITIVES PROBLEMS: 
@@ -305,7 +323,7 @@ _Type                       NSValue *   _Valu  ___
 _Type                        NSView *   _View  ___
 _Type                      NSWindow *   _Wind  ___
 _Type                 unsigned char *   _UChr  ___
-_Type                    XCTestCase *   _Case  ___
+_Type                    XCTestCase *   _Test  ___
 
 #define                        SndP   AVAudioPlayer
 #define                        Layr   CALayer
@@ -359,7 +377,7 @@ _Type                    XCTestCase *   _Case  ___
 #define                        View   NSView
 #define                        Wind   NSWindow
 #define                        UChr   unsigned char
-#define                        Case   XCTestCase
+#define                        Test   XCTestCase
 
 #define                      _SndP_   ( _SndP )
 #define                     __SndP_   : ( _SndP )
@@ -493,8 +511,8 @@ _Type                    XCTestCase *   _Case  ___
 #define                      _WD      - _Wind_
 #define                      _UChr_   ( _UChr )
 #define                     __UChr_   : ( _UChr )
-#define                      _Case_   ( _Case )
-#define                     __Case_   : ( _Case )
+#define                      _Test_   ( _Test )
+#define                     __Test_   : ( _Test )
 
 
 #pragma mark - END TYPES.POINTERS PROBLEMS: 
@@ -612,6 +630,7 @@ _Type _Void (^ ＾IDUT) (_ObjC x, _UInt c)     ___
 _Type       _Void (^ ＾Rect) (_Rect r)     ___
 _Type       _Void (^ ＾SInt) (_SInt i)     ___
 _Type       _Void (^ ＾Text) (_Text p)     ___
+_Type       _Void (^ ＾Text) (_Text t)     ___
 _Type       _Void (^ ＾UInt) (_UInt i)     ___
 
 
@@ -645,6 +664,8 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 #define                      ＾SInt_   : ( ＾SInt )
 #define                      _＾Text   ( ＾Text )
 #define                      ＾Text_   : ( ＾Text )
+#define                      _＾Text   ( ＾Text )
+#define                      ＾Text_   : ( ＾Text )
 #define                      _＾UInt   ( ＾UInt )
 #define                      ＾UInt_   : ( ＾UInt )
 
@@ -666,14 +687,14 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 
 #pragma mark - PROPERTIES
 
-#define                             _AS   @property (AS) 
+#define                             _AS   @property (assign) 
 #define                             _AT   @property 
-#define                             _CP   @property (CP) 
-#define                             _NA   @property (NA) 
-#define                             _NC   @property (NA,CP) 
-#define                             _RC   @property (RO,CP) 
-#define                             _RO   @property (RO) 
-#define                             _WK   @property (WK) 
+#define                             _CP   @property (copy) 
+#define                             _NA   @property (nonatomic) 
+#define                             _NC   @property (nonatomic,copy) 
+#define                             _RC   @property (readonly,copy) 
+#define                             _RO   @property (readonly) 
+#define                             _WK   @property (weak) 
 #define                             ASS   assign 
 #define                              CP   copy 
 #define                              NA   nonatomic 
@@ -685,11 +706,6 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 
 
 #pragma mark - END DEFINES.PROPERTIES PROBLEMS: 
-
-/*! Kind - Interface (Prototypes, Public, Name, etc)
-    Vows - Protocol  (Promises, etc)
-    Plan - Implemenation
-    Xtra - Categories                                      */
 
 #pragma mark - ABBREVIATIONS
 
@@ -734,7 +750,6 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 #define                  INIT_THEN(...)   SUPERINIT; ({ __VA_ARGS__ }); return self; 
 #define                INTERFACE(X,...)   @interface X : __VA_ARGS__ + (instancetype) 
 #define                  KIND(Name,...)   Kind_(Name,NObj,__VA_ARGS__) 
-#define                  Kind(Name,...)   Kind_(Name,NObj,__VA_ARGS__)  
 #define            Kind_(Name,Meta,...)   interface Name : Meta __VA_ARGS__ 
     ///                                   Cute shortcute for Mentioning mutable NS-classes.
 #define                            M(X)   NSMutable##X 
