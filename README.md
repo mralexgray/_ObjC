@@ -134,3 +134,7 @@ Below is the header as was last compiled..
 [BStatusLink]:  https://travis-ci.org/mralexgray/_ObjC
 [BStatusImage]: https://travis-ci.org/mralexgray/_ObjC.svg?branch=master (Travis Build Status)
 [NOTSwift]:        https://img.shields.io/badge/NOT%20Swift-YES-blue.svg (NOT swift, lol)
+
+
+BUGS:
+Build fails with Hard drives containing parenthesiseses.
