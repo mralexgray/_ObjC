@@ -4,6 +4,7 @@
 		"_Colr",
 		"_Cord",
 		"_CRes",
+		"_Copy",
 		"_CSet",
 		"_Data",
 		"_Dict",
@@ -111,7 +112,6 @@
 				"A * B = [A new];",
 			);
 			NSStringValue = "@\"stringValue\"";
-			Plan = implementation;
 			"SELFINIT(...)" = "return self = super.init ? ({ __VA_ARGS__; }), self : nil";
 			"VAR(A,B,C)" = (
 				"Generates declaration of primitive variable named @oaram B, of type @param A, with initial value of @param C",
@@ -661,6 +661,7 @@
 			long = "_Long";
 			"unsigned long" = "_ULng";
 			void = "_Void";
+			"id<NSCopying>" = "_Copy";
 		};
 		STRUCTS = {
 			CGAffineTransform = "_AffT";

@@ -1,7 +1,8 @@
 
 /// Nothing to see here, move along.  (Ugly mish-mosh of shit - attempts to simpliy tool code.)
 
-#pragma once
+#ifndef _ObjC__ObjC_Tool_pch
+#define _ObjC__ObjC_Tool_pch
 
 #import <Foundation/Foundation.h>
 
@@ -34,7 +35,7 @@ typedef NS_ENUM(BOOL, SentinelLocation) { ENDING = NO, BEGINNING = YES };
 
 static NSString     * CompiledHeader ();
 static NSDictionary * PlistDataModel ();
-static NSDictionary *      ParseArgs ();
+       NSDictionary *      ParseArgs ();
        void               WriteTests ();
        
 static NSString * template, * templatePath, * plistPath, * testFilePath;
@@ -50,7 +51,6 @@ static id plist, output, compiled;
 @end
 
 @interface                 NSString   (SubstringToOrFrom)
-@property (readonly,copy)  NSString * refactor;
 - objectAtIndexedSubscript:(NSInteger)i;
 #ifndef MAC_OS_X_VERSION_10_10
 - (BOOL) containsString:(NSString*)x;
@@ -75,3 +75,5 @@ NS_INLINE void Usage() {
 
       [ARGS[0] UTF8String], [ParseArgs() description].UTF8String, [plistPath UTF8String], [templatePath UTF8String], _env);
 }
+
+#endif

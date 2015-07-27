@@ -1,4 +1,6 @@
 
+SentinelLocation commentsGo = BEGINNING;  // This is just NO, or YES, not sure what I was doing.
+
 MAIN({
 
   // Dirty, dirty arg parsing.  Supports long or short opts.
@@ -27,56 +29,58 @@ MAIN({
 
 NSString * GenerateSection(NSString * head) {
 
-  //  if ( (LOC(head,@"MAC") != NSNotFound && BuildingFor() == e_TYPE_IOS)) return @""; // ||
-  //       (LOC(head,@"IOS") != NSNotFound && BuildingFor() == e_TYPE_MAC)) return @"";
+  //  if ( (LOC(head,@"MAC") != NSNotFound && BuildingFor() == e_TYPE_IOS)) return @""; // || (LOC(head,@"IOS") != NSNotFound && BuildingFor() == e_TYPE_MAC)) return @"";
 
-  id backing = [PlistDataModel() valueForKeyPath:head],
-  keyParts = [head componentsSeparatedByString:@"."];
+  id backing = [PlistDataModel() valueForKeyPath:head], // Get dictionary section, i.e. "TYPES.POINTERS"
+    keyParts = [head componentsSeparatedByString:@"."]; // Plist is unmodeled, so we have to manually figure out what we're doing.
 
-  _Emit emit = [keyParts[0] isEqualToString:@"TYPES"] ? e_TYPE : e_DEFS;
+  _Emit emit = [keyParts[0] isEqualToString:@"TYPES"] ? e_TYPE : e_DEFS; // Are we #define'ing, or typedef'ing?
 
-  if      ([keyParts[1] containsString:@"POINT"]) emit |= e_TYPE_PMAP;
-  else if ([keyParts[1] containsString:@"BLOCK"]) emit |= e_TYPE_BLKS;
+  if      ([keyParts[1] containsString:@"POINT"]) emit |= e_TYPE_PMAP;   // Specifically, are we emitting pointers?
+  else if ([keyParts[1] containsString:@"BLOCK"]) emit |= e_TYPE_BLKS;   // OR Get specific.
 
-  id(^__processDictionary)(id) = ^NSString*(NSDictionary*defs) {
+  id(^__processDictionary)(id) = ^NSString*(NSDictionary*defs) {         // This is where the work happens!
+
+    // This is total vanity, uses some crazy sort exception list and length to do some kind of crazy sorting!
 
     id sortedKs = [defs.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString*x1, NSString*x2) {
 
       #define SORT(X) [[PlistDataModel() valueForKeyPath: @"SORT_EXCEPTIONS." #X ] containsObject:head]
 
       return (SORT(ALPHA) || emit&e_TYPE) && !SORT(LENGTH) ? [x1 compare:x2 options:NSCaseInsensitiveSearch]
-      : [@(x1.length) compare:@(x2.length)];
+                                                           : [@(x1.length) compare:@(x2.length)];
     }];
 
     /// We build our string from here, with an opening prgam mark.
+
     M(String) * snippet = $(@"#pragma mark - %@\n\n", head.pathExtension).mutableCopy,
-    * methArgs = emit  & e_TYPE      ? @"".mutableCopy : nil, /// "- (id)" -> "_ID" (if it's a typedef)
-    * pointerMap = emit == e_TYPE_PMAP ? @"".mutableCopy : nil,
-    * problems = @"".mutableCopy;  // Unused
+             * methArgs = emit  & e_TYPE      ? @"".mutableCopy : nil, /// "- (id)" -> "_ID" (if it's a typedef)
+           * pointerMap = emit == e_TYPE_PMAP ? @"".mutableCopy : nil;
 
     #define SENTINEL(CTX) CTX == BEGINNING ? emit & e_TYPE ? "_Type" : "#define" : emit & e_TYPE ? " ___" : ""
 
     void(^writeTypeOrDef)(id) = ^(NSString*k){  // Write it out, girl.
 
-      SentinelLocation commentsGo = BEGINNING;
-
       //   if (      emit & e_TYPE && [defs[k] length] != 5) // and the definition is NOT 6 letters return APPEND(problems, @" %@ (type+not5) ", k);
 
       id theDef = defs[k], comment = nil;
-      // it might be a block type, so replace its occurance of ^ with one with a space and then the def.
+
+                          // it might be a block type, so replace its occurance of ^ with one with a space and then the def.
       NSString * theKey = [k stringByReplacingOccurrencesOfString:@"^"  withString:$(@"^ %@", defs[k])],
-      * declared = [theDef isKindOfClass:NSString.class] ? theDef : ({ comment = theDef[0]; theDef[1]; });
+
+                          // Entries that aren't strings have comments.  We need to check them and then split them, if so.
+             * declared = [theDef isKindOfClass:NSString.class] ? theDef : ({ comment = theDef[0]; theDef[1]; });
 
       APPEND(snippet, @"%@%s %*s%@   %@ %s%@\n",
-             commentsGo == ENDING || !comment ? @"" : $(@"    ///%35s%@\n", "", comment),
-             SENTINEL(BEGINNING),
-             31 - (int)theKey.length,              /// Padding length
-             "",                                   /// Pad with
-             theKey,                               /// the "declaration"
-             emit == e_TYPE_BLKS ? @"" : declared, /// Blocks are weird
-             SENTINEL(ENDING),
-             commentsGo == BEGINNING || !comment ? @"" : $(@" /// %@", comment)
-             );
+             commentsGo == ENDING || !comment             // Accomdate comments, Defaults to nothing.
+             ? @"" : $(@"    ///%35s%@\n", "", comment),  // Insert at start, if set to BEGINNING and comment exists.
+             SENTINEL(BEGINNING),                         // define or typedef?
+             31 - (int)theKey.length, "",                 // Padding length, and the pad
+             theKey,                                      // the "declaration"
+             emit == e_TYPE_BLKS ? @"" : declared,        // Blocks are weird, accomodate them
+             SENTINEL(ENDING),                            // defs -> no semicolon BUT typedefs -> semicolon
+             commentsGo == BEGINNING || !comment          // Freaky comment handling, again.
+             ? @"" : $(@" /// %@", comment));
 
       if (pointerMap) { NSString *prefix = defs[k][1]; BOOL lead_ = [prefix isEqualToString:@"_"];
 
@@ -85,7 +89,7 @@ NSString * GenerateSection(NSString * head) {
                k[k.length - 2]);  // original class name
       }
 
-      #define AS_ARG_SHORTCUTS(X) ({ \
+      #define AS_ARG_SHORTCUTS(X) ({                         /* God, does this look insane!  */ \
         BOOL isBlock = [X containsString:@"＾"];             /* Special cases for block defs */ \
         APPEND( methArgs, @"#define %21s%s%@%s   ( %@ )\n"   /* In parenthsis                */ \
         "#define %21s%@_   : ( %@ )\n",                      /* Includes leading ':'         */ \
@@ -101,7 +105,7 @@ NSString * GenerateSection(NSString * head) {
 
     for (NSString *k in sortedKs) writeTypeOrDef(k);
 
-    APPEND(snippet,@"%@%@%@\n\n#pragma mark - END %@ PROBLEMS: %@", pointerMap ?: @"", methArgs ? @"\n\n" : @"", methArgs ?: @"", head, problems);
+    APPEND(snippet,@"%@%@%@\n\n#pragma mark - END %@", pointerMap ?: @"", methArgs ? @"\n\n" : @"", methArgs ?: @"", head);
 
     return snippet.copy;
   };
@@ -112,7 +116,7 @@ NSString * GenerateSection(NSString * head) {
 
   //    M(String) * concat = @"".mutableCopy;
   //    for (id d in backing) APPEND(concat,@"\n%@", __processDictionary(d)); concat.copy; });
-}
+} // Meat + Potatoes
 
 static     NSDictionary * PlistDataModel () { return plist    = plist    ?: [NSDictionary dictionaryWithContentsOfFile:plistPath]; }
 static         NSString * CompiledHeader () {
@@ -183,6 +187,7 @@ id ObjectForAnyKeyPassingTest(NSDictionary * values, NSArray * okKeys, BOOL(*tes
 @implementation  NSString (SubstringToOrFrom)
 
 - refactor                              { NSDictionary *rules = @{}; return @""; }
+
 - objectAtIndexedSubscript:(NSInteger)i { return i < 0 ? [self substringFromIndex:ABS(i)] : [self substringToIndex:i]; }
 
 #ifndef MAC_OS_X_VERSION_10_10
@@ -192,28 +197,33 @@ id ObjectForAnyKeyPassingTest(NSDictionary * values, NSArray * okKeys, BOOL(*tes
 @end
 
 @implementation RxMatch
+
 - initWithTextCheckingResult:(NSTextCheckingResult*)result forString:(NSString*)original {
 
-  self = super.init;
+  self       = super.init;
   _original  = original;
   _range     = result.range;
   _value     = result.range.length ? [original substringWithRange:result.range] : nil;
 
   NSMutableArray* groups = @[].mutableCopy;
-  for(int i=0; i<result.numberOfRanges; i++){
-    RxMatch* group = RxMatch.new;
-    group.range         = [result rangeAtIndex:i];
-    group.value         = group.range.length ? [original substringWithRange:group.range] : nil;
+
+  for(int i = 0; i < result.numberOfRanges; i++) {
+
+    RxMatch * group = RxMatch.new;
+    group.range     = [result rangeAtIndex:i];
+    group.value     = group.range.length ? [original substringWithRange:group.range] : nil;
+
     [groups addObject:group];
   }
   _groups = [groups copy];
   return self;
 }
+
 @end
 
 // Parses CLI to dictionary.  Generic, chic, and unrelated to task at hand.
 
-static NSDictionary * ParseArgs() {
+NSDictionary * ParseArgs() {
 
   static id opts; static dispatch_once_t onceToken; dispatch_once(&onceToken, ^{
 

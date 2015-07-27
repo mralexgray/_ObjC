@@ -14,7 +14,7 @@
 #if    __STDC_VERSION__ >= 201112L  // std=c11 is REQUIED, honey... catch it.
 
 #define IOS_ONLY  TARGET_OS_IPHONE  // Why not make this easy on us, Apple?
-#define MAC_ONLY  !IOS_ONLY         // SImple #if MAC_ONLY or #if IOS_ONLY.  duh.
+#define MAC_ONLY  !IOS_ONLY         // Simple #if MAC_ONLY or #if IOS_ONLY.  duh.
 
 #define        _  :                 // Semicolon -> underscore x 1
 #define       __  ,                 //     Comma -> underscore x 2
@@ -42,21 +42,25 @@
 #define       Incl  import
 #define       Optn  optional
 #define       Reqd  required
+
 #define       Kind  interface            	/// Spade is a spade.
-#define       Stop  end
-
-
 #define         🅺  @Kind                	/// XC: @Kind <#ClassName#>
-#define  🅚(K,...)  🅺 K : __VA_ARGS__
-#define    🅧(...)   @Xtra(__VA_ARGS__)
+#define       Stop  end
 #define          ￭  @Stop
 
 #define         🆇  @Xtra
 
-#define       🅿︎ @Plan // 🅟
+#define       Plan implementation
+#define         🅿︎ @Plan // 🅟
 #define       🆅 @Vows // 🅥
 #define       🅲 @concrete
+#define  🅚(K,...)  @KIND(K,__VA_ARGS__)
+// #define  🅚
+#define    🅧(...)   @Xtra(__VA_ARGS__)
+
 #define  🅒(...) @concreteprotocol(__VA_ARGS__)
+
+%% DEFINES.MISC %%
 
 #pragma mark - Comment helpers
 
@@ -160,8 +164,6 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 %% DEFINES.PROPERTIES %%
 
 %% DEFINES.ABBREVIATIONS %%
-
-%% DEFINES.MISC %%
 
 %% DEFINES.STRINGS %%
 //%% DEFINES.NS %%

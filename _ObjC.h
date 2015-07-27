@@ -16,7 +16,7 @@
 #if    __STDC_VERSION__ >= 201112L  // std=c11 is REQUIED, honey... catch it.
 
 #define IOS_ONLY  TARGET_OS_IPHONE  // Why not make this easy on us, Apple?
-#define MAC_ONLY  !IOS_ONLY         // SImple #if MAC_ONLY or #if IOS_ONLY.  duh.
+#define MAC_ONLY  !IOS_ONLY         // Simple #if MAC_ONLY or #if IOS_ONLY.  duh.
 
 #define        _  :                 // Semicolon -> underscore x 1
 #define       __  ,                 //     Comma -> underscore x 2
@@ -44,21 +44,61 @@
 #define       Incl  import
 #define       Optn  optional
 #define       Reqd  required
+
 #define       Kind  interface            	/// Spade is a spade.
-#define       Stop  end
-
-
 #define         🅺  @Kind                	/// XC: @Kind <#ClassName#>
-#define  🅚(K,...)  🅺 K : __VA_ARGS__
-#define    🅧(...)   @Xtra(__VA_ARGS__)
+#define       Stop  end
 #define          ￭  @Stop
 
 #define         🆇  @Xtra
 
-#define       🅿︎ @Plan // 🅟
+#define       Plan implementation
+#define         🅿︎ @Plan // 🅟
 #define       🆅 @Vows // 🅥
 #define       🅲 @concrete
+#define  🅚(K,...)  @KIND(K,__VA_ARGS__)
+// #define  🅚
+#define    🅧(...)   @Xtra(__VA_ARGS__)
+
 #define  🅒(...) @concreteprotocol(__VA_ARGS__)
+
+#pragma mark - MISC
+
+#define                        $UNIC(C)   [NSString stringWithCharacter:C] 
+#define                 _Case(Name,...)   @Incl XCTest; @Kind_ (Name,XCTestCase)  ￭ @Plan Name XCTUp(__VA_ARGS__) 
+#define                     _Cat(K,...)   @interface K (Sans) __VA_ARGS__; @end 
+#define                           _FINI   @end 
+#define                           _IFCE   @interface 
+#define                           _IMPL   @implementation 
+#define                           _IMPT   @import 
+#define                           _Kind   @interface 
+    ///                                   Sugar for (instancetype) methods.
+#define                          _Kind_   (instancetype) 
+#define                           _PRTO   @protocol 
+    ///                                   Apple's take on main()
+#define                      APPLE_MAIN   int main(int argc, char **argv, char **envp, char **apple) 
+#define                    INIT_(K,...)   [[K alloc] init##__VA_ARGS__] 
+#define                  INIT_THEN(...)   SUPERINIT; ({ __VA_ARGS__ }); return self; 
+#define                INTERFACE(X,...)   @interface X : __VA_ARGS__ + (instancetype) 
+#define                  KIND(Name,...)   Kind_(Name,NObj,__VA_ARGS__) 
+#define            Kind_(Name,Meta,...)   interface Name : Meta __VA_ARGS__ 
+    ///                                   Cute shortcute for Mentioning mutable NS-classes.
+#define                            M(X)   NSMutable##X 
+    ///                                   Makes writing main functions WAY less verbose. @note assign non-zero value to "EXIT" for failure.
+#define                       MAIN(...)   APPLE_MAIN { int EXIT = 0; @autoreleasepool { ({ __VA_ARGS__; }); } return EXIT; } 
+    ///                                   Creates a new one.
+#define                        NEW(A,B)   A * B = [A new]; 
+#define                   NSStringValue   @"stringValue" 
+#define                   SELFINIT(...)   return self = super.init ? ({ __VA_ARGS__; }), self : nil 
+    ///                                   Generates declaration of primitive variable named @oaram B, of type @param A, with initial value of @param C
+#define                      VAR(A,B,C)   A B = C; 
+#define                            Vows   protocol 
+#define             Xtra(Extends,Named)   interface Extends      (Named) 
+#define         XtraPlan(Extends,Named)   implementation Extends (Named) 
+#define                   XtraStop(...)   Stop 
+
+
+#pragma mark - END DEFINES.MISC
 
 #pragma mark - Comment helpers
 
@@ -149,7 +189,7 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 #define              NSUserNotification   UILocalNotification 
 
 
-#pragma mark - END DEFINES.STANDARD_NAMES PROBLEMS: 
+#pragma mark - END DEFINES.STANDARD_NAMES
 
 #pragma mark - GEOMETRY_TRANSLATIONS
 
@@ -177,7 +217,7 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 #define          colorWithCalibratedHue   colorWithHue 
 
 
-#pragma mark - END DEFINES.GEOMETRY_TRANSLATIONS PROBLEMS: 
+#pragma mark - END DEFINES.GEOMETRY_TRANSLATIONS
 
 #endif // Per-Platform Imports (DEFINES.STANDARD_NAMES)
 
@@ -185,12 +225,13 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 
 _Type                              id   _ObjC  ___
 _Type                             SEL   _Meth  ___
+_Type                            long   _Long  ___
 _Type                            void   _Void  ___
 _Type                            BOOL   _IsIt  ___
-_Type                            long   _Long  ___
 _Type                           Class   _Meta  ___
 _Type                       NSInteger   _SInt  ___
 _Type                      NSUInteger   _UInt  ___
+_Type                   id<NSCopying>   _Copy  ___
 _Type                   unsigned long   _ULng  ___
 _Type                dispatch_queue_t   _DQue  ___
 _Type              NSComparisonResult   _CRes  ___
@@ -202,13 +243,13 @@ _Type              NSComparisonResult   _CRes  ___
 #define                      _Meth_   ( _Meth )
 #define                     __Meth_   : ( _Meth )
 #define                      _MH      - _Meth_
+#define                      _Long_   ( _Long )
+#define                     __Long_   : ( _Long )
 #define                      _Void_   ( _Void )
 #define                     __Void_   : ( _Void )
 #define                      _IsIt_   ( _IsIt )
 #define                     __IsIt_   : ( _IsIt )
 #define                      _IT      - _IsIt_
-#define                      _Long_   ( _Long )
-#define                     __Long_   : ( _Long )
 #define                      _Meta_   ( _Meta )
 #define                     __Meta_   : ( _Meta )
 #define                      _MA      - _Meta_
@@ -218,6 +259,9 @@ _Type              NSComparisonResult   _CRes  ___
 #define                      _UInt_   ( _UInt )
 #define                     __UInt_   : ( _UInt )
 #define                      _UT      - _UInt_
+#define                      _Copy_   ( _Copy )
+#define                     __Copy_   : ( _Copy )
+#define                      _CY      - _Copy_
 #define                      _ULng_   ( _ULng )
 #define                     __ULng_   : ( _ULng )
 #define                      _DQue_   ( _DQue )
@@ -227,7 +271,7 @@ _Type              NSComparisonResult   _CRes  ___
 #define                      _CS      - _CRes_
 
 
-#pragma mark - END TYPES.PRIMITIVES PROBLEMS: 
+#pragma mark - END TYPES.PRIMITIVES
 
 #pragma mark - STRUCTS
 
@@ -258,7 +302,7 @@ _Type                         NSRange   _Rnge  ___
 #define                      _RE      - _Rnge_
 
 
-#pragma mark - END TYPES.STRUCTS PROBLEMS: 
+#pragma mark - END TYPES.STRUCTS
 
 
 //typdeffing.  for example, I will show mapping of const char *, as ironically, it cannot be achieved like the others
@@ -513,7 +557,7 @@ _Type                    XCTestCase *   _Test  ___
 #define                     __Test_   : ( _Test )
 
 
-#pragma mark - END TYPES.POINTERS PROBLEMS: 
+#pragma mark - END TYPES.POINTERS
 
 #if MAC_ONLY
 
@@ -607,7 +651,7 @@ _Type                       WebView *   _WebV  ___
 #define                     __WebV_   : ( _WebV )
 
 
-#pragma mark - END TYPES.POINTERS_MAC PROBLEMS: 
+#pragma mark - END TYPES.POINTERS_MAC
 
 #endif // MAC_ONLY
 
@@ -668,7 +712,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 #define                      ＾UInt_   : ( ＾UInt )
 
 
-#pragma mark - END TYPES.BLOCKS_VOIDS PROBLEMS: 
+#pragma mark - END TYPES.BLOCKS_VOIDS
 
 #pragma mark - BLOCKS
 
@@ -676,7 +720,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 
 
 
-#pragma mark - END TYPES.BLOCKS PROBLEMS: 
+#pragma mark - END TYPES.BLOCKS
 
 /*! Good to make shortcuts for ALL  types as method arguments,
     with a leading Underscore to use ase parenthesis-free method parameterts! */
@@ -703,7 +747,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 #define                              WK   weak 
 
 
-#pragma mark - END DEFINES.PROPERTIES PROBLEMS: 
+#pragma mark - END DEFINES.PROPERTIES
 
 #pragma mark - ABBREVIATIONS
 
@@ -727,46 +771,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 #define                            vFKP   valueForKeyPath 
 
 
-#pragma mark - END DEFINES.ABBREVIATIONS PROBLEMS: 
-
-#pragma mark - MISC
-
-#define                        $UNIC(C)   [NSString stringWithCharacter:C] 
-#define                 _Case(Name,...)   @Incl XCTest; @Kind_ (Name,XCTestCase)  ￭ @Plan Name XCTUp(__VA_ARGS__) 
-#define                     _Cat(K,...)   @interface K (Sans) __VA_ARGS__; @end 
-#define                           _FINI   @end 
-#define                           _IFCE   @interface 
-#define                           _IMPL   @implementation 
-#define                           _IMPT   @import 
-#define                           _Kind   @interface 
-    ///                                   Sugar for (instancetype) methods.
-#define                          _Kind_   (instancetype) 
-#define                           _PRTO   @protocol 
-    ///                                   Apple's take on main()
-#define                      APPLE_MAIN   int main(int argc, char **argv, char **envp, char **apple) 
-#define                    INIT_(K,...)   [[K alloc] init##__VA_ARGS__] 
-#define                  INIT_THEN(...)   SUPERINIT; ({ __VA_ARGS__ }); return self; 
-#define                INTERFACE(X,...)   @interface X : __VA_ARGS__ + (instancetype) 
-#define                  KIND(Name,...)   Kind_(Name,NObj,__VA_ARGS__) 
-#define            Kind_(Name,Meta,...)   interface Name : Meta __VA_ARGS__ 
-    ///                                   Cute shortcute for Mentioning mutable NS-classes.
-#define                            M(X)   NSMutable##X 
-    ///                                   Makes writing main functions WAY less verbose. @note assign non-zero value to "EXIT" for failure.
-#define                       MAIN(...)   APPLE_MAIN { int EXIT = 0; @autoreleasepool { ({ __VA_ARGS__; }); } return EXIT; } 
-    ///                                   Creates a new one.
-#define                        NEW(A,B)   A * B = [A new]; 
-#define                   NSStringValue   @"stringValue" 
-#define                            Plan   implementation 
-#define                   SELFINIT(...)   return self = super.init ? ({ __VA_ARGS__; }), self : nil 
-    ///                                   Generates declaration of primitive variable named @oaram B, of type @param A, with initial value of @param C
-#define                      VAR(A,B,C)   A B = C; 
-#define                            Vows   protocol 
-#define             Xtra(Extends,Named)   interface Extends      (Named) 
-#define         XtraPlan(Extends,Named)   implementation Extends (Named) 
-#define                   XtraStop(...)   Stop 
-
-
-#pragma mark - END DEFINES.MISC PROBLEMS: 
+#pragma mark - END DEFINES.ABBREVIATIONS
 
 #pragma mark - STRINGS
 
@@ -809,7 +814,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 #define                            WORK   NSWorkspace.sharedWorkspace 
 
 
-#pragma mark - END DEFINES.STRINGS PROBLEMS: 
+#pragma mark - END DEFINES.STRINGS
 //#pragma mark - NS
 
 #define                             NSB   NSBundle 
@@ -920,7 +925,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 #define                  ISADICTorARRAY   isKindOfAnyClass:NSAorDCLASS 
 
 
-#pragma mark - END DEFINES.NS PROBLEMS: 
+#pragma mark - END DEFINES.NS
 
 @KIND(_ObjC_Load) ￭
 

@@ -1,7 +1,6 @@
 
-@import XCTest;
 #import <_ObjC.h>
-
+@Incl XCTest;
 
 //@Kind Kinda : NObj                  /// A simple \c @interface declaration.
 
@@ -10,12 +9,13 @@
 
 
 //
-🅺 (KindaNObj)
-//🅚 (KindaNObj)                      /// Function-like \c @interface declaration, subclasses NSObject.
+🅺(KindaNObj)
+// 🅺 🅚 (KindaNObj)                      /// Function-like \c @interface declaration, subclasses NSObject.
 ￭                                   /// @see \c @Stop @see \c @end.
 
 // 🅚
-🅺(KindaXCTest,Case)          ￭   /// Function-like, but Still able to spec the superclass.
+🅚(KindaXCTest,Test)
+￭                                    /// Function-like, but Still able to spec the superclass.
 
 //🅚 (KindWithVows, NObj <Code>)        ￭   /// Both function-like versions can conform to protocols.
 

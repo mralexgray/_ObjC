@@ -9,12 +9,11 @@
 /* Begin PBXBuildFile section */
 		7B3835811AC681DA00D617B9 /* _ObjC_Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */; };
 		7B9B40501AC14F6E002EDD01 /* _ObjC_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */; };
-		7BA79BED1B6257E900A7E31D /* _ObjC_Migrator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA79BEC1B6257E900A7E31D /* _ObjC_Migrator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7B0E207F1AEA54B900C955CF /* Universal.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Universal.xcconfig; path = Universal/Universal.xcconfig; sourceTree = SOURCE_ROOT; };
-		7B32D8A31AE5873C00062CB8 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; name = Makefile; path = _ObjC/Makefile; sourceTree = "<group>"; usesTabs = 1; wrapsLines = 1; };
+		7B32D8A31AE5873C00062CB8 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; name = Makefile; path = _ObjC/Makefile; sourceTree = "<group>"; usesTabs = 1; wrapsLines = 1; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
 		7B9B40331AC14EB6002EDD01 /* _ObjC_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = _ObjC_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B9B403E1AC14ED5002EDD01 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = SOURCE_ROOT; };
 		7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = _ObjC_Tool.m; path = _ObjC/_ObjC_Tool.m; sourceTree = SOURCE_ROOT; wrapsLines = 0; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -30,21 +29,31 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		7B6A90D01B66B16E0061FEAC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7BC4594A1AD68DAA0097F508 /* _ObjC_Tool */,
+				7B9B40331AC14EB6002EDD01 /* _ObjC_Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7B9B40251AC14E7D002EDD01 = {
 			isa = PBXGroup;
 			children = (
-				7B0E207F1AEA54B900C955CF /* Universal.xcconfig */,
 				7BC4594E1AD6955F0097F508 /* _ObjC.h */,
 				7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */,
 				7BB414D91ACE62F70024D285 /* _ObjC_Template.h */,
 				7B9B40451AC14ED5002EDD01 /* README.md */,
 				7BC4594B1AD68DCA0097F508 /* _ObjC, etc */,
+				7B6A90D01B66B16E0061FEAC /* Products */,
 			);
 			sourceTree = "<group>";
 		};
 		7BC4594B1AD68DCA0097F508 /* _ObjC, etc */ = {
 			isa = PBXGroup;
 			children = (
+				7B0E207F1AEA54B900C955CF /* Universal.xcconfig */,
 				7B9B403E1AC14ED5002EDD01 /* .travis.yml */,
 				7B32D8A31AE5873C00062CB8 /* Makefile */,
 				7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */,
@@ -52,8 +61,6 @@
 				7BFDE1971AE14F6C0012A607 /* _ObjC_Tool.pch */,
 				7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */,
 				7BB313D81AE5E35500BF1DBA /* _ObjC.svg */,
-				7BC4594A1AD68DAA0097F508 /* _ObjC_Tool */,
-				7B9B40331AC14EB6002EDD01 /* _ObjC_Tests.xctest */,
 			);
 			name = "_ObjC, etc";
 			sourceTree = "<group>";
@@ -173,7 +180,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BA79BED1B6257E900A7E31D /* _ObjC_Migrator.m in Sources */,
 				7B3835811AC681DA00D617B9 /* _ObjC_Tool.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,10 +215,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = _ObjC/_ObjC_Tool.pch;
-				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = macosx;
-				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};
@@ -252,8 +254,6 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				ENABLE_TESTABILITY = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -264,10 +264,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = _ObjC/_ObjC_Tool.pch;
-				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = macosx;
-				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
