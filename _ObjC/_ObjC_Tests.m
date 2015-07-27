@@ -9,12 +9,13 @@
 
 
 //
-🅺(KindaNObj)
+🅺 KindaNObj : NObj
 // 🅺 🅚 (KindaNObj)                      /// Function-like \c @interface declaration, subclasses NSObject.
 ￭                                   /// @see \c @Stop @see \c @end.
 
 // 🅚
-🅚(KindaXCTest,Test)
+🅺 KindaXCTest : Test
+//🅚(KindaXCTest,Test)
 ￭                                    /// Function-like, but Still able to spec the superclass.
 
 //🅚 (KindWithVows, NObj <Code>)        ￭   /// Both function-like versions can conform to protocols.
