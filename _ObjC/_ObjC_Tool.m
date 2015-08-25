@@ -149,13 +149,15 @@ static         NSString * CompiledHeader () {
 
   return compiled = [replaced copy];
 }
+
 void                          WriteTests () {
 
-  contents = [NSString stringWithContentsOfFile:testFilePath encoding:NSUTF8StringEncoding error:nil];
 
-  M(String) *tests = [contents substringToIndex:[contents rangeOfString:delimiter].location + [delimiter length]].mutableCopy;
+  id contents = [NSString stringWithContentsOfFile:testFilePath encoding:NSUTF8StringEncoding error:nil];
 
-  APPEND(tests,@"(Generated at %@)\n\n_XCTCase(DefinesTestCase)\n_XCTest(TheyWorked,\n", THEDATE);
+  M(String) *tests = [contents substringToIndex:[contents rangeOfString:delimeter].location + [delimeter length]].mutableCopy;
+
+  APPEND(tests,@"\n// (Generated at %@)\n\n_XCTCase(DefinesTestCase)\n_XCTest(TheyWorked,\n", THEDATE);
 
   for (id keypath in @[@"TYPES.STRUCTS",@"TYPES.POINTERS",@"TYPES.POINTERS_MAC"]) {
 
@@ -168,7 +170,9 @@ void                          WriteTests () {
     }];
     APPEND(tests,@"\n");
   }
-  APPEND(tests,@"\n)\n@end\n");
+
+  APPEND(tests,@"\n)\n@end\n");  // Finish Tests
+
   [FM removeItemAtPath:testFilePath error:nil];
   [tests writeToFile:testFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
