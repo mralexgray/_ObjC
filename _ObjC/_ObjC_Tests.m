@@ -43,7 +43,6 @@ _XCTest(IfDefs,                     /// equivalent to - (void)  testIfDefs { ...
 
 ￭
 
-// (Generated at Aug 25, 2015, 3:57:50 AM)
 
 _XCTCase(DefinesTestCase)
 _XCTest(TheyWorked,

@@ -157,7 +157,7 @@ void                          WriteTests () {
 
   M(String) *tests = [contents substringToIndex:[contents rangeOfString:delimeter].location + [delimeter length]].mutableCopy;
 
-  APPEND(tests,@"\n// (Generated at %@)\n\n_XCTCase(DefinesTestCase)\n_XCTest(TheyWorked,\n", THEDATE);
+  APPEND(tests,@" (Generated at %@)\n\n_XCTCase(DefinesTestCase)\n_XCTest(TheyWorked,\n", THEDATE);
 
   for (id keypath in @[@"TYPES.STRUCTS",@"TYPES.POINTERS",@"TYPES.POINTERS_MAC"]) {
 
