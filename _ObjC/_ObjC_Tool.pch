@@ -17,7 +17,7 @@
 #define     ENV           NSProcessInfo.processInfo.environment
 #define MEDDATE           NSDateFormatterMediumStyle
 #define THEDATE           [NSDateFormatter localizedStringFromDate:NSDate.date dateStyle:MEDDATE timeStyle:MEDDATE]
-#define WARNING          @"\n/*!\n\t@note This file is AUTO_GENERATED! Changes will NOT persist!\n" \
+#define _TEMPLATE          @"\n/*!\n\t@note This file is AUTO_GENERATED! Changes will NOT persist!\n" \
                           "AUTO_GENERATED on %@ from template:%@ with data from:%@ */\n%@"
 
 /// @abstract The data we are deling with is broadly defined as either #define's or _Type typedefs.
@@ -33,12 +33,14 @@ typedef NS_ENUM(BOOL, SentinelLocation) { ENDING = NO, BEGINNING = YES };
 
 #pragma mark - Declarations
 
+static NSString     * RefactorFile (id);
 static NSString     * CompiledHeader ();
 static NSDictionary * PlistDataModel ();
        NSDictionary *      ParseArgs ();
        void               WriteTests ();
+
        
-static NSString * template, * templatePath, * plistPath, * testFilePath;
+static NSString * template, * templatePath, * plistPath, * testFilePath, * refactoree;
 static id plist, output, compiled;
        id ObjectForAnyKeyPassingTest(NSDictionary*,NSArray*,BOOL(*OptionalTest)(id));
 

@@ -1,24 +1,29 @@
 
-SentinelLocation commentsGo = BEGINNING;  // This is just NO, or YES, not sure what I was doing.
-
 MAIN({
 
   // Dirty, dirty arg parsing.  Supports long or short opts.
 
-     plistPath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"d",@"p",@"data",@"model",@"plist"], IsFileAndExists);
-  templatePath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"t",@"template",@"header"],          IsFileAndExists);
-        output = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"o",@"output"],                      NULL);
-  testFilePath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"tests",@"test",@"x"],               IsFileAndExists);
+        output = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"o", @"output"],                         NULL);
+  testFilePath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"x", @"test", @"tests"],                 IsFileAndExists);
 
-  if ( ParseArgs()[@"help"] ||
-                 !plistPath || !templatePath      ||
-          !PlistDataModel() || !HeaderTemplate()  || !CompiledHeader() ) return Usage(), EXIT_FAILURE;
+      !ParseArgs()[@"help"]                // Bail on help
+  &&  (plistPath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"d", @"p", @"data", @"model", @"plist"], IsFileAndExists))
+  &&  PlistDataModel()  // Needs plkst path and its reulting generated model.
+  &&  (
+      (refactoree = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"r", @"refactor"],IsFileAndExists))
+
+   || (
+          (templatePath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"t", @"template", @"header"],IsFileAndExists))
+      &&  HeaderTemplate()
+      &&  CompiledHeader()
+    )
+  ) ?: ({ return Usage(), EXIT_FAILURE; });
 
   // no output? no worries - just print to stdout
 
-  if (!output) return fprintf(stdout, "%s", CompiledHeader().UTF8String);
+  if (!output) return fprintf(stdout, "%s", (refactoree ? RefactorFile(refactoree) : CompiledHeader()).UTF8String);
 
-  for (id place in [output isKindOfClass:NSString.class] ? @[output] : output) {  // handle multiple output locations
+  for (NSString * place in [output isKindOfClass:NSString.class] ? @[output] : output) {  // handle multiple output locations
 
     fprintf(stdout, "Outputting header to destination:%s\n", [place UTF8String]);
 
@@ -51,7 +56,7 @@ NSString * GenerateSection(NSString * head) {
                                                            : [@(x1.length) compare:@(x2.length)];
     }];
 
-    /// We build our string from here, with an opening prgam mark.
+    /// We build our string from here (with an opening #pragma mark).
 
     M(String) * snippet = $(@"#pragma mark - %@\n\n", head.pathExtension).mutableCopy,
              * methArgs = emit  & e_TYPE      ? @"".mutableCopy : nil, /// "- (id)" -> "_ID" (if it's a typedef)
@@ -61,7 +66,9 @@ NSString * GenerateSection(NSString * head) {
 
     void(^writeTypeOrDef)(id) = ^(NSString*k){  // Write it out, girl.
 
-      //   if (      emit & e_TYPE && [defs[k] length] != 5) // and the definition is NOT 6 letters return APPEND(problems, @" %@ (type+not5) ", k);
+      //   if ( emit & e_TYPE && [defs[k] length] != 5) // and the definition is NOT 6 letters return APPEND(problems, @" %@ (type+not5) ", k);
+
+      SentinelLocation commentsGo = BEGINNING;  // This is just NO, or YES, not sure what I was doing.
 
       id theDef = defs[k], comment = nil;
 
@@ -114,11 +121,9 @@ NSString * GenerateSection(NSString * head) {
 
   [({ M(Array) *parts; for (id d in backing) [parts addObject:__processDictionary(d)]; parts; }) componentsJoinedByString:@"\n"];
 
-  //    M(String) * concat = @"".mutableCopy;
-  //    for (id d in backing) APPEND(concat,@"\n%@", __processDictionary(d)); concat.copy; });
 } // Meat + Potatoes
 
-static     NSDictionary * PlistDataModel () { return plist    = plist    ?: [NSDictionary dictionaryWithContentsOfFile:plistPath]; }
+static     NSDictionary * PlistDataModel () { return plist = plist ?: [NSDictionary dictionaryWithContentsOfFile:plistPath]; }
 static         NSString * CompiledHeader () {
 
   if (compiled) return compiled;
@@ -127,7 +132,7 @@ static         NSString * CompiledHeader () {
 
   NSString* string = //copy the string so we can replace subsections
 
-  $(WARNING, THEDATE, plistPath.lastPathComponent, templatePath.lastPathComponent, HeaderTemplate());
+  $(_TEMPLATE, THEDATE, plistPath.lastPathComponent, templatePath.lastPathComponent, HeaderTemplate());
 
   NSMutableString *replaced = string.mutableCopy;
 
@@ -140,22 +145,22 @@ static         NSString * CompiledHeader () {
 
     NSLog(@"replacing %@", [string substringWithRange:result.range]);
 
-    id section = GenerateSection( [[[[RxMatch.alloc initWithTextCheckingResult:result forString:string] groups] lastObject] value]);
+    id section = GenerateSection( [[RxMatch.alloc initWithTextCheckingResult:result forString:string].groups.lastObject value]);
 
-    [replaced replaceCharactersInRange:result.range withString:section];
+    [replaced replaceCharactersInRange:result.range withString:section]; ///* replacement */ replacer(/*RxMatch* match */];
 
-              ///* replacement */ replacer(/*RxMatch* match */];
   }];
 
-  return compiled = [replaced copy];
+  return compiled = replaced.copy;
 }
 
 void                          WriteTests () {
 
+  #define delimeter @"// AUTOGENERATED TEST PLACEHOLDER"
 
   id contents = [NSString stringWithContentsOfFile:testFilePath encoding:NSUTF8StringEncoding error:nil];
 
-  M(String) *tests = [contents substringToIndex:[contents rangeOfString:delimeter].location + [delimeter length]].mutableCopy;
+  M(String) *tests = [contents substringToIndex:[contents rangeOfString:delimeter].location + delimeter.length].mutableCopy;
 
   APPEND(tests,@" (Generated at %@)\n\n_XCTCase(DefinesTestCase)\n_XCTest(TheyWorked,\n", THEDATE);
 
@@ -179,18 +184,24 @@ void                          WriteTests () {
 
 id ObjectForAnyKeyPassingTest(NSDictionary * values, NSArray * okKeys, BOOL(*test)(id)) {
 
-  __block id found = nil;
-
-  [okKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-
-    if ((found = [values objectForKey:obj]))  *stop = !test || test(found);
-  }];
-  return found;
+  for (id key in okKeys) { id found = values[key]; if (found && (!test || test(found))) return found; } return nil;
 }
 
-@implementation  NSString (SubstringToOrFrom)
+NSString * RefactorFile (id path) {
 
-- refactor                              { NSDictionary *rules = @{}; return @""; }
+  M(String) *file = [NSMutableString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+
+  for (id keypath in @[@"TYPES.STRUCTS",@"TYPES.POINTERS",@"TYPES.POINTERS_MAC"]) {
+
+    [PlistDataModel()[keypath] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+
+  }];
+
+  return @"";
+}
+
+}
+@implementation  NSString (SubstringToOrFrom)
 
 - objectAtIndexedSubscript:(NSInteger)i { return i < 0 ? [self substringFromIndex:ABS(i)] : [self substringToIndex:i]; }
 
