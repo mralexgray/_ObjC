@@ -121,7 +121,7 @@
 			"Xtra(Extends,Named)" = "interface Extends      (Named)";
 			"XtraPlan(Extends,Named)" = "implementation Extends (Named)";
 			"XtraStop(...)" = Stop;
-			"_Case(Name,...)" = "@Incl XCTest; @Kind_ (Name,XCTestCase)  \Uffed @Plan Name XCTUp(__VA_ARGS__)";
+			"_Case(Name,...)" = "@Incl XCTest; @Kind_ (Name,XCTestCase)  \Uffed @Plan Name _XCTUp(__VA_ARGS__)";
 			"_Cat(K,...)" = "@interface K (Sans) __VA_ARGS__; @end";
 			"_FINI" = "@end";
 			"_IFCE" = "@interface";

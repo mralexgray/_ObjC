@@ -1,4 +1,4 @@
- <span style="float:right;">
+<span style="float:right;">
 <img src="https://rawgit.com/mralexgray/_ObjC/master/_ObjC/_ObjC.svg" width="50"/>
 </span> 
 #`_ObjC` ![NOTSwift]  [![][BStatusImage]][BStatusLink] ![Issues] ![Platforms]
@@ -18,6 +18,29 @@
   - [ ] final subtask cc @mention
 - [ ] a separate task
 
+
+Old tool script target
+
+script
+```
+#"${CODESIGNING_FOLDER_PATH}"            \
+#    -plist  "${SCRIPT_INPUT_FILE_0}"    \
+#    -header "${SCRIPT_INPUT_FILE_1}"    \
+#    -output "${SCRIPT_OUTPUT_FILE_0}"
+#    -tests  "${SCRIPT_OUTPUT_FILE_1}"
+```
+
+inputs:
+```
+\"$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME).plist\"
+\"$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME)_Template.h\"
+```
+
+outputs:
+```
+\"$(BUILT_PRODUCTS_DIR)/$(PROJECT_NAME).h\"
+\"$(DERIVED_FILE_DIR)/myfile\"
+```
 
 <table cellpadding="0" cellspacing="3">
       <tbody><tr>

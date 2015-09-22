@@ -1,10 +1,13 @@
 
-language: objective-c
+script: 
 
-osx_image: xcode6.4
+# language: objective-c
 
-xcode_project: _ObjC.xcodeproj
+# osx_image: xcode6.4
 
-xcode_scheme: _ObjC
+
+# xcode_project: _ObjC.xcodeproj
+
+# xcode_scheme: _ObjC
 
 #   script: xctool -project _ObjC.xcodeproj -scheme _ObjC build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO

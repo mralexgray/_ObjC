@@ -59,23 +59,27 @@ static id plist, output, compiled;
 #endif
 @end
 
+NS_INLINE BOOL IsFileAndExists(id p) { BOOL dir = NO; return [FM fileExistsAtPath:p isDirectory:&dir] && !dir; }
+
 NS_INLINE NSString * HeaderTemplate() {
 
   static NSString * t; return t = t ?: [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:nil];
 }
 
-NS_INLINE BOOL IsFileAndExists(id p) {
-
-  BOOL dir = NO; return [FM fileExistsAtPath:p isDirectory:&dir] && !dir;
-}
+static NSString * USAGE_PARAMS = @" \n\
+  --refactor, -r    source file to refactor (outputs to stdout) \n\
+OR \n\
+  --plist,    -p    plist to parse \n\
+  --template, -t    header template!. \n\
+  --output,   -o    path or paths to write compiled header to.";
 
 NS_INLINE void Usage() {
 
   _Emit _env = LOC(ENV[@"BUILT_PRODUCTS_DIR"],@"iphone") != NSNotFound ? e_TYPE_IOS : e_TYPE_MAC; // was `static _Emit BuildingFor ();`
 
-    fprintf(stdout, "%s\n --plist, -p\tplist to parse\n --template, -t\theader template!.\n--output, -o \tpath or paths to write compiled header to.\ngot %s\nmodel:%s\ntemplate:%s\nplatform:%x",
+    fprintf(stdout, "%s%s\ngot %s\nmodel:%s\ntemplate:%s\nplatform:%x",
 
-      [ARGS[0] UTF8String], [ParseArgs() description].UTF8String, [plistPath UTF8String], [templatePath UTF8String], _env);
+      [ARGS[0] UTF8String], USAGE_PARAMS.UTF8String, ParseArgs().description.UTF8String, plistPath.UTF8String, templatePath.UTF8String, _env);
 }
 
 #endif

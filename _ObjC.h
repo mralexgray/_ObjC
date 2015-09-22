@@ -1,7 +1,7 @@
 
 /*!
 	@note This file is AUTO_GENERATED! Changes will NOT persist!
-AUTO_GENERATED on Aug 26, 2015, 8:45:56 PM from template:_ObjC.plist with data from:_ObjC_Template.h */
+AUTO_GENERATED on Sep 22, 2015, 6:18:21 PM from template:_ObjC.plist with data from:_ObjC_Template.h */
 
 /*!
  
@@ -67,7 +67,7 @@ AUTO_GENERATED on Aug 26, 2015, 8:45:56 PM from template:_ObjC.plist with data f
 #pragma mark - MISC
 
 #define                        $UNIC(C)   [NSString stringWithCharacter:C] 
-#define                 _Case(Name,...)   @Incl XCTest; @Kind_ (Name,XCTestCase)  ￭ @Plan Name XCTUp(__VA_ARGS__) 
+#define                 _Case(Name,...)   @Incl XCTest; @Kind_ (Name,XCTestCase)  ￭ @Plan Name _XCTUp(__VA_ARGS__) 
 #define                     _Cat(K,...)   @interface K (Sans) __VA_ARGS__; @end 
 #define                           _FINI   @end 
 #define                           _IFCE   @interface 

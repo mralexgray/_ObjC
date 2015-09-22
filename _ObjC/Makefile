@@ -1,4 +1,8 @@
 
+CONFIGURATION ?= Debug
+
+DD     = $(SYMROOT)/../..
+
 TESTS := $(PROJECT_NAME)_Tests.m
 TOOL   = $(PROJECT_NAME)_Tool
 XCB    = /usr/local/bin/xctool -project ../$(PROJECT_NAME).xcodeproj
@@ -12,18 +16,26 @@ LOCAL  = $(SRCROOT)/$(PROJECT_NAME).h
 SHARE  = $(dir $(TARGET_BUILD_DIR))/$(PROJECT_NAME).h
 OUTPUT = -output $(LOCAL) $(SHARE)
 
+
 all: build-tool generate
 
 build-tool:
-	$(XCB) -scheme $(TOOL) -sdk macosx -derivedDataPath $(SYMROOT)/../..
+	$(XCB) -scheme $(TOOL) -sdk macosx10.10 -derivedDataPath $(DD)
 
 generate:
+#	open $(DD)
 	$(SYMROOT)/$(CONFIGURATION)/$(TOOL) \
 		$(INPUT) \
 		$(TESTS) \
 		$(OUTPUT)
 
+#	$(SYMROOT)/$(CONFIGURATION)/$(TOOL) \
+#		$(INPUT) \
+#		$(TESTS) \
+#		$(OUTPUT)
+
 clean:
+	say cleaning $(OUTPUT)
 	for arch in $(SUPPORTED_PLATFORMS); do \
 		rm -f $(BUILT_PRODUCTS_DIR)/$(CONFIGURATION)-$$arch/$(PROJECT_NAME).h ; \
 	done
