@@ -1,5 +1,5 @@
 
-/// Nothing to see here, move along.  (Ugly mish-mosh of shit - attempts to simpliy tool code.)
+/// @warning Everything here is private. Nothing to see here, move along. (Ugly mish-mosh of shit - attempts to simpliy tool code.)
 
 #ifndef _ObjC__ObjC_Tool_pch
 #define _ObjC__ObjC_Tool_pch
@@ -33,7 +33,7 @@ typedef NS_ENUM(BOOL, SentinelLocation) { ENDING = NO, BEGINNING = YES };
 
 #pragma mark - Declarations
 
-static NSString     * RefactorFile (id);
+static NSString     * RefactorFile (id);  // UNIMPLEMENTED
 static NSString     * CompiledHeader ();
 static NSDictionary * PlistDataModel ();
        NSDictionary *      ParseArgs ();
@@ -42,7 +42,6 @@ static NSDictionary * PlistDataModel ();
        
 static NSString * template, * templatePath, * plistPath, * testFilePath, * refactoree;
 static id plist, output, compiled;
-       id ObjectForAnyKeyPassingTest(NSDictionary*,NSArray*,BOOL(*OptionalTest)(id));
 
 @interface                  RxMatch : NSObject
 - initWithTextCheckingResult:(NSTextCheckingResult*)tx forString:(NSString*)s;
@@ -59,6 +58,11 @@ static id plist, output, compiled;
 #endif
 @end
 
+NS_INLINE id ObjectForAnyKeyPassingTest(NSDictionary * values, NSArray * okKeys, BOOL(*test)(id)) {
+
+  for (id key in okKeys) { id found = values[key]; if (found && (!test || test(found))) return found; } return nil;
+}
+
 NS_INLINE BOOL IsFileAndExists(id p) { BOOL dir = NO; return [FM fileExistsAtPath:p isDirectory:&dir] && !dir; }
 
 NS_INLINE NSString * HeaderTemplate() {
@@ -66,12 +70,14 @@ NS_INLINE NSString * HeaderTemplate() {
   static NSString * t; return t = t ?: [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:nil];
 }
 
-static NSString * USAGE_PARAMS = @" \n\
-  --refactor, -r    source file to refactor (outputs to stdout) \n\
-OR \n\
-  --plist,    -p    plist to parse \n\
-  --template, -t    header template!. \n\
-  --output,   -o    path or paths to write compiled header to.";
+#define USAGE_PARAMS @" \
+  -r	--refactor  Source file to refactor (outputs to stdout)   \
+OR                                                              \
+  -p  --plist     Plist to parse                                \
+  -t  --template  Header template!.                             \
+  -0  --output    Path (or paths) to write compiled header to.  \
+OR                                                              \
+  -l  --list      SHow parsed options."
 
 NS_INLINE void Usage() {
 
