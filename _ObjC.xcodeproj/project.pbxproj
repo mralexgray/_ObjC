@@ -6,10 +6,35 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		7B39D69A1BB2A6CA001C6514 /* _ObjC */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 7B39D69B1BB2A6CA001C6514 /* Build configuration list for PBXAggregateTarget "_ObjC" */;
+			buildPhases = (
+				7B39D6A01BB2A6F1001C6514 /* ShellScript */,
+			);
+			dependencies = (
+				7B39D69F1BB2A6D9001C6514 /* PBXTargetDependency */,
+			);
+			name = _ObjC;
+			productName = _ObjC_Make;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		7B3835811AC681DA00D617B9 /* _ObjC_Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */; };
 		7B9B40501AC14F6E002EDD01 /* _ObjC_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7B39D69E1BB2A6D9001C6514 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B9B40261AC14E7D002EDD01 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B3835791AC681C700D617B9;
+			remoteInfo = _ObjC_Tool;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		7B0E207F1AEA54B900C955CF /* Universal.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Universal.xcconfig; path = Universal/Universal.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -23,7 +48,7 @@
 		7BB313D81AE5E35500BF1DBA /* _ObjC.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = _ObjC.svg; path = _ObjC/_ObjC.svg; sourceTree = "<group>"; };
 		7BB414D91ACE62F70024D285 /* _ObjC_Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = _ObjC_Template.h; path = _ObjC/_ObjC_Template.h; sourceTree = "<group>"; wrapsLines = 0; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7BC4594A1AD68DAA0097F508 /* _ObjC_Tool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = _ObjC_Tool; sourceTree = BUILT_PRODUCTS_DIR; };
-		7BC4594E1AD6955F0097F508 /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = _ObjC.h; path = ../_ObjC.h; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BC4594E1AD6955F0097F508 /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = _ObjC.h; path = "../../../../../Volumes/10x11/DerivedData/_ObjC-denuocslcwwejsdtzttcmdonkrtj/Build/Products/_ObjC.h"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = _ObjC.plist; path = _ObjC/_ObjC.plist; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7BFDE1971AE14F6C0012A607 /* _ObjC_Tool.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = _ObjC_Tool.pch; path = _ObjC/_ObjC_Tool.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
@@ -67,23 +92,6 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXLegacyTarget section */
-		7B32D89D1AE5864300062CB8 /* _ObjC */ = {
-			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION)";
-			buildConfigurationList = 7B32D89E1AE5864300062CB8 /* Build configuration list for PBXLegacyTarget "_ObjC" */;
-			buildPhases = (
-			);
-			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "";
-			dependencies = (
-			);
-			name = _ObjC;
-			passBuildSettingsInEnvironment = 1;
-			productName = _ObjC_Clean;
-		};
-/* End PBXLegacyTarget section */
-
 /* Begin PBXNativeTarget section */
 		7B3835791AC681C700D617B9 /* _ObjC_Tool */ = {
 			isa = PBXNativeTarget;
@@ -123,11 +131,11 @@
 			attributes = {
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
-					7B32D89D1AE5864300062CB8 = {
-						CreatedOnToolsVersion = 6.3;
-					};
 					7B3835791AC681C700D617B9 = {
 						CreatedOnToolsVersion = 6.3;
+					};
+					7B39D69A1BB2A6CA001C6514 = {
+						CreatedOnToolsVersion = 6.4;
 					};
 					7B9B40321AC14EB6002EDD01 = {
 						CreatedOnToolsVersion = 6.3;
@@ -146,12 +154,33 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7B32D89D1AE5864300062CB8 /* _ObjC */,
+				7B39D69A1BB2A6CA001C6514 /* _ObjC */,
 				7B3835791AC681C700D617B9 /* _ObjC_Tool */,
 				7B9B40321AC14EB6002EDD01 /* _ObjC_Tests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7B39D6A01BB2A6F1001C6514 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME).plist",
+				"$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME)_Template.h",
+				"$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME)_Tests.m",
+			);
+			outputPaths = (
+				"$(SRCROOT)/$(PROJECT_NAME).h",
+				"$(TARGET_BUILD_DIR)/../$(PROJECT_NAME).h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "if false; then WD=\"$(realpath $(pwd))/\"; fi\n\nARGS=( \"${CONFIGURATION_BUILD_DIR}/_ObjC_Tool\" )\nARGS+=-plist\nARGS+=\"${SCRIPT_INPUT_FILE_0#$WD}\"\nARGS+=-header\nARGS+=\"${SCRIPT_INPUT_FILE_1#$WD}\"\nARGS+=-tests\nARGS+=\"${SCRIPT_INPUT_FILE_2#$WD}\"\nARGS+=-output\nARGS+=\"${SCRIPT_OUTPUT_FILE_0#$WD}\"\nARGS+=\"${SCRIPT_OUTPUT_FILE_1}\"\necho $ARGS\n$ARGS";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7B3835761AC681C700D617B9 /* Sources */ = {
@@ -172,21 +201,15 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7B39D69F1BB2A6D9001C6514 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B3835791AC681C700D617B9 /* _ObjC_Tool */;
+			targetProxy = 7B39D69E1BB2A6D9001C6514 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
-		7B32D89F1AE5864300062CB8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B0E207F1AEA54B900C955CF /* Universal.xcconfig */;
-			buildSettings = {
-			};
-			name = Release;
-		};
-		7B32D8A01AE5864300062CB8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B0E207F1AEA54B900C955CF /* Universal.xcconfig */;
-			buildSettings = {
-			};
-			name = Debug;
-		};
 		7B38357F1AC681C700D617B9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -194,9 +217,23 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = _ObjC/_ObjC_Tool.pch;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.10;
 			};
 			name = Release;
+		};
+		7B39D69C1BB2A6CA001C6514 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		7B39D69D1BB2A6CA001C6514 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
 		};
 		7B9B402A1AC14E7D002EDD01 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -255,7 +292,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = _ObjC/_ObjC_Tool.pch;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.10;
 			};
 			name = Debug;
 		};
@@ -284,15 +321,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7B32D89E1AE5864300062CB8 /* Build configuration list for PBXLegacyTarget "_ObjC" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7B32D89F1AE5864300062CB8 /* Release */,
-				7B32D8A01AE5864300062CB8 /* Debug */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
 		7B38357E1AC681C700D617B9 /* Build configuration list for PBXNativeTarget "_ObjC_Tool" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -301,6 +329,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
+		};
+		7B39D69B1BB2A6CA001C6514 /* Build configuration list for PBXAggregateTarget "_ObjC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B39D69C1BB2A6CA001C6514 /* Release */,
+				7B39D69D1BB2A6CA001C6514 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		7B9B40291AC14E7D002EDD01 /* Build configuration list for PBXProject "_ObjC" */ = {
 			isa = XCConfigurationList;

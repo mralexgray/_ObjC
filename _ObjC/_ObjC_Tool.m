@@ -3,20 +3,28 @@ MAIN({
 
   // Dirty, dirty arg parsing.  Supports long or short opts.
 
-        output = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"o", @"output"],                         NULL);
-  testFilePath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"x", @"test", @"tests"],                 IsFileAndExists);
+        output = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"o", @"output"], NULL);
+  testFilePath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"x", @"test", @"tests"], IsFileAndExists);
 
-      !ParseArgs()[@"help"]                // Bail on help
-  &&  (plistPath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"d", @"p", @"data", @"model", @"plist"], IsFileAndExists))
-  &&  PlistDataModel()  // Needs plkst path and its reulting generated model.
-  &&  (
-      (refactoree = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"r", @"refactor"],IsFileAndExists))
+  // Bail on help
+  ! ParseArgs()[@"help"]
+  // Require existant Plist path
+  && (plistPath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"d", @"p", @"data", @"model", @"plist"], IsFileAndExists))
+  // Make sure we can create model from that plist
+  && PlistDataModel()
 
-   || (
-          (templatePath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"t", @"template", @"header"],IsFileAndExists))
+  && (
+    // unimplemented!
+    (refactoree = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"r", @"refactor"],IsFileAndExists))
+
+   ||
+
+    ( // require template to exist at path
+      (templatePath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"t", @"template", @"header"],IsFileAndExists))
       &&  HeaderTemplate()
       &&  CompiledHeader()
     )
+
   ) ?: ({ return Usage(), EXIT_FAILURE; });
 
   // no output? no worries - just print to stdout
