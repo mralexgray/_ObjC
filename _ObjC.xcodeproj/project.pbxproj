@@ -13,7 +13,7 @@
 
 /* Begin PBXFileReference section */
 		7B0E207F1AEA54B900C955CF /* Universal.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Universal.xcconfig; path = Universal/Universal.xcconfig; sourceTree = SOURCE_ROOT; };
-		7B32D8A31AE5873C00062CB8 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; name = Makefile; path = _ObjC/Makefile; sourceTree = "<group>"; usesTabs = 1; wrapsLines = 1; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
+		7B32D8A31AE5873C00062CB8 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; usesTabs = 1; wrapsLines = 1; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
 		7B9B40331AC14EB6002EDD01 /* _ObjC_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = _ObjC_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B9B403E1AC14ED5002EDD01 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = SOURCE_ROOT; };
 		7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = _ObjC_Tool.m; path = _ObjC/_ObjC_Tool.m; sourceTree = SOURCE_ROOT; wrapsLines = 0; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -75,7 +75,7 @@
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "$(PROJECT_NAME)";
+			buildWorkingDirectory = "";
 			dependencies = (
 			);
 			name = _ObjC;
@@ -90,7 +90,6 @@
 			buildConfigurationList = 7B38357E1AC681C700D617B9 /* Build configuration list for PBXNativeTarget "_ObjC_Tool" */;
 			buildPhases = (
 				7B3835761AC681C700D617B9 /* Sources */,
-				7B0E20841AEA74D000C955CF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -153,27 +152,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		7B0E20841AEA74D000C955CF /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputPaths = (
-				"\\\"$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME).plist\\\"",
-				"\\\"$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME)_Template.h\\\"",
-			);
-			outputPaths = (
-				"\\\"$(BUILT_PRODUCTS_DIR)/$(PROJECT_NAME).h\\\"",
-				"\\\"$(DERIVED_FILE_DIR)/myfile\\\"",
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "#\"${CODESIGNING_FOLDER_PATH}\"            \\\n#    -plist  \"${SCRIPT_INPUT_FILE_0}\"    \\\n#    -header \"${SCRIPT_INPUT_FILE_1}\"    \\\n#    -output \"${SCRIPT_OUTPUT_FILE_0}\"\n#    -tests  \"${SCRIPT_OUTPUT_FILE_1}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7B3835761AC681C700D617B9 /* Sources */ = {
