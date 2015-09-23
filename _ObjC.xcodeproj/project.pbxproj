@@ -34,6 +34,13 @@
 			remoteGlobalIDString = 7B3835791AC681C700D617B9;
 			remoteInfo = _ObjC_Tool;
 		};
+		7BC8223F1BB2C27C00ED334F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B9B40261AC14E7D002EDD01 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B39D69A1BB2A6CA001C6514;
+			remoteInfo = _ObjC;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +124,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7BC822401BB2C27C00ED334F /* PBXTargetDependency */,
 			);
 			name = _ObjC_Tests;
 			productName = "_ObjC Tests";
@@ -206,6 +214,11 @@
 			isa = PBXTargetDependency;
 			target = 7B3835791AC681C700D617B9 /* _ObjC_Tool */;
 			targetProxy = 7B39D69E1BB2A6D9001C6514 /* PBXContainerItemProxy */;
+		};
+		7BC822401BB2C27C00ED334F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B39D69A1BB2A6CA001C6514 /* _ObjC */;
+			targetProxy = 7BC8223F1BB2C27C00ED334F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -337,6 +350,7 @@
 				7B39D69D1BB2A6CA001C6514 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 		7B9B40291AC14E7D002EDD01 /* Build configuration list for PBXProject "_ObjC" */ = {
 			isa = XCConfigurationList;
