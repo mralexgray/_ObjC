@@ -236,6 +236,7 @@
 		};
 		7B39D69C1BB2A6CA001C6514 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B0E207F1AEA54B900C955CF /* Universal.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -243,6 +244,7 @@
 		};
 		7B39D69D1BB2A6CA001C6514 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B0E207F1AEA54B900C955CF /* Universal.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -258,7 +260,6 @@
 					Foundation,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.10;
 			};
 			name = Release;
 		};
@@ -289,12 +290,12 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				ENABLE_TESTABILITY = YES;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.10;
 			};
 			name = Debug;
 		};
