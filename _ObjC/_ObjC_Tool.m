@@ -1,4 +1,6 @@
 
+#import "_ObjC_Tool.h"
+
 MAIN({
 
   // Dirty, dirty arg parsing.  Supports long or short opts.

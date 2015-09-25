@@ -1,5 +1,7 @@
 
 language: objective-c
 osx_image: xcode6.4
-xcode_project: _ObjC.xcodeproj
-xcode_scheme: _ObjC_Tests
+script: xcodebuild -scheme _ObjC test
+
+# xcode_project: _ObjC.xcodeproj
+# xcode_scheme: _ObjC_Tests
