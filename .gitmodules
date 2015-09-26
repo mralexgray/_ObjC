@@ -2,3 +2,6 @@
 	path = Universal
 	url = https://github.com/mralexgray/Universal.git
 	ignore = dirty
+[submodule "ClangKit"]
+	path = ClangKit
+	url = https://github.com/mralexgray/ClangKit.git

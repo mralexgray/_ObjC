@@ -1,7 +1,7 @@
 
 /*!
 	@note This file is AUTO_GENERATED! Changes will NOT persist!
-AUTO_GENERATED on Sep 25, 2015, 8:32:34 PM from template:_ObjC.plist with data from:_ObjC_Template.h */
+AUTO_GENERATED on Sep 26, 2015, 7:25:39 AM from template:_ObjC.plist with data from:_ObjC_Template.h */
 
 /*!
  
@@ -64,7 +64,7 @@ AUTO_GENERATED on Sep 25, 2015, 8:32:34 PM from template:_ObjC.plist with data f
 
 #define  🅒(...) @concreteprotocol(__VA_ARGS__)
 
-#pragma mark - MISC
+#pragma mark - DEFINES.MISC
 
 #define                        $UNIC(C)   [NSString stringWithCharacter:C] 
 #define                 _Case(Name,...)   @Incl XCTest; @Kind_ (Name,XCTestCase)  ￭ @Plan Name _XCTUp(__VA_ARGS__) 
@@ -167,7 +167,7 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 
 // Standarize names 1:1 between platforms. (DEFINES.STANDARD_NAMES)
 
-#pragma mark - STANDARD_NAMES
+#pragma mark - DEFINES.STANDARD_NAMES
 
 #define                           NSNib   UINib 
 #define                           NSApp   UIApp 
@@ -193,7 +193,7 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 
 #pragma mark - END DEFINES.STANDARD_NAMES
 
-#pragma mark - GEOMETRY_TRANSLATIONS
+#pragma mark - DEFINES.GEOMETRY_TRANSLATIONS
 
 #define                       rectValue   CGRectValue 
 #define                       sizeValue   CGSizeValue 
@@ -223,7 +223,7 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 
 #endif // Per-Platform Imports (DEFINES.STANDARD_NAMES)
 
-#pragma mark - PRIMITIVES
+#pragma mark - TYPES.PRIMITIVES
 
 _Type                              id   _ObjC  ___
 _Type                             SEL   _Meth  ___
@@ -275,7 +275,7 @@ _Type              NSComparisonResult   _CRes  ___
 
 #pragma mark - END TYPES.PRIMITIVES
 
-#pragma mark - STRUCTS
+#pragma mark - TYPES.STRUCTS
 
 _Type               CGAffineTransform   _AffT  ___
 _Type                         CGFloat   _Flot  ___
@@ -313,7 +313,7 @@ _Type                         NSRange   _Rnge  ___
 #define _CChr_ (_CChr)
 #define __CChr_ : _CChr_
 
-#pragma mark - POINTERS
+#pragma mark - TYPES.POINTERS
 
 _Type                 AVAudioPlayer *   _SndP  ___
 _Type                       CALayer *   _Layr  ___
@@ -563,7 +563,7 @@ _Type                    XCTestCase *   _Test  ___
 
 #if MAC_ONLY
 
-#pragma mark - POINTERS_MAC
+#pragma mark - TYPES.POINTERS_MAC
 
 _Type        NSAppleEventDescriptor *   _AEvD  ___
 _Type                 NSAppleScript *   _Scpt  ___
@@ -657,7 +657,7 @@ _Type                       WebView *   _WebV  ___
 
 #endif // MAC_ONLY
 
-#pragma mark - BLOCKS_VOIDS
+#pragma mark - TYPES.BLOCKS_VOIDS
 
 _Type         _Void (^ ＾Void)  _Void_     ___
 _Type              _Void (^ ＾Blok) ()     ___
@@ -716,7 +716,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 
 #pragma mark - END TYPES.BLOCKS_VOIDS
 
-#pragma mark - BLOCKS
+#pragma mark - TYPES.BLOCKS
 
 
 
@@ -729,7 +729,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 
 /// For ObjC classes, let's define a preprocessor Macro to call the direct Classes, without the _.
 
-#pragma mark - PROPERTIES
+#pragma mark - DEFINES.PROPERTIES
 
 #define                             _AS   @property (assign) 
 #define                             _AT   @property 
@@ -751,7 +751,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 
 #pragma mark - END DEFINES.PROPERTIES
 
-#pragma mark - ABBREVIATIONS
+#pragma mark - DEFINES.ABBREVIATIONS
 
 #define                             _FM   NSFileManager.defaultManager 
 #define                             _PI   NSProcessInfo.processInfo 
@@ -775,7 +775,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 
 #pragma mark - END DEFINES.ABBREVIATIONS
 
-#pragma mark - STRINGS
+#pragma mark - DEFINES.STRINGS
 
 #define           ATTR(NAME_WITHOUT_NS)   NS##NAME_WITHOUT_NS##AttributeName 
 #define                            BNDL   NSBundle.mainBundle 
@@ -817,7 +817,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 
 
 #pragma mark - END DEFINES.STRINGS
-//#pragma mark - NS
+//#pragma mark - DEFINES.NS
 
 #define                             NSB   NSBundle 
 #define                             NSW   NSWindow 

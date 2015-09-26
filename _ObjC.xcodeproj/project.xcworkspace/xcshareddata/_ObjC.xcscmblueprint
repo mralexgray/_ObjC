@@ -5,6 +5,7 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "EB5145046A8826C2669ED7FC356C38D229BE0C66" : 0,
+    "1392F0C6957F9679482DB0C39D75D1041951C973" : 0,
     "43CC97A09591B8B59BDB5B93BBF5185246275418" : 0,
     "313A1CF110017155666C381ECD4872BF3FF2F71D" : 0,
     "5D9F807DC3E3C6A6457F974A4CB22174AABBCDC1" : 0
@@ -12,14 +13,20 @@
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "63789B31-34CD-4856-B780-3FC3996512C9",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "EB5145046A8826C2669ED7FC356C38D229BE0C66" : "..\/..",
+    "1392F0C6957F9679482DB0C39D75D1041951C973" : "_ObjC\/ClangKit\/",
     "43CC97A09591B8B59BDB5B93BBF5185246275418" : "_ObjC\/Universal\/",
     "313A1CF110017155666C381ECD4872BF3FF2F71D" : "..",
     "5D9F807DC3E3C6A6457F974A4CB22174AABBCDC1" : "_ObjC\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "_ObjC",
-  "DVTSourceControlWorkspaceBlueprintVersion" : 203,
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "_ObjC.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mralexgray\/ClangKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1392F0C6957F9679482DB0C39D75D1041951C973"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mralexgray\/AtoZUniversal.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",

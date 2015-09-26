@@ -5,17 +5,22 @@
 #define _ObjC__ObjC_Tool_pch
 
 #import <Foundation/Foundation.h>
+#import <_ObjC.h>
+
+#ifndef 💩
+#define       $(...)      [NSString stringWithFormat:__VA_ARGS__]
+#define    MAIN(...)      int main() { @autoreleasepool {  __VA_ARGS__  } return EXIT_SUCCESS; }
+#endif
 
 #define       M(X)        NSMutable##X
-#define       $(...)      [NSString stringWithFormat:__VA_ARGS__]
 #define      CR(MSTR)     [MSTR appendString:@"\n"]
 #define     LOC(S,LOC)    [S rangeOfString:LOC].location
-#define    MAIN(...)      int main() { @autoreleasepool {  __VA_ARGS__  } return EXIT_SUCCESS; }
 #define  APPEND(X,...)    [X appendFormat:__VA_ARGS__]
 #define      FM           NSFileManager.defaultManager
 #define    ARGS           NSProcessInfo.processInfo.arguments
 #define     ENV           NSProcessInfo.processInfo.environment
 #define MEDDATE           NSDateFormatterMediumStyle
+#define RGX               NSRegularExpression
 #define THEDATE           [NSDateFormatter localizedStringFromDate:NSDate.date dateStyle:MEDDATE timeStyle:MEDDATE]
 #define _TEMPLATE          @"\n/*!\n\t@note This file is AUTO_GENERATED! Changes will NOT persist!\n" \
                           "AUTO_GENERATED on %@ from template:%@ with data from:%@ */\n%@"
@@ -33,15 +38,16 @@ typedef NS_ENUM(BOOL, SentinelLocation) { ENDING = NO, BEGINNING = YES };
 
 #pragma mark - Declarations
 
-static NSString     * RefactorFile (id);  // UNIMPLEMENTED
+OBJC_EXPORT NSString     * RefactorFile (id);  // UNIMPLEMENTED
+OBJC_EXPORT NSString     * HeaderTemplate ();
+OBJC_EXPORT NSDictionary * PlistDataModel ();
 static NSString     * CompiledHeader ();
-static NSDictionary * PlistDataModel ();
        NSDictionary *      ParseArgs ();
        void               WriteTests ();
 
        
-static NSString * template, * templatePath, * plistPath, * testFilePath, * refactoree;
-static id plist, output, compiled;
+NSString * template, * templatePath, * plistPath, * testFilePath, * refactoree, *generatedPath;
+id plist, output, compiled, generated;
 
 @interface                  RxMatch : NSObject
 - initWithTextCheckingResult:(NSTextCheckingResult*)tx forString:(NSString*)s;
@@ -58,34 +64,37 @@ static id plist, output, compiled;
 #endif
 @end
 
+static NSString *failure;
+
 NS_INLINE id ObjectForAnyKeyPassingTest(NSDictionary * values, NSArray * okKeys, BOOL(*test)(id)) {
 
-  for (id key in okKeys) { id found = values[key]; if (found && (!test || test(found))) return found; } return nil;
+  for (id key in okKeys) { id found = values[key]; if (found && (!test || test(found))) return found; } return failure = [okKeys.lastObject copy], nil;
 }
 
-NS_INLINE BOOL IsFileAndExists(id p) { BOOL dir = NO; return [FM fileExistsAtPath:p isDirectory:&dir] && !dir; }
+NS_INLINE BOOL IsFileAndExists(id p) { BOOL dir = NO; return [FM fileExistsAtPath:[p stringByStandardizingPath] isDirectory:&dir] && !dir; }
 
-NS_INLINE NSString * HeaderTemplate() {
-
-  static NSString * t; return t = t ?: [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:nil];
-}
-
-#define USAGE_PARAMS @" \
-  -r	--refactor  Source file to refactor (outputs to stdout)   \
-OR                                                              \
-  -p  --plist     Plist to parse                                \
-  -t  --template  Header template!.                             \
-  -0  --output    Path (or paths) to write compiled header to.  \
-OR                                                              \
+#define USAGE_PARAMS @" \n\
+  -r	--refactor  Source file to refactor (outputs to stdout)   \n\
+OR                                                              \n\
+  -p  --plist     Plist to parse                                \n\
+  -t  --template  Header template!.                             \n\
+  -0  --output    Path (or paths) to write compiled header to.  \n\
+OR                                                              \n\
   -l  --list      SHow parsed options."
 
-NS_INLINE void Usage() {
+NS_INLINE void Usage(NSNumber* code) {
 
   _Emit _env = LOC(ENV[@"BUILT_PRODUCTS_DIR"],@"iphone") != NSNotFound ? e_TYPE_IOS : e_TYPE_MAC; // was `static _Emit BuildingFor ();`
 
-    fprintf(stdout, "%s%s\ngot %s\nmodel:%s\ntemplate:%s\nplatform:%x",
+  printf("PROBLEM:%s\n%s%s\ngot %s\nmodel:%s\ntemplate:%s\nplatform:%x\nrefactor:%s",
 
-      [ARGS[0] UTF8String], USAGE_PARAMS.UTF8String, ParseArgs().description.UTF8String, plistPath.UTF8String, templatePath.UTF8String, _env);
+      failure.UTF8String, [ARGS[0] UTF8String], USAGE_PARAMS.UTF8String,
+      ParseArgs().description.UTF8String,
+      plistPath.UTF8String,
+      templatePath.UTF8String, _env,
+      refactoree.UTF8String);
+
+  code.unsignedIntegerValue == NSNotFound ?: exit(code.intValue);
 }
 
 #endif
