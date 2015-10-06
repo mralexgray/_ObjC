@@ -120,9 +120,9 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
      __ XCTestCase
     ___
 
-#    if MAC_ONLY
+#if MAC_ONLY
 #import <AppKit/AppKit.h>
-#  elif IOS_ONLY
+#elif IOS_ONLY
 #import <UIKit/UIKit.h>
 
 // Standarize names 1:1 between platforms. (DEFINES.STANDARD_NAMES)
@@ -166,7 +166,8 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
 %% DEFINES.ABBREVIATIONS %%
 
 %% DEFINES.STRINGS %%
-//%% DEFINES.NS %%
+
+%% DEFINES.NS %%
 
 @KIND(_ObjC_Load) ￭
 

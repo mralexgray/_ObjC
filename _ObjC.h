@@ -1,7 +1,7 @@
 
 /*!
 	@note This file is AUTO_GENERATED! Changes will NOT persist!
-AUTO_GENERATED on Sep 26, 2015, 7:25:39 AM from template:_ObjC.plist with data from:_ObjC_Template.h */
+AUTO_GENERATED on Sep 30, 2015, 5:27:31 PM from template:_ObjC.plist with data from:_ObjC_Template.h */
 
 /*!
  
@@ -160,9 +160,9 @@ _Type  void(^＾)()___   // Defines a generic block as ＾
      __ XCTestCase
     ___
 
-#    if MAC_ONLY
+#if MAC_ONLY
 #import <AppKit/AppKit.h>
-#  elif IOS_ONLY
+#elif IOS_ONLY
 #import <UIKit/UIKit.h>
 
 // Standarize names 1:1 between platforms. (DEFINES.STANDARD_NAMES)
@@ -325,6 +325,7 @@ _Type                  NSBezierPath *   _Path  ___
 _Type                      NSBundle *   _Bndl  ___
 _Type                   NSCalendar *    _NCal  ___
 _Type                NSCharacterSet *   _CSet  ___
+_Type                       NSCoder *   _Codr  ___
 _Type                       NSColor *   _Colr  ___
 _Type                        NSData *   _Data  ___
 _Type                        NSDate *   _Date  ___
@@ -354,6 +355,7 @@ _Type                      NSObject *   _NObj  ___
 _Type              NSParagraphStyle *   _PStl  ___
 _Type                        NSPipe *   _Pipe  ___
 _Type                     NSScanner *   _Scnr  ___
+_Type                      NSScreen *   _Scrn  ___
 _Type                   NSStatusBar *   _SBar  ___
 _Type                      NSString *   _Text  ___
 _Type                   NSTableView *   _TblV  ___
@@ -379,6 +381,7 @@ _Type                    XCTestCase *   _Test  ___
 #define                        Bndl   NSBundle
 #define                        NCal   NSCalendar 
 #define                        CSet   NSCharacterSet
+#define                        Codr   NSCoder
 #define                        Colr   NSColor
 #define                        Data   NSData
 #define                        Date   NSDate
@@ -408,6 +411,7 @@ _Type                    XCTestCase *   _Test  ___
 #define                        PStl   NSParagraphStyle
 #define                        Pipe   NSPipe
 #define                        Scnr   NSScanner
+#define                        Scrn   NSScreen
 #define                        SBar   NSStatusBar
 #define                        Text   NSString
 #define                        TblV   NSTableView
@@ -438,6 +442,7 @@ _Type                    XCTestCase *   _Test  ___
 #define                      _LT      - _List_
 #define                      _ATxt_   ( _ATxt )
 #define                     __ATxt_   : ( _ATxt )
+#define                      _AT      - _ATxt_
 #define                      _Path_   ( _Path )
 #define                     __Path_   : ( _Path )
 #define                      _PH      - _Path_
@@ -449,6 +454,8 @@ _Type                    XCTestCase *   _Test  ___
 #define                      _CSet_   ( _CSet )
 #define                     __CSet_   : ( _CSet )
 #define                      _CT      - _CSet_
+#define                      _Codr_   ( _Codr )
+#define                     __Codr_   : ( _Codr )
 #define                      _Colr_   ( _Colr )
 #define                     __Colr_   : ( _Colr )
 #define                      _CR      - _Colr_
@@ -524,6 +531,8 @@ _Type                    XCTestCase *   _Test  ___
 #define                      _PE      - _Pipe_
 #define                      _Scnr_   ( _Scnr )
 #define                     __Scnr_   : ( _Scnr )
+#define                      _Scrn_   ( _Scrn )
+#define                     __Scrn_   : ( _Scrn )
 #define                      _SBar_   ( _SBar )
 #define                     __SBar_   : ( _SBar )
 #define                      _Text_   ( _Text )
@@ -568,6 +577,7 @@ _Type                    XCTestCase *   _Test  ___
 _Type        NSAppleEventDescriptor *   _AEvD  ___
 _Type                 NSAppleScript *   _Scpt  ___
 _Type             NSArrayController *   xList  ___
+_Type        NSDictionaryController *   xDict  ___
 _Type                  NSFileHandle *   _Hndl  ___
 _Type                   NSImageView *   _PicV  ___
 _Type                        NSMenu *   _Menu  ___
@@ -590,6 +600,7 @@ _Type                       WebView *   _WebV  ___
 #define                        AEvD   NSAppleEventDescriptor
 #define                        Scpt   NSAppleScript
 #define                       ListX   NSArrayController
+#define                       DictX   NSDictionaryController
 #define                        Hndl   NSFileHandle
 #define                        PicV   NSImageView
 #define                        Menu   NSMenu
@@ -615,6 +626,8 @@ _Type                       WebView *   _WebV  ___
 #define                     __Scpt_   : ( _Scpt )
 #define                      xList_   ( xList )
 #define                     _xList_   : ( xList )
+#define                      xDict_   ( xDict )
+#define                     _xDict_   : ( xDict )
 #define                      _Hndl_   ( _Hndl )
 #define                     __Hndl_   : ( _Hndl )
 #define                      _PicV_   ( _PicV )
@@ -732,12 +745,13 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 #pragma mark - DEFINES.PROPERTIES
 
 #define                             _AS   @property (assign) 
-#define                             _AT   @property 
 #define                             _CP   @property (copy) 
 #define                             _NA   @property (nonatomic) 
 #define                             _NC   @property (nonatomic,copy) 
+#define                             _PR   @property 
 #define                             _RC   @property (readonly,copy) 
 #define                             _RO   @property (readonly) 
+#define                             _RW   @property (RW) 
 #define                             _WK   @property (weak) 
 #define                             ASS   assign 
 #define                              CP   copy 
@@ -817,7 +831,8 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 
 
 #pragma mark - END DEFINES.STRINGS
-//#pragma mark - DEFINES.NS
+
+#pragma mark - DEFINES.NS
 
 #define                             NSB   NSBundle 
 #define                             NSW   NSWindow 
@@ -850,6 +865,7 @@ _Type       _Void (^ ＾UInt) (_UInt i)     ___
 #define                            NSCS   NSCountedSet 
 #define                            NSPO   NSPopover 
 #define                            NSWC   NSWindowController 
+#define                            AppD   NSApplicationDelegate 
 #define                            NSGC   NSGraphicsContext 
 #define                            NSST   NSSet 
 #define                            NSSI   NSStatusItem 

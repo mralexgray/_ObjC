@@ -14,7 +14,6 @@
 				7B39D6A01BB2A6F1001C6514 /* ShellScript */,
 			);
 			dependencies = (
-				7B39D69F1BB2A6D9001C6514 /* PBXTargetDependency */,
 			);
 			name = _ObjC;
 			productName = _ObjC_Make;
@@ -30,13 +29,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7B39D69E1BB2A6D9001C6514 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B9B40261AC14E7D002EDD01 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7B3835791AC681C700D617B9;
-			remoteInfo = _ObjC_Tool;
-		};
 		7B576A5A1BB673E5000D3473 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B576A551BB673E5000D3473 /* ClangKit.xcodeproj */;
@@ -80,9 +72,11 @@
 		7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = _ObjC_Tests.m; path = _ObjC/_ObjC_Tests.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7BA79BEC1B6257E900A7E31D /* _ObjC_Migrator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _ObjC_Migrator.m; path = _ObjC/_ObjC_Migrator.m; sourceTree = "<group>"; };
 		7BB313D81AE5E35500BF1DBA /* _ObjC.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = _ObjC.svg; path = _ObjC/_ObjC.svg; sourceTree = "<group>"; };
+		7BB413C21BBC677E0013075B /* Universal */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Universal; sourceTree = "<group>"; };
 		7BB414D91ACE62F70024D285 /* _ObjC_Template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = _ObjC_Template.h; path = _ObjC/_ObjC_Template.h; sourceTree = "<group>"; wrapsLines = 0; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7BC4594A1AD68DAA0097F508 /* _ObjC_Tool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = _ObjC_Tool; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BC4594E1AD6955F0097F508 /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC.h; sourceTree = SOURCE_ROOT; };
+		7BF4F7C41BB6BEB700F11D3E /* _ObjC.generated.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = _ObjC.generated.plist; path = _ObjC/_ObjC.generated.plist; sourceTree = SOURCE_ROOT; };
 		7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = _ObjC.plist; path = _ObjC/_ObjC.plist; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7BFDE1971AE14F6C0012A607 /* _ObjC_Tool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = _ObjC_Tool.h; path = _ObjC/_ObjC_Tool.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
@@ -134,7 +128,9 @@
 				7B576A551BB673E5000D3473 /* ClangKit.xcodeproj */,
 				7B6A90D01B66B16E0061FEAC /* Products */,
 				7B9B40451AC14ED5002EDD01 /* README.md */,
+				7BF4F7C41BB6BEB700F11D3E /* _ObjC.generated.plist */,
 				7B0E207F1AEA54B900C955CF /* Universal.xcconfig */,
+				7BB413C21BBC677E0013075B /* Universal */,
 				7B9B403E1AC14ED5002EDD01 /* .travis.yml */,
 				7B32D8A31AE5873C00062CB8 /* Makefile */,
 				7BFDE1971AE14F6C0012A607 /* _ObjC_Tool.h */,
@@ -257,13 +253,11 @@
 			);
 			outputPaths = (
 				"$(SRCROOT)/$(PROJECT_NAME).h",
-				"$(TARGET_BUILD_DIR)/../$(PROJECT_NAME).h",
 				"/usr/local/include/$(PROJECT_NAME).h",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "#if false; then WD=\"$(realpath $(pwd))/\"; fi\n\nOUTFILES=(\n\"${SCRIPT_OUTPUT_FILE_0}\"\n\"${SCRIPT_OUTPUT_FILE_1}\"\n\"${SCRIPT_OUTPUT_FILE_2}\"\n)\n#FILES=$(printf \"{SCRIPT_OUTPUT_FILE_%s}\\n\" {0..2})\n#for x in $FILES\n#do\n#    OUTFILES+=\"${!x}\"\n#done\n\nARGS=( \"${CONFIGURATION_BUILD_DIR}/_ObjC_Tool\" )\nARGS+=-plist\nARGS+=\"${SCRIPT_INPUT_FILE_0#$WD}\"\nARGS+=-header\nARGS+=\"${SCRIPT_INPUT_FILE_1#$WD}\"\nARGS+=-tests\nARGS+=\"${SCRIPT_INPUT_FILE_2#$WD}\"\nARGS+=-output\nARGS+=( $OUTFILES )\n\n#echo $ARGS\n\n$ARGS\nRES=$?\n[[ $RES != 0 ]] && say purging failures from exit $RES && rm -f $OUTFILES\n\nexit $RES\n";
-			showEnvVarsInLog = 0;
+			shellScript = "\nxcodebuild -scheme \"${PROJECT_NAME}_Tool\" CODE_SIGN_IDENTITY=\"\" CODE_SIGNING_REQUIRED=NO -configuration \"${CONFIGURATION}\" -derivedDataPath \"${SYMROOT}/../..\"\n\n#if false; then WD=\"$(realpath $(pwd))/\"; fi\n# $(TARGET_BUILD_DIR)/../$(PROJECT_NAME).h\n\nOUTFILES=(\n\"${SCRIPT_OUTPUT_FILE_0}\"\n\"${SCRIPT_OUTPUT_FILE_1}\"\n)\n#FILES=$(printf \"{SCRIPT_OUTPUT_FILE_%s}\\n\" {0..2})\n#for x in $FILES\n#do\n#    OUTFILES+=\"${!x}\"\n#done\n\nARGS=( \"${BUILT_PRODUCTS_DIR/-iphone*/}/${PROJECT_NAME}_Tool\" )\nARGS+=-plist\nARGS+=\"${SCRIPT_INPUT_FILE_0}\"\nARGS+=-header\nARGS+=\"${SCRIPT_INPUT_FILE_1}\"\nARGS+=-tests\nARGS+=\"${SCRIPT_INPUT_FILE_2}\"\nARGS+=-output\nARGS+=( $OUTFILES )\n\n#echo $ARGS\n\n$ARGS\nRES=$?\n[[ $RES != 0 ]] && say purging failures from exit $RES && rm -f $OUTFILES\n\n\n[[ $EFFECTIVE_PLATFORM_NAME =~ iphone ]] && scp \"${OUTFILES[2]}\" ip6:/usr/local/include\n\n#env |sort | pbcopy\n\nexit $RES\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -289,11 +283,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7B39D69F1BB2A6D9001C6514 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7B3835791AC681C700D617B9 /* _ObjC_Tool */;
-			targetProxy = 7B39D69E1BB2A6D9001C6514 /* PBXContainerItemProxy */;
-		};
 		7B576A5F1BB673EE000D3473 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ClangKit;
@@ -311,11 +300,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(BUILT_PRODUCTS_DIR)",
+					"$(inherited)",
+				);
 				GCC_OPTIMIZATION_LEVEL = 0;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path";
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.10;
 			};
 			name = Release;
 		};
@@ -345,6 +336,7 @@
 					Foundation,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.10;
 			};
 			name = Release;
 		};
@@ -376,11 +368,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				ENABLE_TESTABILITY = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.10;
 			};
 			name = Debug;
 		};
@@ -388,11 +382,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(BUILT_PRODUCTS_DIR)",
+					"$(inherited)",
+				);
 				GCC_OPTIMIZATION_LEVEL = 0;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path";
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.10;
 			};
 			name = Debug;
 		};

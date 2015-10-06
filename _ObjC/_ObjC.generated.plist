@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>METHOD_RETURN_SHORTCUTS</key>
+	<dict>
+		<key>- _ATxt_</key>
+		<string>_AT</string>
+		<key>- _Bndl_</key>
+		<string>_BL</string>
+		<key>- _CRes_</key>
+		<string>_CS</string>
+		<key>- _CSet_</key>
+		<string>_CT</string>
+		<key>- _Colr_</key>
+		<string>_CR</string>
+		<key>- _Copy_</key>
+		<string>_CY</string>
+		<key>- _Cord_</key>
+		<string>_CD</string>
+		<key>- _Data_</key>
+		<string>_DA</string>
+		<key>- _Dict_</key>
+		<string>_DT</string>
+		<key>- _Errr_</key>
+		<string>_ER</string>
+		<key>- _Evnt_</key>
+		<string>_ET</string>
+		<key>- _File_</key>
+		<string>_FE</string>
+		<key>- _Flot_</key>
+		<string>_FT</string>
+		<key>- _IsIt_</key>
+		<string>_IT</string>
+		<key>- _Json_</key>
+		<string>_JN</string>
+		<key>- _Layr_</key>
+		<string>_LR</string>
+		<key>- _List_</key>
+		<string>_LT</string>
+		<key>- _Meta_</key>
+		<string>_MA</string>
+		<key>- _Meth_</key>
+		<string>_MH</string>
+		<key>- _NObj_</key>
+		<string>_NJ</string>
+		<key>- _NUrl_</key>
+		<string>_NL</string>
+		<key>- _Numb_</key>
+		<string>_NB</string>
+		<key>- _ObjC_</key>
+		<string>_OC</string>
+		<key>- _PStl_</key>
+		<string>_PL</string>
+		<key>- _Path_</key>
+		<string>_PH</string>
+		<key>- _Pict_</key>
+		<string>_PT</string>
+		<key>- _Pipe_</key>
+		<string>_PE</string>
+		<key>- _Rect_</key>
+		<string>_RT</string>
+		<key>- _Rnge_</key>
+		<string>_RE</string>
+		<key>- _SInt_</key>
+		<string>_ST</string>
+		<key>- _Size_</key>
+		<string>_SE</string>
+		<key>- _SndP_</key>
+		<string>_SP</string>
+		<key>- _TblV_</key>
+		<string>_TV</string>
+		<key>- _Text_</key>
+		<string>_TT</string>
+		<key>- _UInt_</key>
+		<string>_UT</string>
+		<key>- _View_</key>
+		<string>_VW</string>
+		<key>- _Wind_</key>
+		<string>_WD</string>
+		<key>- mCSet_</key>
+		<string>mCT</string>
+		<key>- mData_</key>
+		<string>mDA</string>
+		<key>- mDict_</key>
+		<string>mDT</string>
+		<key>- mList_</key>
+		<string>mLT</string>
+		<key>- mText_</key>
+		<string>mTT</string>
+	</dict>
+</dict>
+</plist>

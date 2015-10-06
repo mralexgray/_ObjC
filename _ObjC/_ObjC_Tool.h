@@ -5,16 +5,12 @@
 #define _ObjC__ObjC_Tool_pch
 
 #import <Foundation/Foundation.h>
-#import <_ObjC.h>
-
-#ifndef 💩
-#define       $(...)      [NSString stringWithFormat:__VA_ARGS__]
-#define    MAIN(...)      int main() { @autoreleasepool {  __VA_ARGS__  } return EXIT_SUCCESS; }
-#endif
 
 #define       M(X)        NSMutable##X
+#define       $(...)      [NSString stringWithFormat:__VA_ARGS__]
 #define      CR(MSTR)     [MSTR appendString:@"\n"]
 #define     LOC(S,LOC)    [S rangeOfString:LOC].location
+#define    MAIN(...)      int main() { @autoreleasepool {  __VA_ARGS__  } return EXIT_SUCCESS; }
 #define  APPEND(X,...)    [X appendFormat:__VA_ARGS__]
 #define      FM           NSFileManager.defaultManager
 #define    ARGS           NSProcessInfo.processInfo.arguments

@@ -12,18 +12,27 @@
 
 #pragma mark - UNIMPLEMENTED
 
+#define MIGRATABLES       \
+\
+  @[@"TYPES.STRUCTS",     \
+  @"TYPES.POINTERS",      \
+  @"TYPES.POINTERS_MAC",  \
+  @"TYPES.PRIMITIVES"]
+
+#define ANCILLARIES [NSDictionary dictionaryWithContentsOfFile:generatedPath]
 
 NSDictionary * Migratables () {
 
   static NSDictionary *d = nil; return d = d ?: ({
     id x = @{}.mutableCopy;
-    for (id s in @[@"TYPES.STRUCTS",@"TYPES.POINTERS",@"TYPES.POINTERS_MAC", @"TYPES.PRIMITIVES"]) {
+    for (id s in MIGRATABLES) {
 
       [x setValuesForKeysWithDictionary:[PlistDataModel() valueForKeyPath:s]];
     }
     [x copy];
   });
 }
+
 NSArray * FilterInterestingTokens(id array) {
 
   return [array filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(CKToken* token, NSDictionary *bindings) {
@@ -36,7 +45,7 @@ static NSDate *timer;
 NSString * RefactorFile (id path) {
 
 
-  return NSLog(@"%@", Migratables()), @"";
+  return NSLog(@"%@\nANC:\n%@", Migratables(), ANCILLARIES), @"";
 
   M(String) *file = [NSMutableString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
         /* First create a translation unit for Objective-C, using a string */

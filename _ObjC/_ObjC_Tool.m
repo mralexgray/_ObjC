@@ -1,7 +1,7 @@
 
 #import "_ObjC_Tool.h"
 
-MAIN(
+MAIN({
 
 
   // Dirty, dirty arg parsing.  Supports long or short opts.
@@ -11,8 +11,12 @@ MAIN(
 
   // Require existant Plist path
   (plistPath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"d", @"p", @"data", @"model", @"plist"], IsFileAndExists))
-    ? ({ generated = @{}.mutableCopy; generatedPath = [plistPath.stringByDeletingPathExtension stringByAppendingString:@".generated.plist"]; })
-    : ({ failure = @"Plist PATH failurs";  Usage(@(EXIT_FAILURE)); });
+    ?: ({ failure = @"Plist PATH failurs";  Usage(@(EXIT_FAILURE)); });
+
+  generated = @{@"METHOD_RETURN_SHORTCUTS":@{}.mutableCopy}.mutableCopy;
+
+  generatedPath = [plistPath.stringByDeletingPathExtension stringByAppendingString:@".generated.plist"];
+
   // Make sure we can create model from that plist
   PlistDataModel() ?: ({ failure = @"Plist model failurs";  Usage(@(EXIT_FAILURE)); });
 
@@ -29,9 +33,8 @@ MAIN(
   !refactoree ?: ({ return RefactorFile(refactoree), 0; }); // printf("%s", .UTF8String); });
 
   // no output? no worries - just print to stdout
-
-  Usage(@(NSNotFound));
-  NSLog(@"outputs:%lu",[output count]);
+  //  Usage(@(NSNotFound));
+  //  NSLog(@"outputs:%lu",[output count]);
 
   output ?: ({ return printf("%s", CompiledHeader().UTF8String), EXIT_SUCCESS; });
 
@@ -44,7 +47,11 @@ MAIN(
   }
 
   !testFilePath ?: WriteTests();
-)
+
+  [FM removeItemAtPath:generatedPath error:nil];
+  [generated writeToFile:generatedPath atomically:YES];
+
+})
 
 NSString * GenerateSection(NSString * head) {
 
@@ -128,13 +135,14 @@ NSString * GenerateSection(NSString * head) {
                            X,                                     \
                            isBlock ? ""  : "_",X, X)
 
-      #define METHOD_RETURN_SHORTCUT(X)                       /* - _Text_ -> _TT             */\
+      #define METHOD_RETURN_SHORTCUT(X)                     /* - _Text_ -> _TT             */\
+        id cuteName = $(@"%@%@",X[2],[X[-([X length]-1)] uppercaseString]); \
         APPEND( methArgs,                                     /* superstring                 */\
-                @"#define %21s%@%@      - %@_\n",             /* format string               */\
+                @"#define %21s%@      - %@_\n",             /* format string               */\
                 " ",                                          /* padding char                */\
-                X[2],                                         /* superstring                 */\
-                [X[-([X length]-1)] uppercaseString],         /* capitalized last LETTER     */\
-                X)                                            /* superstring                 */
+                cuteName, \
+                X);                                            /* superstring                 */\
+                generated[@"METHOD_RETURN_SHORTCUTS"][$(@"- %@_",X)] = cuteName
 
 //      #define METHOD_RETURN_SHORTCUT(X)                       /* - _Text_ -> _TT             */\
 //        APPEND( methArgs,                                     /* superstring                 */\
@@ -147,7 +155,7 @@ NSString * GenerateSection(NSString * head) {
 
       !emit & e_TYPE ?: ({ AS_ARG_SHORTCUTS(declared); }); // if NOT a type, generate method argument variations
 
-      ![PlistDataModel()[@"ALIAS_INSTANCE_RETURN"] containsObject:declared] ?: METHOD_RETURN_SHORTCUT(declared);
+      ![PlistDataModel()[@"ALIAS_INSTANCE_RETURN"] containsObject:declared] ?: (void)({ METHOD_RETURN_SHORTCUT(declared); });
     };
 
     for (NSString *k in sortedKs) writeTypeOrDef(k);
@@ -156,7 +164,6 @@ NSString * GenerateSection(NSString * head) {
                                                          methArgs ?  @"\n\n"
                                                                    : @"",
                                                          methArgs ?: @"", head);
-
     return snippet.copy;
   };
 

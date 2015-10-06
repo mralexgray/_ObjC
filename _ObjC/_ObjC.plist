@@ -1,5 +1,6 @@
 {
 	"ALIAS_INSTANCE_RETURN" = (
+		"_ATxt",
 		"_Bndl",
 		"_Colr",
 		"_Cord",
@@ -139,6 +140,7 @@
 		};
 		NS = {
 			AZOQMAX = "NSOperationQueueDefaultMaxConcurrentOperationCount";
+			AppD = "NSApplicationDelegate";
 			ISADICT = "isKindOfClass:NSDictionary.class";
 			ISADICTorARRAY = "isKindOfAnyClass:NSAorDCLASS";
 			ISANARRAY = "isKindOfClass:NSArray.class";
@@ -255,12 +257,13 @@
 			UNSF = "unsafe_unretained";
 			WK = weak;
 			"_AS" = "@property (assign)";
-			"_AT" = "@property";
+			"_PR" = "@property";
 			"_CP" = "@property (copy)";
 			"_NA" = "@property (nonatomic)";
 			"_NC" = "@property (nonatomic,copy)";
 			"_RC" = "@property (readonly,copy)";
 			"_RO" = "@property (readonly)";
+			"_RW" = "@property (RW)";
 			"_WK" = "@property (weak)";
 		};
 		"STANDARD_NAMES" = {
@@ -418,6 +421,7 @@
 	};
 	META = {};
 	NS = {
+		AppD = "NSApplicationDelegate";
 		AZOQMAX = "NSOperationQueueDefaultMaxConcurrentOperationCount";
 		ISADICT = "isKindOfClass:NSDictionary.class";
 		ISADICTorARRAY = "isKindOfAnyClass:NSAorDCLASS";
@@ -582,6 +586,7 @@
 			"NSCalendar * " = "_NCal";
 			"NSCharacterSet *" = "_CSet";
 			"NSColor *" = "_Colr";
+			"NSCoder *" = "_Codr";
 			"NSData *" = "_Data";
 			"NSDate *" = "_Date";
 			"NSDateFormatter *" = "_DFmt";
@@ -610,6 +615,7 @@
 			"NSParagraphStyle *" = "_PStl";
 			"NSPipe *" = "_Pipe";
 			"NSScanner *" = "_Scnr";
+			"NSScreen *" = "_Scrn";
 			"NSStatusBar *" = "_SBar";
 			"NSString *" = "_Text";
 			"NSTableView *" = "_TblV";
@@ -630,6 +636,7 @@
 			"NSAppleEventDescriptor *" = "_AEvD";
 			"NSAppleScript *" = "_Scpt";
 			"NSArrayController *" = xList;
+			"NSDictionaryController *" = xDict;
 			"NSFileHandle *" = "_Hndl";
 			"NSImageView *" = "_PicV";
 			"NSMenu *" = "_Menu";
@@ -662,6 +669,9 @@
 			"unsigned long" = "_ULng";
 			void = "_Void";
 			"id<NSCopying>" = "_Copy";
+		};
+		"PRIMITIVES.MAC" = {
+			NSBackingStoreType = "_Back";
 		};
 		STRUCTS = {
 			CGAffineTransform = "_AffT";
