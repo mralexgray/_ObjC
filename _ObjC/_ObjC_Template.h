@@ -1,25 +1,34 @@
 
-/*!
- 
- @abstract    _ObjC is a sensible dialect of ObjC that is 100% compiler compatible.
- @brief       Uncluttered, easy to remember, and obvious to any neophyte.
-              Purge needless punctuation, especially *'s, {}'s, and ()'s, and so on, and so forth.
-              Class pointers and types are typedef'd to aliases, with no pointer,
-              formatted like _Four lettes, starting with an underscore, capitalized.
+  @abstract _ObjC is a sensible dialect of ObjC that doesn't suck.
+     @brief Uncluttered, easy to remember, and obvious to any neophyte.
+            Purge needless punctuation, especially *'s, {}'s, and ()'s, and so on, and so forth.
+            Class pointers and types are typedef'd to aliases, with no pointer,
+            formatted like _Four lettes, starting with an underscore, capitalized.
 */
 
-#pragma once                        // Lord, please!
+#pragma once                              // Lord, please!
 
-#ifdef __OBJC__                     // Let's stick to what we know. (We know ObjC)
-#if    __STDC_VERSION__ >= 201112L  // std=c11 is REQUIED, honey... catch it.
+#ifdef __OBJC__                           // Let's stick to what we know. (We know ObjC)
+#if    __STDC_VERSION__ >= 201112L        // std=c11 is REQUIED, honey... catch it.
 
-#define IOS_ONLY  TARGET_OS_IPHONE  // Why not make this easy on us, Apple?
-#define MAC_ONLY  !IOS_ONLY         // Simple #if MAC_ONLY or #if IOS_ONLY.  duh.
+#define IOS_ONLY  TARGET_OS_IPHONE        // Why not make this easy on us, Apple?
+#define MAC_ONLY  !IOS_ONLY               // Simple #if MAC_ONLY or #if IOS_ONLY.  duh.
 
-#define        _  :                 // Semicolon -> underscore x 1
-#define       __  ,                 //     Comma -> underscore x 2
-#define      ___  ;                 //     Colon -> underscore x 3
+#define        _  :                       // Semicolon -> underscore x 1
+#define       __  ,                       //     Comma -> underscore x 2
+#define      ___  ;                       //     Colon -> underscore x 3
 
+#pragma mark - Comment helpers
+
+/*!
+	single ➜ <#type#> <#declaration#> ｜('<#oneline-comment#>')
+
+	multi  ➜ <#type#> <#declaration#> ￤('<#one#>') ___
+          	<#type#> <#declaration#> ｜('<#two#>')
+*/
+
+#define ｜(...) ___
+#define ￤(...)
 
 /*! Our raison d'étre is to make things more readable.. With these simple additions we go from
 
@@ -34,38 +43,48 @@
   Plan - Implemenation
   Xtra - Categories                                      */
 
-#define        💩  ?:                   	/// Some of you are going... to.. hate.. this.
-#define      _Type  typedef              	/// Since we're gonna typedef virtually everything, lets retype typedef, lol.
+#define        💩  ?:                   	// Some of you are going... to.. hate.. this.
+#define      _Type  typedef              	// Since we're gonna typedef virtually everything, lets retype typedef, lol.
 
 #pragma mark - Objective C Keywords
 
 #define       Incl  import
 #define       Optn  optional
 #define       Reqd  required
-
-#define       Kind  interface            	/// Spade is a spade.
-#define         🅺  @Kind                	/// XC: @Kind <#ClassName#>
 #define       Stop  end
 #define          ￭  @Stop
 
+#define       Kind  interface            	// Let's call a horse, a horse.
+#define       Plan 	implementation				// Arent we cute?
+
+#define         🅺  @Kind                	// @Kind <#ClassName#> or 🅺<#ClassName#>
 #define         🆇  @Xtra
+#define         🅿︎ 	@Plan
+#define       	🆅 	@Vows
+#define      		🅲 	@concrete             // 🅥 🅟
 
-#define       Plan implementation
-#define         🅿︎ @Plan // 🅟
-#define       🆅 @Vows // 🅥
-#define       🅲 @concrete
 #define  🅚(K,...)  @KIND(K,__VA_ARGS__)
-// #define  🅚
-#define    🅧(...)   @Xtra(__VA_ARGS__)
+#define    🅧(...)  @Xtra(__VA_ARGS__)
+#define 	 🅒(...) 	@concreteprotocol(__VA_ARGS__)
+#define    🅥(...)  <__VA_ARGS__>
 
-#define  🅒(...) @concreteprotocol(__VA_ARGS__)
+#define    Ｐ(...) 	id<__VA_ARGS__>
+#define   _Ｐ(...)	(id<__VA_ARGS__>)
+#define  __Ｐ(...):	(id<__VA_ARGS__>)
+
 
 %% DEFINES.MISC %%
 
-#pragma mark - Comment helpers
 
-#define ｜(...) ___                   /// XC shortcut ➜ ____ ➜ ｜('<#comment#>')
-#define ￤(...)
+#define Code NSCoding
+#define Copy NSCopying
+#define Fast NSFastEnumeration
+
+
+#define StringFromBOOL(b) (b?@"YES":@"NO")
+#define $B(b) StringFromBOOL(b)
+#define CharFromBOOL(b) (b?"YES":"NO")
+#define $$B(b) CharFromBOOL(b)
 
 //#define       ＿ Plan
 
@@ -78,13 +97,6 @@
 #define DECLARECONFORMANCE(_CLASS_,_PROTOCOL_) @interface _CLASS_ (_PROTOCOL_) <_PROTOCOL_> @end
 #define CONFORM(_CLASS_,_PROTOCOL_) @Plan _CLASS_ (_PROTOCOL_) @end
 
-#define    Ｐ(...) id<__VA_ARGS__>
-#define   _Ｐ(...) (id<__VA_ARGS__>)
-#define  __Ｐ(...) : (id<__VA_ARGS__>)
-
-#define Code NSCoding
-#define Copy NSCopying
-#define Fast NSFastEnumeration
 
 #define _ID - _ObjC_ 
 #define Kind_Plan(CLASS,SUPER,...) Kind_ (CLASS,SUPER) ￭ @Plan CLASS
@@ -109,19 +121,28 @@
 
 _Type  void(^＾)()___   // Defines a generic block as ＾
 
+#define ALLOWED @"ϟ ツ ⌘ ☁ ½"
+
+
+//#define ∧ @"carrot"
+
 /// Let's standarize the preprocessor names too!
 
 //@import ObjectiveC
 
 #import <objc/runtime.h>
-    ___
- @class AVAudioPlayer
-     __ WebView
+
+ @class WebView
      __ XCTestCase
+     __ ORSSerialPort
+     __ AVAudioPlayer
     ___
 
 #if MAC_ONLY
 #import <AppKit/AppKit.h>
+
+%% DEFINES.STANDARD_NAMES_MAC %%
+
 #elif IOS_ONLY
 #import <UIKit/UIKit.h>
 
@@ -206,10 +227,12 @@ NS_INLINE id concatDescriptions(id uno, ...) { id result = @"".mutableCopy; va_l
 
 CLANG_IGNORE_NO_ATTR
 
+
 #define _Enum(ENUM_TYPENAME, ENUM_CONSTANTS...)                                                           \
                 _Type enum { ENUM_CONSTANTS } ENUM_TYPENAME ___                                           \
                               static _Text _##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS ___  \
                                     _EnumPlan(ENUM_TYPENAME)
+#define Ⅲ _EnumKind
 
 #define _EnumKind(ENUM_TYPENAME, ENUM_CONSTANTS...)                                    \
                                                                                        \
@@ -218,8 +241,10 @@ CLANG_IGNORE_NO_ATTR
     extern _Dict ENUM_TYPENAME##xVal  ()                                          ___  \
     extern _Dict ENUM_TYPENAME##xLbl  ()                                          ___  \
     extern _List ENUM_TYPENAME##All   ()                                          ___  \
+    extern _Dict ENUM_TYPENAME##Info  ()                                          ___  \
     extern _Text ENUM_TYPENAME##2Text (int enumKind)                              ___  \
     extern _IsIt ENUM_TYPENAME##4Text(_Text enumLabel, ENUM_TYPENAME *enumValue)  ___  \
+    extern _Void ENUM_TYPENAME##Test(int enumKind)  ___  \
     CLANG_IGNORE(-Wunused-variable)                                                    \
     static _Text _##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS        ___  \
     CLANG_POP
@@ -252,22 +277,31 @@ CLANG_IGNORE_NO_ATTR
     }	\
     return labelsAndValues;	\
   } \
-  _Dict ENUM_TYPENAME##xVal() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	NEW(NSMutableDictionary,result) \
-    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i+1]] = constants[i];	return result; \
+  _Dict ENUM_TYPENAME##xVal() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	NEW(DictM,result) \
+    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i+1]] = constants[i];	return result.copy; \
   }	\
-  _Dict ENUM_TYPENAME##xLbl() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	\
-    NEW(NSMutableDictionary,result) \
-    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1]; return result;	\
+  _Dict ENUM_TYPENAME##xLbl() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	NEW(DictM,result) \
+    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1]; return result.copy;	\
   }	\
-  _Dict ENUM_TYPENAME##xHex() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	NEW(NSMutableDictionary,result) \
-    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = constants[i+1];	return result;	\
+  _Dict ENUM_TYPENAME##xHex() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	NEW(DictM,result) \
+    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = @(i).hexString;	return result.copy;	\
+  } \
+  _Dict ENUM_TYPENAME##Info() {	_List constants = _EnumParse##ENUM_TYPENAME##ConstantsString();	NEW(DictM,result) \
+    for (_UInt i = 0; i < constants.count; i += 2) result[constants[i]] = @{ @"hex" : @(i).hexString, @"value" : constants[i+1] };	return result.copy;	\
   } \
   _Text ENUM_TYPENAME##2Text(int enumValue) {	\
-    return ENUM_TYPENAME##xVal()[[NSNumber numberWithInt:enumValue]] ?: $(@"<unknown "#ENUM_TYPENAME": %d>", enumValue);	\
+    return ENUM_TYPENAME##xVal()[[Numb numberWithInt:enumValue]] ?: $(@"<unknown "#ENUM_TYPENAME": %d>", enumValue);	\
   }	\
   _IsIt ENUM_TYPENAME##4Text(_Text enumLabel, ENUM_TYPENAME *enumValue) {	\
     _Numb value = ENUM_TYPENAME##xLbl()[enumLabel];	\
     return value ? ({ *enumValue = (ENUM_TYPENAME)[value intValue];	YES; }) : NO; \
+  } \
+  _Void ENUM_TYPENAME##Test(int enumKind){ \
+    printf("%s: %d (%s)\n", [ENUM_TYPENAME##2Text(enumKind) UTF8String], enumKind, @(enumKind).hexString.UTF8String); \
+    [ENUM_TYPENAME##Info() enumerateKeysAndObjectsUsingBlock:^(_Text k, _Dict v, BOOL *s){ \
+      int comp = [v[@"value"] intValue]; \
+      printf("\t%s (%s)\n\t\t& %s\t\t| %s\t\t^ %s\n\n", k.UTF8String, [v[@"hex"]UTF8String], $$B(enumKind&comp), $$B(enumKind|comp),$$B(enumKind*comp));\
+    }]; \
   } \
   _List ENUM_TYPENAME##All() { return ENUM_TYPENAME##xVal().allKeys; } CLANG_POP
 

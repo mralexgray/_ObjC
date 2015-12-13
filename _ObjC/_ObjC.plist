@@ -270,6 +270,7 @@
 			NSApp = UIApp;
 			NSApplication = UIApplication;
 			NSBezierPath = UIBezierPath;
+			NSButton = UIButton;
 			NSColor = UIColor;
 			NSEvent = UIEvent;
 			NSFont = UIFont;
@@ -287,6 +288,29 @@
 			NSZeroPoint = CGPointZero;
 			NSZeroRect = CGRectZero;
 			NSZeroSize = CGSizeZero;
+		};
+		"STANDARD_NAMES_MAC" = {
+			UIApp = NSApp;
+			UIApplication = NSApplication;
+			UIBezierPath = NSBezierPath;
+			UIButton = NSButton;
+			UIColor = NSColor;
+			UIEvent = NSEvent;
+			UIFont = NSFont;
+			UIImage = NSImage;
+			UINib = NSNib;
+			UIPoint = CGPoint;
+			UIRect = CGRect;
+			UIScreen = NSScreen;
+			UISize = CGSize;
+			UIStatusBar = NSStatusBar;
+			UITableView = NSTableView;
+      UILocalNotification = NSUserNotification;
+			UIView = NSView;
+			UIWindow = NSWindow;
+			UIZeroPoint = CGPointZero;
+			UIZeroRect = CGRectZero;
+			UIZeroSize = CGSizeZero;
 		};
 		STRINGS = {
 			"ATTR(NAME_WITHOUT_NS)" = "NS##NAME_WITHOUT_NS##AttributeName";
@@ -567,8 +591,9 @@
 			"_Void (^) (_NUrl u)" = "\Uff3eNUrl";
 			"_Void (^) (_Numb n)" = "\Uff3eNumb";
 			"_Void (^) (_ObjC x)" = "\Uff3eObjC";
-			"_Void (^) (_ObjC x, _SInt c)" = "\Uff3eIDST";
-			"_Void (^) (_ObjC x, _UInt c)" = "\Uff3eIDUT";
+			"_Void (^) (_ObjC x, _SInt c)" = "\Uff3eIdSt";
+			"_Void (^) (_ObjC x, _UInt c)" = "\Uff3eIdUt";
+			"_Void (^) (_ObjC k, _ObjC v)" = "\Uff3eIdId";
 			"_Void (^) (_Rect r)" = "\Uff3eRect";
 			"_Void (^) (_SInt i)" = "\Uff3eSInt";
 			"_Void (^) (_Text p)" = "\Uff3eText";
@@ -654,6 +679,7 @@
 			"NSUserNotification *" = uNote;
 			"NSUserNotificationCenter *" = uNCtr;
 			"NSWindowController *" = xWind;
+			"ORSSerialPort *" = "_SPrt";
 			"WebView *" = "_WebV";
 		};
 		PRIMITIVES = {

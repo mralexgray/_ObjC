@@ -1,16 +1,17 @@
 
 #import "_ObjC_Tool.h"
 
-NSString * HeaderTemplate() {
+static NSString * template;
+static id plist;
 
-  return template = template ?: [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:nil];
+NSString     * HeaderTemplate() {
+
+  return template = template ?: [NSString stringWithContentsOfFile:TemplatePath() encoding:NSUTF8StringEncoding error:nil];
 }
+NSDictionary * PlistDataModel() { NSCAssert(PlistPath(), @"plist path is null!");
 
-NSDictionary * PlistDataModel() { NSCAssert(plistPath, @"plist path is null!");
-
-  return plist = plist ?: [NSDictionary dictionaryWithContentsOfFile:plistPath];
+  return plist = plist ?: [NSDictionary dictionaryWithContentsOfFile:PlistPath()];
 }
-
 
 @implementation  NSString (SubstringToOrFrom)
 

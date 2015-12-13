@@ -6,6 +6,11 @@
 
 #import <Foundation/Foundation.h>
 
+#define TEMPLATE_ALIASES  @"t", @"template", @"header"
+#define OUTPUT_ALIASES    @"o", @"output"
+#define TESTS_ALIASES     @"x", @"test", @"tests"
+#define PLIST_ALIASES     @"d", @"p", @"data", @"model", @"plist"
+
 #define       M(X)        NSMutable##X
 #define       $(...)      [NSString stringWithFormat:__VA_ARGS__]
 #define      CR(MSTR)     [MSTR appendString:@"\n"]
@@ -18,8 +23,8 @@
 #define MEDDATE           NSDateFormatterMediumStyle
 #define RGX               NSRegularExpression
 #define THEDATE           [NSDateFormatter localizedStringFromDate:NSDate.date dateStyle:MEDDATE timeStyle:MEDDATE]
-#define _TEMPLATE          @"\n/*!\n\t@note This file is AUTO_GENERATED! Changes will NOT persist!\n" \
-                          "AUTO_GENERATED on %@ from template:%@ with data from:%@ */\n%@"
+#define _TEMPLATE          @"\n/*!\t\t@note\tThis file is AUTO_GENERATED! Changes will NOT persist!\n" \
+                          "\t\t\t\t\t\tAUTO_GENERATED on %@ from template:%@ with data from:%@\n%@"
 
 /// @abstract The data we are deling with is broadly defined as either #define's or _Type typedefs.
 
@@ -37,13 +42,82 @@ typedef NS_ENUM(BOOL, SentinelLocation) { ENDING = NO, BEGINNING = YES };
 OBJC_EXPORT NSString     * RefactorFile (id);  // UNIMPLEMENTED
 OBJC_EXPORT NSString     * HeaderTemplate ();
 OBJC_EXPORT NSDictionary * PlistDataModel ();
+
 static NSString     * CompiledHeader ();
-       NSDictionary *      ParseArgs ();
        void               WriteTests ();
 
-       
-NSString * template, * templatePath, * plistPath, * testFilePath, * refactoree, *generatedPath;
-id plist, output, compiled, generated;
+static NSString *failure, *refactoree;
+static id output, generated;
+
+// Parses CLI to dictionary.  Generic, chic, and unrelated to task at hand.
+
+NS_INLINE NSDictionary * ParseArgs() {
+
+  static id opts; static dispatch_once_t onceToken; dispatch_once(&onceToken, ^{
+
+   id _opts = @{}.mutableCopy, flag = nil;
+
+    for (NSString *argv in [ARGS subarrayWithRange:(NSRange){1,ARGS.count-1}]) { BOOL isFlag = [argv hasPrefix:@"-"];
+
+      id arg = !isFlag ? argv : ({ id newFlag = argv.copy; while ([newFlag hasPrefix:@"-"])
+        newFlag = [newFlag substringFromIndex:1]; newFlag; });
+
+      flag ? ({ isFlag && ![_opts objectForKey:flag = arg] ? ({ _opts[flag] = NSNull.null; }) : ({
+
+        id existing = _opts[flag]; // doesn't have - prefix ... adding or creating a value.
+
+        _opts[flag] = !existing || [existing isKindOfClass: NSNull.class] ? arg :
+        [existing isKindOfClass:NSArray.class] ?
+        [existing     arrayByAddingObject:arg] : @[existing, arg]; });
+
+      }) : ({ isFlag && !_opts[flag = arg] ? ({ _opts[flag] = NSNull.null; })
+
+        : ({ _opts[@"?"] = [_opts[@"?"] ?: @[] arrayByAddingObject:arg]; flag = nil; }); // No '-', add to unnamed array.
+      });
+
+    }  opts = [_opts copy];
+  });
+
+  return opts;
+}
+
+NS_INLINE id ObjectForAnyKeyPassingTest(NSDictionary * values, NSArray * okKeys, BOOL(*test)(id)) {
+
+  for (id key in okKeys) { id found = values[key]; if (found && (!test || test(found))) return found; } return failure = [okKeys.lastObject copy], nil;
+}
+
+NS_INLINE BOOL IsFileAndExists(id p) { BOOL d = NO; return [FM fileExistsAtPath:[p stringByStandardizingPath] isDirectory:&d] && !d; }
+
+
+#define USAGE_PARAMS @" \n\
+  -r	--refactor  Source file to refactor (outputs to stdout)   \n\
+OR                                                              \n\
+  -p  --plist     Plist to parse                                \n\
+  -t  --template  Header template!.                             \n\
+  -0  --output    Path (or paths) to write compiled header to.  \n\
+OR                                                              \n\
+  -l  --list      SHow parsed options."
+
+NS_INLINE NSString *    PlistPath () { return ObjectForAnyKeyPassingTest(ParseArgs(), @[PLIST_ALIASES],   IsFileAndExists); }
+NS_INLINE NSString * TemplatePath () { return ObjectForAnyKeyPassingTest(ParseArgs(), @[TEMPLATE_ALIASES],IsFileAndExists); }
+NS_INLINE NSString * TestFilePath () { return ObjectForAnyKeyPassingTest(ParseArgs(), @[TESTS_ALIASES], IsFileAndExists); }
+
+NS_INLINE void Usage(NSUInteger codeOrNotFound) {
+
+  _Emit _env = LOC(ENV[@"BUILT_PRODUCTS_DIR"],@"iphone") != NSNotFound ? e_TYPE_IOS : e_TYPE_MAC; // was `static _Emit BuildingFor ();`
+
+  printf("PROBLEM:%s\n%s%s\ngot %s\nmodel:%s\ntemplate:%s\nplatform:%x\nrefactor:%s",
+
+      failure.UTF8String, [ARGS[0] UTF8String], USAGE_PARAMS.UTF8String,
+      ParseArgs().description.UTF8String,
+      PlistPath().UTF8String,
+      TemplatePath().UTF8String, _env,
+      refactoree.UTF8String);
+
+  codeOrNotFound == NSNotFound ?: exit(codeOrNotFound);
+}
+
+
 
 @interface                  RxMatch : NSObject
 - initWithTextCheckingResult:(NSTextCheckingResult*)tx forString:(NSString*)s;
@@ -59,38 +133,5 @@ id plist, output, compiled, generated;
 - (BOOL) containsString:(NSString*)x;
 #endif
 @end
-
-static NSString *failure;
-
-NS_INLINE id ObjectForAnyKeyPassingTest(NSDictionary * values, NSArray * okKeys, BOOL(*test)(id)) {
-
-  for (id key in okKeys) { id found = values[key]; if (found && (!test || test(found))) return found; } return failure = [okKeys.lastObject copy], nil;
-}
-
-NS_INLINE BOOL IsFileAndExists(id p) { BOOL dir = NO; return [FM fileExistsAtPath:[p stringByStandardizingPath] isDirectory:&dir] && !dir; }
-
-#define USAGE_PARAMS @" \n\
-  -r	--refactor  Source file to refactor (outputs to stdout)   \n\
-OR                                                              \n\
-  -p  --plist     Plist to parse                                \n\
-  -t  --template  Header template!.                             \n\
-  -0  --output    Path (or paths) to write compiled header to.  \n\
-OR                                                              \n\
-  -l  --list      SHow parsed options."
-
-NS_INLINE void Usage(NSNumber* code) {
-
-  _Emit _env = LOC(ENV[@"BUILT_PRODUCTS_DIR"],@"iphone") != NSNotFound ? e_TYPE_IOS : e_TYPE_MAC; // was `static _Emit BuildingFor ();`
-
-  printf("PROBLEM:%s\n%s%s\ngot %s\nmodel:%s\ntemplate:%s\nplatform:%x\nrefactor:%s",
-
-      failure.UTF8String, [ARGS[0] UTF8String], USAGE_PARAMS.UTF8String,
-      ParseArgs().description.UTF8String,
-      plistPath.UTF8String,
-      templatePath.UTF8String, _env,
-      refactoree.UTF8String);
-
-  code.unsignedIntegerValue == NSNotFound ?: exit(code.intValue);
-}
 
 #endif

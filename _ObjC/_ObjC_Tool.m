@@ -1,36 +1,32 @@
 
 #import "_ObjC_Tool.h"
 
-MAIN({
-
-
-  // Dirty, dirty arg parsing.  Supports long or short opts.
+MAIN({ // Dirty, dirty arg parsing.  Supports long or short opts.
 
   // Bail on help
-  !ParseArgs()[@"help"] && !ParseArgs()[@"h"] ?: Usage(@(EXIT_SUCCESS));
+  !ParseArgs()[@"help"] && !ParseArgs()[@"h"] ?: Usage(EXIT_SUCCESS);
 
-  // Require existant Plist path
-  (plistPath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"d", @"p", @"data", @"model", @"plist"], IsFileAndExists))
-    ?: ({ failure = @"Plist PATH failurs";  Usage(@(EXIT_FAILURE)); });
+  // Require existant Plist path, bail on fail
+  (PlistPath()) ?: ({ failure = @"Plist PATH failurs";  Usage(EXIT_FAILURE); });
 
   generated = @{@"METHOD_RETURN_SHORTCUTS":@{}.mutableCopy}.mutableCopy;
 
-  generatedPath = [plistPath.stringByDeletingPathExtension stringByAppendingString:@".generated.plist"];
+  id generatedPath = [PlistPath().stringByDeletingPathExtension stringByAppendingString:@".generated.plist"];
 
   // Make sure we can create model from that plist
-  PlistDataModel() ?: ({ failure = @"Plist model failurs";  Usage(@(EXIT_FAILURE)); });
+  PlistDataModel() ?: ({ failure = @"Plist model failurs";  Usage(EXIT_FAILURE); });
 
-  if (ParseArgs()[@"r"] || ParseArgs()[@"refactor"]) refactoree = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"r", @"refactor"],IsFileAndExists);
+  #warning - FIX Refactoring
 
-  refactoree || (
-  (templatePath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"t", @"template", @"header"],IsFileAndExists))
-                && HeaderTemplate()
-                && CompiledHeader()) ?: ({ failure = @"Header issue"; Usage(@(EXIT_FAILURE)); });
+  //  if (ParseArgs()[@"r"] || ParseArgs()[@"refactor"])
 
-        output = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"o", @"output"], NULL);
-  testFilePath = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"x", @"test", @"tests"], IsFileAndExists);
+  refactoree   = ObjectForAnyKeyPassingTest(ParseArgs(), @[@"r", @"refactor"],IsFileAndExists);
+  refactoree || (TemplatePath() && HeaderTemplate() && CompiledHeader()) ?: ({ failure = @"Header issue"; Usage(EXIT_FAILURE); });
 
-  !refactoree ?: ({ return RefactorFile(refactoree), 0; }); // printf("%s", .UTF8String); });
+        output = ObjectForAnyKeyPassingTest(ParseArgs(), @[OUTPUT_ALIASES], NULL);
+  
+
+  !refactoree ?: ({ Usage(0); /* RefactorFile(refactoree), 0; */ }); // printf("%s", .UTF8String); });
 
   // no output? no worries - just print to stdout
   //  Usage(@(NSNotFound));
@@ -46,26 +42,32 @@ MAIN({
       ?: ({ failure = @"Cannot write header!"; Usage(@(EXIT_FAILURE)); });
   }
 
-  !testFilePath ?: WriteTests();
+  !TestFilePath() ?: WriteTests();
 
   [FM removeItemAtPath:generatedPath error:nil];
   [generated writeToFile:generatedPath atomically:YES];
 
 })
 
-NSString * GenerateSection(NSString * head) {
+_Emit emitterForSection(id head) {
+
+  id keyParts = [head componentsSeparatedByString:@"."]; // Plist is unmodeled, so we have to manually figure out what we're doing.
+
+  _Emit emitter = [keyParts[0] isEqualToString:@"TYPES"] ? e_TYPE : e_DEFS; // Are we #define'ing, or typedef'ing?
+
+  if      ([keyParts[1] containsString:@"POINT"]) emitter |= e_TYPE_PMAP;   // Specifically, are we emitting pointers?
+  else if ([keyParts[1] containsString:@"BLOCK"]) emitter |= e_TYPE_BLKS;   // OR Get specific.
+  return emitter;
+}
+
+NSString * GenerateSection (NSString * head) { // This is where you'kll get your token replacments!
 
   //  if ( (LOC(head,@"MAC") != NSNotFound && BuildingFor() == e_TYPE_IOS)) return @""; // || (LOC(head,@"IOS") != NSNotFound && BuildingFor() == e_TYPE_MAC)) return @"";
 
-  id backing = [PlistDataModel() valueForKeyPath:head], // Get dictionary section, i.e. "TYPES.POINTERS"
-    keyParts = [head componentsSeparatedByString:@"."]; // Plist is unmodeled, so we have to manually figure out what we're doing.
+  id backing = [PlistDataModel() valueForKeyPath:head]; // Get dictionary section, i.e. "TYPES.POINTERS"
+  _Emit emitter = emitterForSection(head);
 
-  _Emit emit = [keyParts[0] isEqualToString:@"TYPES"] ? e_TYPE : e_DEFS; // Are we #define'ing, or typedef'ing?
-
-  if      ([keyParts[1] containsString:@"POINT"]) emit |= e_TYPE_PMAP;   // Specifically, are we emitting pointers?
-  else if ([keyParts[1] containsString:@"BLOCK"]) emit |= e_TYPE_BLKS;   // OR Get specific.
-
-  id(^__processDictionary)(id) = ^NSString*(NSDictionary*defs) {         // This is where the work happens!
+  id(^__processDictionary)(id, _Emit) = ^NSString*(NSDictionary*defs, _Emit emit) { // This is where the work happens!
 
     // This is total vanity, uses some crazy sort exception list and length to do some kind of crazy sorting!
 
@@ -167,13 +169,18 @@ NSString * GenerateSection(NSString * head) {
     return snippet.copy;
   };
 
-  return [backing isKindOfClass:NSDictionary.class] ? __processDictionary(backing) :
+  M(String) * section = @"".mutableCopy;
 
-  [({ M(Array) *parts; for (id d in backing) [parts addObject:__processDictionary(d)]; parts; }) componentsJoinedByString:@"\n"];
+  if ([backing isKindOfClass:NSDictionary.class]) [section appendString:__processDictionary(backing, emitter)];
+  else for (id d in backing) [section appendFormat:@"%@\n",__processDictionary(d, emitter)];
+
+  return section.copy;
 
 } // Meat + Potatoes
 
 static NSString * CompiledHeader () {
+
+  static id compiled;
 
   return compiled = compiled ?: ({
 
@@ -182,8 +189,8 @@ static NSString * CompiledHeader () {
 
     NSString* string = //copy the string so we can replace subsections
 
-    $(_TEMPLATE, THEDATE, plistPath.lastPathComponent,
-                          templatePath.lastPathComponent, HeaderTemplate());
+    $(_TEMPLATE, THEDATE, PlistPath().lastPathComponent,
+                          TemplatePath().lastPathComponent, HeaderTemplate());
 
     M(String) *replaced = string.mutableCopy;
 
@@ -210,7 +217,7 @@ void WriteTests () {
 
   #define delimeter @"// AUTOGENERATED TEST PLACEHOLDER"
 
-  id contents = [NSString stringWithContentsOfFile:testFilePath encoding:NSUTF8StringEncoding error:nil];
+  id contents = [NSString stringWithContentsOfFile:TestFilePath() encoding:NSUTF8StringEncoding error:nil];
 
   M(String) *tests = [contents substringToIndex:[contents rangeOfString:delimeter].location + delimeter.length].mutableCopy;
 
@@ -230,39 +237,6 @@ void WriteTests () {
 
   APPEND(tests,@"\n)\n@end\n");  // Finish Tests
 
-  [FM removeItemAtPath:testFilePath error:nil];
-  [tests writeToFile:testFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+  [FM removeItemAtPath:TestFilePath() error:nil];
+  [tests writeToFile:TestFilePath() atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
-
-// Parses CLI to dictionary.  Generic, chic, and unrelated to task at hand.
-
-NSDictionary * ParseArgs() {
-
-  static id opts; static dispatch_once_t onceToken; dispatch_once(&onceToken, ^{
-
-   id _opts = @{}.mutableCopy, flag = nil;
-
-    for (NSString *argv in [ARGS subarrayWithRange:(NSRange){1,ARGS.count-1}]) { BOOL isFlag = [argv hasPrefix:@"-"];
-
-      id arg = !isFlag ? argv : ({ id newFlag = argv.copy; while ([newFlag hasPrefix:@"-"])
-        newFlag = [newFlag substringFromIndex:1]; newFlag; });
-
-      flag ? ({ isFlag && ![_opts objectForKey:flag = arg] ? ({ _opts[flag] = NSNull.null; }) : ({
-
-        id existing = _opts[flag]; // doesn't have - prefix ... adding or creating a value.
-
-        _opts[flag] = !existing || [existing isKindOfClass: NSNull.class] ? arg :
-        [existing isKindOfClass:NSArray.class] ?
-        [existing     arrayByAddingObject:arg] : @[existing, arg]; });
-
-      }) : ({ isFlag && !_opts[flag = arg] ? ({ _opts[flag] = NSNull.null; })
-
-        : ({ _opts[@"?"] = [_opts[@"?"] ?: @[] arrayByAddingObject:arg]; flag = nil; }); // No '-', add to unnamed array.
-      });
-
-    }  opts = [_opts copy];
-  });
-
-  return opts;
-}
-

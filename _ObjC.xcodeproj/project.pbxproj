@@ -14,6 +14,7 @@
 				7B39D6A01BB2A6F1001C6514 /* ShellScript */,
 			);
 			dependencies = (
+				7BBB40C81C06EA4200621B90 /* PBXTargetDependency */,
 			);
 			name = _ObjC;
 			productName = _ObjC_Make;
@@ -22,10 +23,8 @@
 
 /* Begin PBXBuildFile section */
 		7B3835811AC681DA00D617B9 /* _ObjC_Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */; };
-		7B576A611BB67B57000D3473 /* _ObjC_Migrator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA79BEC1B6257E900A7E31D /* _ObjC_Migrator.m */; };
 		7B576A641BB6A186000D3473 /* _ObjC_Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B576A631BB6A186000D3473 /* _ObjC_Helpers.m */; };
 		7B9B40501AC14F6E002EDD01 /* _ObjC_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B404F1AC14F6E002EDD01 /* _ObjC_Tests.m */; };
-		7BF4F7C31BB6A99E00F11D3E /* ClangKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B576A5B1BB673E5000D3473 /* ClangKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,12 +42,12 @@
 			remoteGlobalIDString = 0518B9D015D7577D00349932;
 			remoteInfo = ClangKitTest;
 		};
-		7B576A5E1BB673EE000D3473 /* PBXContainerItemProxy */ = {
+		7BBB40C71C06EA4200621B90 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7B576A551BB673E5000D3473 /* ClangKit.xcodeproj */;
+			containerPortal = 7B9B40261AC14E7D002EDD01 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 059872ED15D74D09006FF8D2;
-			remoteInfo = ClangKit;
+			remoteGlobalIDString = 7B3835791AC681C700D617B9;
+			remoteInfo = _ObjC_Tool;
 		};
 		7BC8223F1BB2C27C00ED334F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +64,7 @@
 		7B576A551BB673E5000D3473 /* ClangKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ClangKit.xcodeproj; path = ClangKit/ClangKit.xcodeproj; sourceTree = "<group>"; };
 		7B576A601BB67AC0000D3473 /* _ObjC_Migrator_Test_File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ObjC_Migrator_Test_File.h; sourceTree = "<group>"; };
 		7B576A631BB6A186000D3473 /* _ObjC_Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _ObjC_Helpers.m; path = _ObjC/_ObjC_Helpers.m; sourceTree = "<group>"; };
+		7B83CB2F1C1E065B0041CADC /* Make.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Make.sh; sourceTree = "<group>"; };
 		7B9B40331AC14EB6002EDD01 /* _ObjC_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = _ObjC_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B9B403E1AC14ED5002EDD01 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = SOURCE_ROOT; };
 		7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = _ObjC_Tool.m; path = _ObjC/_ObjC_Tool.m; sourceTree = SOURCE_ROOT; wrapsLines = 0; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -77,7 +77,7 @@
 		7BC4594A1AD68DAA0097F508 /* _ObjC_Tool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = _ObjC_Tool; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BC4594E1AD6955F0097F508 /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC.h; sourceTree = SOURCE_ROOT; };
 		7BF4F7C41BB6BEB700F11D3E /* _ObjC.generated.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = _ObjC.generated.plist; path = _ObjC/_ObjC.generated.plist; sourceTree = SOURCE_ROOT; };
-		7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = _ObjC.plist; path = _ObjC/_ObjC.plist; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
+		7BF684AB1ACD7AD300C06D22 /* _ObjC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = _ObjC.plist; path = _ObjC/_ObjC.plist; sourceTree = SOURCE_ROOT; };
 		7BFDE1971AE14F6C0012A607 /* _ObjC_Tool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = _ObjC_Tool.h; path = _ObjC/_ObjC_Tool.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
 
@@ -86,7 +86,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BF4F7C31BB6A99E00F11D3E /* ClangKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +132,7 @@
 				7BB413C21BBC677E0013075B /* Universal */,
 				7B9B403E1AC14ED5002EDD01 /* .travis.yml */,
 				7B32D8A31AE5873C00062CB8 /* Makefile */,
+				7B83CB2F1C1E065B0041CADC /* Make.sh */,
 				7BFDE1971AE14F6C0012A607 /* _ObjC_Tool.h */,
 				7B9B40411AC14ED5002EDD01 /* _ObjC_Tool.m */,
 				7BA79BEC1B6257E900A7E31D /* _ObjC_Migrator.m */,
@@ -156,7 +156,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7B576A5F1BB673EE000D3473 /* PBXTargetDependency */,
 			);
 			name = _ObjC_Tool;
 			productName = _migrate;
@@ -185,7 +184,7 @@
 		7B9B40261AC14E7D002EDD01 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0710;
 				TargetAttributes = {
 					7B3835791AC681C700D617B9 = {
 						CreatedOnToolsVersion = 6.3;
@@ -252,12 +251,11 @@
 				"$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME)_Tests.m",
 			);
 			outputPaths = (
-				"$(SRCROOT)/$(PROJECT_NAME).h",
 				"/usr/local/include/$(PROJECT_NAME).h",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/zsh;
-			shellScript = "\nxcodebuild -scheme \"${PROJECT_NAME}_Tool\" CODE_SIGN_IDENTITY=\"\" CODE_SIGNING_REQUIRED=NO -configuration \"${CONFIGURATION}\" -derivedDataPath \"${SYMROOT}/../..\"\n\n#if false; then WD=\"$(realpath $(pwd))/\"; fi\n# $(TARGET_BUILD_DIR)/../$(PROJECT_NAME).h\n\nOUTFILES=(\n\"${SCRIPT_OUTPUT_FILE_0}\"\n\"${SCRIPT_OUTPUT_FILE_1}\"\n)\n#FILES=$(printf \"{SCRIPT_OUTPUT_FILE_%s}\\n\" {0..2})\n#for x in $FILES\n#do\n#    OUTFILES+=\"${!x}\"\n#done\n\nARGS=( \"${BUILT_PRODUCTS_DIR/-iphone*/}/${PROJECT_NAME}_Tool\" )\nARGS+=-plist\nARGS+=\"${SCRIPT_INPUT_FILE_0}\"\nARGS+=-header\nARGS+=\"${SCRIPT_INPUT_FILE_1}\"\nARGS+=-tests\nARGS+=\"${SCRIPT_INPUT_FILE_2}\"\nARGS+=-output\nARGS+=( $OUTFILES )\n\n#echo $ARGS\n\n$ARGS\nRES=$?\n[[ $RES != 0 ]] && say purging failures from exit $RES && rm -f $OUTFILES\n\n\n[[ $EFFECTIVE_PLATFORM_NAME =~ iphone ]] && scp \"${OUTFILES[2]}\" ip6:/usr/local/include\n\n#env |sort | pbcopy\n\nexit $RES\n\n";
+			shellPath = "/usr/bin/env zsh";
+			shellScript = "\n# build the tool.\nXCB_SETTINGS=( -scheme \"${PROJECT_NAME}_Tool\" 'CODE_SIGN_IDENTITY=\"\"' CODE_SIGNING_REQUIRED=NO -configuration \"${CONFIGURATION}\" -derivedDataPath \"${SYMROOT}/../..\"\n)\n\nxcodebuild $XCB_SETTINGS\n\n\n\nXCODE=\"$(xcode-select -p)\"\n\n# /Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk\n\n\nOUTFILES=(\n\"${SCRIPT_OUTPUT_FILE_0}\"\n# ${SCRIPT_OUTPUT_FILE_1}\n)\n\n#FILES=$(printf \"{SCRIPT_OUTPUT_FILE_%s}\\n\" {0..2})\n#for x in $FILES\n#do\n#    OUTFILES+=\"${!x}\"\n#done\n\nARGS=( \"${BUILT_PRODUCTS_DIR/-iphone*/}/${PROJECT_NAME}_Tool\" )\nARGS+=-plist\nARGS+=\"${SCRIPT_INPUT_FILE_0}\"\nARGS+=-header\nARGS+=\"${SCRIPT_INPUT_FILE_1}\"\nARGS+=-tests\nARGS+=\"${SCRIPT_INPUT_FILE_2}\"\nARGS+=-output\nARGS+=( $OUTFILES )\n\n#echo $ARGS\n\n$ARGS\nRES=$?\n[[ $RES != 0 ]] && say purging failures from exit $RES && rm -f $OUTFILES\n\nLINK_TO=(\n\"${SRCROOT}/${PROJECT_NAME}.h\"\n)\n\nfor x in macosx iphoneos\ndo\n    LINK_TO+=\"$(xcrun --show-sdk-path --sdk $x)/usr/include/${PRODUCT_NAME}.h\"\n#    sudo chmod +a \"$(whoami) allow chown,read,write,append,execute,list,search,add_file,add_subdirectory,file_inherit,directory_inherit\"\n\ndone\n\nfor z in $LINK_TO\ndo ln -sF \"${SCRIPT_OUTPUT_FILE_0}\" \"$z\"\ndone\n\n[[ $EFFECTIVE_PLATFORM_NAME =~ iphone ]] && scp \"${OUTFILES[2]}\" ip6:/usr/local/include\n\n#env |sort | pbcopy\n\nexit $RES\n\n\n\n\n#if false; then WD=\"$(realpath $(pwd))/\"; fi\n# $(TARGET_BUILD_DIR)/../$(PROJECT_NAME).h\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -266,7 +264,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B576A611BB67B57000D3473 /* _ObjC_Migrator.m in Sources */,
 				7B3835811AC681DA00D617B9 /* _ObjC_Tool.m in Sources */,
 				7B576A641BB6A186000D3473 /* _ObjC_Helpers.m in Sources */,
 			);
@@ -283,10 +280,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7B576A5F1BB673EE000D3473 /* PBXTargetDependency */ = {
+		7BBB40C81C06EA4200621B90 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = ClangKit;
-			targetProxy = 7B576A5E1BB673EE000D3473 /* PBXContainerItemProxy */;
+			target = 7B3835791AC681C700D617B9 /* _ObjC_Tool */;
+			targetProxy = 7BBB40C71C06EA4200621B90 /* PBXContainerItemProxy */;
 		};
 		7BC822401BB2C27C00ED334F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -329,6 +326,7 @@
 		7B9B402A1AC14E7D002EDD01 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				OTHER_LDFLAGS = (
@@ -336,7 +334,7 @@
 					Foundation,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.10;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -344,17 +342,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B0E207F1AEA54B900C955CF /* Universal.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_FRAMEWORKS_DIR)";
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.10.xctoolchain/usr/include,
-					"$(BUILT_PRODUCTS_DIR)/..",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -365,6 +356,7 @@
 		7BC459581AD6BD420097F508 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				ENABLE_TESTABILITY = YES;
@@ -374,7 +366,7 @@
 					Foundation,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.10;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -396,17 +388,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B0E207F1AEA54B900C955CF /* Universal.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_FRAMEWORKS_DIR)";
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.10.xctoolchain/usr/include,
-					"$(BUILT_PRODUCTS_DIR)/..",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
